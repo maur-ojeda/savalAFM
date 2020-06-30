@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAEI,iBAFa,CAEb,UAAU,CAAA;EACN,cAAc,EAAC,SAAS;EACxB,KAAK,EAAC,OAAO;EACb,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,IAAI;CACpB",
+    "sources": [
+        "fixed-assets.component.scss"
+    ],
+    "names": [],
+    "file": "fixed-assets.component.css"
+}

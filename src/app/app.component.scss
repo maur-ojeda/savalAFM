@@ -1,0 +1,43 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+.steps {
+    position: relative;
+    border-bottom: 4px solid #ced4da
+}
+
+.steps span {
+    padding: 7px 5px;
+    background-color: rgba(250, 250, 250, 0.8);
+    display: inline-block;
+    position: absolute;
+    top: -15px;
+    border-radius: 100%
+}
+
+.steps span:nth-child(1) {
+    left: 0
+}
+
+.steps span:nth-child(2) {
+    left: 20%
+}
+
+.steps span:nth-child(3) {
+    left: 40%
+}
+
+.steps span:nth-child(4) {
+    left: 60%
+}
+
+.steps span:nth-child(5) {
+    left: 80%
+}
+
+.steps span:nth-child(6) {
+    right: 0
+}

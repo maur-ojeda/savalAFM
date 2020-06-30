@@ -1,0 +1,52 @@
+<app-header></app-header>
+
+<div id="savalFixedAssets" class="container mt-5 pt-5">
+    <div class="row">
+        <div class="col mb-3">
+            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Buscar activo fijo">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card" [routerLink]="['/fixedAssetCreate']">
+                <div class="card-body text-center">
+                    <h3 class="card-title text-primary">
+                        <i class="sl-icon sl-icon icon-ico-af"></i>
+                    </h3>
+                    <p class="card-text">Crear activo fijo</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card" [routerLink]="['/fixedAssetUpdate']">
+                <div class="card-body text-center">
+                    <h3 class="card-title text-primary"><i class="icon-ico-modificar"></i></h3>
+                    <p class="card-text">modificar activo fijo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col">
+            <div class="card" [routerLink]="['/fixedAssetMove']">
+                <div class="card-body text-center">
+                    <h3 class="card-title text-primary"><i class="icon-ico-trasladar"></i></h3>
+                    <p class="card-text">trasladar activo fijo</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card" [routerLink]="['/fixedAssetDelete']">
+                <div class="card-body text-center">
+                    <h3 class="card-title text-primary"><i class="icon-ico-eliminar"></i></h3>
+                    <p class="card-text">dar de baja activo fijo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<app-footer></app-footer>
