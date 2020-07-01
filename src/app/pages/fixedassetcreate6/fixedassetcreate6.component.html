@@ -12,7 +12,7 @@
 
 
             <div class="row">
-                <div [hidden]="false" id="step3 " class="col-12">
+                <div  id="step3 " class="col-12">
                     <h5 class="mt-3 mb-3">Paso 6: Años de vida útil</h5>
                     <!--steps-->
                     <div class="row m-1">
@@ -41,7 +41,7 @@
 
                     <div class="form-group mt-5">
                         <label for="">Años de vida útil</label>
-                        <input type="number" name="" id="" class="form-control" placeholder="">
+                        <input type="number" class="form-control" [(ngModel)]="fixedAssetStep6.agnosVidaUtil" #agnosVidaUtil>
                     </div>
 
 
@@ -52,7 +52,7 @@
                     </div>
 
                     <!--boton-->
-                    <button type="button" name=" " id=" " class="btn btn-primary btn-lg btn-block mb-5 " [routerLink]="['/fixedAssets']">Finalizar</button>
+                    <button type="button" name=" " id=" " class="btn btn-primary btn-lg btn-block mb-5 " (click)="submit()">Finalizar</button>
                 </div>
 
             </div>

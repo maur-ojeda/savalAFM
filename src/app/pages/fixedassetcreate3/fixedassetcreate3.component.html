@@ -12,7 +12,7 @@
 
 
             <div class="row">
-                <div [hidden]="false" id="step3 " class="col-12">
+                <div id="step3 " class="col-12">
                     <h5 class="mt-3 mb-3">Paso 3: centro de costo</h5>
                     <!--steps-->
                     <div class="row m-1">
@@ -41,7 +41,7 @@
 
                     <div class="form-group mt-5">
                         <label for=" ">Especie</label>
-                        <select class="form-control " name=" " id=" ">
+                        <select class="form-control " [(ngModel)]="fixedAssetStep3.especie" #especie>
                             <option>Seleccione</option>
                             <option>1</option>
                             <option>2</option>

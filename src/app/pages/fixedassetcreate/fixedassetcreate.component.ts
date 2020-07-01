@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FixedAssetStep1 } from 'src/app/models/fixed-asset-step1';
+import { FixedAssetDataService } from 'src/app/services/fixed-asset-data.service';
 
 @Component({
   selector: 'app-fixedassetcreate',
@@ -7,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FixedassetcreateComponent implements OnInit {
 
-  constructor() { }
+  fixedAssetStep1 : FixedAssetStep1;
+
+
+  constructor( private fixedAssetDataService : FixedAssetDataService ) { 
+    this.fixedAssetStep1 = fixedAssetDataService.fixedAssetStep1;
+  }
 
   ngOnInit(): void {
   }
