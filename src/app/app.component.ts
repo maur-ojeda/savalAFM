@@ -9,6 +9,6 @@ import { FixedAssetDataService } from './services/fixed-asset-data.service';
 })
 export class AppComponent {
   title = 'savalAFM';
-  constructor(public fixedAssetDataService : FixedAssetDataService) {
+  constructor() {
   }
 }

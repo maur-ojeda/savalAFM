@@ -10,35 +10,7 @@
 				volver
 			</a>
 
-
-			<div class="row">
-				<div class="col-12 tab m-3">
-					<div class="row">
-						<div class="col">
-							<div class="btn-group btn-group-toggle" data-toggle="buttons">
-								<a href="/fixedAsset" class="btn btn-lg btn-secondary">
-									Detalles
-								</a>
-
-								<a href="/fixedAssetUpdate" class="btn btn-lg btn-primary active">
-									Modificar
-								</a>
-
-								<a href="/fixedAssetMove" class="btn btn-lg btn-secondary">
-									Trasladar
-								</a>
-
-								<a href="/fixedAssetDelete" class="btn btn-lg btn-secondary">
-									Dar de baja
-								</a>
-
-
-							</div>
-
-						</div>
-					</div>
-				</div>
-            </div>
+			
            <div class="row pl-3 pr-3">
 				<div class="innerContent card fixedAssets col-12">
 					<div class="card-body">
@@ -47,7 +19,7 @@
 
 								<div id="accordion">
 									<div id="headingOne">
-										<button class="btn btn-block btn-link show" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+										<button class="btn btn-block btn-link show" data-toggle="collapse show" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 											<h5 class="text-left">Datos activo fijo</h5>
 										</button>
 									</div>
@@ -57,6 +29,29 @@
 											<div class="row mt-3">
 
 												<div class="col-12 mb-3">
+                                                <div class="alert alert-danger">
+										<p class="text-danger mb-0">
+											<i class="fas fa-info-circle"></i>
+											Activo fijo rechazado</p>
+										<table class="table table-sm table-danger">
+											<tbody>
+												<tr>
+													<th class="text-danger" width="20%">Fecha de rechazo:</th>
+													<td class="text-danger">dd-mm-aaaa</td>
+												</tr>
+												<tr>
+													<th class="text-danger">Responsable de rechazo</th>
+													<td class="text-danger">Nombre de responsable</td>
+												</tr>
+												<tr>
+													<th class="text-danger">Motivo de rechazo</th>
+													<td class="text-danger">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis, maxime? Distinctio placeat sint doloribus, aspernatur nihil quas. Ipsa harum distinctio aspernatur pariatur accusantium. Temporibus, natus quasi? Beatae a recusandae natus.</td>
+												</tr>
+											</tbody>
+										</table>
+
+
+									</div>
 													<p class="text-mute pr-3">Fecha de creación: DDMMAAA HH:MM:SS</p>
 													<p class="text-mute">Creado por:</p>
 													<p class="text-mute">Código:</p>
@@ -76,7 +71,7 @@
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Sociedad</label>
-														<input type="text" class="form-control " value="Sociedad">
+														<input type="text" class="form-control "  value="Sociedad">
 													</div>
 												</div>
 
@@ -90,23 +85,23 @@
 									<hr>
 
 									<div id="headingTwo">
-										<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										<button class="btn btn-block btn-link collapsed" data-toggle="collapse show" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 											<h5 class="text-left">General</h5>
 										</button>
 									</div>
 
-									<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+									<div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
 										<div class="col-12">
 
 											<div class="row mt-3 mb-3">
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Especie</label>
-														<input type="text" class="form-control " value="Especie">
+														<input type="text" class="form-control "  value="Especie">
 													</div>
 													<div class="form-group">
 														<div class="custom-control custom-checkbox">
-															<input type="checkbox" class="custom-control-input" id="" checked="">
+															<input type="checkbox" class="custom-control-input" id="" checked="" >
 															<label class="custom-control-label" for="">Gestión histórica</label>
 														</div>
 													</div>
@@ -115,11 +110,11 @@
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Denominación</label>
-														<input type="text" class="form-control " value="Denominación">
+														<input type="text" class="form-control "  value="Denominación">
 													</div>
 													<div class="form-group">
 														<div class="custom-control custom-checkbox">
-															<input type="checkbox" class="custom-control-input" id="" checked="">
+															<input type="checkbox" class="custom-control-input" id="" checked="" >
 															<label class="custom-control-label" for="">Incluir activo fijo en lista inventario</label>
 														</div>
 
@@ -131,7 +126,7 @@
 
 													<div class="form-group">
 														<label for="">Cuenta</label>
-														<input type="text" class="form-control " value="Denominación">
+														<input type="text" class="form-control "  value="Denominación">
 													</div>
 
 
@@ -147,12 +142,12 @@
 									<hr>
 
 									<div id="headingTree">
-										<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseTree" aria-expanded="false" aria-controls="collapseTree">
+										<button class="btn btn-block btn-link collapsed" data-toggle="collapse show" data-target="#collapseTree" aria-expanded="false" aria-controls="collapseTree">
 											<h5 class="text-left">Centro de costo</h5>
 										</button>
 									</div>
 
-									<div id="collapseTree" class="collapse" aria-labelledby="headingTree" data-parent="#accordion">
+									<div id="collapseTree" class="collapse show" aria-labelledby="headingTree" data-parent="#accordion">
 										<div class="col-12">
 
 											<div class="row mt-3 mb-3">
@@ -160,7 +155,7 @@
 
 													<div class="form-group">
 														<label for="">Centro de costo</label>
-														<input type="text" class="form-control " value="Centro de costo">
+														<input type="text" class="form-control "  value="Centro de costo">
 													</div>
 
 												</div>
@@ -175,12 +170,12 @@
 									<hr>
 
 									<div id="headingFour">
-										<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+										<button class="btn btn-block btn-link collapsed" data-toggle="collapse show" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
 											<h5 class="text-left">Asignaciones</h5>
 										</button>
 									</div>
 
-									<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+									<div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordion">
 										<div class="col-12">
 
 											<div class="row mt-3 mb-3">
@@ -188,12 +183,12 @@
 
 													<div class="form-group">
 														<label for="">Centro</label>
-														<input type="text" class="form-control " value="content">
+														<input type="text" class="form-control "  value="content">
 													</div>
 
 													<div class="form-group">
 														<label for="">Área</label>
-														<input type="text" class="form-control " value="content">
+														<input type="text" class="form-control "  value="content">
 													</div>
 
 
@@ -201,17 +196,17 @@
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Edificio</label>
-														<input type="text" class="form-control " value="content">
+														<input type="text" class="form-control "  value="content">
 													</div>
 													<div class="form-group">
 														<label for="">Sala</label>
-														<input type="text" class="form-control " value="content">
+														<input type="text" class="form-control "  value="content">
 													</div>
 												</div>
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Piso</label>
-														<input type="text" class="form-control " value="content">
+														<input type="text" class="form-control "  value="content">
 													</div>
 
 
@@ -227,19 +222,19 @@
 									<hr>
 
 									<div id="headingFive">
-										<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+										<button class="btn btn-block btn-link collapsed" data-toggle="collapse show" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
 											<h5 class="text-left">Origen</h5>
 										</button>
 									</div>
 
-									<div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+									<div id="collapseFive" class="collapse show" aria-labelledby="headingFive" data-parent="#accordion">
 										<div class="col-12">
 											<div class="row mt-3 mb-3">
 												<div class="col-md-4 col-12">
 
 													<div class="form-group">
 														<label for="">Acreedor</label>
-														<input type="text" class="form-control " value="content">
+														<input type="text" class="form-control "  value="content">
 													</div>
 
 
@@ -247,14 +242,14 @@
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Fabricante</label>
-														<input type="text" class="form-control " value="content">
+														<input type="text" class="form-control "  value="content">
 													</div>
 
 												</div>
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Condición de activo fijo</label>
-														<input type="text" class="form-control " value="content">
+														<input type="text" class="form-control "  value="content">
 													</div>
 
 
@@ -268,19 +263,19 @@
 									<hr>
 
 									<div id="headingSix">
-										<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+										<button class="btn btn-block btn-link collapsed show" data-toggle="collapse show" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
 											<h5 class="text-left">Años de vida útil</h5>
 										</button>
 									</div>
 
-									<div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+									<div id="collapseSix" class="collapse show" aria-labelledby="headingSix" data-parent="#accordion">
 										<div class="col-12">
 											<div class="row mt-3 mb-3">
 												<div class="col-12">
 
 													<div class="form-group">
 														<label for="">Años de vida útil</label>
-														<input type="text" class="form-control " value="content">
+														<input type="text" class="form-control "  value="content">
 													</div>
 
 
@@ -294,8 +289,8 @@
 								</div>
 
                     <div class="col-12 mt-3">
-					    <button type="button" class="btn btn-lg btn-block btn-primary" data-toggle="modal" data-target="#moveModal" [routerLink]="['/fixedAsset']">
-						    Guardar cambios 
+					    <button type="button" class="btn btn-lg btn-block btn-primary" data-toggle="modal" data-target="#moveModal">
+						    Guardar cambios y enviar
 					    </button>
 				    </div>
 

@@ -52,12 +52,13 @@
                     </div>
 
                     <!--boton-->
-                    <button type="button" name=" " id=" " class="btn btn-primary btn-lg btn-block mb-5 " (click)="submit()">Finalizar</button>
+                    <!--button type="button" name=" " id=" " class="btn btn-primary btn-lg btn-block mb-5" (click)="submit()">Finalizar</button-->
+                    <button type="button" name=" " id=" " class="btn btn-primary btn-lg btn-block mb-5" [routerLink]="['/fixedAssetPending']">Finalizar</button>
                 </div>
 
             </div>
 
-
+<pre>{{this.fixedAssetDataService | json}}</pre>
 
 
             <!--end-->
@@ -65,5 +66,6 @@
     </div>
 </div>
 
+ 
 
 <app-footer></app-footer>

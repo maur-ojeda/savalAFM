@@ -25,6 +25,9 @@ import { Fixedassetcreate4Component } from './pages/fixedassetcreate4/fixedasset
 import { Fixedassetcreate5Component } from './pages/fixedassetcreate5/fixedassetcreate5.component';
 import { Fixedassetcreate6Component } from './pages/fixedassetcreate6/fixedassetcreate6.component';
 import { FixedassetComponent } from './pages/fixedasset/fixedasset.component';
+import { FixedAssetPendingComponent } from './pages/fixed-asset-pending/fixed-asset-pending.component';
+import { FixedAssetRejectedComponent } from './pages/fixed-asset-rejected/fixed-asset-rejected.component';
+import { UserDeatailsComponent } from './pages/user-deatails/user-deatails.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { FixedassetComponent } from './pages/fixedasset/fixedasset.component';
     Fixedassetcreate4Component,
     Fixedassetcreate5Component,
     Fixedassetcreate6Component,
-    FixedassetComponent
+    FixedassetComponent,
+    FixedAssetPendingComponent,
+    FixedAssetRejectedComponent,
+    UserDeatailsComponent
   ],
   imports: [
     BrowserModule, AppRoutingModule,FormsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

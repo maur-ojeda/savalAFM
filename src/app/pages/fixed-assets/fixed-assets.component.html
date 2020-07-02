@@ -5,7 +5,7 @@
 		<div class="col input-group mb-3 mt-3">
 					<input type="text" class="form-control" placeholder="Buscar activo fijo">
 					<div class="input-group-append">
-						<button class="btn btn-outline-primary" type="button" id="">
+						<button class="btn btn-outline-primary" type="button" id="" [routerLink]="['/fixedAsset']">
 							<i class="fas fa-search"></i>
 							Buscar</button>
 					</div>
@@ -98,7 +98,7 @@
 							<td>Column content</td>
 							<td>
 
-								<a name="" id="" class="btn btn-primary btn-sm" href="/fixedAssetPending" role="button">Revisar</a>
+								<a name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetPending']"role="button">Revisar</a>
 							</td>
 						</tr>
 						<tr>
@@ -116,7 +116,7 @@
 							<td>Column content</td>
 							<td>
 
-								<a name="" id="" class="btn btn-primary btn-sm" href="/fixedAssetRejected" role="button">Revisar</a>
+								<a name="" id="" class="btn btn-primary btn-sm" role="button" [routerLink]="['/fixedAssetReject']">Revisar</a>
 							</td>
 						</tr>
 

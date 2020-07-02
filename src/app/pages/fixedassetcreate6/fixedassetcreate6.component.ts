@@ -13,7 +13,7 @@ export class Fixedassetcreate6Component implements OnInit {
   fixedAssetStep6 : FixedAssetStep6;
 
 
-  constructor( private fixedAssetDataService : FixedAssetDataService ) { 
+  constructor( public fixedAssetDataService : FixedAssetDataService ) { 
     this.fixedAssetStep6 = fixedAssetDataService.fixedAssetStep6;
   }
   ngOnInit(): void {
@@ -23,3 +23,7 @@ export class Fixedassetcreate6Component implements OnInit {
   }
 
 }
+
+
+
+
