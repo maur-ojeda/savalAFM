@@ -1,8 +1,116 @@
 <app-header></app-header>
 
-<div class="mt-5 pt-5">
-list
+
+
+
+<section class="savalContent col"> 
+                    	<!--breadcrum-->
+	<div class="breadcrumb">
+	Estoy en:
+	<span>breadcrum</span>
 </div>
+
+	<div class="titulo">
+		<div class="row">
+			<div class="col">
+				<h1>Activos fijos</h1>
+			</div>
+			<div class="col ">
+				<a href="/fixedAssetCreate" type="button" class="btn btn-lg btn-primary float-right">Crear</a>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="innerContent card">
+		<div class="row card-body">
+			<div class="col-12">
+				<div class="input-group mb-3 mt-3">
+					<input type="text" class="form-control" placeholder="Buscar activo fijo">
+					<div class="input-group-append">
+						<button class="btn btn-outline-primary" type="button" id="">
+							<i class="fas fa-search"></i>
+							Buscar</button>
+					</div>
+				</div>
+			</div>
+		
+<!--eliminar pre, solo para mostrar funcionalidad -->
+<pre>	<a name="" id="" class="btn btn-outline-warning btn-sm" href="/fixedAsset" role="button">Esto es un ejemplo el buscar debe llevar al activo fijo buscado</a>
+</pre>
+
+		
+		<div class="col-12 mt-3">
+		<h3>Activos fijos en proceso</h3>
+
+
+		<table class="table table-responsive-sm table-hover">
+					<thead>
+						<tr title="Tooltip on top">
+							<th scope="col"></th>
+							<th scope="col">Id</th>
+							<th scope="col">Nº solicitud</th>
+							<th scope="col">Solicitante</th>
+							<th scope="col">Fecha de solicitud</th>
+							<th scope="col">Nombre AF</th>
+							<th scope="col">Especie</th>
+							<th scope="col">Estado</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								
+									<i class="fas fa-info-circle text-warning" data-toggle="tooltip" data-placement="top" title="En revisión"></i>
+								
+							</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>
+
+								<a name="" id="" class="btn btn-primary btn-sm" href="/fixedAssetPending" role="button">Revisar</a>
+							</td>
+						</tr>
+							<tr>
+							<td>
+									<i class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="Rechazada"></i>
+								
+								
+							</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>
+
+								<a name="" id="" class="btn btn-primary btn-sm" href="/fixedAssetRejected" role="button">Revisar</a>
+							</td>
+						</tr>
+
+						</tbody>
+				</table>
+
+		</div>
+		
+		</div>
+
+
+
+
+	</div>
+
+
+</section>
+
 
 
 <app-footer></app-footer>

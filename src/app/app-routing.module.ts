@@ -18,6 +18,7 @@ import { Fixedassetcreate6Component } from './pages/fixedassetcreate6/fixedasset
 import { FixedassetmoveComponent } from './pages/fixedassetmove/fixedassetmove.component';
 import { FixedassetdeleteComponent } from './pages/fixedassetdelete/fixedassetdelete.component';
 import { FixedassetupdateComponent } from './pages/fixedassetupdate/fixedassetupdate.component';
+import { FixedassetComponent } from './pages/fixedasset/fixedasset.component';
 
 const routes: Routes = [
   { path: '', component: SplashComponent },
@@ -34,8 +35,8 @@ const routes: Routes = [
   { path: 'fixedAssetMove', component: FixedassetmoveComponent },
   { path: 'fixedAssetDelete', component: FixedassetdeleteComponent },
   { path: 'fixedAssetUpdate', component: FixedassetupdateComponent },
-  { path: 'contact', component: ContactComponent }
-  
+  { path: 'contact', component: ContactComponent },
+  { path: 'fixedAsset', component: FixedassetComponent },
 ]
 
 @NgModule({
