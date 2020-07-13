@@ -29,6 +29,19 @@ import { FixedAssetPendingComponent } from './pages/fixed-asset-pending/fixed-as
 import { FixedAssetRejectedComponent } from './pages/fixed-asset-rejected/fixed-asset-rejected.component';
 import { UserDeatailsComponent } from './pages/user-deatails/user-deatails.component';
 
+
+
+
+//firebase
+import{AngularFireModule} from 'angularfire2';
+import{AngularFireDatabaseModule} from 'angularfire2/database';
+
+//services
+import{FixedassetsService} from '../app/services/fixedassets.service'
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,9 +69,14 @@ import { UserDeatailsComponent } from './pages/user-deatails/user-deatails.compo
     UserDeatailsComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule,FormsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    BrowserModule,
+    AppRoutingModule,
+     FormsModule,
+      AngularFireModule.initializeApp(environment.firebase),
+       AngularFireDatabaseModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [FixedassetsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
