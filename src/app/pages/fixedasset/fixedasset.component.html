@@ -57,14 +57,14 @@
 											<div class="row mt-3">
 
 												
-												<h1 style="display:none" *ngIf="asset">{{asset.name}}</h1>
+												<!--h1 style="display:none" *ngIf="asset">{{asset.name}}</h1-->
 
 
 												<div class="col-12 mb-3">
-													<p class="text-mute pr-3">Fecha de creación: {{asset.timezones}}</p>
-													<p class="text-mute">Creado por: {{asset.nativeName}}</p>
-													<p class="text-mute">Código:{{asset.alpha2Code}}</p>
-													<p class="text-mute">Código RFID:{{asset.alpha3Code}}</p>
+													<p class="text-mute pr-3">Fecha de creación: </p>
+													<p class="text-mute">Creado por: </p>
+													<p class="text-mute">Código:</p>
+													<p class="text-mute">Código RFID:</p>
 												</div>
 
 
@@ -74,7 +74,7 @@
 													<div class="form-group">
 														<label for="">Clase activo fijo</label>
 														<select class="form-control">
-        													<option *ngFor="let item of asset.borders" [value]="item">{{item}}</option>
+        													<!--option *ngFor="let item of asset.borders" [value]="item">{{item}}</option-->
 														</select>
 														
 													</div>
@@ -83,7 +83,7 @@
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Sociedad</label>												
- 														<input type="text" class="form-control " readonly="" value="{{asset.alpha3Code}}">
+ 														<!--input type="text" class="form-control " readonly="" value="{{asset.alpha3Code}}"-->
 
 													</div>
 												</div>
@@ -111,7 +111,7 @@
 													<div class="form-group">
 														<label for="">Especie</label>
 														<select class="form-control">
-        													<option *ngFor="let item of asset.borders" [value]="item">{{item}}</option>
+        													<!--option *ngFor="let item of asset.borders" [value]="item">{{item}}</option-->
 														</select>
 													</div>
 													<div class="form-group">

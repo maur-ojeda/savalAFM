@@ -34,20 +34,21 @@ private assets: AssetInterfase[] = [];
 
 
  getAssetPorId( id: string ) {
-
+/*
   if ( this.assets.length > 0 ) {
     // hay paises en el arreglo
-    const asset = this.assets.find( a => a.alpha3Code === id );
+    const asset = this.assets.find( a => a.id === id );
     return Promise.resolve( asset );
   }
 
   return this.getAssets().then( assets => {
 
-    const asset = this.assets.find( q => q.alpha3Code === id );
+    const asset = this.assets.find( q => q.id === id );
     return Promise.resolve( asset );
 
   });
-
+*/
+console.log('ok');
 }
 
 
