@@ -1,29 +1,47 @@
 {
-  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
-  "index": "/index.html",
-  "assetGroups": [
-    {
-      "name": "app",
-      "installMode": "prefetch",
-      "resources": {
-        "files": [
-          "/favicon.ico",
-          "/index.html",
-          "/manifest.webmanifest",
-          "/*.css",
-          "/*.js"
-        ]
-      }
+    "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+    "index": "/index.html",
+    "assetGroups": [{
+        "name": "app",
+        "installMode": "prefetch",
+        "resources": {
+            "files": [
+                "/favicon.ico",
+                "/index.html",
+                "/manifest.webmanifest",
+                "/*.css",
+                "/*.js"
+            ],
+            "urls": [
+                "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css",
+                "https://stackpath.bootstrapcdn.com/**"
+
+            ]
+
+        }
     }, {
-      "name": "assets",
-      "installMode": "lazy",
-      "updateMode": "prefetch",
-      "resources": {
-        "files": [
-          "/assets/**",
-          "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
-        ]
-      }
-    }
-  ]
+        "name": "assets",
+        "installMode": "lazy",
+        "updateMode": "prefetch",
+        "resources": {
+            "files": [
+                "/assets/**",
+                "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+            ]
+        }
+    }],
+    "dataGroups": [{
+            "name": "user-api",
+            "urls": [
+                "http://jsonplaceholder.typicode.com/users"
+            ],
+            "cacheConfig": {
+                "maxSize": 5000,
+                "maxAge": "7d",
+                "timeout": "10s",
+                "strategy": "freshness"
+            }
+        }
+
+    ]
 }

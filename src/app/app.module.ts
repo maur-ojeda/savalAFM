@@ -28,6 +28,7 @@ import { FixedassetComponent } from './pages/fixedasset/fixedasset.component';
 import { FixedAssetPendingComponent } from './pages/fixed-asset-pending/fixed-asset-pending.component';
 import { FixedAssetRejectedComponent } from './pages/fixed-asset-rejected/fixed-asset-rejected.component';
 import { UserDeatailsComponent } from './pages/user-deatails/user-deatails.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -38,6 +39,8 @@ import{AngularFireDatabaseModule} from 'angularfire2/database';
 
 //services
 import{FixedassetsService} from '../app/services/fixedassets.service'
+import{FixedAssetDataService} from '../app/services/fixed-asset-data.service';
+import { CreateComponent } from './pages/create/create.component'
 
 
 
@@ -66,17 +69,19 @@ import{FixedassetsService} from '../app/services/fixedassets.service'
     FixedassetComponent,
     FixedAssetPendingComponent,
     FixedAssetRejectedComponent,
-    UserDeatailsComponent
+    UserDeatailsComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
      FormsModule,
       AngularFireModule.initializeApp(environment.firebase),
-       AngularFireDatabaseModule,
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+      AngularFireDatabaseModule,
+      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+      HttpClientModule
   ],
-  providers: [FixedassetsService],
+  providers: [FixedassetsService, FixedAssetDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

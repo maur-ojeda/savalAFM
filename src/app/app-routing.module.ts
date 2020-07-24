@@ -21,13 +21,15 @@ import { FixedassetupdateComponent } from './pages/fixedassetupdate/fixedassetup
 import { FixedassetComponent } from './pages/fixedasset/fixedasset.component';
 import { FixedAssetPendingComponent } from './pages/fixed-asset-pending/fixed-asset-pending.component';
 import { FixedAssetRejectedComponent } from './pages/fixed-asset-rejected/fixed-asset-rejected.component';
+import { CreateComponent } from './pages/create/create.component';
 
 const routes: Routes = [
-  { path: '', component: SplashComponent },
+  { path: '', component : SplashComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'userData', component: UserDataComponent },
   { path: 'fixedAssets', component: FixedAssetsComponent },
+  { path: 'create', component: CreateComponent },
   { path: 'fixedAssetCreate', component: FixedassetcreateComponent },
   { path: 'fixedAssetCreate2', component: Fixedassetcreate2Component },
   { path: 'fixedAssetCreate3', component: Fixedassetcreate3Component },
