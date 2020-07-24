@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SplashComponent } from './pages/splash/splash.component';
+import { SplashComponent } from './pages/splash/splash.component';// no debe ir
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UserDataComponent } from './pages/user-data/user-data.component';
 import { ContactComponent } from './pages/contact/contact.component';
-import { FixedAssetsComponent } from './pages/fixed-assets/fixed-assets.component';
-import { FixedassetcreateComponent } from './pages/fixedassetcreate/fixedassetcreate.component';
 
+import { FixedAssetsComponent } from './pages/fixed-assets/fixed-assets.component';
+
+
+
+
+import { FixedassetcreateComponent } from './pages/fixedassetcreate/fixedassetcreate.component';
 import { Fixedassetcreate2Component } from './pages/fixedassetcreate2/fixedassetcreate2.component';
 import { Fixedassetcreate3Component } from './pages/fixedassetcreate3/fixedassetcreate3.component';
 import { Fixedassetcreate4Component } from './pages/fixedassetcreate4/fixedassetcreate4.component';
@@ -28,7 +32,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'userData', component: UserDataComponent },
+  //listado
   { path: 'fixedAssets', component: FixedAssetsComponent },
+  //individual
+  { path: 'fixedAsset/:id', component: FixedassetComponent },
+  
+
   { path: 'create', component: CreateComponent },
   { path: 'fixedAssetCreate', component: FixedassetcreateComponent },
   { path: 'fixedAssetCreate2', component: Fixedassetcreate2Component },
@@ -40,7 +49,7 @@ const routes: Routes = [
   { path: 'fixedAssetDelete', component: FixedassetdeleteComponent },
   { path: 'fixedAssetUpdate', component: FixedassetupdateComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'fixedAsset', component: FixedassetComponent },
+  
   { path: 'fixedAssetPending', component: FixedAssetPendingComponent },
   { path: 'fixedAssetReject', component: FixedAssetRejectedComponent },
 ]

@@ -1,16 +1,37 @@
 <app-header></app-header>
 
 <div id="savalFixedAssets" class="container mt-5 pt-5">
-	<div class="row">
-		<div class="col input-group mb-3 mt-3">
-					<input type="text" class="form-control" placeholder="Buscar activo fijo">
-					<div class="input-group-append">
-						<button class="btn btn-outline-primary" type="button" id="" [routerLink]="['/fixedAsset']">
-							<i class="fas fa-search"></i>
-							Buscar</button>
-					</div>
+	<div
+		class="row">
+
+
+		<!--implementar select2-->
+		<div
+			class="col input-group mb-3 mt-3">
+
+
+			<!--<input type="text" class="form-control" placeholder="Buscar activo fijo">
+								<div class="input-group-append">
+									<button class="btn btn-outline-primary" type="button" id="" [routerLink]="['/fixedAsset']">
+										<i class="fas fa-search"></i>
+										Buscar</button>
+								</div>-->
+
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-block btn-outline-primary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+					Seleccione activo fijo
+				</button>
+				<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+					<button *ngFor="let asset of assets" class="dropdown-item" type="button" [routerLink]="['/fixedAsset', asset.alpha3Code ]">
+						{{ asset.name }}</button>
+
 				</div>
-		
+			</div>
+
+		</div>
+
+
 	</div>
 
 	<div class="row">
@@ -62,7 +83,7 @@
 
 	<div class="innerContent card mt-5">
 		<div class="row card-body">
-			
+
 
 			<div class="col-12 mt-3">
 				<h3>Activos fijos en proceso</h3>
@@ -98,7 +119,7 @@
 							<td>Column content</td>
 							<td>
 
-								<a name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetPending']"role="button">Revisar</a>
+								<a name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetPending']" role="button">Revisar</a>
 							</td>
 						</tr>
 						<tr>
@@ -132,4 +153,7 @@
 
 
 </div>
-<app-footer></app-footer>
+
+
+	<app-footer></app-footer>
+

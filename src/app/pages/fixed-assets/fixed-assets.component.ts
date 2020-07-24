@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AssetsService } from 'src/app/services/assets.service';
+import { AssetInterfase } from 'src/app/interfaces/asset.interface';
+
 
 @Component({
   selector: 'app-fixed-assets',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FixedAssetsComponent implements OnInit {
 
-  constructor() { }
+  assets: AssetInterfase[] = [];
+  
+  constructor(
+    public assetsService: AssetsService
+
+  ) { }
 
   ngOnInit(): void {
-  }
 
+    this.assetsService.getAssets()
+    .then( assets => this.assets = assets );
 }
+
+  }
