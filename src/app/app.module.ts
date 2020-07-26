@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+
 import { SplashComponent } from './pages/splash/splash.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UserDataComponent } from './pages/user-data/user-data.component';
@@ -18,7 +19,9 @@ import { FixedassetmoveComponent } from './pages/fixedassetmove/fixedassetmove.c
 import { FixedassetupdateComponent } from './pages/fixedassetupdate/fixedassetupdate.component';
 import { FixedassetlistComponent } from './pages/fixedassetlist/fixedassetlist.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+
 import { environment } from '../environments/environment';
+
 import { Fixedassetcreate2Component } from './pages/fixedassetcreate2/fixedassetcreate2.component';
 import { Fixedassetcreate3Component } from './pages/fixedassetcreate3/fixedassetcreate3.component';
 import { Fixedassetcreate4Component } from './pages/fixedassetcreate4/fixedassetcreate4.component';
@@ -30,6 +33,8 @@ import { FixedAssetRejectedComponent } from './pages/fixed-asset-rejected/fixed-
 import { UserDeatailsComponent } from './pages/user-deatails/user-deatails.component';
 import { HttpClientModule } from '@angular/common/http';
 
+//cookie
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -81,7 +86,7 @@ import { CreateComponent } from './pages/create/create.component'
       ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
       HttpClientModule
   ],
-  providers: [FixedassetsService, FixedAssetDataService],
+  providers: [FixedassetsService, FixedAssetDataService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,41 +1,34 @@
 <app-header></app-header>
 
 <div id="savalFixedAssets" class="container mt-5 pt-5">
-	<div
-		class="row">
+	<div class="row">
+		<div class="col input-group mb-3 mt-3">
+<select class="form-control" (change)="navigateTo($event.target.value)">
+    <option>Selecione activo fijo</option>
+    <option  *ngFor='let asset of assets'   value="/fixedAsset/{{asset.code}}">{{asset.code}}</option>
+</select>
 
-
-		<!--implementar select2-->
-		<div
-			class="col input-group mb-3 mt-3">
-
-
-			<!--<input type="text" class="form-control" placeholder="Buscar activo fijo">
-								<div class="input-group-append">
-									<button class="btn btn-outline-primary" type="button" id="" [routerLink]="['/fixedAsset']">
-										<i class="fas fa-search"></i>
-										Buscar</button>
-								</div>-->
-
-
-			<div class="btn-group">
-				<button type="button" class="btn btn-block btn-outline-primary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-					Seleccione activo fijo
-				</button>
-				<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-					<button *ngFor="let asset of assets" class="dropdown-item" type="button" [routerLink]="['/fixedAsset', asset.alpha3Code ]">
-						{{ asset.name }}</button>
-
-				</div>
+		<!--	<select class="form-control">
+				<option *ngFor="let asset of assets">{{asset.code}}</option>
+			</select>
+			<div class="input-group-append">
+				<div class="btn btn-outline-primary">
+					<i class="fas fa-search"></i>
+					Buscar</div>
 			</div>
-
+-->
+<!--
+<br/>
+<button (click)="myFunction()" >Show alert</button>
+<br/>
+<input type="text" [(ngModel)] = 'val' />
+-->
 		</div>
-
-
 	</div>
 
 	<div class="row">
 		<div class="col">
+
 			<div class="card" [routerLink]="['/fixedAssetCreate']">
 				<div class="card-body text-center">
 					<h3 class="card-title text-primary">
@@ -44,8 +37,11 @@
 					<p class="card-text">Crear activo fijo</p>
 				</div>
 			</div>
+
 		</div>
 		<div class="col">
+
+		
 			<div class="card" [routerLink]="['/fixedAssetUpdate']">
 				<div class="card-body text-center">
 					<h3 class="card-title text-primary">
@@ -54,6 +50,9 @@
 					<p class="card-text">modificar activo fijo</p>
 				</div>
 			</div>
+
+
+
 		</div>
 	</div>
 
@@ -79,7 +78,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<div class="innerContent card mt-5">
 		<div class="row card-body">
@@ -140,20 +138,22 @@
 								<a name="" id="" class="btn btn-primary btn-sm" role="button" [routerLink]="['/fixedAssetReject']">Revisar</a>
 							</td>
 						</tr>
-
 					</tbody>
 				</table>
-
 			</div>
-
 		</div>
-
-
 	</div>
+
 
 
 </div>
 
 
-	<app-footer></app-footer>
 
+
+
+
+
+
+
+<app-footer></app-footer>
