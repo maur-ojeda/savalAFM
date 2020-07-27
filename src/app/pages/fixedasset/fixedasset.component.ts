@@ -39,6 +39,4 @@ export class FixedassetComponent implements OnInit {
     this.location.back();
   }
 
-
-
 }

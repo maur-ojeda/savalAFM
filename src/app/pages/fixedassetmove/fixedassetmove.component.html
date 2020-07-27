@@ -1,34 +1,35 @@
 <app-header></app-header>
 <div class="container mt-5 pt-5 pb-5">
-	<div class="row">
+
+	<i *ngIf="!asset" class="fa fa-spinner fa-spin text-primary"></i>
+
+	<div *ngIf="asset?.code" class="row">
 		<div
 			class="col-12">
 			<!--start-->
 
-		<a name="" id="" class="btn btn-link" href="javascript:void(0)" role="button">
-				<i class="fas fa-angle-left"></i>
-				volver
-			</a>
-
-
+            <a class="btn btn-link" (click)="goBack()">
+                <i class="fas fa-angle-left"></i> volver
+            </a>
+<!--tabs-->
 			<div class="row">
 				<div class="col-12 tab m-3">
 					<div class="row">
 						<div class="col">
 							<div class="btn-group btn-group-toggle" data-toggle="buttons">
-								<a href="/fixedAsset" class="btn btn-lg btn-secondary">
+								<a class="btn btn-lg btn-primary active" [routerLink]="['/fixedAsset',asset.code]">
 									Detalles
 								</a>
 
-								<a href="/fixedAssetUpdate" class="btn btn-lg btn-secondary">
+								<a class="btn btn-lg btn-secondary"  [routerLink]="['/fixedAssetUpdate', asset.code]">
 									Modificar
 								</a>
 
-								<a href="/fixedAssetMove" class="btn btn-lg btn-primary active">
+								<a  class="btn btn-lg btn-secondary"  [routerLink]="['/fixedAssetMove', asset.code]">
 									Trasladar
 								</a>
 
-								<a href="/fixedAssetDelete" class="btn btn-lg btn-secondary">
+								<a class="btn btn-lg btn-secondary"  [routerLink]="['/fixedAssetDelete', asset.code]">
 									Dar de baja
 								</a>
 
@@ -38,7 +39,9 @@
 						</div>
 					</div>
 				</div>
-            </div>
+			</div>
+<!--tabs-->
+		
            <div class="row pl-3 pr-3">
 				<div class="innerContent card fixedAssets col-12">
 					<div class="card-body">

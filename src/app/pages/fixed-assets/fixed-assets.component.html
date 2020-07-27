@@ -5,8 +5,7 @@
 
 
 
-
-<ng-template #esteModal let-modal>
+<ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -14,26 +13,28 @@
     </button>
   </div>
   <div class="modal-body">
-    
-
+     	<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)">
+				<option>Selecione activo fijo</option>
+				<option *ngFor='let asset of assets' value="/fixedAsset/{{asset.code}}">
+					{{asset.code}}</option>
+			</select>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close">cerrar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
   </div>
 </ng-template>
-
-<button class="btn btn-lg btn-outline-primary" (click)="open(esteModal)">Launch demo modal</button>
-
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
 <hr>
+<pre>{{ closeResult }}</pre>
 
 
 
 
+<div class="row">
+<i *ngIf="!assets" class="fa fa-spinner fa-spin text-primary"></i>
+		<div *ngIf="assets" class="col input-group mb-3 mt-3">
 
-	<div class="row">
-		<div class="col input-group mb-3 mt-3">
-
-			<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)">
+			<select  class="form-control" (change)="navigateTo($event.target.value)">
 				<option>Selecione activo fijo</option>
 				<option *ngFor='let asset of assets' value="/fixedAsset/{{asset.code}}">
 
@@ -43,10 +44,8 @@
 
 		</div>
 	</div>
-
 	<div class="row">
 		<div class="col">
-
 			<div class="card" [routerLink]="['/fixedAssetCreate']">
 				<div class="card-body text-center">
 					<h3 class="card-title text-primary">
@@ -55,11 +54,8 @@
 					<p class="card-text">Crear activo fijo</p>
 				</div>
 			</div>
-
 		</div>
 		<div class="col">
-
-
 			<div class="card" [routerLink]="['/fixedAssetUpdate']">
 				<div class="card-body text-center">
 					<h3 class="card-title text-primary">
@@ -68,11 +64,8 @@
 					<p class="card-text">modificar activo fijo</p>
 				</div>
 			</div>
-
-
 		</div>
 	</div>
-
 	<div class="row mt-5">
 		<div class="col">
 			<div class="card" [routerLink]="['/fixedAssetMove']">
@@ -95,16 +88,12 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="innerContent card mt-5">
-		<div class="row card-body">
-
-
+	<i *ngIf="!requests" class="fa fa-spinner fa-spin text-primary"></i>
+		<div  *ngIf="requests" class="row card-body">
 			<div class="col-12 mt-3">
-				<h3>Activos fijos en proceso</h3>
-				<i *ngIf="!requests" class="fa fa-spinner fa-spin text-primary"></i>
-			
-				<table *ngIf="requests" class="table table-responsive-sm table-hover">
+				<h3>Activos fijos en proceso</h3>			
+				<table class="table table-responsive-sm table-hover">
 					<thead>
 						<tr title="Tooltip on top">
 							<th scope="col"></th>
@@ -151,13 +140,8 @@
 						</tr>
 					</tbody>
 				</table>
-				
 			</div>
 		</div>
 	</div>
-
-
 </div>
-
-
 <app-footer></app-footer>

@@ -36,6 +36,9 @@ const routes: Routes = [
   { path: 'fixedAssets', component: FixedAssetsComponent },
   //individual
   { path: 'fixedAsset/:id', component: FixedassetComponent },
+  { path: 'fixedAssetMove/:id', component: FixedassetmoveComponent },
+  { path: 'fixedAssetDelete/:id', component: FixedassetdeleteComponent },
+  { path: 'fixedAssetUpdate/:id', component: FixedassetupdateComponent },
   
   { path: 'create', component: CreateComponent },
   { path: 'fixedAssetCreate', component: FixedassetcreateComponent },
@@ -44,9 +47,7 @@ const routes: Routes = [
   { path: 'fixedAssetCreate4', component: Fixedassetcreate4Component },
   { path: 'fixedAssetCreate5', component: Fixedassetcreate5Component },
   { path: 'fixedAssetCreate6', component: Fixedassetcreate6Component },
-  { path: 'fixedAssetMove', component: FixedassetmoveComponent },
-  { path: 'fixedAssetDelete', component: FixedassetdeleteComponent },
-  { path: 'fixedAssetUpdate', component: FixedassetupdateComponent },
+  
   { path: 'contact', component: ContactComponent },
   
   { path: 'fixedAssetPending', component: FixedAssetPendingComponent },
