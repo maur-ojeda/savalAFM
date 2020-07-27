@@ -5,7 +5,8 @@
 			class="col-12">
 			<!--start-->
 
-		   <a class="btn btn-link" href="javascript:void(0)" (click)="goBack()">
+		   
+            <a class="btn btn-link" href="javascript:void(0)" (click)="goBack()">
                 <i class="fas fa-angle-left"></i> volver
             </a>
 
@@ -55,27 +56,30 @@
 											<div class="row mt-3">
 
 
-												<span *ngIf="asset" style="display:none">
-													{{ asset.id }}
-												</span>
 
+
+												
 
 												<div class="col-12 mb-3">
 
-
-													<p class="display-5 pr-3 d-sm-block pr-3">Fecha de creación:
-														{{ asset.createdAt.date | date:'medium' }}
+													<i *ngIf="!asset?.createdAt" class="fa fa-spinner fa-spin text-primary"></i>
+													<p *ngIf="asset?.createdAt" class="display-5 pr-3 d-sm-block pr-3">Fecha de creación:
+														{{ asset.createdAt.date}}
+														
+														 
 													</p>
-													<p class="display-5 pr-3 d-sm-block">Código:
+													
+													<p *ngIf="asset?.referalCode" class="display-5 pr-3 d-sm-block">Código:
 														{{ asset.referalCode }}
 													</p>
-													<p class="display-5 pr-3 d-sm-block">Código RFID:
+													
+													<p   *ngIf="asset?.rfidLabelSap" class="display-5 pr-3 d-sm-block">Código RFID:
 														{{ asset.rfidLabelSap }}
 													</p>
 													<p class="display-5 pr-3 d-sm-block">Condición:
-														<span *ngIf="asset.status == 1" class="badge badge-secondary">En Proceso</span>
-														<span *ngIf="asset.status == 2" class="badge badge-primary">Activo</span>
-														<span *ngIf="asset.status == 3" class="badge badge-dark">Dado de Baja</span>
+														<span *ngIf="asset?.status == 1" class="badge badge-secondary">En Proceso</span>
+														<span *ngIf="asset?.status == 2" class="badge badge-primary">Activo</span>
+														<span *ngIf="asset?.status == 3" class="badge badge-dark">Dado de Baja</span>
 													</p>
 												</div>
 
@@ -85,21 +89,21 @@
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Clase activo fijo</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.catalogClass.name}}">
+														<input  *ngIf="asset?.catalogClass" type="text" class="form-control " readonly="" value="{{asset.catalogClass.name}}">
 													</div>
 
 												</div>
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Sociedad</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.society}}">
+														<input *ngIf="asset?.society" type="text" class="form-control " readonly="" value="{{asset.society}}">
 													</div>
 												</div>
 
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Fecha de Capitalización</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.capitalizationDateAt.date | date:'medium' }}">
+														<input  *ngIf="asset?.capitalizationDateAt" type="text" class="form-control " readonly="" value="{{asset.capitalizationDateAt.date }}">
 
 													</div>
 												</div>
@@ -126,13 +130,13 @@
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Especie</label>
-														<input type="text" class="form-control " readonly value="{{ asset.specie.name }}">
+														<input  *ngIf="asset?.specie" type="text" class="form-control " readonly value="{{ asset.specie.name }}">
 													</div>
 
 
 													<div class="form-group">
 														<label for="">Número de serie</label>
-														<input type="text" class="form-control " readonly="" value="{{ asset.serieNumber }}">
+														<input *ngIf="asset?.serieNumber" type="text" class="form-control " readonly="" value="{{ asset.serieNumber }}">
 													</div>
 
 													<div class="form-group">
@@ -146,7 +150,7 @@
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Denominación</label>
-														<textarea class="form-control " readonly="" name="" id="" cols="3">{{asset.description}}</textarea>
+														<textarea *ngIf="asset?.description" class="form-control " readonly="" name="" id="" cols="3">{{asset.description}}</textarea>
 													</div>
 
 													<div class="form-group">
@@ -182,7 +186,7 @@
 
 													<div class="form-group">
 														<label for="">Centro de costo</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.costCenter.code}} - {{asset.costCenter.name}}">
+														<input *ngIf="asset?.costCenter" type="text" class="form-control " readonly="" value="{{asset.costCenter.code}} - {{asset.costCenter.name}}">
 													</div>
 
 												</div>
@@ -210,12 +214,12 @@
 
 													<div class="form-group">
 														<label for="">Centro</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.lCenter.code}}">
+														<input *ngIf="asset?.lCenter" type="text" class="form-control " readonly="" value="{{asset.lCenter.code}}">
 													</div>
 
 													<div class="form-group">
 														<label for="">Área</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.lArea.code}}">
+														<input *ngIf="asset?.lArea" type="text" class="form-control " readonly="" value="{{asset.lArea.code}}">
 													</div>
 
 
@@ -223,17 +227,17 @@
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Edificio</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.lBuilding.code}}">
+														<input *ngIf="asset?.lBuilding" type="text" class="form-control " readonly="" value="{{asset.lBuilding.code}}">
 													</div>
 													<div class="form-group">
 														<label for="">Sala</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.lRoom.code}}">
+														<input *ngIf="asset?.lRoom" type="text" class="form-control " readonly="" value="{{asset.lRoom.code}}">
 													</div>
 												</div>
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Piso</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.lFloor.code}}">
+														<input *ngIf="asset?.lFloor" type="text" class="form-control " readonly="" value="{{asset.lFloor.code}}">
 													</div>
 
 
@@ -261,19 +265,19 @@
 
 												<div class="form-group">
 														<label for="">ID Acreedor</label>
-														<input type="text" class="form-control " readonly="" value="{{ asset.creditorId }}">
+														<input *ngIf="asset?.creditorId" type="text" class="form-control " readonly="" value="{{ asset.creditorId }}">
 													</div>
 
 												</div>
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Fabricante</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.creditorName}}">
+														<input *ngIf="asset?.creditorName" type="text" class="form-control " readonly="" value="{{asset.creditorName}}">
 													</div>
 
 													<div class="form-group">
 														<label for="">Origen</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.assetOrigin}}">
+														<input *ngIf="asset?.assetOrigin" type="text" class="form-control " readonly="" value="{{asset.assetOrigin}}">
 													</div>
 
 													<div class="form-group">
@@ -309,12 +313,12 @@
 
 													<div class="form-group">
 														<label for="">Años de vida útil</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.lifetimeYear}}">
+														<input *ngIf="asset?.lifetimeYear" type="text" class="form-control " readonly="" value="{{asset.lifetimeYear}}">
 													</div>
 
 													<div class="form-group">
 														<label for="">Vida útil tributaria</label>
-														<input type="text" class="form-control " readonly="" value="{{asset.lifetimeYear15}}">
+														<input *ngIf="asset?.lifetimeYear15" type="text" class="form-control " readonly="" value="{{asset.lifetimeYear15}}">
 													</div>
 
 

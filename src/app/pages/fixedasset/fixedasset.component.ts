@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {AssetInterface } from '../../interfaces/asset.interface';
 import { Location } from '@angular/common';
 
+
 @Component({
   selector: 'app-fixedasset',
   templateUrl: './fixedasset.component.html',
@@ -37,5 +38,7 @@ export class FixedassetComponent implements OnInit {
   goBack() {
     this.location.back();
   }
+
+
 
 }

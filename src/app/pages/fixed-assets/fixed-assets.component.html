@@ -1,28 +1,22 @@
 <app-header></app-header>
 
 <div id="savalFixedAssets" class="container mt-5 pt-5">
+
+
+
+
 	<div class="row">
 		<div class="col input-group mb-3 mt-3">
+
 <select class="form-control" (change)="navigateTo($event.target.value)">
-    <option>Selecione activo fijo</option>
-    <option  *ngFor='let asset of assets'   value="/fixedAsset/{{asset.code}}">{{asset.code}}</option>
+    <option *ngIf="!assets">cargando ...</option>
+	<option *ngIf="assets">Selecione activo fijo</option>
+    <option *ngFor='let asset of assets' value="/fixedAsset/{{asset.code}}">
+	
+{{asset.code}}</option>
 </select>
 
-		<!--	<select class="form-control">
-				<option *ngFor="let asset of assets">{{asset.code}}</option>
-			</select>
-			<div class="input-group-append">
-				<div class="btn btn-outline-primary">
-					<i class="fas fa-search"></i>
-					Buscar</div>
-			</div>
--->
-<!--
-<br/>
-<button (click)="myFunction()" >Show alert</button>
-<br/>
-<input type="text" [(ngModel)] = 'val' />
--->
+	
 		</div>
 	</div>
 
