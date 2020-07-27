@@ -2,21 +2,17 @@
 
 <div id="savalFixedAssets" class="container mt-5 pt-5">
 
-
-
-
 	<div class="row">
 		<div class="col input-group mb-3 mt-3">
 
-<select class="form-control" (change)="navigateTo($event.target.value)">
-    <option *ngIf="!assets">cargando ...</option>
-	<option *ngIf="assets">Selecione activo fijo</option>
-    <option *ngFor='let asset of assets' value="/fixedAsset/{{asset.code}}">
-	
-{{asset.code}}</option>
-</select>
+			<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)">
+				<option>Selecione activo fijo</option>
+				<option *ngFor='let asset of assets' value="/fixedAsset/{{asset.code}}">
 
-	
+					{{asset.code}}</option>
+			</select>
+
+
 		</div>
 	</div>
 
@@ -35,7 +31,7 @@
 		</div>
 		<div class="col">
 
-		
+
 			<div class="card" [routerLink]="['/fixedAssetUpdate']">
 				<div class="card-body text-center">
 					<h3 class="card-title text-primary">
@@ -44,7 +40,6 @@
 					<p class="card-text">modificar activo fijo</p>
 				</div>
 			</div>
-
 
 
 		</div>
@@ -79,14 +74,14 @@
 
 			<div class="col-12 mt-3">
 				<h3>Activos fijos en proceso</h3>
-
-
-				<table class="table table-responsive-sm table-hover">
+				<i *ngIf="!requests" class="fa fa-spinner fa-spin text-primary"></i>
+			
+				<table *ngIf="requests" class="table table-responsive-sm table-hover">
 					<thead>
 						<tr title="Tooltip on top">
 							<th scope="col"></th>
 							<th scope="col">Id</th>
-							<th scope="col">Nº solicitud</th>
+							<th scope="col">Clase de AF</th>
 							<th scope="col">Solicitante</th>
 							<th scope="col">Fecha de solicitud</th>
 							<th scope="col">Nombre AF</th>
@@ -96,58 +91,45 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr *ngFor='let request of requests'>
 							<td>
 
-								<i class="fas fa-info-circle text-warning" data-toggle="tooltip" data-placement="top" title="En revisión"></i>
+								<span *ngIf="!request?.isEvaluated">
+									<i *ngIf="request?.status == 2" class="fas fa-info-circle text-warning" data-toggle="tooltip" data-placement="top" title="En revisión"></i>
+
+									<i *ngIf="request?.status == 3" class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="En revisión"></i>
+								</span>
+							</td>
+							<td *ngIf="request?.id">{{request.id}}</td>
+							<td *ngIf="request?.catalogClass">{{request.catalogClass.name}}</td>
+							<td *ngIf="request?.createdBy">{{request.createdBy.username}}</td>
+							<td *ngIf="request?.createdBy">{{request.createdAt.date}}</td>
+							<td *ngIf="request?.specie.name">{{request.specie.name}}</td>
+							<td *ngIf="request?.specie.code">{{request.specie.code}}
+								-
+								{{request.specie.name}}</td>
+							<td>
+
+								<span *ngIf="request?.status == 2" class="badge badge-secondary">En Evaluación</span>
+								<span *ngIf="request?.status == 3" class="badge badge-secondary">Rechazado</span>
+								<span *ngIf="request?.status == 4" class="badge badge-secondary">Aprobado</span>
+								<!--span *ngIf="request?.status == 5" class="badge badge-secondary">Cerrado</span-->
+
 
 							</td>
-							<td>Column content</td>
-							<td>Column content</td>
-							<td>Column content</td>
-							<td>Column content</td>
-							<td>Column content</td>
-							<td>Column content</td>
-							<td>Column content</td>
 							<td>
-
-								<a name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetPending']" role="button">Revisar</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<i class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="Rechazada"></i>
-
-
-							</td>
-							<td>Column content</td>
-							<td>Column content</td>
-							<td>Column content</td>
-							<td>Column content</td>
-							<td>Column content</td>
-							<td>Column content</td>
-							<td>Column content</td>
-							<td>
-
-								<a name="" id="" class="btn btn-primary btn-sm" role="button" [routerLink]="['/fixedAssetReject']">Revisar</a>
+								<a name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetPending', request.id ]" role="button">Revisar</a>
 							</td>
 						</tr>
 					</tbody>
 				</table>
+				
 			</div>
 		</div>
 	</div>
 
 
-
 </div>
-
-
-
-
-
-
-
 
 
 <app-footer></app-footer>

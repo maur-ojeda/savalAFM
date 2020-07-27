@@ -45,7 +45,8 @@ import{AngularFireDatabaseModule} from 'angularfire2/database';
 //services
 import{FixedassetsService} from '../app/services/fixedassets.service'
 import{FixedAssetDataService} from '../app/services/fixed-asset-data.service';
-import { CreateComponent } from './pages/create/create.component'
+import { CreateComponent } from './pages/create/create.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 
 
@@ -84,7 +85,8 @@ import { CreateComponent } from './pages/create/create.component'
       AngularFireModule.initializeApp(environment.firebase),
       AngularFireDatabaseModule,
       ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-      HttpClientModule
+      HttpClientModule,
+      NgbModule
   ],
   providers: [FixedassetsService, FixedAssetDataService, CookieService],
   bootstrap: [AppComponent]

@@ -43,8 +43,6 @@ getAssetPorId( code: string ) {
     const asset = this.assets.find( p => p.code === code );
     return Promise.resolve( asset );
   });
-
-
 }
 
 

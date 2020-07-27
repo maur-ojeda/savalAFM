@@ -1,8 +1,14 @@
 export interface RequestInterface {
+  error: boolean;
+  message: string;
+  data: Datum[];
+}
+
+interface Datum {
   id: number;
   createdAt: CreatedAt;
   catalogClass: CatalogClass;
-  specie: CatalogClass;
+  specie: Specie;
   description: string;
   assetCount: number;
   creditorId: string;
@@ -10,22 +16,45 @@ export interface RequestInterface {
   assetOrigin?: any;
   lifetimeYear: number;
   lifetimeYear15?: any;
-  assetRequestDetails: Initializer;
-  createdBy: CatalogClass;
+  assetRequestDetails: AssetRequestDetails;
+  createdBy: CreatedBy;
   evaluatedBy?: any;
   status: number;
   isEvaluated: boolean;
-  specieAttributes: Initializer;
-  history: Initializer;
+  specieAttributes: AssetRequestDetails;
+  history: AssetRequestDetails;
+}
+
+interface CreatedBy {
+  id: number;
+  username: string;
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  isActive: boolean;
+}
+
+interface AssetRequestDetails {
+}
+
+interface Specie {
+  id: number;
+  name: string;
+  code: string;
+  attributes: (Attribute | null)[];
+}
+
+interface Attribute {
+  id: number;
+  name: string;
+  human_name?: any;
+  help_message: string;
 }
 
 interface CatalogClass {
-  __initializer__: Initializer;
-  __cloner__: Initializer;
-  __isInitialized__: boolean;
-}
-
-interface Initializer {
+  id: number;
+  code: string;
+  name: string;
 }
 
 interface CreatedAt {

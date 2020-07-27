@@ -14,7 +14,8 @@
             ],
             "urls": [
                 "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css",
-                "https://stackpath.bootstrapcdn.com/**"
+                "https://stackpath.bootstrapcdn.com/**",
+                "https://kit.fontawesome.com/b4f87717f0.js"
 
             ]
 
@@ -34,6 +35,30 @@
             "name": "user-api",
             "urls": [
                 "http://jsonplaceholder.typicode.com/users"
+            ],
+            "cacheConfig": {
+                "maxSize": 5000,
+                "maxAge": "7d",
+                "timeout": "10s",
+                "strategy": "freshness"
+            }
+        },
+        {
+            "name": "request",
+            "urls": [
+                "https://afsaval.agenciasur.cl/webservice/rest/requests"
+            ],
+            "cacheConfig": {
+                "maxSize": 5000,
+                "maxAge": "7d",
+                "timeout": "10s",
+                "strategy": "freshness"
+            }
+        },
+        {
+            "name": "assets",
+            "urls": [
+                "https://afsaval.agenciasur.cl/webservice/rest/assets"
             ],
             "cacheConfig": {
                 "maxSize": 5000,

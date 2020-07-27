@@ -37,7 +37,6 @@ const routes: Routes = [
   //individual
   { path: 'fixedAsset/:id', component: FixedassetComponent },
   
-
   { path: 'create', component: CreateComponent },
   { path: 'fixedAssetCreate', component: FixedassetcreateComponent },
   { path: 'fixedAssetCreate2', component: Fixedassetcreate2Component },

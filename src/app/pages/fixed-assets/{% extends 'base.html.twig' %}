@@ -1,0 +1,340 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+
+{% block content %}
+    <!--contenido-->
+
+    <h2>Solicitud de Activo Fijo</h2>
+
+    <div class="innerContent card fixedAssets">
+        <div class="card-body">
+            <div class="row mb-5">
+                <div class="col-12">
+
+                    <div id="accordion">
+                        <div id="headingOne">
+                            <button class="btn btn-block btn-link" data-toggle="collapse" data-target="#collapseOne"
+                                    aria-expanded="true" aria-controls="collapseOne">
+                                <h5 class="text-left">Datos activo fijo</h5>
+                            </button>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                             data-parent="#accordion">
+                            <div class="col-12">
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <span class="float-left display-5 pr-3 d-sm-block">Estado: [{{ ('request_status.'~asset.status|default(1))|trans }}]</span>
+                                        <span class="float-left display-5 pr-3 d-sm-block">Fecha de creación: {{ asset.createdAt|date('d/m/Y H:i:s') }}</span>
+                                    </div>
+                                </div>
+                                <div class="row mt-3 mb-3">
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label for="">Clase activo fijo</label>
+                                            <input type="text" class="form-control " readonly
+                                                   value="{{ asset.catalogClass }}">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label for="">Sociedad</label>
+                                            <input type="text" class="form-control " readonly value="LS01">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div id="headingTwo">
+                            <button class="btn btn-block btn-link collapsed" data-toggle="collapse"
+                                    data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <h5 class="text-left">Especie</h5>
+                            </button>
+                        </div>
+
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="col-12">
+
+                                <div class="row mt-3 mb-3">
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label for="">Especie</label>
+                                            <input type="text" class="form-control " readonly
+                                                   value="{{ asset.specie }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id=""
+                                                       checked="" readonly>
+                                                <label class="custom-control-label" for="">Gestión histórica</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-8 col-12">
+                                        <div class="form-group">
+                                            <label for="asset_descripcion">Denominación</label>
+                                            <textarea id="asset_descripcion" cols="3" class="form-control"
+                                                      readonly>{{ asset.description }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="" checked=""
+                                                       readonly>
+                                                <label class="custom-control-label" for="">Incluir activo fijo en lista
+                                                    inventario</label>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div id="headingFour">
+                            <button class="btn btn-block btn-link collapsed" data-toggle="collapse"
+                                    data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <h5 class="text-left">Asignaciones</h5>
+                            </button>
+                        </div>
+
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+                             data-parent="#accordion">
+                            <div class="col-12">
+                                {% for detail in asset.assetRequestDetails %}
+                                    <div class="row mb-1">
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="">Numero de Serie</label>
+                                                <input type="text" class="form-control " readonly
+                                                       value="{{ detail.serieNumber }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="">Centro de Costo</label>
+                                                <input type="text" class="form-control " readonly
+                                                       value="{{ detail.costCenter }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="">Último estado en SAP</label>
+                                                <input type="text" class="form-control " readonly
+                                                       value="{{ ('detail_status.'~detail.status)|trans }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <strong>UBICACIONES</strong>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="">Centro</label>
+                                                <input type="text" class="form-control " readonly
+                                                       value="{{ detail.lCenter.code }} - {{ detail.lCenter.description }}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="">Edificio</label>
+                                                <input type="text" class="form-control " readonly
+                                                       value="{{ detail.lBuilding.code }} - {{ detail.lBuilding.description }}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="">Piso</label>
+                                                <input type="text" class="form-control " readonly
+                                                       value="{{ detail.lFloor.code }} - {{ detail.lFloor.description }}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="">Area</label>
+                                                <input type="text" class="form-control " readonly
+                                                       value="{% if detail.lArea %}{{ detail.lArea.code }} - {{ detail.lArea.description }}{% endif %}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="">Sala</label>
+                                                <input type="text" class="form-control " readonly
+                                                       value="{% if detail.lRoom %}{{ detail.lRoom.code }} - {{ detail.lRoom.description }}{% endif %}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div id="headingFive">
+                            <button class="btn btn-block btn-link collapsed" data-toggle="collapse"
+                                    data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                <h5 class="text-left">Origen</h5>
+                            </button>
+                        </div>
+
+                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                            <div class="col-12">
+                                <div class="row mt-3 mb-3">
+                                    <div class="col-md-4 col-12">
+
+                                        <div class="form-group">
+                                            <label for="">ID Acreedor</label>
+                                            <input type="text" class="form-control " readonly
+                                                   value="{{ asset.creditorId }}">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label for=""></label>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id=""
+                                                       {% if asset.newAsset %}checked=""{% endif %} readonly>
+                                                <label class="custom-control-label" for="">¿Es un activo nuevo?</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 col-12">
+                                        {% if not asset.newAsset %}
+                                            <div class="form-group">
+                                                <label for="">Origen</label>
+                                                <input type="text" class="form-control " readonly
+                                                       value="{{ asset.assetOrigin }}">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div id="headingSix">
+                            <button class="btn btn-block btn-link collapsed" data-toggle="collapse"
+                                    data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                <h5 class="text-left">Años de vida útil</h5>
+                            </button>
+                        </div>
+
+                        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                            <div class="col-12">
+                                <div class="row mt-3 mb-3">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="">Años de vida útil</label>
+                                            <input type="text" class="form-control " readonly
+                                                   value="{{ asset.lifetimeYear }}">
+                                        </div>
+                                    </div>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="">Años de vida útil</label>
+                                            <input type="text" class="form-control " readonly
+                                                   value="{{ asset.lifetimeYear }}">
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div id="headingSeven">
+                            <button class="btn btn-block btn-link collapsed" data-toggle="collapse"
+                                    data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                <h5 class="text-left">Historico de Rechazos</h5>
+                            </button>
+                        </div>
+
+                        <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
+                            <div class="col-12">
+                                <div class="row mt-3 mb-3">
+                                    <div class="col-12">
+
+                                        <table id="datatable" class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Autor</th>
+                                                <th>Fecha de Registro</th>
+                                                <th>Descripción</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for detail in asset.histories %}
+                                                <tr>
+                                                    <td>{{ detail.createdBy.firstName }} {{ detail.createdBy.lastName }}</td>
+                                                    <td>{{ detail.createdAt|date('d-m-Y') }}</td>
+                                                    <td>{{ detail.description }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 offset-md-8 col-12 mt-3">
+                            <div class="btn-group float-right">
+                                {% if asset.status == 2 and is_granted('ROLE_ADMIN')%}
+                                    <a href="{{ path('asset_request_accept',{'id':asset.id}) }}" class="btn btn-lg btn-primary">
+                                        Aprobar
+                                    </a>
+                                    <a href="{{ path('asset_request_reject',{'id':asset.id}) }}" class="btn btn-lg btn-secondary">
+                                        Rechazar
+                                    </a>
+                                {% elseif asset.status == 3 and asset.createdBy.id == app.user.id %}
+                                    <a href="{{ path('asset_request_retry',{'id':asset.id}) }}" class="btn btn-lg btn-primary">
+                                        Reintentar
+                                    </a>
+                                    <a href="{{ path('asset_request_closed',{'id':asset.id}) }}" class="btn btn-lg btn-secondary">
+                                        Cerrar
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="help text-left mt-3">
+        <a href="{{ path('asset_index') }}" class="btn btn-lg btn-outline-primary">Volver</a>
+    </div>
+
+
+{% endblock %}
