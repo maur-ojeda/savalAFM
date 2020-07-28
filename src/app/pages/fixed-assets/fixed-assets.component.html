@@ -123,22 +123,22 @@
 			</div>
 		</div>
 	</div>
-	<div class="innerContent card mt-5">
+	<div class="innerContent card mt-5" style="max-height: 200px; overflow: auto;">
 	<i *ngIf="!requests" class="fa fa-spinner fa-spin text-primary"></i>
 		<div  *ngIf="requests" class="row card-body">
 			<div class="col-12 mt-3">
 				<h3>Activos fijos en proceso</h3>			
-				<table class="table table-responsive-sm table-hover">
+				<table class="table table-responsive table-sm table-hover">
 					<thead>
 						<tr title="Tooltip on top">
 							<th scope="col"></th>
-							<th scope="col">Id</th>
-							<th scope="col">Clase de AF</th>
-							<th scope="col">Solicitante</th>
-							<th scope="col">Fecha de solicitud</th>
-							<th scope="col">Nombre AF</th>
-							<th scope="col">Especie</th>
-							<th scope="col">Estado</th>
+							<th scope="col"><small>Id</small></th>
+							<th scope="col"><small>Clase de AF</small></th>
+							<th scope="col"><small>Solicitante</small></th>
+							<th scope="col"><small>Fecha de solicitud</small></th>
+							<th scope="col"><small>Nombre AF</small></th>
+							<th scope="col"><small>Especie</small></th>
+							<th scope="col"><small>Estado</small></th>
 							<th scope="col"></th>
 						</tr>
 					</thead>
@@ -152,14 +152,14 @@
 									<i *ngIf="request?.status == 3" class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="En revisión"></i>
 								</span>
 							</td>
-							<td *ngIf="request?.id">{{request.id}}</td>
-							<td *ngIf="request?.catalogClass">{{request.catalogClass.name}}</td>
-							<td *ngIf="request?.createdBy">{{request.createdBy.username}}</td>
-							<td *ngIf="request?.createdBy">{{request.createdAt.date}}</td>
-							<td *ngIf="request?.specie.name">{{request.specie.name}}</td>
-							<td *ngIf="request?.specie.code">{{request.specie.code}}
+							<td *ngIf="request?.id"><small>{{request.id}}</small></td>
+							<td *ngIf="request?.catalogClass"><small>{{request.catalogClass.name}}</small></td>
+							<td *ngIf="request?.createdBy"><small>{{request.createdBy.username}}</small></td>
+							<td *ngIf="request?.createdBy"><small>{{request.createdAt.date}}</small></td>
+							<td *ngIf="request?.specie.name"><small>{{request.specie.name}}</small></td>
+							<td *ngIf="request?.specie.code"><small>{{request.specie.code}}
 								-
-								{{request.specie.name}}</td>
+								{{request.specie.name}}</small></td>
 							<td>
 
 								<span *ngIf="request?.status == 2" class="badge badge-secondary">En Evaluación</span>
@@ -170,7 +170,14 @@
 
 							</td>
 							<td>
-								<a name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetPending', request.id ]" role="button">Revisar</a>
+							{{request.id}}
+								<a *ngIf="request?.status == 2" name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetPending', request.id ]" role="button">Revisar</a>
+								<a *ngIf="request?.status == 3"  name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetReject', request.id ]" role="button">Revisar</a>
+								<a *ngIf="request?.status == 4" name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetApproved', request.id ]" role="button">Revisar</a>
+								<a *ngIf="request?.status == 5" name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetClosed', request.id ]" role="button">Revisar</a>
+
+								
+  
 							</td>
 						</tr>
 					</tbody>

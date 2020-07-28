@@ -26,6 +26,8 @@ import { FixedassetComponent } from './pages/fixedasset/fixedasset.component';
 import { FixedAssetPendingComponent } from './pages/fixed-asset-pending/fixed-asset-pending.component';
 import { FixedAssetRejectedComponent } from './pages/fixed-asset-rejected/fixed-asset-rejected.component';
 import { CreateComponent } from './pages/create/create.component';
+import { FixedAssetApprovedComponent } from './pages/fixed-asset-approved/fixed-asset-approved.component';
+import { FixedAssetClosedComponent } from './pages/fixed-asset-closed/fixed-asset-closed.component';
 
 const routes: Routes = [
   { path: '', component : SplashComponent },
@@ -50,8 +52,10 @@ const routes: Routes = [
   
   { path: 'contact', component: ContactComponent },
   
-  { path: 'fixedAssetPending', component: FixedAssetPendingComponent },
-  { path: 'fixedAssetReject', component: FixedAssetRejectedComponent },
+  { path: 'fixedAssetPending/:id', component: FixedAssetPendingComponent },
+  { path: 'fixedAssetReject/:id', component: FixedAssetRejectedComponent },
+  { path: 'fixedAssetApproved/:id', component: FixedAssetApprovedComponent },
+  { path: 'fixedAssetClosed/:id', component: FixedAssetClosedComponent }
 ]
 
 @NgModule({

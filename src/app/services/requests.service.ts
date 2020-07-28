@@ -33,7 +33,7 @@ getRequests(): Promise<RequestInterface[]>{
   });
 }
 
-/*getAssetPorId( id: number ) {
+getRequestsPorId( id ) {
   if ( this.requests.length > 0 ) {
     const request = this.requests.find( p => p.id === id );
     return Promise.resolve( request );
@@ -43,7 +43,7 @@ getRequests(): Promise<RequestInterface[]>{
     return Promise.resolve( request );
   });
 }
-*/
+
 
 
 }

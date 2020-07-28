@@ -46,7 +46,9 @@ import{AngularFireDatabaseModule} from 'angularfire2/database';
 import{FixedassetsService} from '../app/services/fixedassets.service'
 import{FixedAssetDataService} from '../app/services/fixed-asset-data.service';
 import { CreateComponent } from './pages/create/create.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FixedAssetApprovedComponent } from './pages/fixed-asset-approved/fixed-asset-approved.component';
+import { FixedAssetClosedComponent } from './pages/fixed-asset-closed/fixed-asset-closed.component'
 
 
 
@@ -76,7 +78,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     FixedAssetPendingComponent,
     FixedAssetRejectedComponent,
     UserDeatailsComponent,
-    CreateComponent
+    CreateComponent,
+    FixedAssetApprovedComponent,
+    FixedAssetClosedComponent
   ],
   imports: [
     BrowserModule,
