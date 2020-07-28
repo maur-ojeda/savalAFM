@@ -1,3 +1,7 @@
+/**
+ * GRABA EN FIRESTORE
+*/
+
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Fixedasset } from '../models/fixedasset';

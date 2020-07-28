@@ -170,7 +170,7 @@
 
 							</td>
 							<td>
-							{{request.id}}
+
 								<a *ngIf="request?.status == 2" name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetPending', request.id ]" role="button">Revisar</a>
 								<a *ngIf="request?.status == 3"  name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetReject', request.id ]" role="button">Revisar</a>
 								<a *ngIf="request?.status == 4" name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetApproved', request.id ]" role="button">Revisar</a>

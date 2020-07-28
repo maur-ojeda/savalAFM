@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetsService } from '../../services/assets.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import {AssetInterface } from '../../interfaces/asset.interface';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { Location } from '@angular/common';
 
 

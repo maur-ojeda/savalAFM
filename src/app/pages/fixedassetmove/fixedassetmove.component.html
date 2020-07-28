@@ -48,7 +48,8 @@
 						<div class="row mb-5">
 							<div class="col-12">
 
-							<form #fixedAssetForm="ngForm" (ngSubmit)="onSubmit(fixedAssetForm)">
+							<form #fixedAssetForm="ngForm">
+							<!--form #fixedAssetForm="ngForm" (ngSubmit)="onSubmit(fixedAssetForm)"-->
 
 									<div id="accordion">
 										<div id="headingOne">										
@@ -250,9 +251,9 @@
 															<label for="">Centro</label>
 															<input type="text" class="form-control " [disabled]="true" value="{{asset.lCenter.code}}">
 															 <select class="form-control" name="" id="">
-															<option></option>
-															<option></option>
-															<option></option>
+															<option *ngFor='let location of locations'>
+															{{location.name}}
+															</option>
 														  </select>
 														</div>
 

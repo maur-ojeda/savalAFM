@@ -28,12 +28,13 @@ getRequests(): Promise<RequestInterface[]>{
     this.http.get('https://afsaval.agenciasur.cl/webservice/rest/requests/',{ headers })
       .subscribe( (requests: any) => {
         this.requests = requests.data;
+        
         resolve( requests.data );
       });
   });
 }
 
-getRequestsPorId( id ) {
+/*getRequestsPorId( id:number ) {
   if ( this.requests.length > 0 ) {
     const request = this.requests.find( p => p.id === id );
     return Promise.resolve( request );
@@ -42,7 +43,7 @@ getRequestsPorId( id ) {
     const request= this.requests.find( p => p.id === id );
     return Promise.resolve( request );
   });
-}
+}*/
 
 
 
