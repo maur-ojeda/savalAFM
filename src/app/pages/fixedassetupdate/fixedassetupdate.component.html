@@ -1,34 +1,38 @@
 <app-header></app-header>
 <div class="container mt-5 pt-5 pb-5">
-	<div class="row">
+
+	<i *ngIf="!asset" class="fa fa-spinner fa-spin text-primary"></i>
+
+
+	<div *ngIf="asset?.code" class="row">
 		<div
 			class="col-12">
 			<!--start-->
 
-				<a name="" id="" class="btn btn-link" href="javascript:void(0)" role="button">
+			<a class="btn btn-link" (click)="goBack()">
 				<i class="fas fa-angle-left"></i>
 				volver
 			</a>
 
-
+			<!--tabs-->
 			<div class="row">
 				<div class="col-12 tab m-3">
 					<div class="row">
 						<div class="col">
 							<div class="btn-group btn-group-toggle" data-toggle="buttons">
-								<a href="/fixedAsset" class="btn btn-lg btn-secondary">
+								<a class="btn btn-lg btn-secondary" [routerLink]="['/fixedAsset',asset.code]">
 									Detalles
 								</a>
 
-								<a href="/fixedAssetUpdate" class="btn btn-lg btn-primary active">
+								<a class="btn btn-lg btn-primary active" [routerLink]="['/fixedAssetUpdate', asset.code]">
 									Modificar
 								</a>
 
-								<a href="/fixedAssetMove" class="btn btn-lg btn-secondary">
+								<a class="btn btn-lg btn-secondary" [routerLink]="['/fixedAssetMove', asset.code]">
 									Trasladar
 								</a>
 
-								<a href="/fixedAssetDelete" class="btn btn-lg btn-secondary">
+								<a class="btn btn-lg btn-secondary" [routerLink]="['/fixedAssetDelete', asset.code]">
 									Dar de baja
 								</a>
 
@@ -38,100 +42,186 @@
 						</div>
 					</div>
 				</div>
-            </div>
-           <div class="row pl-3 pr-3">
+			</div>
+			<!--tabs-->
+			<div class="row pl-3 pr-3">
 				<div class="innerContent card fixedAssets col-12">
 					<div class="card-body">
 						<div class="row mb-5">
 							<div class="col-12">
 
-								<div id="accordion">
-									<div id="headingOne">
-										<button class="btn btn-block btn-link show" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-											<h5 class="text-left">Datos activo fijo</h5>
-										</button>
-									</div>
 
-									<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion" style="">
-										<div class="col-12">
-											<div class="row mt-3">
+								<form #fixedAssetForm="ngForm" (ngSubmit)="onSubmit(fixedAssetForm)">
 
-												<div class="col-12 mb-3">
-													<p class="text-mute pr-3">Fecha de creación: DDMMAAA HH:MM:SS</p>
-													<p class="text-mute">Creado por:</p>
-													<p class="text-mute">Código:</p>
-													<p class="text-mute">Código RFID:</p>
-												</div>
-
-
-											</div>
-											<div class="row mt-3 mb-3">
-												<div class="col-md-4 col-12">
-													<div class="form-group">
-														<label for="">Clase activo fijo</label>
-														<input type="text" class="form-control "  value="Clase">
-													</div>
-
-												</div>
-												<div class="col-md-4 col-12">
-													<div class="form-group">
-														<label for="">Sociedad</label>
-														<input type="text" class="form-control " value="Sociedad">
-													</div>
-												</div>
-
-
-											</div>
-
-
+									<div id="accordion">
+										<div id="headingOne">
+											<button class="btn btn-block btn-link show" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+												<h5 class="text-left">Datos activo fijo</h5>
+											</button>
 										</div>
-									</div>
 
-									<hr>
+										<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion" style="">
+											<div class="col-12">
+												<div class="row mt-3">
 
-									<div id="headingTwo">
-										<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-											<h5 class="text-left">General</h5>
-										</button>
-									</div>
 
-									<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-										<div class="col-12">
+													<div class="col-12 mb-3">
 
-											<div class="row mt-3 mb-3">
-												<div class="col-md-4 col-12">
-													<div class="form-group">
-														<label for="">Especie</label>
-														<input type="text" class="form-control " value="Especie">
+														<i *ngIf="!asset?.createdAt" class="fa fa-spinner fa-spin text-primary"></i>
+														<p *ngIf="asset?.createdAt" class="display-5 pr-3 d-sm-block pr-3">Fecha de creación:
+															{{ asset.createdAt.date}}
+
+
+														</p>
+
+														<p *ngIf="asset?.referalCode" class="display-5 pr-3 d-sm-block">Código:
+															{{ asset.referalCode }}
+														</p>
+
+														<p *ngIf="asset?.rfidLabelSap" class="display-5 pr-3 d-sm-block">Código RFID:
+															{{ asset.rfidLabelSap }}
+														</p>
+														<p class="display-5 pr-3 d-sm-block">Condición:
+															<span *ngIf="asset?.status == 1" class="badge badge-secondary">En Proceso</span>
+															<span *ngIf="asset?.status == 2" class="badge badge-primary">Activo</span>
+															<span *ngIf="asset?.status == 3" class="badge badge-dark">Dado de Baja</span>
+														</p>
 													</div>
-													<div class="form-group">
-														<div class="custom-control custom-checkbox">
-															<input type="checkbox" class="custom-control-input" id="" checked="">
-															<label class="custom-control-label" for="">Gestión histórica</label>
+
+
+												</div>
+												<div class="row mt-3 mb-3">
+													<div class="col-md-4 col-12">
+														<div class="form-group">
+															<label>Clase activo fijo</label>
+														<input  *ngIf="asset?.catalogClass" type="text" class="form-control" [disabled]="true"
+														 value="{{asset.catalogClass.name}}">
+												
+									
+														</div>
+
+
+														<div class="form-group">
+															<label>Codigo RFID</label>
+															<input type="text" class="form-control" [disabled]="false">
+
+															<!--name="fechaCreacion" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.fechaCreacion"-->
+														</div>
+
+
+													</div>
+													<div class="col-md-4 col-12">
+														<div class="form-group">
+															<label for="">Sociedad</label>
+															<input *ngIf="asset?.society" type="text" class="form-control " [disabled]="true" value="{{asset.society}}">
+														</div>
+
+														<div class="form-group">
+															<label for="">Código RFID SAP</label>
+															<input *ngIf="asset?.rfidLabelSap" type="text" class="form-control " [disabled]="true" value="{{asset.rfidLabelSap}}">
 														</div>
 													</div>
 
-												</div>
-												<div class="col-md-4 col-12">
-													<div class="form-group">
-														<label for="">Denominación</label>
-														<input type="text" class="form-control " value="Denominación">
+													<div class="col-md-4 col-12">
+														<div class="form-group">
+															<label for="">Fecha de Capitalización</label>
+															<input *ngIf="asset?.capitalizationDateAt" type="text" class="form-control " [disabled]="true" value="{{asset.capitalizationDateAt.date }}">
+
+														</div>
 													</div>
-													<div class="form-group">
-														<div class="custom-control custom-checkbox">
-															<input type="checkbox" class="custom-control-input" id="" checked="">
-															<label class="custom-control-label" for="">Incluir activo fijo en lista inventario</label>
+
+
+												</div>
+
+
+											</div>
+										</div>
+
+										<hr>
+
+										<div id="headingTwo">
+											<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+												<h5 class="text-left">Especie</h5>
+											</button>
+										</div>
+
+										<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+											<div class="col-12">
+
+												<div class="row mt-3 mb-3">
+													<div class="col-md-4 col-12">
+														<div class="form-group">
+															<label for="">Especie</label>
+															<input *ngIf="asset?.specie" type="text" class="form-control " readonly value="{{ asset.specie.code }} - {{ asset.specie.name }}">
+														</div>
+
+
+														<div class="form-group">
+															<label for="">Número de serie</label>
+
+															
+															<input  type="text" class="form-control " [disabled]="false" value="">
+														</div>
+
+														<div class="form-group">
+															<div class="custom-control custom-checkbox">
+																<input type="checkbox" class="custom-control-input" id="" checked="" [disabled]="true">
+																<label class="custom-control-label" for="">Gestión histórica</label>
+															</div>
+														</div>
+
+													</div>
+													<div class="col-md-4 col-12">
+														<div class="form-group">
+															<label for="">Descripción</label>
+															<textarea *ngIf="asset?.description" class="form-control " [disabled]="false" name="" id="" cols="3">{{asset.description}}</textarea>
+														</div>
+
+														<div class="form-group">
+															<div class="custom-control custom-checkbox">
+																<input type="checkbox" class="custom-control-input" id="" [checked]="true" [disabled]="true">
+																<label class="custom-control-label" for="">Incluir activo fijo en lista inventario</label>
+															</div>
+
 														</div>
 
 													</div>
 
+
 												</div>
 
-												<div class="col-md-4 col-12">
 
-													<div class="form-group">
-														<label for="">Cuenta</label>
-														<input type="text" class="form-control " value="Denominación">
+											</div>
+										</div>
+
+										<hr>
+
+										<div id="headingTree">
+											<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseTree" aria-expanded="false" aria-controls="collapseTree">
+												<h5 class="text-left">Centro de costo</h5>
+											</button>
+										</div>
+
+										<div id="collapseTree" class="collapse" aria-labelledby="headingTree" data-parent="#accordion">
+											<div class="col-12">
+
+												<div class="row mt-3 mb-3">
+													<div class="col">
+
+														<div class="form-group">
+															<label for="">Centro de costo</label>
+
+															<select class="form-control" name="" id="">
+																<option></option>
+																<option></option>
+																<option></option>
+															</select>
+
+															<input *ngIf="!asset?.costCenter" type="text" class="form-control " [disabled]="false" value="{{asset.costCenter.code}} - {{asset.costCenter.name}}">
+														
+														
+														</div>
+
 													</div>
 
 
@@ -139,177 +229,148 @@
 
 
 											</div>
-
-
 										</div>
+
+										<hr>
+
+										<div id="headingFour">
+											<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+												<h5 class="text-left">Asignaciones</h5>
+											</button>
+										</div>
+
+										<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+											<div class="col-12">
+
+												<div class="row mt-3 mb-3">
+													<div class="col-md-4 col-12">
+
+														<div class="form-group">
+															<label for="">Centro</label>
+															<input type="text" class="form-control " [disabled]="true" value="{{asset.lCenter.code}}">
+														</div>
+
+														<div class="form-group">
+															<label for="">Área</label>
+															<input type="text" class="form-control " [disabled]="true" value="{{asset.lArea.code}}">
+														</div>
+
+
+													</div>
+													<div class="col-md-4 col-12">
+														<div class="form-group">
+															<label for="">Edificio</label>
+															<input type="text" class="form-control " [disabled]="true" value="{{asset.lBuilding.code}}">
+														</div>
+														<div class="form-group">
+															<label for="">Sala</label>
+															<input type="text" class="form-control " [disabled]="true" value="{{asset.lRoom.code}}">
+														</div>
+													</div>
+													<div class="col-md-4 col-12">
+														<div class="form-group">
+															<label for="">Piso</label>
+															<input type="text" class="form-control " [disabled]="true" value="{{asset.lFloor.code}}">
+														</div>
+
+
+													</div>
+
+
+												</div>
+
+
+											</div>
+										</div>
+
+										<hr>
+
+										<div id="headingFive">
+											<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+												<h5 class="text-left">Origen</h5>
+											</button>
+										</div>
+
+										<div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+											<div class="col-12">
+												<div class="row mt-3 mb-3">
+													<div class="col-md-4 col-12">
+
+														<div class="form-group">
+															<label for="">ID Acreedor</label>
+															<input type="text" class="form-control " [disabled]="false" value="{{asset.creditorId }}">
+															<small class="form-text text-muted">Usar el código de proveedor en SAP sin puntos ni guión</small>
+														</div>
+
+													</div>
+													<div class="col-md-4 col-12">
+														<div class="form-group">
+															<label for="">Fabricante</label>
+															<input type="text" class="form-control " [disabled]="true" value="{{asset.creditorName}}">
+														</div>
+
+														<div class="form-group">
+															<label for="">Origen</label>
+															<input type="text" class="form-control " [disabled]="true" value="{{asset.assetOrigin}}">
+														</div>
+
+														<div class="form-group">
+															<label for=""></label>
+															<div class="custom-control custom-checkbox">
+
+
+																<input type="checkbox" class="custom-control-input" id="" [disabled]="true" [checked]="false">
+																<label class="custom-control-label" for="">¿Es un activo nuevo?</label>
+															</div>
+														</div>
+
+													</div>
+
+
+												</div>
+											</div>
+										</div>
+
+										<hr>
+
+										<div id="headingSix">
+											<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+												<h5 class="text-left">Años de vida útil</h5>
+											</button>
+										</div>
+
+										<div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+											<div class="col-12">
+												<div class="row mt-3 mb-3">
+													<div class="col-12">
+
+														<div class="form-group">
+															<label for="">Años de vida útil</label>
+															<input type="number" class="form-control " [disabled]="false" value="{{asset.lifetimeYear}}">
+														</div>
+
+														<div class="form-group">
+															<label for="">Vida útil tributaria</label>
+															<input type="text" class="form-control " [disabled]="true" value="{{asset.lifetimeYear15}}">
+														</div>
+
+
+													</div>
+												</div>
+											</div>
+										</div>
+
 									</div>
 
-									<hr>
-
-									<div id="headingTree">
-										<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseTree" aria-expanded="false" aria-controls="collapseTree">
-											<h5 class="text-left">Centro de costo</h5>
+									<div class="col-12 mt-3">
+										<button type="button" class="btn btn-lg btn-block btn-primary">
+											Guardar cambios
 										</button>
 									</div>
 
-									<div id="collapseTree" class="collapse" aria-labelledby="headingTree" data-parent="#accordion">
-										<div class="col-12">
-
-											<div class="row mt-3 mb-3">
-												<div class="col">
-
-													<div class="form-group">
-														<label for="">Centro de costo</label>
-														<input type="text" class="form-control " value="Centro de costo">
-													</div>
-
-												</div>
-
-
-											</div>
-
-
-										</div>
-									</div>
-
-									<hr>
-
-									<div id="headingFour">
-										<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-											<h5 class="text-left">Asignaciones</h5>
-										</button>
-									</div>
-
-									<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-										<div class="col-12">
-
-											<div class="row mt-3 mb-3">
-												<div class="col-md-4 col-12">
-
-													<div class="form-group">
-														<label for="">Centro</label>
-														<input type="text" class="form-control " value="content">
-													</div>
-
-													<div class="form-group">
-														<label for="">Área</label>
-														<input type="text" class="form-control " value="content">
-													</div>
-
-
-												</div>
-												<div class="col-md-4 col-12">
-													<div class="form-group">
-														<label for="">Edificio</label>
-														<input type="text" class="form-control " value="content">
-													</div>
-													<div class="form-group">
-														<label for="">Sala</label>
-														<input type="text" class="form-control " value="content">
-													</div>
-												</div>
-												<div class="col-md-4 col-12">
-													<div class="form-group">
-														<label for="">Piso</label>
-														<input type="text" class="form-control " value="content">
-													</div>
-
-
-												</div>
-
-
-											</div>
-
-
-										</div>
-									</div>
-
-									<hr>
-
-									<div id="headingFive">
-										<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-											<h5 class="text-left">Origen</h5>
-										</button>
-									</div>
-
-									<div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-										<div class="col-12">
-											<div class="row mt-3 mb-3">
-												<div class="col-md-4 col-12">
-
-													<div class="form-group">
-														<label for="">Acreedor</label>
-														<input type="text" class="form-control " value="content">
-													</div>
-
-
-												</div>
-												<div class="col-md-4 col-12">
-													<div class="form-group">
-														<label for="">Fabricante</label>
-														<input type="text" class="form-control " value="content">
-													</div>
-
-												</div>
-												<div class="col-md-4 col-12">
-													<div class="form-group">
-														<label for="">Condición de activo fijo</label>
-														<input type="text" class="form-control " value="content">
-													</div>
-
-
-												</div>
-
-
-											</div>
-										</div>
-									</div>
-
-									<hr>
-
-									<div id="headingSix">
-										<button class="btn btn-block btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-											<h5 class="text-left">Años de vida útil</h5>
-										</button>
-									</div>
-
-									<div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
-										<div class="col-12">
-											<div class="row mt-3 mb-3">
-												<div class="col-12">
-
-													<div class="form-group">
-														<label for="">Años de vida útil</label>
-														<input type="text" class="form-control " value="content">
-													</div>
-
-
-												</div>
-
-
-											</div>
-										</div>
-									</div>
-
-								</div>
-
-                    <div class="col-12 mt-3">
-					    <button type="button" class="btn btn-lg btn-block btn-primary" data-toggle="modal" data-target="#moveModal" [routerLink]="['/fixedAsset']">
-						    Guardar cambios 
-					    </button>
-				    </div>
+								</form>
 
 							</div>
 						</div>
 					</div>
-				</div>
-           
-
-			</div>
-
-
-			<!--end-->
-		</div>
-	</div>
-</div>
-<app-footer></app-footer>
+					<app-footer></app-footer>

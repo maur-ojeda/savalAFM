@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+//import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 import { SplashComponent } from './pages/splash/splash.component';
@@ -82,6 +82,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     BrowserModule,
     AppRoutingModule,
      FormsModule,
+    // ReactiveFormsModule,
       AngularFireModule.initializeApp(environment.firebase),
       AngularFireDatabaseModule,
       ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),

@@ -90,23 +90,24 @@
 											</div>
 											<div class="row mt-3 mb-3">
 												<div class="col-md-4 col-12">
-													<div class="form-group">
+													<div class="form-group" >
 														<label for="">Clase activo fijo</label>
-														<input  *ngIf="asset?.catalogClass" type="text" class="form-control " [readonly]="false" value="{{asset.catalogClass.name}}">
+														<input  *ngIf="asset?.catalogClass" type="text" class="form-control" [disabled]="true"
+														 value="{{asset.catalogClass.name}}">
 													</div>
 
 												</div>
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Sociedad</label>
-														<input *ngIf="asset?.society" type="text" class="form-control " readonly="" value="{{asset.society}}">
+														<input *ngIf="asset?.society" type="text" class="form-control " [disabled]="true" value="{{asset.society}}">
 													</div>
 												</div>
 
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Fecha de Capitalización</label>
-														<input  *ngIf="asset?.capitalizationDateAt" type="text" class="form-control " readonly="" value="{{asset.capitalizationDateAt.date }}">
+														<input  *ngIf="asset?.capitalizationDateAt" type="text" class="form-control " [disabled]="true" value="{{asset.capitalizationDateAt.date }}">
 
 													</div>
 												</div>
@@ -139,12 +140,14 @@
 
 													<div class="form-group">
 														<label for="">Número de serie</label>
-														<input *ngIf="asset?.serieNumber" type="text" class="form-control " readonly="" value="{{ asset.serieNumber }}">
+														
+														<input *ngIf="!asset?.serieNumber" type="text" class="form-control " [disabled]="true">
+														<input *ngIf="asset?.serieNumber" type="text" class="form-control " [disabled]="true" value="{{ asset.serieNumber }}">
 													</div>
 
 													<div class="form-group">
 														<div class="custom-control custom-checkbox">
-															<input type="checkbox" class="custom-control-input" id="" checked="" readonly="">
+															<input type="checkbox" class="custom-control-input" id="" checked="" [disabled]="true">
 															<label class="custom-control-label" for="">Gestión histórica</label>
 														</div>
 													</div>
@@ -153,12 +156,12 @@
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Denominación</label>
-														<textarea *ngIf="asset?.description" class="form-control " readonly="" name="" id="" cols="3">{{asset.description}}</textarea>
+														<textarea *ngIf="asset?.description" class="form-control " [disabled]="true" name="" id="" cols="3">{{asset.description}}</textarea>
 													</div>
 
 													<div class="form-group">
 														<div class="custom-control custom-checkbox">
-															<input type="checkbox" class="custom-control-input" id="" checked="" readonly="">
+															<input type="checkbox" class="custom-control-input" id="" [checked]="true" [disabled]="true">
 															<label class="custom-control-label" for="">Incluir activo fijo en lista inventario</label>
 														</div>
 
@@ -189,7 +192,8 @@
 
 													<div class="form-group">
 														<label for="">Centro de costo</label>
-														<input *ngIf="asset?.costCenter" type="text" class="form-control " readonly="" value="{{asset.costCenter.code}} - {{asset.costCenter.name}}">
+														<input *ngIf="!asset?.costCenter" type="text" class="form-control " [disabled]="true" value="">
+														<input *ngIf="asset?.costCenter" type="text" class="form-control " [disabled]="true" value="{{asset.costCenter.code}} - {{asset.costCenter.name}}">
 													</div>
 
 												</div>
@@ -217,12 +221,12 @@
 
 													<div class="form-group">
 														<label for="">Centro</label>
-														<input *ngIf="asset?.lCenter" type="text" class="form-control " readonly="" value="{{asset.lCenter.code}}">
+														<input  type="text" class="form-control " [disabled]="true" value="{{asset.lCenter.code}}">
 													</div>
 
 													<div class="form-group">
 														<label for="">Área</label>
-														<input *ngIf="asset?.lArea" type="text" class="form-control " readonly="" value="{{asset.lArea.code}}">
+														<input  type="text" class="form-control " [disabled]="true" value="{{asset.lArea.code}}">
 													</div>
 
 
@@ -230,17 +234,17 @@
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Edificio</label>
-														<input *ngIf="asset?.lBuilding" type="text" class="form-control " readonly="" value="{{asset.lBuilding.code}}">
+														<input type="text" class="form-control " [disabled]="true" value="{{asset.lBuilding.code}}">
 													</div>
 													<div class="form-group">
 														<label for="">Sala</label>
-														<input *ngIf="asset?.lRoom" type="text" class="form-control " readonly="" value="{{asset.lRoom.code}}">
+														<input type="text" class="form-control " [disabled]="true" value="{{asset.lRoom.code}}">
 													</div>
 												</div>
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Piso</label>
-														<input *ngIf="asset?.lFloor" type="text" class="form-control " readonly="" value="{{asset.lFloor.code}}">
+														<input type="text" class="form-control " [disabled]="true" value="{{asset.lFloor.code}}">
 													</div>
 
 
@@ -268,19 +272,19 @@
 
 												<div class="form-group">
 														<label for="">ID Acreedor</label>
-														<input *ngIf="asset?.creditorId" type="text" class="form-control " readonly="" value="{{ asset.creditorId }}">
+														<input type="text" class="form-control " [disabled]="true" value="{{ asset.creditorId }}">
 													</div>
 
 												</div>
 												<div class="col-md-4 col-12">
 													<div class="form-group">
 														<label for="">Fabricante</label>
-														<input *ngIf="asset?.creditorName" type="text" class="form-control " readonly="" value="{{asset.creditorName}}">
+														<input  type="text" class="form-control " [disabled]="true" value="{{asset.creditorName}}">
 													</div>
 
 													<div class="form-group">
 														<label for="">Origen</label>
-														<input *ngIf="asset?.assetOrigin" type="text" class="form-control " readonly="" value="{{asset.assetOrigin}}">
+														<input  type="text" class="form-control " [disabled]="true" value="{{asset.assetOrigin}}">
 													</div>
 
 													<div class="form-group">
@@ -288,7 +292,7 @@
 											<div class="custom-control custom-checkbox">
 
 													 <!--revisar esta-->
-												<input type="checkbox" class="custom-control-input" id="" readonly >
+												<input type="checkbox" class="custom-control-input" id="" [disabled]="true" [checked]="false" >
 												<label class="custom-control-label" for="">¿Es un activo nuevo?</label>
 											</div>
 										</div>
@@ -316,18 +320,16 @@
 
 													<div class="form-group">
 														<label for="">Años de vida útil</label>
-														<input *ngIf="asset?.lifetimeYear" type="text" class="form-control " readonly="" value="{{asset.lifetimeYear}}">
+														<input type="text" class="form-control " [disabled]="true" value="{{asset.lifetimeYear}}">
 													</div>
 
 													<div class="form-group">
 														<label for="">Vida útil tributaria</label>
-														<input *ngIf="asset?.lifetimeYear15" type="text" class="form-control " readonly="" value="{{asset.lifetimeYear15}}">
+														<input type="text" class="form-control " [disabled]="true" value="{{asset.lifetimeYear15}}">
 													</div>
 
 
 												</div>
-
-
 											</div>
 										</div>
 									</div>
