@@ -46,9 +46,38 @@ export class FixedAssetsComponent implements OnInit {
 navigateTo(value) {
   if (value) {
       this.router.navigate([value]);
+
   }
   return false;
 }
+
+
+navigateToUpdate(value) {
+  if (value) {
+      this.router.navigate([value]);
+
+  }
+  return false;
+}
+
+navigateToMove(value) {
+  if (value) {
+      this.router.navigate([value]);
+
+  }
+  return false;
+}
+
+navigateToDelete(value) {
+  if (value) {
+      this.router.navigate([value]);
+
+  }
+  return false;
+}
+
+
+
 
 /*
 myFunction(): void { 

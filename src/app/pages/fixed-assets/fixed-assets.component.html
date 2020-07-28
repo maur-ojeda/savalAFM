@@ -5,28 +5,63 @@
 
 
 
-<ng-template #content let-modal>
+<ng-template #modificate let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <h4 class="modal-title" id="modal-basic-title">Modificar activo fijo</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-     	<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)">
+     	<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)" (change)="modal.dismiss('Cross click')">
 				<option>Selecione activo fijo</option>
-				<option *ngFor='let asset of assets' value="/fixedAsset/{{asset.code}}">
+				<option *ngFor='let asset of assets' value="/fixedAssetUpdate/{{asset.code}}">
 					{{asset.code}}</option>
 			</select>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+</ng-template>
+
+<ng-template #traslate let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Trasladar activo fijo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+     	<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)" (change)="modal.dismiss('Cross click')">
+				<option>Selecione activo fijo</option>
+				<option *ngFor='let asset of assets' value="/fixedAssetMove/{{asset.code}}">
+					{{asset.code}}</option>
+			</select>
   </div>
 </ng-template>
+
+<ng-template #delete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Dar de baja activo fijo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+     	<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)" (change)="modal.dismiss('Cross click')">
+				<option>Selecione activo fijo</option>
+				<option *ngFor='let asset of assets' value="/fixedAssetDelete/{{asset.code}}">
+
+
+
+					{{asset.code}}</option>
+			</select>
+  </div>
+</ng-template>
+
+
+<!--
 <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
 <hr>
 <pre>{{ closeResult }}</pre>
-
+-->
 
 
 
@@ -56,7 +91,7 @@
 			</div>
 		</div>
 		<div class="col">
-			<div class="card" [routerLink]="['/fixedAssetUpdate']">
+			<div class="card" (click)="open(modificate)">
 				<div class="card-body text-center">
 					<h3 class="card-title text-primary">
 						<i class="icon-ico-modificar"></i>
@@ -68,7 +103,7 @@
 	</div>
 	<div class="row mt-5">
 		<div class="col">
-			<div class="card" [routerLink]="['/fixedAssetMove']">
+			<div class="card" (click)="open(traslate)">
 				<div class="card-body text-center">
 					<h3 class="card-title text-primary">
 						<i class="icon-ico-trasladar"></i>
@@ -78,7 +113,7 @@
 			</div>
 		</div>
 		<div class="col">
-			<div class="card" [routerLink]="['/fixedAssetDelete']">
+			<div class="card" (click)="open(delete)">
 				<div class="card-body text-center">
 					<h3 class="card-title text-primary">
 						<i class="icon-ico-eliminar"></i>

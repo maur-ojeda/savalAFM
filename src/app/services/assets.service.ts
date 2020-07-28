@@ -25,7 +25,7 @@ getAssets(): Promise<AssetInterface[]>{
   }
 
   return new Promise( resolve => {
-    this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets',{ headers })
+    this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/',{ headers })
       .subscribe( (assets: any) => {
         //console.log(items.data);
         this.assets = assets.data;
