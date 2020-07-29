@@ -154,6 +154,10 @@
 													<div class="col-md-4 col-12">
 														<div class="form-group">
 															<label for="">Especie</label>
+<select class="form-control" name="" id="">
+<option *ngFor='let specie of species'>{{ specie.code }} - {{specie.name}}</option>
+</select>
+
 															<input *ngIf="asset?.specie" type="text" class="form-control " readonly value="{{ asset.specie.code }} - {{ asset.specie.name }}">
 														</div>
 
@@ -214,9 +218,8 @@
 															<label for="">Centro de costo</label>
 
 															<select class="form-control" name="" id="">
-																<option></option>
-																<option></option>
-																<option></option>
+																<option *ngFor='let center of ccenters'>{{center.id}}</option>
+																
 															</select>
 
 															<input *ngIf="!asset?.costCenter" type="text" class="form-control " [disabled]="false" value="{{asset.costCenter.code}} - {{asset.costCenter.name}}">
@@ -254,7 +257,9 @@
 															<option *ngFor='let location of locations'>
 															{{location.name}}
 															</option>
-														  </select>
+												  </select>
+
+
 														</div>
 
 														<div class="form-group">

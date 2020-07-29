@@ -3,8 +3,13 @@ import { AssetInterface } from 'src/app/interfaces/asset.interface';
 import { AssetsService } from 'src/app/services/assets.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+
 import { LocationsService } from 'src/app/services/locations.service';
 import { LocationInterface } from 'src/app/interfaces/location.interface';
+import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
+import { CcenterService } from 'src/app/services/ccenter.service';
+import { SpecieService } from 'src/app/services/specie.service';
+import { SpeciesInterface } from 'src/app/interfaces/specie.interface';
 
 @Component({
   selector: 'app-fixedassetmove',
@@ -15,10 +20,14 @@ export class FixedassetmoveComponent implements OnInit {
 
   asset: AssetInterface;
   locations: LocationInterface[] = [];
+  ccenters: CcenterInterface[] = [];
+  species: SpeciesInterface[] = [];
 
   constructor(
     public assetsService: AssetsService,
     public locationsService: LocationsService,
+    public ccentersService: CcenterService,
+    public specieService: SpecieService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private location: Location 
@@ -32,6 +41,14 @@ export class FixedassetmoveComponent implements OnInit {
 
     this.locationsService.getlocations()
     .then( locations => this.locations = locations );
+   
+
+    this.ccentersService.getCcenters()
+    .then(ccenters => this.ccenters = ccenters );
+   
+
+    this.specieService.getSpecies()
+    .then(species => this.species = species );
    
 
     this.assetsService.getAssetPorId( id ).then( asset => {
