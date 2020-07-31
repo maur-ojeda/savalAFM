@@ -28,6 +28,7 @@ import { FixedAssetRejectedComponent } from './pages/fixed-asset-rejected/fixed-
 import { CreateComponent } from './pages/create/create.component';
 import { FixedAssetApprovedComponent } from './pages/fixed-asset-approved/fixed-asset-approved.component';
 import { FixedAssetClosedComponent } from './pages/fixed-asset-closed/fixed-asset-closed.component';
+import { RequestsComponent } from './pages/requests/requests.component';
 
 const routes: Routes = [
   { path: '', component : SplashComponent },
@@ -51,6 +52,8 @@ const routes: Routes = [
   { path: 'fixedAssetCreate6', component: Fixedassetcreate6Component },
   
   { path: 'contact', component: ContactComponent },
+
+  { path: 'request', component: RequestsComponent },
   
   { path: 'fixedAssetPending/:id', component: FixedAssetPendingComponent },
   { path: 'fixedAssetReject/:id', component: FixedAssetRejectedComponent },

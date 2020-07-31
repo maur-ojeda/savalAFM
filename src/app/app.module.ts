@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+//import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 //import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
@@ -48,7 +50,8 @@ import{FixedAssetDataService} from '../app/services/fixed-asset-data.service';
 import { CreateComponent } from './pages/create/create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FixedAssetApprovedComponent } from './pages/fixed-asset-approved/fixed-asset-approved.component';
-import { FixedAssetClosedComponent } from './pages/fixed-asset-closed/fixed-asset-closed.component'
+import { FixedAssetClosedComponent } from './pages/fixed-asset-closed/fixed-asset-closed.component';
+import { RequestsComponent } from './pages/requests/requests.component'
 
 
 
@@ -80,13 +83,15 @@ import { FixedAssetClosedComponent } from './pages/fixed-asset-closed/fixed-asse
     UserDeatailsComponent,
     CreateComponent,
     FixedAssetApprovedComponent,
-    FixedAssetClosedComponent
+    FixedAssetClosedComponent,
+    RequestsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
      FormsModule,
-    // ReactiveFormsModule,
+     ReactiveFormsModule,
+    
       AngularFireModule.initializeApp(environment.firebase),
       AngularFireDatabaseModule,
       ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),

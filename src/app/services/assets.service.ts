@@ -48,6 +48,65 @@ getAssetPorId( code: string ) {
   });
 }
 
+
+getAssetPorCode( code: string ) {
+  if ( this.assets.length > 0 ) {
+    const asset = this.assets.find( p => p.code === code );
+    return Promise.resolve( asset );
+  }
+  return this.getAssets().then( assets => {
+    const asset = this.assets.find( p => p.code === code );
+    return Promise.resolve( asset );
+  });
+}
+
+
+getAssetPorrfid( rfidLabelSap: string ) {
+  if ( this.assets.length > 0 ) {
+    const asset = this.assets.find( p => p.rfidLabelSap === rfidLabelSap );
+    return Promise.resolve( asset )
+  }
+  return this.getAssets().then( assets => {
+    const asset = this.assets.find( p => p.rfidLabelSap === rfidLabelSap );
+    return Promise.resolve( asset );
+  });
+}
+
+/*getAssetPorCodeSubcode( code: string, subCode: string ) {
+  if ( this.assets.length > 0 ) {
+    const asset = this.assets.find( p => p.code === code );
+    return Promise.resolve( asset );
+
+  }
+  return this.getAssets().then( assets => {
+    const asset = this.assets.find( p => p.code === code );
+    return Promise.resolve( asset );
+  });
+}*/
+
+
+
+
+
+getAssetPorValue( buscado: any ) {
+
+  alert('desde servicio' + buscado);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 InsertAssets(assets: AssetInterface){
 
 
@@ -160,3 +219,19 @@ httpPutExample() {
         }
 */ 
 }
+/*
+$scope.buscar = function(){
+  let arrBusqueda = $scope.buscarActividad.split(",");
+  $scope.actividadesShow = 
+  $scope.actividades
+            .filter((item)=>{ 
+               let a =  arrBusqueda.map((value)=>
+               {
+                return JSON.stringify(item)
+                          .toUpperCase()
+                          .indexOf(value.toUpperCase()) > -1 ? 1 : 0;
+               }).reduce((x, y) => x + y);   
+               return a > 0                 
+              }) 
+
+}*/

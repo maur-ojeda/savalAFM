@@ -8,177 +8,57 @@
 				<i class="fas fa-angle-left"></i>
 				volver
 			</a>
-			<div class="row">
-				<div class="col-12 tab m-3">
-					<div class="row">
-						<div class="col">
-							<div class="btn-group btn-group-toggle" data-toggle="buttons">
-								<a href="/fixedAsset" class="btn btn-lg btn-secondary">
-									Detalles
-								</a>
 
-								<a href="/fixedAssetUpdate" class="btn btn-lg btn-primary active">
-									Modificar
-								</a>
+		</div>
 
-								<a href="/fixedAssetMove" class="btn btn-lg btn-secondary">
-									Trasladar
-								</a>
-
-								<a href="/fixedAssetDelete" class="btn btn-lg btn-secondary">
-									Dar de baja
-								</a>
+		<div class="innerContent fixedAssets col-12">
 
 
-							</div>
 
-						</div>
-					</div>
-				</div>
-				<!--formulario-->
+<form [formGroup]="reactiveForm"   (ngSubmit)="saveData()" >
 
-				<div class="row pl-3 pr-3">
-					<div class="innerContent card fixedAssets col-12">
-						<div class="card-body">
-							<form #fixedAssetForm="ngForm" (ngSubmit)="onSubmit(fixedAssetForm)">
-								<div class="row mb-5">
-									<div class="col-12">
+Value :{{reactiveForm.value | json}}
 
-										<h5 class="text-left">Datos activo fijo</h5>
+<div class="form-group">
+  <label>texto</label>
+  <input type="text" class="form-control" formControlName="text">
+<small class="text-info" *ngIf="reactiveForm.get('text').hasError('required')">field is required</small>
+<small class="text-danger" *ngIf="reactiveForm.get('text').hasError('minlength')">min of characters</small>
+<small class="text-danger" *ngIf="reactiveForm.get('text').hasError('minlength')">max of 10 characters</small>
+</div>
 
+<div class="form-group">
+	<label >Select</label>
+	<select class="custom-select" formControlName="select">
+		<option [ngValue]="null" disabled>Seleccione ...</option>
+		<option *ngFor="let cClass of cClasses" [ngValue]="cClass.name">{{cClass.name}}</option>
+	</select>
+	<small class="text-info" *ngIf="reactiveForm.get('select').hasError('required')">field is required</small>
+</div>
 
-										<div class="form-group">
-											<label for="">Fecha de creacion</label>
-											<input type="date" class="form-control" name="fechaCreacion" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.fechaCreacion">
-										</div>
-										<div class="form-group">
-											<label for="">Creado por</label>
-											<input type="text" class="form-control" name="creadoPor" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.creadoPor">
-										</div>
-
-										<div class="form-group">
-											<label for="">Código</label>
-											<input type="text" class="form-control" name="codigo" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.codigo">
-										</div>
-										<div class="form-group">
-											<label for="">Código rfid</label>
-											<input type="text" class="form-control" name="codigoRfid" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.codigoRfid">
-										</div>
+<button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-primary">Enviar</button>
+</form>
 
 
-										<div class="form-group">
-											<label for="">Clase activo fijo</label>
-											<input type="text" class="form-control" name="claseActivoFijo" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.claseActivoFijo">
-										</div>
-										<div class="form-group">
-											<label for="">Sociedad</label>
-											<input type="text" class="form-control " name="sociedad" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.sociedad">
-										</div>
+<br>
 
 
-										<hr>
+<div>reactiveForm.valid= {{ reactiveForm.valid }}</div>
+<div>reactiveForm.invalid = {{ reactiveForm.invalid }}</div>
+<div>reactiveForm.status = {{ reactiveForm.status }}</div>
+<div>reactiveForm.disabled = {{ reactiveForm.disabled }}</div>
+<div>reactiveForm.elemento.select = {{ reactiveForm.controls.select.status }}</div>
 
-										<h5 class="text-left">General</h5>
-
-										<div class="form-group">
-											<label for="">Especie</label>
-											<input type="text" class="form-control" name="especie" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.especie">
-										</div>
-										<div class="form-group">
-											<div class="custom-control custom-checkbox">
-												<input type="checkbox" class="custom-control-input" checked="" name="gestionHistorica" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.gestionHistorica">
-												<label class="custom-control-label" for="">Gestión histórica</label>
-											</div>
-										</div>
+select:
+{{reactiveForm.get('select')}}
+<br/>
+text:
+{{reactiveForm.get('text').hasError('required')}}
 
 
-										<div class="form-group">
-											<label for="">Denominación</label>
-											<input type="text" class="form-control" name="denominacion" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.denominacion">
-										</div>
-										<div class="form-group">
-											<div class="custom-control custom-checkbox">
-												<input type="checkbox" class="custom-control-input" name="denominacion" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.denominacion">
-												<label class="custom-control-label" for="">Incluir activo fijo en lista inventario</label>
-											</div>
 
-										</div>
-
-
-										<div class="form-group">
-											<label for="">Cuenta</label>
-											<input type="text" class="form-control" name="cuenta" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.cuenta">
-										</div>
-										<hr>
-
-
-										<h5 class="text-left">Centro de costo</h5>
-										<div class="form-group">
-											<label for="">Centro de costo</label>
-											<input type="text" class="form-control" name="centroCosto" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.centroCosto">
-										</div>
-										<hr>
-										<h5 class="text-left">Asignaciones</h5>
-										<div class="form-group">
-											<label for="">Centro</label>
-											<input type="text" class="form-control" name="centro" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.centro">
-										</div>
-										<div class="form-group">
-											<label for="">Área</label>
-											<input type="text" class="form-control" name="area" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.area">
-										</div>
-										<div class="form-group">
-											<label for="">Edificio</label>
-											<input type="text" class="form-control" name="edificio" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.edificio">
-										</div>
-										<div class="form-group">
-											<label for="">Sala</label>
-											<input type="text" class="form-control" name="sala" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.sala">
-										</div>
-										<div class="form-group">
-											<label for="">Piso</label>
-											<input type="text" class="form-control" name="piso" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.piso">
-										</div>
-
-
-										<hr>
-
-										<h5 class="text-left">Origen</h5>
-
-										<div class="form-group">
-											<label for="">Acreedor</label>
-											<input type="text" class="form-control " value="content">
-										</div>
-										<div class="form-group">
-											<label for="">Fabricante</label>
-											<input type="text" class="form-control" name="fabricante" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.fabricante">
-										</div>
-										<div class="form-group">
-											<label for="">Condición de activo fijo</label>
-											<input type="text" class="form-control" name="condicion" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.condicion">
-										</div>
-										<hr>
-										<h5 class="text-left">Años de vida útil</h5>
-										<div class="form-group">
-											<label for="">Años de vida útil</label>
-											<input type="text" class="form-control" name="agnosVidaUtil" #name="ngModel" [(ngModel)]="fixedassetsService.selectedFixedasset.agnosVidaUtil">
-										</div>
-									</div>
-									<div class="col-12 mt-3">
-										<button type="button" class="btn btn-lg btn-block btn-primary" type="submit">
-											Guardar cambios
-										</button>
-										<button type="button" class="btn btn-lg btn-block btn-secondary" type="reset" (click)="resetForm(fixedAssetForm)">
-											RESET
-										</button>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<!--formulario-->
-			</div>
+		
+		
 		</div>
 		<!--end-->
 	</div>

@@ -2,83 +2,100 @@
 
 <div id="savalFixedAssets" class="container mt-5 pt-5">
 
-
-
-
-<ng-template #modificate let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Modificar activo fijo</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-     	<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)" (change)="modal.dismiss('Cross click')">
+	<ng-template #modificate let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">Modificar activo fijo</h4>
+			<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)" (change)="modal.dismiss('Cross click')">
 				<option>Selecione activo fijo</option>
 				<option *ngFor='let asset of assets' value="/fixedAssetUpdate/{{asset.code}}">
 					{{asset.code}}</option>
 			</select>
-  </div>
-</ng-template>
+		</div>
+	</ng-template>
 
-<ng-template #traslate let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Trasladar activo fijo</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-     	<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)" (change)="modal.dismiss('Cross click')">
+	<ng-template #traslate let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">Trasladar activo fijo</h4>
+			<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)" (change)="modal.dismiss('Cross click')">
 				<option>Selecione activo fijo</option>
 				<option *ngFor='let asset of assets' value="/fixedAssetMove/{{asset.code}}">
 					{{asset.code}}</option>
 			</select>
-  </div>
-</ng-template>
+		</div>
+	</ng-template>
 
-<ng-template #delete let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Dar de baja activo fijo</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-     	<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)" (change)="modal.dismiss('Cross click')">
+	<ng-template #delete let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">Dar de baja activo fijo</h4>
+			<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)" (change)="modal.dismiss('Cross click')">
 				<option>Selecione activo fijo</option>
 				<option *ngFor='let asset of assets' value="/fixedAssetDelete/{{asset.code}}">
 
 
-
 					{{asset.code}}</option>
 			</select>
-  </div>
-</ng-template>
+		</div>
+	</ng-template>
 
 
-<!--
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
-<hr>
-<pre>{{ closeResult }}</pre>
--->
+	<!--
+	<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+	<hr>
+	<pre>{{ closeResult }}</pre>
+	-->
 
 
-
-<div class="row">
-<i *ngIf="!assets" class="fa fa-spinner fa-spin text-primary"></i>
+	<div class="row">
+		<i *ngIf="!assets" class="fa fa-spinner fa-spin text-primary"></i>
 		<div *ngIf="assets" class="col input-group mb-3 mt-3">
 
-			<select  class="form-control" (change)="navigateTo($event.target.value)">
-				<option>Selecione activo fijo</option>
-				<option *ngFor='let asset of assets' value="/fixedAsset/{{asset.code}}">
 
-					{{asset.code}}</option>
-			</select>
+
+		<div class="input-group mb-3 ">
+		<input type="text" #ide class="form-control" placeholder="buscar activo fijo">
+		<div class="input-group-append">
+			<button class="btn btn-primary" type="button"  (click)="assetPorIde(ide.value)">Buscar</button>
+		</div>
+		</div>
+
+
+
+
+
+			<!--select  class="form-control" (change)="navigateTo($event.target.value)">
+							<option>Selecione activo fijo</option>
+							<option *ngFor='let asset of assets' value="/fixedAsset/{{asset.code}}">
+			
+								{{asset.code}}</option>
+						</select-->	
+
+
+
+
+	
+
+
+			
 
 
 		</div>
 	</div>
+
 	<div class="row">
 		<div class="col">
 			<div class="card" [routerLink]="['/fixedAssetCreate']">
@@ -86,7 +103,7 @@
 					<h3 class="card-title text-primary">
 						<i class="sl-icon sl-icon icon-ico-af"></i>
 					</h3>
-					<p class="card-text">Crear activo fijo</p>
+					<p class="card-text">Crear activo fijo<br/>&nbsp;</p>
 				</div>
 			</div>
 		</div>
@@ -101,7 +118,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="row mt-5">
+
+	<div class="row mt-3">
 		<div class="col">
 			<div class="card" (click)="open(traslate)">
 				<div class="card-body text-center">
@@ -123,67 +141,22 @@
 			</div>
 		</div>
 	</div>
-	<div class="innerContent card mt-5" style="max-height: 200px; overflow: auto;">
-	<i *ngIf="!requests" class="fa fa-spinner fa-spin text-primary"></i>
-		<div  *ngIf="requests" class="row card-body">
-			<div class="col-12 mt-3">
-				<h3>Activos fijos en proceso</h3>			
-				<table class="table table-responsive table-sm table-hover">
-					<thead>
-						<tr title="Tooltip on top">
-							<th scope="col"></th>
-							<th scope="col"><small>Id</small></th>
-							<th scope="col"><small>Clase de AF</small></th>
-							<th scope="col"><small>Solicitante</small></th>
-							<th scope="col"><small>Fecha de solicitud</small></th>
-							<th scope="col"><small>Nombre AF</small></th>
-							<th scope="col"><small>Especie</small></th>
-							<th scope="col"><small>Estado</small></th>
-							<th scope="col"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngFor='let request of requests'>
-							<td>
 
-								<span *ngIf="!request?.isEvaluated">
-									<i *ngIf="request?.status == 2" class="fas fa-info-circle text-warning" data-toggle="tooltip" data-placement="top" title="En revisión"></i>
+	<div class="row mt-3 mb-5">
 
-									<i *ngIf="request?.status == 3" class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="En revisión"></i>
-								</span>
-							</td>
-							<td *ngIf="request?.id"><small>{{request.id}}</small></td>
-							<td *ngIf="request?.catalogClass"><small>{{request.catalogClass.name}}</small></td>
-							<td *ngIf="request?.createdBy"><small>{{request.createdBy.username}}</small></td>
-							<td *ngIf="request?.createdBy"><small>{{request.createdAt.date}}</small></td>
-							<td *ngIf="request?.specie.name"><small>{{request.specie.name}}</small></td>
-							<td *ngIf="request?.specie.code"><small>{{request.specie.code}}
-								-
-								{{request.specie.name}}</small></td>
-							<td>
-
-								<span *ngIf="request?.status == 2" class="badge badge-secondary">En Evaluación</span>
-								<span *ngIf="request?.status == 3" class="badge badge-secondary">Rechazado</span>
-								<span *ngIf="request?.status == 4" class="badge badge-secondary">Aprobado</span>
-								<!--span *ngIf="request?.status == 5" class="badge badge-secondary">Cerrado</span-->
-
-
-							</td>
-							<td>
-
-								<a *ngIf="request?.status == 2" name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetPending', request.id ]" role="button">Revisar</a>
-								<a *ngIf="request?.status == 3"  name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetReject', request.id ]" role="button">Revisar</a>
-								<a *ngIf="request?.status == 4" name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetApproved', request.id ]" role="button">Revisar</a>
-								<a *ngIf="request?.status == 5" name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetClosed', request.id ]" role="button">Revisar</a>
-
-								
-  
-							</td>
-						</tr>
-					</tbody>
-				</table>
+<div class="col mb-5">
+			<div class="card" [routerLink]="['/request']">
+				<div class="card-body text-center">
+					<h3 class="card-title text-warning">
+						<i class="sl-icon sl-icon icon-ico-af"></i>
+					</h3>
+					<p class="card-text">Activos fijos en proceso</p>
+				</div>
 			</div>
 		</div>
+
+
 	</div>
+
 </div>
 <app-footer></app-footer>

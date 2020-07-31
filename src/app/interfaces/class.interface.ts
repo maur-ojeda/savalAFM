@@ -1,4 +1,4 @@
-export interface ClassInterface {
+export interface cClassInterface {
   error: boolean;
   message: string;
   data: Datum[];
