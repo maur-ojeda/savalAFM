@@ -1,13 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
 
+html,
+body {
+    height: 100%;
+}
 
-/* Importing Bootstrap SCSS file. */
+body {
+    margin: 0;
+    font-family: "Nunito", Calibri, Candara, Arial, sans-serif;
+}
 
+.mat-toolbar {
+    font: 200 20px/32px Nunito, "Helvetica Neue", sans-serif!important;
+}
 
-/*@import '~bootstrap/scss/bootstrap';*/
+.full-width {
+    width: 100%;
+}
 
+.footerSaval-btn {
+    width: 33%!important;
+    span {
+        line-height: 0px!important;
+        display: block;
+    }
+}
 
-/* Importing Bootstrap SCSS file. */
-
-
-/*@import '~bootstrap/scss/bootstrap';*/
+.cardSaval {
+    .sl-icon {
+        font-size: 24px!important;
+        color: #0047cc!important;
+    }
+    h4 {
+        font-weight: 900;
+        font-size: 14px;
+        color: #2f4858;
+        text-align: center;
+        text-transform: uppercase;
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+}

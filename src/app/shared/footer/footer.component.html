@@ -1,4 +1,5 @@
-<nav id="footerSaval" class="nav nav-tabs nav-stacked fixed-bottom justify-content-center">
+
+<!--nav id="footerSaval" class="fixed-bottom">
 
     <a class="nav-link text-center text-secondary" [routerLink]="['/home']">
         <i class="sl-icon icon-ico-inicio"></i>
@@ -13,4 +14,18 @@
         <i class="sl-icon sl-icon icon-ico-af"></i>
         <br/> Activo Fijo</a>
 
-</nav>
+</nav-->
+
+<nav class="fixed-bottom">
+ <mat-button-toggle-group footerSaval name="fontStyle" aria-label="Font Style" class="full-width">
+    <mat-button-toggle value="bold" [routerLink]="['/home']" class="footerSaval-btn"> <i class="sl-icon icon-ico-inicio"></i>
+        <span>Inicio</span>
+        </mat-button-toggle>
+    <mat-button-toggle value="italic" [routerLink]="['/userData']" class="footerSaval-btn"> <i class="sl-icon icon-ico-user"></i>
+        <span>Usuario</span>
+        </mat-button-toggle>
+    <mat-button-toggle value="underline" [routerLink]="['/fixedAssets']" class="footerSaval-btn">  <i class="sl-icon sl-icon icon-ico-af"></i>
+        <span>Activo Fijo</span>
+        </mat-button-toggle>
+  </mat-button-toggle-group>
+  </nav>

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 //import { FormsModule } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -33,6 +34,10 @@ import { FixedassetComponent } from './pages/fixedasset/fixedasset.component';
 import { FixedAssetPendingComponent } from './pages/fixed-asset-pending/fixed-asset-pending.component';
 import { FixedAssetRejectedComponent } from './pages/fixed-asset-rejected/fixed-asset-rejected.component';
 import { UserDeatailsComponent } from './pages/user-deatails/user-deatails.component';
+
+
+
+
 import { HttpClientModule } from '@angular/common/http';
 
 //cookie
@@ -51,9 +56,17 @@ import { CreateComponent } from './pages/create/create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FixedAssetApprovedComponent } from './pages/fixed-asset-approved/fixed-asset-approved.component';
 import { FixedAssetClosedComponent } from './pages/fixed-asset-closed/fixed-asset-closed.component';
-import { RequestsComponent } from './pages/requests/requests.component'
+import { RequestsComponent } from './pages/requests/requests.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
+//Material
+
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
@@ -84,19 +97,27 @@ import { RequestsComponent } from './pages/requests/requests.component'
     CreateComponent,
     FixedAssetApprovedComponent,
     FixedAssetClosedComponent,
-    RequestsComponent
+    RequestsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
      FormsModule,
      ReactiveFormsModule,
-    
       AngularFireModule.initializeApp(environment.firebase),
       AngularFireDatabaseModule,
       ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
       HttpClientModule,
-      NgbModule
+      NgbModule,
+      BrowserAnimationsModule,
+
+
+    
+      MatInputModule,
+      MatFormFieldModule,
+      MatButtonModule,
+      MatCardModule,
+      MatButtonToggleModule
   ],
   providers: [FixedassetsService, FixedAssetDataService, CookieService],
   bootstrap: [AppComponent]

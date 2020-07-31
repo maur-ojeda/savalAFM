@@ -8,30 +8,31 @@
 
 
 
+ <button mat-stroked-button color="primary" class="full-width mt-3 mb-5" [routerLink]="['/login']">
+ <i class="fas fa-sign-out-alt "></i>
+  Salir
+</button>
 
-<button type="button" name="" id="" class="btn btn-outline-primary btn-block" [routerLink]="['/login']">
-<i class="fas fa-sign-out-alt "></i>
-Salir</button>
 
 
 
-<div class="card mt-5" [routerLink]="['/userData']">
-  
-  <div class="card-body text-center">
+<mat-card class="cardSaval" 
+     [routerLink]="['/userData']">
+<div class="text-center">
   <i class="sl-icon icon-ico-user"></i>
     <h4>Bienvenido [nombre de usuario]</h4>
   </div>
-</div>
+</mat-card>
 
 
-<div class="card mt-5 mb-2" [routerLink]="['/fixedAssets']">
-  
-  <div class="card-body text-center">
-  <i class="sl-icon icon-ico-af"></i>
+<mat-card class="cardSaval mt-5" 
+     [routerLink]="['/fixedAssets']">
+<div class="text-center">
+   <i class="sl-icon icon-ico-af"></i>
     <h4 class="card-title">Activo fijo</h4>
     <p class="card-text">Crea, Modifica, Traslada y da de baja activos fijos.</p>
   </div>
-</div>
+</mat-card>
 
 
 <small class="mt-5 text-center">¿Tienes problemas con la aplicación? <a href="mailto:info@ayuda.com">Contáctenos</a></small>
