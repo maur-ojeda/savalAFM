@@ -57,7 +57,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FixedAssetApprovedComponent } from './pages/fixed-asset-approved/fixed-asset-approved.component';
 import { FixedAssetClosedComponent } from './pages/fixed-asset-closed/fixed-asset-closed.component';
 import { RequestsComponent } from './pages/requests/requests.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 
@@ -72,6 +73,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTableModule} from '@angular/material/table';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 import { OpenFixedassetComponent } from './dialogs/open-fixedasset/open-fixedasset.component';
@@ -110,6 +113,7 @@ import { DownFixedassetComponent } from './dialogs/down-fixedasset/down-fixedass
     OpenFixedassetComponent,
     MoveFixedassetComponent,
     DownFixedassetComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -133,7 +137,9 @@ import { DownFixedassetComponent } from './dialogs/down-fixedasset/down-fixedass
       MatSnackBarModule,
       MatDialogModule,
       MatProgressSpinnerModule,
-      MatTableModule
+      MatTableModule,
+      MatExpansionModule,
+      MatCheckboxModule
   ],
   entryComponents:[ OpenFixedassetComponent],
   providers: [FixedassetsService, FixedAssetDataService, CookieService],

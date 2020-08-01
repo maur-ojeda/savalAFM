@@ -13,8 +13,10 @@ import { Location } from '@angular/common';
 })
 export class FixedassetComponent implements OnInit {
   
-  asset: AssetInterface;
 
+  panelOpenState = false;
+  
+  asset: AssetInterface;
   constructor(
     public assetsService: AssetsService,
     private activatedRoute: ActivatedRoute,
@@ -39,5 +41,10 @@ export class FixedassetComponent implements OnInit {
   goBack() {
     this.location.back();
   }
+
+
+
+
+  
 
 }
