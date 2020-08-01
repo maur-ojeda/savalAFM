@@ -2,9 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { AssetsService } from '../../services/assets.service';
 import { AssetInterface } from '../../interfaces/asset.interface';
 import { Router } from '@angular/router';
-
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
+
+
+
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { OpenFixedassetComponent } from 'src/app/dialogs/open-fixedasset/open-fixedasset.component';
+import { MoveFixedassetComponent } from 'src/app/dialogs/move-fixedasset/move-fixedasset.component';
+import { DownFixedassetComponent } from 'src/app/dialogs/down-fixedasset/down-fixedasset.component';
+
 
 
 @Component({
@@ -17,27 +25,46 @@ import { NgForm } from '@angular/forms';
 
 
 export class FixedAssetsComponent implements OnInit {
-
   assets: AssetInterface[] = [];
   asset: AssetInterface;
-
-
+  
+  animal: string;
+  name: string;
+  
   closeResult = '';
 
   constructor(
     private assetsService: AssetsService,
-
     private modalService: NgbModal,
-    private router: Router) { }
+    private router: Router,
+    public dialog: MatDialog
+    
+    ) { }
 
   ngOnInit(): void {
 
 
     this.assetsService.getAssets()
       .then(assets => this.assets = assets);
-
-
   }
+
+ 
+  openDialog() {
+    this.dialog.open(OpenFixedassetComponent);
+    }
+
+
+    openDialogMove() {
+      this.dialog.open(MoveFixedassetComponent);
+      }
+  
+      openDialogDown() {
+        this.dialog.open(DownFixedassetComponent);
+        }
+    
+
+
+
 
   cargarDatos() {
     this.assetsService.getAssets()
@@ -45,9 +72,13 @@ export class FixedAssetsComponent implements OnInit {
   }
 
   assetPorIde(ide: any) {
-
-    console.log('inicio');
-console.log(ide);
+   
+    if(ide==""){
+      return this.router.navigateByUrl('/fixedAssets');
+    }
+    
+    
+    
     //separo en arreglo si el codigo viene con "-"
     var splitted = ide.split("-", 3);
     console.log(splitted[0]) //codigo
@@ -92,27 +123,6 @@ console.log(f.value);
 }
 
 
-  /*
-  buscador(buscado:any){
-  
-    this.assetsService.getAssetPorValue(buscado)
-  
-    /*this.assetsService.getAssetPorId( ide ).then( asset => {
-      if ( !asset ) {
-        return this.router.navigateByUrl('/');
-      }
-      this.asset = asset;
-      console.log( asset );
-    });
-  }
-  */
-
-
-
-
-
-
-  //000005009383
 
 
 
@@ -125,43 +135,6 @@ console.log(f.value);
   }
 
 
-  navigateToUpdate(value) {
-    if (value) {
-      this.router.navigate([value]);
-    }
-    return false;
-  }
-
-  navigateToMove(value) {
-    if (value) {
-      this.router.navigate([value]);
-
-    }
-    return false;
-  }
-
-  navigateToDelete(value) {
-    if (value) {
-      this.router.navigate([value]);
-
-    }
-    return false;
-  }
-
-
-
-
-  /*
-  myFunction(): void { 
-    alert(this.val); 
-     
-  } 
-  onOptionsSelected(value:string){
-    console.log("the selected value is " + value);
-  }
-  
-  
-  */
 
 
   //modal 

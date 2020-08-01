@@ -60,6 +60,7 @@ import { RequestsComponent } from './pages/requests/requests.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
+
 //Material
 
 import {MatInputModule} from '@angular/material/input';
@@ -67,7 +68,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCardModule} from '@angular/material/card';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTableModule} from '@angular/material/table';
 
+
+import { OpenFixedassetComponent } from './dialogs/open-fixedasset/open-fixedasset.component';
+import { MoveFixedassetComponent } from './dialogs/move-fixedasset/move-fixedasset.component';
+import { DownFixedassetComponent } from './dialogs/down-fixedasset/down-fixedasset.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +107,9 @@ import {MatCardModule} from '@angular/material/card';
     FixedAssetApprovedComponent,
     FixedAssetClosedComponent,
     RequestsComponent,
+    OpenFixedassetComponent,
+    MoveFixedassetComponent,
+    DownFixedassetComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,8 +129,13 @@ import {MatCardModule} from '@angular/material/card';
       MatFormFieldModule,
       MatButtonModule,
       MatCardModule,
-      MatButtonToggleModule
+      MatButtonToggleModule,
+      MatSnackBarModule,
+      MatDialogModule,
+      MatProgressSpinnerModule,
+      MatTableModule
   ],
+  entryComponents:[ OpenFixedassetComponent],
   providers: [FixedassetsService, FixedAssetDataService, CookieService],
   bootstrap: [AppComponent]
 })

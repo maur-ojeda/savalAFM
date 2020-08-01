@@ -12,8 +12,7 @@ export class UserDataComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  goBack() {
-    
+  goBack() { 
     this.location.back();
   }
 

@@ -1,0 +1,11 @@
+<h3 mat-dialog-title>Dar de baja Activo fijo</h3>
+<div mat-dialog-content>
+	<mat-form-field appearance="outline">
+		<mat-label>Buscar activo fijo</mat-label>
+		<input #ide matInput placeholder="Ingrese número">
+	</mat-form-field>
+</div>
+<div mat-dialog-actions>
+	<button mat-stroked-button mat-dialog-close>Cerrar</button>
+	<button mat-flat-button color="primary" (click)="assetPorIde(ide.value)">Buscar</button>
+</div>

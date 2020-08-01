@@ -2,6 +2,9 @@
 
 <div id="savalFixedAssets" class="container mt-5 pt-5">
 
+
+
+
 	<ng-template #modificate let-modal>
 		<div class="modal-header">
 			<h4 class="modal-title" id="modal-basic-title">Modificar activo fijo</h4>
@@ -53,49 +56,75 @@
 	</ng-template>
 
 
-	<!--
-	<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
-	<hr>
-	<pre>{{ closeResult }}</pre>
-	-->
 
 
-	<div class="row">
-		<i *ngIf="!assets" class="fa fa-spinner fa-spin text-primary"></i>
-		<div *ngIf="assets" class="col input-group mb-3 mt-3">
-
-
-
-		<div class="input-group mb-3 ">
-		<input type="text" #ide class="form-control" placeholder="buscar activo fijo">
-		<div class="input-group-append">
-			<button class="btn btn-primary" type="button"  (click)="assetPorIde(ide.value)">Buscar</button>
+	<div class="p3 mt-3">
+		<!--buscador-->
+		<div class="input-group mb-3">
+			<input type="text" #ide class="form-control" placeholder="buscar activo fijo">
+			<div class="input-group-append">
+				<button class="btn btn-primary" type="button" (click)="assetPorIde(ide.value)">Buscar</button>
+			</div>
 		</div>
-		</div>
+		<!--buscador-->
+
+		<div class="fluid-container">
+			<div class="row">
+				<div class="col-6">
+					<mat-card class="cardSaval" [routerLink]="['/fixedAssetCreate']">
+						<div class="text-center">
+							<i class="sl-icon icon-ico-af"></i>
+							<h4>Crear Activo fijo</h4>
+						</div>
+					</mat-card>
+				</div>
+
+				<div class="col-6">
+					<mat-card class="cardSaval" (click)="openDialog()">
+						<div class="text-center">
+							<i class="sl-icon icon-ico-modificar"></i>
+							<h4>Modificar activo fijo</h4>
+						</div>
+					</mat-card>
+				</div>
+			</div>
 
 
+			<div class="row mt-3">
+				<div class="col-6">
+					<mat-card class="cardSaval" (click)="openDialogMove()">
+						<div class="text-center">
+							<i class="sl-icon icon-ico-trasladar"></i>
+							<h4>Trasladar activo fijo</h4>
+						</div>
+					</mat-card>
+				</div>
+
+				<div class="col-6">
+					<mat-card class="cardSaval" (click)="openDialogDown()">
+						<div class="text-center">
+							<i class="sl-icon icon-ico-eliminar"></i>
+							<h4>Dar de baja</h4>
+						</div>
+					</mat-card>
+				</div>
+			</div>
 
 
-
-			<!--select  class="form-control" (change)="navigateTo($event.target.value)">
-							<option>Selecione activo fijo</option>
-							<option *ngFor='let asset of assets' value="/fixedAsset/{{asset.code}}">
-			
-								{{asset.code}}</option>
-						</select-->	
-
-
-
-
-	
-
-
-			
-
-
+			<div class="row mt-3">
+				<div class="col-12">
+					<mat-card class="cardSaval" [routerLink]="['/request']">
+						<div class="text-center">
+							<i class="sl-icon  icon-ico-af"></i>
+							<h4>Activos fijos en proceso</h4>
+						</div>
+					</mat-card>
+				</div>
+			</div>
 		</div>
 	</div>
 
+<!--
 	<div class="row">
 		<div class="col">
 			<div class="card" [routerLink]="['/fixedAssetCreate']">
@@ -144,7 +173,7 @@
 
 	<div class="row mt-3 mb-5">
 
-<div class="col mb-5">
+		<div class="col mb-5">
 			<div class="card" [routerLink]="['/request']">
 				<div class="card-body text-center">
 					<h3 class="card-title text-warning">
@@ -157,6 +186,6 @@
 
 
 	</div>
-
+-->
 </div>
 <app-footer></app-footer>
