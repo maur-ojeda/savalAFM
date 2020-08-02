@@ -17,6 +17,11 @@ body {
   width: 100%;
 }
 
+#footerMSaval,
+#headerSaval {
+  z-index: 999 !important;
+}
+
 .footerSaval-btn {
   width: 33% !important;
 }
@@ -39,4 +44,8 @@ body {
   text-transform: uppercase;
   margin-top: 30px;
   margin-bottom: 15px;
+}
+
+.mat-spinner {
+  margin: 35% auto;
 }

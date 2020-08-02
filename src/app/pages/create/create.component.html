@@ -19,22 +19,122 @@
 
 Value :{{reactiveForm.value | json}}
 
+<!--Clase-->
+<div class="form-group">	
+	<mat-form-field appearance="outline" class="full-width">
+	<mat-label>Clase</mat-label>
+	<select matNativeControl formControlName="catalogClass">
+		<option [ngValue]="null" disabled>Seleccione ...</option>   
+		<option *ngFor="let cClass of cClasses" [value]="cClass.id">{{cClass.name}}</option>
+	</select>
+	</mat-form-field>		
+	<small class="text-info" *ngIf="reactiveForm.get('catalogClass').hasError('required')">Este campo es obligatorio</small>
+</div>
+<!--Clase-->
+
+<!--Sociedad-->
 <div class="form-group">
-  <label>texto</label>
-  <input type="text" class="form-control" formControlName="text">
-<small class="text-info" *ngIf="reactiveForm.get('text').hasError('required')">field is required</small>
-<small class="text-danger" *ngIf="reactiveForm.get('text').hasError('minlength')">min of characters</small>
-<small class="text-danger" *ngIf="reactiveForm.get('text').hasError('minlength')">max of 10 characters</small>
+	<mat-form-field appearance="outline" class="full-width" >
+		<mat-label>
+			Sociedad
+		</mat-label>
+		<input  matInput placeholder="Sociedad" formControlName="sociedad" readonly>
+	</mat-form-field>
+	<small class="text-info" *ngIf="reactiveForm.get('sociedad').hasError('required')">field is required</small>
+	<small class="text-danger" *ngIf="reactiveForm.get('sociedad').hasError('minlength')">min of characters</small>
+	<small class="text-danger" *ngIf="reactiveForm.get('sociedad').hasError('minlength')">max of 10 characters</small>
+</div>
+<!--Sociedad-->
+
+<!--Especie-->
+<div class="form-group">	
+	<mat-form-field appearance="outline" class="full-width">
+	<mat-label>Especie</mat-label>
+	<select matNativeControl formControlName="specie" (change)="onChange($event.target.value)">
+		<option [ngValue]="null" disabled>Seleccione ...</option>   
+		<option *ngFor="let specie of species" [value]="specie.code">{{specie.name}}</option>
+	</select>
+	</mat-form-field>		
+	<small class="text-info" *ngIf="reactiveForm.get('specie').hasError('required')">Este campo es obligatorio</small>
+
+<div *ngIf='obj'>		
+<div *ngFor="let item of obj.attributes; let indexOfelement=index;">
+<div *ngIf='item' class="form-group">
+	<mat-form-field appearance="outline" class="full-width">
+		<mat-label>
+			{{item.name}}
+		</mat-label>
+		<input  matInput placeholder="{{item.name}}" formControlName="atributo_{{indexOfelement}}">
+
+	</mat-form-field>
 </div>
 
+
+</div>
+ 
+		
+</div>
+</div>
+<!--Especie-->
+
+<!--gestion-->
 <div class="form-group">
-	<label >Select</label>
+<mat-checkbox  [disabled]="true"   formControlName="history_check">Gestión histórica</mat-checkbox>
+<small class="text-info" *ngIf="reactiveForm.get('history_check').hasError('required')">Este campo es obligatorio</small>
+</div>
+<!--Gestion-->
+
+
+
+<!--inventario-->
+<div class="form-group">
+<mat-checkbox  [disabled]="true" formControlName="inventory_check">Incluir activo fijo en lista inventario</mat-checkbox>
+<small class="text-info" *ngIf="reactiveForm.get('history_check').hasError('required')">Este campo es obligatorio</small>
+</div>
+<!--Inventario-->
+
+
+
+<!--
+<div class="form-group">
+	<mat-form-field appearance="outline" class="full-width">
+		<mat-label>
+			Texto
+		</mat-label>
+		<input  matInput placeholder="Texto" formControlName="text">
+	</mat-form-field>
+	<small class="text-info" *ngIf="reactiveForm.get('text').hasError('required')">field is required</small>
+	<small class="text-danger" *ngIf="reactiveForm.get('text').hasError('minlength')">min of characters</small>
+	<small class="text-danger" *ngIf="reactiveForm.get('text').hasError('minlength')">max of 10 characters</small>
+</div>
+
+<div class="form-group">	
+	<mat-form-field appearance="outline" class="full-width">
+	<mat-label>Select</mat-label>
+	<select matNativeControl formControlName="select">
+		<option [ngValue]="null" disabled>Seleccione ...</option>   
+		<option *ngFor="let cClass of cClasses" 
+						[value]="cClass.name"            		
+						>{{cClass.name}}</option>
+	</select>
+	</mat-form-field>		
+	<small class="text-info" *ngIf="reactiveForm.get('select').hasError('required')">Este campo es obligatorio</small>
+</div>
+
+-->
+
+<!--[selected]="selectedCar === cClass.name"-->
+
+<!--
+<div class="form-group">
+	<label>Select</label>
 	<select class="custom-select" formControlName="select">
 		<option [ngValue]="null" disabled>Seleccione ...</option>
 		<option *ngFor="let cClass of cClasses" [ngValue]="cClass.name">{{cClass.name}}</option>
 	</select>
 	<small class="text-info" *ngIf="reactiveForm.get('select').hasError('required')">field is required</small>
 </div>
+-->
 
 <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-primary">Enviar</button>
 </form>
@@ -47,20 +147,26 @@ Value :{{reactiveForm.value | json}}
 <div>reactiveForm.invalid = {{ reactiveForm.invalid }}</div>
 <div>reactiveForm.status = {{ reactiveForm.status }}</div>
 <div>reactiveForm.disabled = {{ reactiveForm.disabled }}</div>
-<div>reactiveForm.elemento.select = {{ reactiveForm.controls.select.status }}</div>
+<div>reactiveForm.elemento.select = {{ reactiveForm.controls.specie.value }}</div>
+
+
 
 select:
-{{reactiveForm.get('select')}}
+
+<br/>
+<br/>
 <br/>
 
+<br/><br/><br/><br/><br/>MKE
 
 
 
-
-		
 		
 		</div>
 		<!--end-->
 	</div>
 </div>
 <app-footer></app-footer>
+
+
+

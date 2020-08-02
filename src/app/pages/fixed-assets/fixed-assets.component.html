@@ -2,62 +2,6 @@
 
 <div id="savalFixedAssets" class="container mt-5 pt-5">
 
-
-
-
-	<ng-template #modificate let-modal>
-		<div class="modal-header">
-			<h4 class="modal-title" id="modal-basic-title">Modificar activo fijo</h4>
-			<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-		<div class="modal-body">
-			<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)" (change)="modal.dismiss('Cross click')">
-				<option>Selecione activo fijo</option>
-				<option *ngFor='let asset of assets' value="/fixedAssetUpdate/{{asset.code}}">
-					{{asset.code}}</option>
-			</select>
-		</div>
-	</ng-template>
-
-	<ng-template #traslate let-modal>
-		<div class="modal-header">
-			<h4 class="modal-title" id="modal-basic-title">Trasladar activo fijo</h4>
-			<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-		<div class="modal-body">
-			<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)" (change)="modal.dismiss('Cross click')">
-				<option>Selecione activo fijo</option>
-				<option *ngFor='let asset of assets' value="/fixedAssetMove/{{asset.code}}">
-					{{asset.code}}</option>
-			</select>
-		</div>
-	</ng-template>
-
-	<ng-template #delete let-modal>
-		<div class="modal-header">
-			<h4 class="modal-title" id="modal-basic-title">Dar de baja activo fijo</h4>
-			<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-		<div class="modal-body">
-			<select *ngIf="assets" class="form-control" (change)="navigateTo($event.target.value)" (change)="modal.dismiss('Cross click')">
-				<option>Selecione activo fijo</option>
-				<option *ngFor='let asset of assets' value="/fixedAssetDelete/{{asset.code}}">
-
-
-					{{asset.code}}</option>
-			</select>
-		</div>
-	</ng-template>
-
-
-
-
 	<div class="p3 mt-3">
 		<!--buscador-->
 		<div class="input-group mb-3">
@@ -74,7 +18,7 @@
 					<mat-card class="cardSaval" [routerLink]="['/fixedAssetCreate']">
 						<div class="text-center">
 							<i class="sl-icon icon-ico-af"></i>
-							<h4>Crear Activo fijo</h4>
+							<h4>Crear Activo fijo<br/> &nbsp;</h4>
 						</div>
 					</mat-card>
 				</div>
@@ -104,7 +48,7 @@
 					<mat-card class="cardSaval" (click)="openDialogDown()">
 						<div class="text-center">
 							<i class="sl-icon icon-ico-eliminar"></i>
-							<h4>Dar de baja</h4>
+							<h4>Dar de baja activo fijo</h4>
 						</div>
 					</mat-card>
 				</div>
@@ -123,69 +67,5 @@
 			</div>
 		</div>
 	</div>
-
-<!--
-	<div class="row">
-		<div class="col">
-			<div class="card" [routerLink]="['/fixedAssetCreate']">
-				<div class="card-body text-center">
-					<h3 class="card-title text-primary">
-						<i class="sl-icon sl-icon icon-ico-af"></i>
-					</h3>
-					<p class="card-text">Crear activo fijo<br/>&nbsp;</p>
-				</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="card" (click)="open(modificate)">
-				<div class="card-body text-center">
-					<h3 class="card-title text-primary">
-						<i class="icon-ico-modificar"></i>
-					</h3>
-					<p class="card-text">modificar activo fijo</p>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="row mt-3">
-		<div class="col">
-			<div class="card" (click)="open(traslate)">
-				<div class="card-body text-center">
-					<h3 class="card-title text-primary">
-						<i class="icon-ico-trasladar"></i>
-					</h3>
-					<p class="card-text">trasladar activo fijo</p>
-				</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="card" (click)="open(delete)">
-				<div class="card-body text-center">
-					<h3 class="card-title text-primary">
-						<i class="icon-ico-eliminar"></i>
-					</h3>
-					<p class="card-text">dar de baja activo fijo</p>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="row mt-3 mb-5">
-
-		<div class="col mb-5">
-			<div class="card" [routerLink]="['/request']">
-				<div class="card-body text-center">
-					<h3 class="card-title text-warning">
-						<i class="sl-icon sl-icon icon-ico-af"></i>
-					</h3>
-					<p class="card-text">Activos fijos en proceso</p>
-				</div>
-			</div>
-		</div>
-
-
-	</div>
--->
 </div>
 <app-footer></app-footer>

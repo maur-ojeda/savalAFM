@@ -26,12 +26,25 @@ export class SpecieService {
       this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/species/',{ headers })
         .subscribe( (species: any) => {
           this.species = species.data;
-          console.log('species.data');
-          console.log(species.data);
+          //console.log('species.data');
+          //console.log(species.data);
           resolve( species.data );
           
         });
     });
   }
+
+  getSpeciesPorId( code: string ) {
+    if ( this.species.length > 0 ) {
+      
+      const specie = this.species.find( p => p.code === code );
+      return Promise.resolve( specie );
+    }
+    return this.getSpecies().then( species => {
+    const specie = this.species.find( p => p.code === code );
+    return Promise.resolve( specie );
+    });
+  }
+
 
 }

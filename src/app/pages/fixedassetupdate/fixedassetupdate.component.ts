@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 
 import { NgForm } from '@angular/forms';
 
-//import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 
 
@@ -50,10 +50,8 @@ export class FixedassetupdateComponent implements OnInit {
       if (!asset) {
         return this.router.navigateByUrl('/');
       }
-
       this.asset = asset;
-
-
+      console.log(asset);
     });
 
   }

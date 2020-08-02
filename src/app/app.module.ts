@@ -75,6 +75,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSelectModule} from '@angular/material/select';
+
 
 
 import { OpenFixedassetComponent } from './dialogs/open-fixedasset/open-fixedasset.component';
@@ -139,7 +141,8 @@ import { DownFixedassetComponent } from './dialogs/down-fixedasset/down-fixedass
       MatProgressSpinnerModule,
       MatTableModule,
       MatExpansionModule,
-      MatCheckboxModule
+      MatCheckboxModule,
+      MatSelectModule
   ],
   entryComponents:[ OpenFixedassetComponent],
   providers: [FixedassetsService, FixedAssetDataService, CookieService],

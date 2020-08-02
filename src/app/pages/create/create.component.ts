@@ -13,6 +13,7 @@ import { SpecieService } from 'src/app/services/specie.service';
 
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AttributeInterface } from 'src/app/interfaces/attribute.interface';
 
 @Component({
 	selector: 'app-create',
@@ -23,174 +24,149 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 //validaciones sicronas = formato de datos, o logica que no requiere consulta de datos
 
 
+
+
 export class CreateComponent implements OnInit {
+
+
+
+	  
+
 
 	//formbuilder
 	reactiveForm: FormGroup;
 	cClasses: cClassInterface[] = [];
-	//species: SpeciesInterface[] = [];
+	species: SpeciesInterface[] = [];
+	obj: SpeciesInterface;
 
 
 	constructor(
 		// public fixedassetsService: FixedassetsService,
 		public cClassService: ClassService,
-		// public specieService: SpecieService,
+		public specieService: SpecieService,
 		private builder: FormBuilder
 
-	) {
-
-	}
-
+	) {}
+	
 	ngOnInit() {
-
 		this.cClassService.getcClass()
-			.then(cClasses => this.cClasses = cClasses);
-		
+			.then(cClasses => this.cClasses = cClasses);	
+			
+			this.specieService.getSpecies()
+			.then(species => this.species = species);
+
+			
+
 			this.reactiveForm = this.builder.group({
-			select: ['', [Validators.required]],
-			text: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(10)]]
+				
+				catalogClass: ['', [Validators.required]],
+				specie: ['', [Validators.required]],
+				
+			//	assetCount:["1",[]],
+				sociedad: ['LS01', []],
+				history_check: ['true', []],
+				inventory_check: ['true', []],
+				
+				atributo_0: ['',[]],
+				atributo_1: ['',[]],
+				atributo_2: ['',[]],
+				atributo_3: ['',[]],
+				atributo_4: ['',[]],
+				atributo_5: ['',[]],
+				atributo_6: ['',[]],
+				atributo_7: ['',[]],
+				atributo_8: ['',[]],
+				atributo_9: ['',[]],
+			/*
+				creditorId,
+				assetOrigin,
+				lifetimeYear
+				*/
+				
 		});
+	
+
+
 		
-		this.reactiveForm.valueChanges.subscribe(console.log);
-		//console.log(this.reactiveForm.controls.select.status)
-		console.log(this.reactiveForm.controls.select.errors.required)
-
-		console.log('select=========')
-		console.log(this.reactiveForm.get('select').hasError('required'))
-
-
+	
+		
 	}
 
 
 
+	onChange(e: string) {
 
+	 this.specieService.getSpeciesPorId(e)
+	 .then( obj => this.obj = obj)
 
-	changeSelect(e) {
-		console.log(e.value)
-		/*this.select.setValue(e.target.value, {
-		  onlySelf: true
-		})*/
-	  }
+	 
+	 this.specieService.getSpeciesPorId(e)
+	 .then( ra => {console.log(ra)})
 
-
-
-	//on submit
-	saveData() {
-		console.log(this.reactiveForm.value)
 	}
 
+/*
+// const id = this.activatedRoute.snapshot.paramMap.get('id');
+
+    this.paisesService.getPaisPorId( id ).then( pais => {
+
+      if ( !pais ) {
+        return this.router.navigateByUrl('/');
+      }
+
+      this.pais = pais;
+      console.log( pais );
+
+    });
+
+
+*/
 
 
 
 
 
+saveData() {		
 
+const envio = {
 
+	//"catalogClass": this.reactiveForm.value.catalogClass
 
-
-	//this.fixedassetsService.getFixedAssets
-
-    /*
-   */
-	/*
-	  this.specieService.getSpecies()
-	  .then( species => this.species = species );
-	*/
-	/*
-	 saveData(){
-	   console.log(this.myForm.value);
-	 }
-   */
-
-
-	// this.resetForm();
+	"catalogClass": this.reactiveForm.value.catalogClass,
+	"specie": this.reactiveForm.value.catalogClass,
+	"specieAttributes":[
+	   {
+		  "value": this.reactiveForm.value.catalogClass,
+		  "specieAttribute": this.reactiveForm.value.catalogClass,
+	   },
+	   {
+		  "value":this.reactiveForm.value.catalogClass,
+		  "specieAttribute": this.reactiveForm.value.catalogClass,
+	   }
+	],
+	"assetCount":this.reactiveForm.value.catalogClass,
+ 
+ 
+	"assetRequestDetails":[
+	   {
+		  "serieNumber":this.reactiveForm.value.catalogClass,
+		  "costCenter":this.reactiveForm.value.catalogClass,
+		  "lCenter":this.reactiveForm.value.catalogClass,
+		  "lBuilding":this.reactiveForm.value.catalogClass,
+		  "lFloor":this.reactiveForm.value.catalogClass,
+		  "lArea": this.reactiveForm.value.catalogClass,
+		  "lRoom":this.reactiveForm.value.catalogClass,
+	   }
+	],
+	
+	"creditorId":this.reactiveForm.value.catalogClass,
+	"newAsset": this.reactiveForm.value.catalogClass,
+	"assetOrigin":this.reactiveForm.value.catalogClass,
+	"lifetimeYear": this.reactiveForm.value.catalogClass,
 }
-/*
-  resetForm(fixedAssetForm?: NgForm){
-    if(fixedAssetForm != null){
-      fixedAssetForm.reset();
-      this.fixedassetsService.selectedFixedasset =  new Fixedasset();
-    }
-  }
-*/
-/*
-  onSubmit(fixedAssetForm: NgForm){
-      this.fixedassetsService.insertFixedAsset(fixedAssetForm.value);
-      this.resetForm(fixedAssetForm);
+		
 
-  }
+		console.log(envio)
 
+	}
 }
-*/
-
-
-/*
-
-<!--
-
-				<form>
-					<div class="row mb-5">
-						<div class="col-12">
-						<h5 class="text-left">Datos activo fijo</h5>
-							<!--clases-->
-							<div class="form-group">
-								<label for="">Clase</label>
-								<div class="form-group">
-									<label for=""></label>
-									<select class="custom-select">
-										<option>Seleccione...</option>
-										<option *ngFor="let cClass of cClasses">{{cClass.name}}
-											{{cClass.code}}
-											{{cClass.id}}</option>
-									</select>
-								</div>
-
-							</div>
-							<!--sociedad-->
-							<div class="form-group">
-								<label for="">Sociedad</label>
-								<input readonly value="LS01" type="text" class="form-control" >
-							</div>
-							<!--historia-->
-							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="history_check" checked="" disabled="disabled"/>
-								<label class="custom-control-label" for="history_check">Gestión histórica</label>
-							</div>
-							<!--inventario-->
-							<div class="form-group">
-								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="inventory_check" checked="" disabled="disabled"/>
-									<label class="custom-control-label" for="inventory_check">Incluir activo fijo en lista inventario</label>
-								</div>
-							</div>
-							<!--especies-->
-							<div class="form-group">
-								<label for="">Especie</label>
-								<div class="form-group">
-									<label for=""></label>
-									<select class="custom-select">
-										<option>Seleccione...</option>
-										<option *ngFor="let specie of species">
-											{{specie.id}}  -  {{specie.name}} -  {{specie.code}}  {{specie.attributes[0].id}}
-										</option>
-									</select>
-								</div>
-
-							</div>
-
-								<div class="col-12 mt-3">
-									<button type="button" class="btn btn-lg btn-block btn-primary" type="submit">
-										Guardar cambios
-									</button>
-									<!--button type="button" class="btn btn-lg btn-block btn-secondary" type="reset" (click)="resetForm(fixedAssetForm)">
-																																				RESET</button-->
-								</div>
-
-
-						</div>
-					</div>
-				</form>
-
-		-->
-
-*/
