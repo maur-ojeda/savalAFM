@@ -23,11 +23,9 @@ export class SpecieService {
       return Promise.resolve( this.species );
     }
     return new Promise( resolve => {
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/species/',{ headers })
+      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/species',{ headers })
         .subscribe( (species: any) => {
           this.species = species.data;
-          //console.log('species.data');
-          //console.log(species.data);
           resolve( species.data );
           
         });

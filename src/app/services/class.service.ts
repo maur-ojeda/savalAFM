@@ -27,11 +27,9 @@ export class ClassService {
       return Promise.resolve(this.cClasses);
     }
     return new Promise(resolve => {
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/class/', { headers })
+      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/class', { headers })
         .subscribe((cClasses: any) => {
           this.cClasses = cClasses.data;
-          //console.log('cClasses.data');
-          //console.log(cClasses.data);
           resolve(cClasses.data);
 
         });

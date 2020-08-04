@@ -1,10 +1,4 @@
 export interface RequestInterface {
-  error: boolean;
-  message: string;
-  data: Datum[];
-}
-
-interface Datum {
   id: number;
   createdAt: CreatedAt;
   catalogClass: CatalogClass;
@@ -16,13 +10,14 @@ interface Datum {
   assetOrigin?: any;
   lifetimeYear: number;
   lifetimeYear15?: any;
-  assetRequestDetails: AssetRequestDetails;
+  assetRequestDetails: AssetRequestDetail[];
   createdBy: CreatedBy;
   evaluatedBy?: any;
   status: number;
   isEvaluated: boolean;
-  specieAttributes: AssetRequestDetails;
-  history: AssetRequestDetails;
+  specieAttributes: SpecieAttribute[];
+  history: History[];
+  number: number;
 }
 
 interface CreatedBy {
@@ -34,7 +29,24 @@ interface CreatedBy {
   isActive: boolean;
 }
 
-interface AssetRequestDetails {
+interface AssetRequestDetail {
+  id: number;
+  serieNumber: string;
+  costCenter: CatalogClass;
+  lCenter: LCenter;
+  lBuilding: LCenter;
+  lFloor: LCenter;
+  lArea: LCenter;
+  lRoom: LCenter;
+  status: number;
+  code?: any;
+}
+
+interface LCenter {
+  id: number;
+  code: string;
+  name: string;
+  type: number;
 }
 
 interface Specie {
@@ -62,3 +74,18 @@ interface CreatedAt {
   timezone_type: number;
   timezone: string;
 }
+
+
+interface History {
+  id: number;
+  createdBy: CreatedBy;
+  description: string;
+  status: number;
+}
+
+interface SpecieAttribute {
+  id: number;
+  specieAttribute: Attribute;
+  value: string;
+}
+

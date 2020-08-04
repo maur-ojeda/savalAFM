@@ -1,10 +1,6 @@
 <app-header></app-header>
 <div class="container">
-
-
 	<mat-spinner *ngIf="!asset"></mat-spinner>
-
-
 	<div *ngIf="asset?.code" class="mt-5 pt-5 p-3">
 		<div class="row">
 			<button mat-button color="primary" (click)="goBack()" class="mb-3">
@@ -243,6 +239,5 @@
 		</div>
 
 	</div>
-
 </div>
 <app-footer></app-footer>

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-//import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-//import { RequestsService } from 'src/app/services/requests.service';
-//import { RequestInterface } from 'src/app/interfaces/request.interface';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { RequestInterface } from 'src/app/interfaces/request.interface';
+import { RequestsService } from 'src/app/services/requests.service';
 
 @Component({
   selector: 'app-fixed-asset-pending',
@@ -11,25 +10,26 @@ import { Location } from '@angular/common';
   styleUrls: ['./fixed-asset-pending.component.scss']
 })
 export class FixedAssetPendingComponent implements OnInit {
-
-  //request: RequestInterface;
+  
+  request: RequestInterface;
+  
   constructor(
-   // public requestsService: RequestsService,
-   // private activatedRoute: ActivatedRoute,
-  // private router: Router,
-    private location: Location 
-
+   public requestsService: RequestsService,
+   private activatedRoute: ActivatedRoute,
+   private router: Router,
+   private location: Location 
   ) { }
 
   ngOnInit(): void {
-    //const id = this.activatedRoute.snapshot.paramMap.get('id');
-    /*this.requestsService.getRequestsPorId( id ).then( request => {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    let ide = parseInt(id)
+    this.requestsService.getRequestsPorId( ide ).then( request => {
       if ( !request ) {
         return this.router.navigateByUrl('/');
       }
       this.request = request;
-      console.log( request );
-    });*/
+    });
+    
   }
 
   goBack() {

@@ -25,6 +25,8 @@ getRequests(): Promise<RequestInterface[]>{
   }
 
   return new Promise( resolve => {
+
+    
     this.http.get('https://afsaval.agenciasur.cl/webservice/rest/requests/',{ headers })
       .subscribe( (requests: any) => {
         this.requests = requests.data;
@@ -34,7 +36,7 @@ getRequests(): Promise<RequestInterface[]>{
   });
 }
 
-/*getRequestsPorId( id:number ) {
+getRequestsPorId( id:number ) {
   if ( this.requests.length > 0 ) {
     const request = this.requests.find( p => p.id === id );
     return Promise.resolve( request );
@@ -43,7 +45,7 @@ getRequests(): Promise<RequestInterface[]>{
     const request= this.requests.find( p => p.id === id );
     return Promise.resolve( request );
   });
-}*/
+}
 
 
 

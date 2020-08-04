@@ -32,7 +32,6 @@ export class FixedassetComponent implements OnInit {
       if ( !asset ) {
         return this.router.navigateByUrl('/');
       }
-    
       this.asset = asset;
       console.log( asset );
     });

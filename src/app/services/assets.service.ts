@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { AssetInterface } from '../interfaces/asset.interface';
-//import { AssetClass } from '../models/asset.class';
 
 
 
@@ -107,17 +106,38 @@ getAssetPorValue( buscado: any ) {
 
 
 
-InsertAssets(assets: AssetInterface){
+
+InsertAssets(formValue){
+
+console.log(formValue);
 
 
+let user ="mobile_user";
+let pass ="testing";
+
+
+  let headers = new HttpHeaders()
+    .set('Authorization',   `Basic ${btoa(user + ":" + pass)}`)
+    .set("Content-Type", "application/json");
+    //.set('Content-Type', 'application/x-www-form-urlencoded')//<--funciona desde servidor
+    
+
+this.http.post("https://afsaval.agenciasur.cl/webservice/rest/request/add",formValue,{headers})
+  .subscribe(
+      val => {
+          console.log("PUT call successful value returned in body", 
+                      val);
+      },
+      response => {
+          console.log("PUT call in error", response);
+      },
+      () => {
+          console.log("The PUT observable is now completed.");
+      }
+  );
 
 }
-
-
-
-
 updateAssets(assets: AssetInterface){
-  
 }
 deleteAssets(code: string ){
 
@@ -128,6 +148,7 @@ deleteAssets(code: string ){
 httpPutExample() {
 
   const headers = new HttpHeaders()
+  application/json
       .set("Content-Type", "application/json");
   
   this.http.put("/courses/-KgVwECOnlc-LHb_B0cQ.json",

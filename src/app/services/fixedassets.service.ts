@@ -3,7 +3,7 @@
 */
 
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+//import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Fixedasset } from '../models/fixedasset';
 
 @Injectable({
@@ -11,11 +11,13 @@ import { Fixedasset } from '../models/fixedasset';
 })
 export class FixedassetsService {
 
-  fixedAssetList:AngularFireList<any>;
+  //fixedAssetList:AngularFireList<any>;
   selectedFixedasset : Fixedasset = new Fixedasset();
 
-  constructor( private firebase: AngularFireDatabase) { }
-
+  constructor( 
+    //private firebase: AngularFireDatabase
+    ) { }
+/*
  
   getFixedAssets(){
     this.fixedAssetList = this.firebase.list('fixedAssets');
@@ -74,5 +76,5 @@ export class FixedassetsService {
   deleteFixedAsset($key: string){
     this.fixedAssetList.remove($key);
   }
-
+*/
 }

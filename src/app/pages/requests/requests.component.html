@@ -41,7 +41,6 @@
 
 					<span *ngIf="!request?.isEvaluated">
 						<i *ngIf="request?.status == 2" class="fas fa-info-circle text-warning" data-toggle="tooltip" data-placement="top" title="En revisión"></i>
-
 						<i *ngIf="request?.status == 3" class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="En revisión"></i>
 					</span>
 				</td>
@@ -54,7 +53,7 @@
 				<td *ngIf="request?.createdBy">
 					<small>{{request.createdBy.username}}</small>
 				</td>
-				<td *ngIf="request?.createdBy">
+				<td *ngIf="request?.createdAt">
 					<small>{{request.createdAt.date}}</small>
 				</td>
 				<td *ngIf="request?.specie.name">

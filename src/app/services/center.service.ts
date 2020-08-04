@@ -1,38 +1,38 @@
-/**
- * Centros de costo
-*/
 import { Injectable } from '@angular/core';
-import { CcenterInterface } from '../interfaces/ccenter.interface';
+import { CenterInterface } from '../interfaces/center.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CcenterService {
+export class CenterService {
 
-  private ccenters: CcenterInterface[] = [];
+  private centers: CenterInterface[] = [];
   
   constructor(private http: HttpClient) { }
 
 
-  getCcenters(): Promise<CcenterInterface[]>{
+  getCenters(): Promise<CenterInterface[]>{
     let user ="mobile_user";
     let pass ="testing";
     let headers = new HttpHeaders()
     .set('Authorization',   `Basic ${btoa(user + ":" + pass)}`)
     .set('Content-Type', 'application/x-www-form-urlencoded')
   
-    if ( this.ccenters.length > 0 ) {
-      return Promise.resolve( this.ccenters );
+    if ( this.centers.length > 0 ) {
+      return Promise.resolve( this.centers );
     }
     return new Promise( resolve => {
+  
 
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/costcenters',{ headers })
-        .subscribe( (ccenters: any) => {
-          this.ccenters = ccenters.data;
+      
+
+      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/location/centers',{ headers })
+        .subscribe( (centers: any) => {
+          this.centers = centers.data;
           //console.log('ccenters.data');
           //console.log(ccenters.data);
-          resolve( ccenters.data );
+          resolve( centers.data );
           
         });
     });

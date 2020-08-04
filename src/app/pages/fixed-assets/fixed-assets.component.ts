@@ -50,16 +50,23 @@ export class FixedAssetsComponent implements OnInit {
 
  
   openDialog() {
-    this.dialog.open(OpenFixedassetComponent);
+    this.dialog.open(OpenFixedassetComponent,{
+      width: '98VW'
+    });
+    
     }
 
 
     openDialogMove() {
-      this.dialog.open(MoveFixedassetComponent);
+      this.dialog.open(MoveFixedassetComponent,{
+        width: '98VW'
+      });
       }
   
       openDialogDown() {
-        this.dialog.open(DownFixedassetComponent);
+        this.dialog.open(DownFixedassetComponent,{
+          width: '98VW'
+        });
         }
     
 

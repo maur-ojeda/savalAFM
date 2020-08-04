@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RequestInterface } from 'src/app/interfaces/request.interface';
 import { RequestsService } from 'src/app/services/requests.service';
 
-
 @Component({
   selector: 'app-fixed-asset-approved',
   templateUrl: './fixed-asset-approved.component.html',
@@ -18,21 +17,21 @@ export class FixedAssetApprovedComponent implements OnInit {
   constructor(  
     public requestsService: RequestsService,
     private location: Location ,
-   // private activatedRoute: ActivatedRoute,
-    //private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
-   /* const id = this.activatedRoute.snapshot.paramMap.get('id');
-
-    this.requestsService.getRequestsPorId( id ).then( request => {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    let ide = parseInt(id)
+    this.requestsService.getRequestsPorId( ide ).then( request => {
       if ( !request ) {
         return this.router.navigateByUrl('/');
       }
     
       this.request = request;
-      console.log( request );
-    });*/
+      //console.log( request );
+    });
     
   }
 
