@@ -27,8 +27,12 @@
 		</div>
 
 	<form [formGroup]="reactiveForm" (ngSubmit)="updateData()">
+	
+	<input matInput formControlName="assetID">
+
+	
 		<div class="row pt-3">
-			<mat-accordion class="full-width">
+			<mat-accordion class="full-width" #accordion="matAccordion">
 				<mat-expansion-panel [expanded]="true">
 					<mat-expansion-panel-header>
 						<mat-panel-title>
@@ -251,8 +255,9 @@
 						<mat-label>
 							Origen
 						</mat-label>
+
 						<input *ngIf="asset?.assetOrigin" matInput placeholder="" readonly value="{{asset.assetOrigin}}">
-					</mat-form-field>newAsset
+					</mat-form-field>
 
 					<mat-checkbox [checked]="asset.newAsset" [disabled]="true">¿Es un activo nuevo?</mat-checkbox>
 

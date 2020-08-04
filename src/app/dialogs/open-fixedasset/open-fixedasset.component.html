@@ -4,7 +4,8 @@
 <div mat-dialog-content>
 	<mat-form-field appearance="outline" class="full-width">
 		<mat-label>Buscar activo fijo</mat-label>
-		<input matInput placeholder="Ingrese número" formControlName="search" (change)="rfidConvert($event.target.value)">
+		<input matInput placeholder="Ingrese número" formControlName="search">
+		<mat-hint>{{estatus}}</mat-hint>
 	</mat-form-field>
 </div>
 <div mat-dialog-actions>

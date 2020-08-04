@@ -42,9 +42,11 @@ export class FixedassetupdateComponent implements OnInit {
   ngOnInit(): void {
 
    
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.assetsService.getAssetPorId(id).then(asset => {
+    let ide = Number(id);
+
+    this.assetsService.getAssetPorId(ide).then(asset => {
       if (!asset) {
         return this.router.navigateByUrl('/');
       }
@@ -56,6 +58,7 @@ export class FixedassetupdateComponent implements OnInit {
     .then(CCenters => this.CCenters = CCenters);
 
     this.reactiveForm = this.builder.group({
+      assetID:['',[]],
       rfidLabelFake: ['', []],
       rfidLabelSap: ['', []],
       serieNumber: ['', []],
@@ -78,6 +81,7 @@ rfidConvert(n){
 }
 
   getAssetsData(e){
+    this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
     this.reactiveForm.controls['rfidLabelSap'].setValue(e.rfidLabelSap);
     this.reactiveForm.controls['serieNumber'].setValue(e.serieNumber);
@@ -92,6 +96,9 @@ rfidConvert(n){
   }
 
   updateData(){
+    
+    let ide =  this.reactiveForm.value.assetID;
+
     let formValue = {
       "rfidLabelFake": this.reactiveForm.value.rfidLabelFake,
       "rfidLabelSap": this.reactiveForm.value.rfidLabelSap,
@@ -102,10 +109,14 @@ rfidConvert(n){
       "lifetimeYear": this.reactiveForm.value.lifetimeYear,
     }
 
-      //this.assetsService.updateAssets(fixedAssetForm.value);
-    alert(JSON.stringify(formValue));
+    //console.log(ide, formValue )
+    this.assetsService.updateAssets(formValue, ide);
+    //alert(JSON.stringify(formValue));
 
 }
+
+
+
 
 }
 

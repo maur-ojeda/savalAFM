@@ -16,6 +16,7 @@ export class MoveFixedassetComponent implements OnInit {
   asset: AssetInterface;
   reactiveForm: FormGroup;
   ide;
+  estatus;
 
 
   constructor(
@@ -34,52 +35,75 @@ export class MoveFixedassetComponent implements OnInit {
 		});
   }
 
-  assetPorIde(ide: any) {   
-    if(ide==""){
-      this.dialogRef.close();
+  assetPorIde(valor: any) {
+   
+    //vacio
+    if(valor==""){
       return this.router.navigateByUrl('/fixedAssets');
     }
-    var splitted = ide.split("-", 3);
-    console.log(splitted[0]) //codigo
-    console.log(splitted[1]) //guion
-    console.log(splitted[2]) //subcodigo
-
+    
+    if (valor.length > 20){
   
-    if (splitted[1] != undefined) {
-      if (splitted[0].length > 11) {
-        this.assetsService.getAssetPorCode(splitted[0]).then(asset => {
+      let last8 = valor.substr(valor.length - 8); 
+      let hexa = parseInt(last8, 16);
+      console.log(hexa);
+      console.log(hexa.toString());
+      
+
+
+      this.assetsService.getAssetPorRfid(hexa.toString()).then(asset => {
+        if (!asset) {
+          this.estatus="No se ha encontrado registro asociado al número buscado.";
+          return this.router.navigateByUrl('/fixedAssets');
+        }
+        this.asset = asset;
+        this.dialogRef.close();
+        let route = "fixedAssetMove/" + asset.id;
+        return this.router.navigateByUrl(route);
+      });
+
+      //this.reactiveForm.controls['search'].setValue(hexa);
+      //convertir a rfid y comparar por rfidLabelSap y devolver el id para navegar
+    }else{
+
+      var splitted = valor.split("-", 3);
+      console.log(splitted[0]) //codigo
+      console.log(splitted[1]) //guion
+      console.log(splitted[2]) //subcodigo
+
+      if (splitted[1] != undefined) { 
+        //alert('referalCode: '+ valor);
+        //comparar con referalCode y trae id
+        this.assetsService.getAssetPorReferalCode(valor).then(asset => {
           if (!asset) {
-            return this.router.navigateByUrl('/fixedAssetMove');
+            //this.openNoRegister();
+            this.estatus="No se ha encontrado registro asociado al número buscado.";
+            return this.router.navigateByUrl('/fixedAssets');
           }
           this.asset = asset;
-          let route = "fixedAssetMove/" + asset.code;
           this.dialogRef.close();
+          let route = "fixedAssetMove/" + asset.id;
           return this.router.navigateByUrl(route);
         });
       }
-    }else{
-      if(splitted[0].length <= 11){
-         this.assetsService.getAssetPorrfid( ide ).then( asset => {
-           if ( !asset ) {
-             return this.router.navigateByUrl('/fixedAssetMove');
-           }
-           this.asset = asset;
-          let route = "fixedAssetMove/"+asset.code;
-          this.dialogRef.close();
-         return this.router.navigateByUrl(route);
-         });
-       }
-     
+      if (splitted[0].length > 11){ 
+        //alert('code: '+ valor);
+        //comparar con code y traer id
+           this.assetsService.getAssetPorCode(valor).then(asset => {
+            if (!asset) {
+              //this.openNoRegister();
+              this.estatus="No se ha encontrado registro asociado al número buscado.";
+              return this.router.navigateByUrl('/fixedAssets');
+          
+            }
+            this.asset = asset;
+            this.dialogRef.close();
+            let route = "fixedAssetMove/" + asset.id;
+            return this.router.navigateByUrl(route);
+          });
+      }else{this.estatus="No se ha encontrado registro asociado al número buscado.";}
     }
-  }
-
-  rfidConvert(n){
-    if (n.length > 20){
-    var last8 = n.substr(n.length - 8); 
-    var hexa = parseInt(last8, 16);
-    this.reactiveForm.controls['search'].setValue(hexa);
-  }
-}
+ }
 
 search(){
   //console.log("test");

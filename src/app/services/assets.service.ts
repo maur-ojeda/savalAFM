@@ -36,17 +36,17 @@ getAssets(): Promise<AssetInterface[]>{
   });
 }
 
-getAssetPorId( code: string ) {
+
+getAssetPorId( id:number ) {
   if ( this.assets.length > 0 ) {
-    const asset = this.assets.find( p => p.code === code );
+    const asset = this.assets.find( p => p.id === id );
     return Promise.resolve( asset );
   }
   return this.getAssets().then( assets => {
-    const asset = this.assets.find( p => p.code === code );
+    const asset = this.assets.find( p => p.id === id );
     return Promise.resolve( asset );
   });
 }
-
 
 getAssetPorCode( code: string ) {
   if ( this.assets.length > 0 ) {
@@ -59,6 +59,28 @@ getAssetPorCode( code: string ) {
   });
 }
 
+getAssetPorReferalCode( referalCode: string ) {
+  if ( this.assets.length > 0 ) {
+    const asset = this.assets.find( p => p.referalCode === referalCode );
+    return Promise.resolve( asset );
+
+  }
+  return this.getAssets().then( assets => {
+    const asset = this.assets.find( p => p.referalCode === referalCode );
+    return Promise.resolve( asset );
+  });
+}
+
+getAssetPorRfid( rfidLabelSap: string ) {
+  if ( this.assets.length > 0 ) {
+    const asset = this.assets.find( p => p.rfidLabelSap === rfidLabelSap );
+    return Promise.resolve( asset )
+  }
+  return this.getAssets().then( assets => {
+    const asset = this.assets.find( p => p.rfidLabelSap === rfidLabelSap );
+    return Promise.resolve( asset );
+  });
+}
 
 getAssetPorrfid( rfidLabelSap: string ) {
   if ( this.assets.length > 0 ) {
@@ -70,18 +92,6 @@ getAssetPorrfid( rfidLabelSap: string ) {
     return Promise.resolve( asset );
   });
 }
-
-/*getAssetPorCodeSubcode( code: string, subCode: string ) {
-  if ( this.assets.length > 0 ) {
-    const asset = this.assets.find( p => p.code === code );
-    return Promise.resolve( asset );
-
-  }
-  return this.getAssets().then( assets => {
-    const asset = this.assets.find( p => p.code === code );
-    return Promise.resolve( asset );
-  });
-}*/
 
 
 
@@ -95,33 +105,16 @@ getAssetPorValue( buscado: any ) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 InsertAssets(formValue){
 
-console.log(formValue);
-
-
-let user ="mobile_user";
-let pass ="testing";
-
+  let user ="mobile_user";
+  let pass ="testing";
 
   let headers = new HttpHeaders()
     .set('Authorization',   `Basic ${btoa(user + ":" + pass)}`)
     .set("Content-Type", "application/json");
     //.set('Content-Type', 'application/x-www-form-urlencoded')//<--funciona desde servidor
     
-
 this.http.post("https://afsaval.agenciasur.cl/webservice/rest/request/add",formValue,{headers})
   .subscribe(
       val => {
@@ -137,8 +130,36 @@ this.http.post("https://afsaval.agenciasur.cl/webservice/rest/request/add",formV
   );
 
 }
-updateAssets(assets: AssetInterface){
+updateAssets(formValue, ide){
+
+  let user ="mobile_user";
+  let pass ="testing";
+  
+  
+    let headers = new HttpHeaders()
+      .set('Authorization',   `Basic ${btoa(user + ":" + pass)}`)
+      .set("Content-Type", "application/json");
+
+
+
+
+this.http.put("https://afsaval.agenciasur.cl/webservice/rest/asset/update/"+ide,formValue,{headers})
+    .subscribe(
+        val => {
+            console.log("PUT call successful value returned in body", 
+                        val);
+        },
+        response => {
+            console.log("PUT call in error", response);
+        },
+        () => {
+            console.log("The PUT observable is now completed.");
+        }
+    );
 }
+
+
+
 deleteAssets(code: string ){
 
 

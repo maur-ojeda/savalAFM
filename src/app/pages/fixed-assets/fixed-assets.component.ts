@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { OpenFixedassetComponent } from 'src/app/dialogs/open-fixedasset/open-fixedasset.component';
 import { MoveFixedassetComponent } from 'src/app/dialogs/move-fixedasset/move-fixedasset.component';
 import { DownFixedassetComponent } from 'src/app/dialogs/down-fixedasset/down-fixedasset.component';
+import { NoRegisterComponent } from 'src/app/dialogs/no-register/no-register.component';
 
 
 
@@ -48,7 +49,6 @@ export class FixedAssetsComponent implements OnInit {
 
   ngOnInit(): void {
 
-
     this.assetsService.getAssets()
       .then(assets => this.assets = assets);
 
@@ -78,6 +78,12 @@ export class FixedAssetsComponent implements OnInit {
           width: '98VW'
         });
         }
+
+        openNoRegister() {
+          this.dialog.open(NoRegisterComponent,{
+            width: '98VW'
+          });
+          }
     
 
   cargarDatos() {
@@ -85,58 +91,115 @@ export class FixedAssetsComponent implements OnInit {
       .then(assets => this.assets = assets);
   }
 
-  assetPorIde(ide: any) {
+  assetPorIde(valor: any) {
    
-    if(ide==""){
+    //vacio
+    if(valor==""){
       return this.router.navigateByUrl('/fixedAssets');
     }
     
-    //separo en arreglo si el codigo viene con "-"
-    var splitted = ide.split("-", 3);
-    console.log(splitted[0]) //codigo
-    console.log(splitted[1]) //guion
-    console.log(splitted[2]) //subcodigo
+    if (valor.length > 20){
+      
+      let last8 = valor.substr(valor.length - 8); 
+      let hexa = parseInt(last8, 16);
+      console.log(hexa);
+      console.log(hexa.toString());
+      
 
-    
-    if (splitted[1] != undefined) {
-      //console.log('code');
-      if (splitted[0].length > 11) {
-        //console.log('code' + splitted[0]);
-        this.assetsService.getAssetPorCode(splitted[0]).then(asset => {
+
+      this.assetsService.getAssetPorRfid(hexa.toString()).then(asset => {
+        if (!asset) {
+          //alert('no hay registro')
+          this.openNoRegister();
+          //return this.router.navigateByUrl('/fixedAssets');
+        }
+        this.asset = asset;
+        let route = "fixedAsset/" + asset.id;
+        return this.router.navigateByUrl(route);
+      });
+
+      //this.reactiveForm.controls['search'].setValue(hexa);
+      //convertir a rfid y comparar por rfidLabelSap y devolver el id para navegar
+    }else{
+
+      var splitted = valor.split("-", 3);
+      console.log(splitted[0]) //codigo
+      console.log(splitted[1]) //guion
+      console.log(splitted[2]) //subcodigo
+
+      if (splitted[1] != undefined) { 
+        //alert('referalCode: '+ valor);
+        //comparar con referalCode y trae id
+        this.assetsService.getAssetPorReferalCode(valor).then(asset => {
           if (!asset) {
-            return this.router.navigateByUrl('/fixedAssets');
+            this.openNoRegister();
+            //return this.router.navigateByUrl('/fixedAssets');
           }
           this.asset = asset;
-          let route = "fixedAsset/" + asset.code;
+          let route = "fixedAsset/" + asset.id;
           return this.router.navigateByUrl(route);
         });
       }
-    }else{
-      console.log('rfid');
-      if(splitted[0].length <= 11){
-         this.assetsService.getAssetPorrfid( ide ).then( asset => {
-           if ( !asset ) {
-             return this.router.navigateByUrl('/fixedAssets');
-           }
-           this.asset = asset;
-          let route = "fixedAsset/"+asset.code;
-         return this.router.navigateByUrl(route);
-         });
-       }
-     
+      if (splitted[0].length > 11){ 
+        //alert('code: '+ valor);
+        //comparar con code y traer id
+           this.assetsService.getAssetPorCode(valor).then(asset => {
+            if (!asset) {
+              this.openNoRegister();
+              //return this.router.navigateByUrl('/fixedAssets');
+          
+            }
+            this.asset = asset;
+            let route = "fixedAsset/" + asset.id;
+            return this.router.navigateByUrl(route);
+          });
+      }else{
+        this.openNoRegister();
+      }
     }
 
 
 
-  }
 
-  rfidConvert(n){
-    if (n.length > 20){
-    var last8 = n.substr(n.length - 8); 
-    var hexa = parseInt(last8, 16);
-    this.reactiveForm.controls['search'].setValue(hexa);
-  }
-}
+
+    //let id = Number(ide);
+    
+    //separo en arreglo si el codigo viene con "-"
+     
+
+
+
+
+
+
+
+
+
+
+//por id
+   /* this.assetsService.getAssetPorId(id).then(asset => {
+      if (!asset) {
+        return this.router.navigateByUrl('/fixedAssets');
+      }
+      this.asset = asset;
+      let route = "fixedAsset/" + asset.id;
+      return this.router.navigateByUrl(route);
+    });
+*/
+   
+  
+
+
+
+
+
+
+
+  
+
+ }
+
+
 
 search(){
   //console.log("test");

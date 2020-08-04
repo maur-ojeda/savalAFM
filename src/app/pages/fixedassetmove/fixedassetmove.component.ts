@@ -37,7 +37,9 @@ export class FixedassetmoveComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+
+    let ide = Number(id);
 
     this.locationsService.getlocations()
     .then( locations => this.locations = locations );
@@ -51,7 +53,9 @@ export class FixedassetmoveComponent implements OnInit {
     .then(species => this.species = species );
    
 
-    this.assetsService.getAssetPorId( id ).then( asset => {
+
+
+    this.assetsService.getAssetPorId( ide ).then( asset => {
       if ( !asset ) {
         return this.router.navigateByUrl('/');
       }

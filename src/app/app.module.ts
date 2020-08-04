@@ -82,6 +82,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { OpenFixedassetComponent } from './dialogs/open-fixedasset/open-fixedasset.component';
 import { MoveFixedassetComponent } from './dialogs/move-fixedasset/move-fixedasset.component';
 import { DownFixedassetComponent } from './dialogs/down-fixedasset/down-fixedasset.component';
+import { NoRegisterComponent } from './dialogs/no-register/no-register.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { DownFixedassetComponent } from './dialogs/down-fixedasset/down-fixedass
     OpenFixedassetComponent,
     MoveFixedassetComponent,
     DownFixedassetComponent,
+    NoRegisterComponent,
     
   ],
   imports: [
