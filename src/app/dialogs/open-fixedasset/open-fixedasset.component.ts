@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AssetsService } from 'src/app/services/assets.service';
 import { AssetInterface } from 'src/app/interfaces/asset.interface';
 import {MatDialogRef} from '@angular/material/dialog';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-open-fixedasset',
@@ -12,22 +14,33 @@ import {MatDialogRef} from '@angular/material/dialog';
 export class OpenFixedassetComponent implements OnInit {
   assets: AssetInterface[] = [];
   asset: AssetInterface;
+  reactiveForm: FormGroup;
+  ide;
+
 
   constructor(
     private router: Router,
     private assetsService: AssetsService,
+    private builder: FormBuilder,
     public dialogRef: MatDialogRef<OpenFixedassetComponent>
+
+
     ) { }
-  ngOnInit(): void {
+  
+    ngOnInit(): void {
     this.assetsService.getAssets()
     .then(assets => this.assets = assets);
+
+
+    this.reactiveForm = this.builder.group({
+      search: ['', [Validators.required]]
+		});
   }
+
+  
   assetPorIde(ide: any) {   
-    if(ide==""){
-      this.dialogRef.close();
-      return this.router.navigateByUrl('/fixedAssets');
-    }
-    var splitted = ide.split("-", 3);
+   
+    let splitted = ide.split("-", 3);
     console.log(splitted[0]) //codigo
     console.log(splitted[1]) //guion
     console.log(splitted[2]) //subcodigo
@@ -60,4 +73,23 @@ export class OpenFixedassetComponent implements OnInit {
      
     }
   }
+
+
+  rfidConvert(n){
+    if (n.length > 20){
+    var last8 = n.substr(n.length - 8); 
+    var hexa = parseInt(last8, 16);
+    this.reactiveForm.controls['search'].setValue(hexa);
+  }
+}
+
+
+search(){
+  //console.log("test");
+let ide = this.reactiveForm.value.search
+ide = ide.toString()
+this.assetPorIde(ide);
+
+}
+
 }

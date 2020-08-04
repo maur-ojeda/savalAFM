@@ -65,16 +65,17 @@
 						{{request.specie.name}}</small>
 				</td>
 				<td>
-
+					<span *ngIf="request?.status == 5" class="badge badge-secondary">Cerrado</span>
 					<span *ngIf="request?.status == 2" class="badge badge-secondary">En Evaluación</span>
 					<span *ngIf="request?.status == 3" class="badge badge-secondary">Rechazado</span>
 					<span *ngIf="request?.status == 4" class="badge badge-secondary">Aprobado</span>
 				</td>
 				<td>
-					<a *ngIf="request?.status == 2" name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetPending', request.id ]" role="button">Revisar</a>
-					<a *ngIf="request?.status == 3" name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetReject', request.id ]" role="button">Revisar</a>
-					<a *ngIf="request?.status == 4" name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetApproved', request.id ]" role="button">Revisar</a>
-					<a *ngIf="request?.status == 5" name="" id="" class="btn btn-primary btn-sm" [routerLink]="['/fixedAssetClosed', request.id ]" role="button">Revisar</a>
+				
+					 <button mat-flat-button color="primary"*ngIf="request?.status == 2" name="" id=""  [routerLink]="['/fixedAssetPending', request.id ]"> Revisar</button>
+					 <button mat-flat-button color="primary"*ngIf="request?.status == 3" name="" id=""  [routerLink]="['/fixedAssetReject', request.id ]" >Revisar</button>
+					 <button mat-flat-button color="primary"*ngIf="request?.status == 4" name="" id=""  [routerLink]="['/fixedAssetApproved', request.id ]" >Revisar</button>
+					 <button mat-flat-button color="primary" *ngIf="request?.status == 5" name="" id=""  [routerLink]="['/fixedAssetClosed', request.id ]">Revisar</button>
 				</td>
 			</tr>
 		</tbody>

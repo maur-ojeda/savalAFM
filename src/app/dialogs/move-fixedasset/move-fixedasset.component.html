@@ -1,11 +1,14 @@
+<form [formGroup]="reactiveForm" (ngSubmit)="search()">
 <h3 mat-dialog-title>Trasladar Activo fijo</h3>
 <div mat-dialog-content>
 	<mat-form-field appearance="outline" class="full-width">
 		<mat-label>Buscar activo fijo</mat-label>
-		<input #ide matInput placeholder="Ingrese número">
+		<input matInput placeholder="Ingrese número" formControlName="search" (change)="rfidConvert($event.target.value)">
 	</mat-form-field>
 </div>
 <div mat-dialog-actions>
+	<button mat-flat-button color="primary">Buscar</button>
 	<button mat-stroked-button mat-dialog-close>Cerrar</button>
-	<button mat-flat-button color="primary" (click)="assetPorIde(ide.value)">Buscar</button>
 </div>
+</form>
+

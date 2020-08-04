@@ -59,7 +59,7 @@
 			<div class="form-group">	
 				<mat-form-field appearance="outline" class="full-width">
 					<mat-label>Especie</mat-label>
-					<select matNativeControl formControlName="specie" (change)="onChange($event.target.value)">
+					<select matNativeControl formControlName="specie" (change)="onChangeSpecie($event.target.value)">
 						<option [ngValue]="null" disabled>Seleccione ...</option>   
 						<option *ngFor="let specie of species" [value]="specie.code">{{specie.code}} {{specie.name}}</option>
 					</select>

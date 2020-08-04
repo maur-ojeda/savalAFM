@@ -3,11 +3,11 @@ import { AssetsService } from '../../services/assets.service';
 import { AssetInterface } from '../../interfaces/asset.interface';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 
 
-import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OpenFixedassetComponent } from 'src/app/dialogs/open-fixedasset/open-fixedasset.component';
 import { MoveFixedassetComponent } from 'src/app/dialogs/move-fixedasset/move-fixedasset.component';
@@ -31,12 +31,17 @@ export class FixedAssetsComponent implements OnInit {
   animal: string;
   name: string;
   
+  reactiveForm: FormGroup;
+  ide;
+
+
   closeResult = '';
 
   constructor(
     private assetsService: AssetsService,
     private modalService: NgbModal,
     private router: Router,
+    private builder: FormBuilder,
     public dialog: MatDialog
     
     ) { }
@@ -46,6 +51,11 @@ export class FixedAssetsComponent implements OnInit {
 
     this.assetsService.getAssets()
       .then(assets => this.assets = assets);
+
+
+      this.reactiveForm = this.builder.group({
+        search: ['', [Validators.required]]
+      });
   }
 
  
@@ -70,9 +80,6 @@ export class FixedAssetsComponent implements OnInit {
         }
     
 
-
-
-
   cargarDatos() {
     this.assetsService.getAssets()
       .then(assets => this.assets = assets);
@@ -83,8 +90,6 @@ export class FixedAssetsComponent implements OnInit {
     if(ide==""){
       return this.router.navigateByUrl('/fixedAssets');
     }
-    
-    
     
     //separo en arreglo si el codigo viene con "-"
     var splitted = ide.split("-", 3);
@@ -125,12 +130,21 @@ export class FixedAssetsComponent implements OnInit {
 
   }
 
-  onSubmit(f ){
-console.log(f.value);
+  rfidConvert(n){
+    if (n.length > 20){
+    var last8 = n.substr(n.length - 8); 
+    var hexa = parseInt(last8, 16);
+    this.reactiveForm.controls['search'].setValue(hexa);
+  }
 }
 
+search(){
+  //console.log("test");
+let ide = this.reactiveForm.value.search
+ide = ide.toString()
+this.assetPorIde(ide);
 
-
+}
 
 
   navigateTo(value) {

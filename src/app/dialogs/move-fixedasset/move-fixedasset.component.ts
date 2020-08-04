@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AssetInterface } from 'src/app/interfaces/asset.interface';
-import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AssetsService } from 'src/app/services/assets.service';
+import { AssetInterface } from 'src/app/interfaces/asset.interface';
+import {MatDialogRef} from '@angular/material/dialog';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-move-fixedasset',
@@ -13,17 +14,26 @@ export class MoveFixedassetComponent implements OnInit {
 
   assets: AssetInterface[] = [];
   asset: AssetInterface;
+  reactiveForm: FormGroup;
+  ide;
+
 
   constructor(
     private router: Router,
     private assetsService: AssetsService,
+    private builder: FormBuilder,
     public dialogRef: MatDialogRef<MoveFixedassetComponent>
   ) { }
 
   ngOnInit(): void {
     this.assetsService.getAssets()
     .then(assets => this.assets = assets);
+    
+    this.reactiveForm = this.builder.group({
+      search: ['', [Validators.required]]
+		});
   }
+
   assetPorIde(ide: any) {   
     if(ide==""){
       this.dialogRef.close();
@@ -62,4 +72,21 @@ export class MoveFixedassetComponent implements OnInit {
      
     }
   }
+
+  rfidConvert(n){
+    if (n.length > 20){
+    var last8 = n.substr(n.length - 8); 
+    var hexa = parseInt(last8, 16);
+    this.reactiveForm.controls['search'].setValue(hexa);
+  }
+}
+
+search(){
+  //console.log("test");
+let ide = this.reactiveForm.value.search
+ide = ide.toString()
+this.assetPorIde(ide);
+
+}
+
 }

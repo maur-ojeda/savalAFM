@@ -3,6 +3,7 @@ import { AssetInterface } from 'src/app/interfaces/asset.interface';
 import { Router } from '@angular/router';
 import { AssetsService } from 'src/app/services/assets.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-down-fixedasset',
@@ -13,17 +14,26 @@ export class DownFixedassetComponent implements OnInit {
 
   assets: AssetInterface[] = [];
   asset: AssetInterface;
+  reactiveForm: FormGroup;
+  ide;
 
   constructor(
     private router: Router,
     private assetsService: AssetsService,
+    private builder: FormBuilder,
     public dialogRef: MatDialogRef<DownFixedassetComponent>
   ) { }
 
   ngOnInit(): void {
     this.assetsService.getAssets()
     .then(assets => this.assets = assets);
+
+    this.reactiveForm = this.builder.group({
+      search: ['', [Validators.required]]
+    });
+    
   }
+
   assetPorIde(ide: any) {   
     if(ide==""){
       this.dialogRef.close();
@@ -34,7 +44,6 @@ export class DownFixedassetComponent implements OnInit {
     console.log(splitted[1]) //guion
     console.log(splitted[2]) //subcodigo
 
-  
     if (splitted[1] != undefined) {
       if (splitted[0].length > 11) {
         this.assetsService.getAssetPorCode(splitted[0]).then(asset => {
@@ -62,4 +71,20 @@ export class DownFixedassetComponent implements OnInit {
      
     }
   }
+
+  rfidConvert(n){
+    if (n.length > 20){
+    var last8 = n.substr(n.length - 8); 
+    var hexa = parseInt(last8, 16);
+    this.reactiveForm.controls['search'].setValue(hexa);
+  }
+}
+
+search(){
+  //console.log("test");
+let ide = this.reactiveForm.value.search
+ide = ide.toString()
+this.assetPorIde(ide);
+}
+
 }

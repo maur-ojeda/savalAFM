@@ -1,29 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AssetsService } from 'src/app/services/assets.service';
 
-//service
-//import { FixedassetsService } from '../../services/fixedassets.service'
-//import { NgForm } from '@angular/forms';
-//import { Fixedasset } from 'src/app/models/fixedasset';
+
 
 import { cClassInterface } from 'src/app/interfaces/class.interface';
 import { ClassService } from 'src/app/services/class.service';
+
 import { SpeciesInterface } from 'src/app/interfaces/specie.interface';
 import { SpecieService } from 'src/app/services/specie.service';
 
 
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CcenterService } from 'src/app/services/ccenter.service';
 import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
-import { AssetsService } from 'src/app/services/assets.service';
+
+
 import { RoomService } from 'src/app/services/room.service';
 import { RoomInterface } from 'src/app/interfaces/room.interface';
+
+
 import { AreaService } from 'src/app/services/area.service';
+import { AreaInterface } from 'src/app/interfaces/area.interface';
+
 import { FloorService } from 'src/app/services/floor.service';
+import { FloorInterface } from 'src/app/interfaces/floor.interface';
+
+
 import { BuildingService } from 'src/app/services/building.service';
 import { BuildingInterface } from 'src/app/interfaces/building.interface';
-import { FloorInterface } from 'src/app/interfaces/floor.interface';
-import { AreaInterface } from 'src/app/interfaces/area.interface';
+
+
 import { CenterInterface } from 'src/app/interfaces/center.interface';
 import { CenterService } from 'src/app/services/center.service';
 
@@ -77,8 +84,6 @@ export class CreateComponent implements OnInit {
 
 		this.slCenterService.getCenters()
 			.then(Centers => this.Centers = Centers);
-
-
 
 
 		this.reactiveForm = this.builder.group({
@@ -160,7 +165,7 @@ console.log("data: " + JSON.stringify(obj1));
 }
 
 //////////////////////////////////////////////
-	onChange(e: string) {
+	onChangeSpecie(e: string) {
 		this.specieService.getSpeciesPorId(e)
 			.then(obj => this.obj = obj)
 		this.specieService.getSpeciesPorId(e)

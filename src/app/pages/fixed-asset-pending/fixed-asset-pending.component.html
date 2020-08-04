@@ -23,15 +23,15 @@
 					</mat-panel-title>
 					</mat-expansion-panel-header>
 					<!--contenido-->
-						<p>Estado: <span *ngIf="request?.status == 2" class="badge badge-warning">En Evaluación</span>
+						<p *ngIf="request?.status">Estado: <span *ngIf="request?.status == 2" class="badge badge-warning">En Evaluación</span>
 					<span *ngIf="request?.status == 3" class="badge badge-danger">Rechazado</span>
 					<span *ngIf="request?.status == 4" class="badge badge-success">Aprobado</span></p>
 						
-					<p>Fecha de creación: {{request.createdAt.date | date :'short' }}<p>
+					<p *ngIf="request?.createdAt">Fecha de creación: {{request.createdAt.date | date :'short' }}<p>
 					<!--contenido-->	
 					<mat-form-field appearance="outline" class="full-width" *ngIf="request?.catalogClass.name">
 						<mat-label>Clase activo fijo</mat-label>
-						<input matInput placeholder="Clase activo fijo<" readonly value="{{request.catalogClass.code}} - {{request.catalogClass.name}}">
+						<input matInput placeholder="Clase activo fijo"  value="{{request.catalogClass.code}} - {{request.catalogClass.name}}">
 					</mat-form-field>
 						<mat-form-field appearance="outline" class="full-width">
 						<mat-label>Sociedad</mat-label>
@@ -61,6 +61,72 @@
 						<mat-checkbox [checked]="true" [disabled]="true">Gestión histórica</mat-checkbox>
 					<!--contenido-->						
 				</mat-expansion-panel>
+
+				<!--Asignaciones-->
+<mat-expansion-panel>
+		<mat-expansion-panel-header>
+					<mat-panel-title>
+						Asignaciones
+					</mat-panel-title>
+					</mat-expansion-panel-header>
+					<!--contenido-->
+					<mat-form-field appearance="outline" class="full-width" >
+						<mat-label>Número de serie</mat-label>
+						<input matInput placeholder="Número de serie" readonly value="{{request.assetRequestDetails[0].serieNumber}}">
+					</mat-form-field>
+					<mat-form-field appearance="outline" class="full-width" *ngIf="request?.assetRequestDetails[0].costCenter.code">
+						<mat-label>Centro de costo</mat-label>
+						<input matInput placeholder="Centro de costo" readonly value="{{request.assetRequestDetails[0].costCenter.code}} - {{request.assetRequestDetails[0].costCenter.name}}">
+						</mat-form-field>
+						<mat-form-field appearance="outline" class="full-width">
+						<mat-label>Último estado en SAP</mat-label>
+						<input matInput placeholder="Último estado en SAP" readonly value="??????">
+						</mat-form-field>
+
+
+
+						<div class="mat-typography">
+							<h3>Ubicaciones</h3>
+						</div>
+
+						<mat-form-field appearance="outline" class="full-width">
+    						<mat-label>Centro</mat-label>
+	    					<input matInput placeholder="
+							Centro" readonly value="{{request.assetRequestDetails[0].lCenter.code}} - {{request.assetRequestDetails[0].lCenter.name}}">
+						</mat-form-field>
+
+
+						<mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Edificio</mat-label>
+	                            <input matInput placeholder="Edificio" readonly value="{{request.assetRequestDetails[0].lBuilding.code}} - {{request.assetRequestDetails[0].lBuilding.name}}">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Piso</mat-label>
+                                <input matInput placeholder="Piso" readonly value="{{request.assetRequestDetails[0].lFloor.code}} - {{request.assetRequestDetails[0].lFloor.name}}">
+                        </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width" *ngIf="request?.assetRequestDetails[0].lArea.code">
+                        <mat-label>Área</mat-label>
+                            <input matInput placeholder="Área" readonly value="{{request.assetRequestDetails[0].lArea.code}} - {{request.assetRequestDetails[0].lArea.name}}">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width" *ngIf="request?.assetRequestDetails[0].lRoom.code">
+                        <mat-label>Sala</mat-label>
+                            <input matInput placeholder="Sala" readonly value="{{request.assetRequestDetails[0].lRoom.code}} - {{request.assetRequestDetails[0].lRoom.name}}">
+                    </mat-form-field>
+
+
+<!--contenido-->
+
+
+
+</mat-expansion-panel>
+<!--Asignaciones-->
+			
+
+
+
+
 				<!--Origen-->
 				<mat-expansion-panel>
 					<mat-expansion-panel-header>
@@ -80,6 +146,60 @@
 					<!--contenido-->						
 				</mat-expansion-panel>
 				
+				<!--Años de vida util-->
+				<mat-expansion-panel>
+					<mat-expansion-panel-header *ngIf="request.lifetimeYear" >
+					<mat-panel-title color="primary">
+						Años de vida útil
+					</mat-panel-title>
+					</mat-expansion-panel-header>
+					<!--contenido-->
+					
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Vida útil en años</mat-label>
+                        <input matInput placeholder="Años de vida útil" readonly value="{{request.lifetimeYear}}">
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Vida útil en tributaria</mat-label>
+                        <input matInput placeholder="Vida útil en tributaria" readonly value="{{request.lifetimeYear15}}">
+                </mat-form-field>
+
+
+
+	<!--contenido-->						
+				</mat-expansion-panel>
+				<!--Histórico de rechazos-->
+					<mat-expansion-panel>
+					<mat-expansion-panel-header>
+					<mat-panel-title>
+						Histórico de rechazos
+					</mat-panel-title>
+					</mat-expansion-panel-header>
+					<!--contenido-->
+
+
+						<table class="table table-responsive table-sm table-hover">
+		<thead>
+		<tr>
+			<th scope="col">Autor</th>
+			<th scope="col">Fecha de registro</th>
+			<th scope="col">Descripción</th>
+		</tr>
+		</thead>
+		<tbody>
+		
+		<tr *ngFor='let histo of request.history'>
+		<td>{{histo.createdBy.fullName}}</td>
+		<td>----</td>
+		<td>{{histo.description}}</td>
+		</tr>
+		
+		</tbody>
+		</table>				
+		<!--contenido-->						
+		</mat-expansion-panel>
 
 
 			</mat-accordion>

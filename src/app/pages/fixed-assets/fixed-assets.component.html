@@ -3,14 +3,19 @@
 <div id="savalFixedAssets" class="container mt-5 pt-5">
 
 	<div class="p3 mt-3">
-		<!--buscador-->
-		<div class="input-group mb-3">
-			<input type="text" #ide class="form-control" placeholder="buscar activo fijo">
-			<div class="input-group-append">
-				<button class="btn btn-primary" type="button" (click)="assetPorIde(ide.value)">Buscar</button>
-			</div>
+		<form [formGroup]="reactiveForm" (ngSubmit)="search()">
+	<div class="row no-gutters">
+	<div class="col-9">
+			<mat-form-field appearance="outline" class="full-width">
+				<mat-label>Buscar activo fijo</mat-label>
+				<input matInput placeholder="Ingrese número" formControlName="search" (change)="rfidConvert($event.target.value)">
+			</mat-form-field>
+	</div>
+	<div class="col-3" style="padding-top:5px;">
+			<button mat-flat-button color="primary" class="full-width" style="height: 50px;">Buscar</button>
 		</div>
-		<!--buscador-->
+		</div>
+			</form>
 
 		<div class="fluid-container">
 			<div class="row">
