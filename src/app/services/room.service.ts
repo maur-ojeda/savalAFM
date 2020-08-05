@@ -26,8 +26,8 @@ export class RoomService {
       this.http.get('https://afsaval.agenciasur.cl/webservice/rest/location/rooms/'+id ,{ headers })
         .subscribe( (rooms: any) => {
           this.rooms = rooms.data;
-          console.log('rooms.data');
-          console.log(rooms.data);
+          //console.log('rooms.data');
+          //console.log(rooms.data);
           resolve( rooms.data );
           
         });

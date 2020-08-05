@@ -1,4 +1,5 @@
 
+
 <app-header></app-header>
 
 
@@ -8,7 +9,7 @@
 
 
 
- <button mat-stroked-button color="primary" class="full-width mt-3 mb-5" [routerLink]="['/login']">
+ <button mat-stroked-button color="primary" class="full-width mt-3 mb-5" (click)="logOut()">
  <i class="fas fa-sign-out-alt "></i>
   Salir
 </button>

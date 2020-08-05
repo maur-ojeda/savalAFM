@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,16 +10,19 @@ import { UsersService } from 'src/app/services/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor( public userService: UsersService ) { }
+  message="Cargando"
+
+  constructor( public userService: UsersService, private router: Router ) { }
 
   ngOnInit(): void {
-   // this.getUserLogged();
+
+  //this.userService.getUserDetails().subscribe( data=>{this.message = data.message })
+  
+}
+  logOut(){
+    localStorage.removeItem('loggedIn');
+    return this.router.navigateByUrl('/login');
   }
- /* getUserLogged() {
-    this.userService.getUser().subscribe(user => {
-      console.log(user);
-    });
-  }
-*/
+
  
 }

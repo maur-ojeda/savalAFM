@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { AssetInterface } from '../interfaces/asset.interface';
 
+import { MatDialog } from '@angular/material/dialog';
 
+import { CreateErrorComponent } from '../dialogs/create-error/create-error.component';
+import { CreateOkComponent } from '../dialogs/create-ok/create-ok.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +15,7 @@ export class AssetsService {
   private assets: AssetInterface[] = [];
 
  
-  constructor(  private http: HttpClient ) { }
+  constructor(  private http: HttpClient, public dialog: MatDialog ) { }
 
 //todo:user y pass dinamico
 getAssets(): Promise<AssetInterface[]>{
@@ -107,22 +110,39 @@ getAssetPorValue( buscado: any ) {
 
 InsertAssets(formValue){
 
+console.table(formValue);
+
   let user ="mobile_user";
   let pass ="testing";
-
   let headers = new HttpHeaders()
     .set('Authorization',   `Basic ${btoa(user + ":" + pass)}`)
-    .set("Content-Type", "application/json");
+    .set("Content-Type", "text/plain")
+    //.set("Content-Type", "application/json");
     //.set('Content-Type', 'application/x-www-form-urlencoded')//<--funciona desde servidor
     
 this.http.post("https://afsaval.agenciasur.cl/webservice/rest/request/add",formValue,{headers})
   .subscribe(
       val => {
-          console.log("PUT call successful value returned in body", 
-                      val);
+          console.log("PUT call successful value returned in body", val);
+
+         
+
+          this.dialog.open(CreateOkComponent,{
+            width: '98VW',
+            data: {
+              anyProperty: val
+            }
+          });
       },
       response => {
           console.log("PUT call in error", response);
+
+          this.dialog.open(CreateErrorComponent,{
+            width: '98VW',
+            data: {
+              anyProperty: response.error
+            }
+          });
       },
       () => {
           console.log("The PUT observable is now completed.");
@@ -148,9 +168,22 @@ this.http.put("https://afsaval.agenciasur.cl/webservice/rest/asset/update/"+ide,
         val => {
             console.log("PUT call successful value returned in body", 
                         val);
+
+                        this.dialog.open(CreateOkComponent, {
+                          data: {
+                            anyProperty: "myValue"
+                          }
+                        });
         },
         response => {
             console.log("PUT call in error", response);
+
+            this.dialog.open(CreateErrorComponent, {
+              data: {
+                anyProperty: "myValue"
+              }
+            });
+
         },
         () => {
             console.log("The PUT observable is now completed.");

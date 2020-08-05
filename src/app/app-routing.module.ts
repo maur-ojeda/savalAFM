@@ -30,20 +30,23 @@ import { FixedAssetApprovedComponent } from './pages/fixed-asset-approved/fixed-
 import { FixedAssetClosedComponent } from './pages/fixed-asset-closed/fixed-asset-closed.component';
 import { RequestsComponent } from './pages/requests/requests.component';
 
+//import { UsersService } from './services/user.service';
+import { AuthGuard } from './auth.guard';
+
 const routes: Routes = [
-  { path: '', component : SplashComponent },
+  { path: '', component : LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'userData', component: UserDataComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'userData', component: UserDataComponent, canActivate: [AuthGuard]},
   //listado
-  { path: 'fixedAssets', component: FixedAssetsComponent },
+  { path: 'fixedAssets', component: FixedAssetsComponent, canActivate: [AuthGuard] },
   //individual
-  { path: 'fixedAsset/:id', component: FixedassetComponent },
-  { path: 'fixedAssetMove/:id', component: FixedassetmoveComponent },
-  { path: 'fixedAssetDelete/:id', component: FixedassetdeleteComponent },
-  { path: 'fixedAssetUpdate/:id', component: FixedassetupdateComponent },
+  { path: 'fixedAsset/:id', component: FixedassetComponent, canActivate: [AuthGuard] },
+  { path: 'fixedAssetMove/:id', component: FixedassetmoveComponent, canActivate: [AuthGuard] },
+  { path: 'fixedAssetDelete/:id', component: FixedassetdeleteComponent, canActivate: [AuthGuard] },
+  { path: 'fixedAssetUpdate/:id', component: FixedassetupdateComponent, canActivate: [AuthGuard] },
   
-  { path: 'create', component: CreateComponent },
+  { path: 'create', component: CreateComponent, canActivate: [AuthGuard] },
   { path: 'fixedAssetCreate', component: FixedassetcreateComponent },
   { path: 'fixedAssetCreate2', component: Fixedassetcreate2Component },
   { path: 'fixedAssetCreate3', component: Fixedassetcreate3Component },
@@ -53,12 +56,12 @@ const routes: Routes = [
   
   { path: 'contact', component: ContactComponent },
 
-  { path: 'request', component: RequestsComponent },
+  { path: 'request', component: RequestsComponent, canActivate: [AuthGuard] },
   
-  { path: 'fixedAssetPending/:id', component: FixedAssetPendingComponent },
-  { path: 'fixedAssetReject/:id', component: FixedAssetRejectedComponent },
-  { path: 'fixedAssetApproved/:id', component: FixedAssetApprovedComponent },
-  { path: 'fixedAssetClosed/:id', component: FixedAssetClosedComponent }
+  { path: 'fixedAssetPending/:id', component: FixedAssetPendingComponent, canActivate: [AuthGuard] },
+  { path: 'fixedAssetReject/:id', component: FixedAssetRejectedComponent, canActivate: [AuthGuard] },
+  { path: 'fixedAssetApproved/:id', component: FixedAssetApprovedComponent, canActivate: [AuthGuard] },
+  { path: 'fixedAssetClosed/:id', component: FixedAssetClosedComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({

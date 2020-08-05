@@ -87,13 +87,14 @@ export class CreateComponent implements OnInit {
 
 
 		this.reactiveForm = this.builder.group({
-			catalogClass: ['', []],
+			catalogClass: ['', [Validators.required]],
+			speciefake: ['',  [Validators.required]],
 			specie: ['', []],
 			sociedad: ['LS01', []],
 			history_check: ['true', []],
 			inventory_check: ['true', []],
 			assetCount: ["1", []],
-			creditorId: ['', []],
+			creditorId: ['',  [Validators.required]],
 			newAsset: ['true', []],
 			assetOrigin: ['', []],
 			lifetimeYear: ['', []],
@@ -118,56 +119,25 @@ export class CreateComponent implements OnInit {
 			atributo_9: ['', []],
 			atributo_id_9: ['', []],
 			serieNumber: ['', []],
-			costCenter: ['', []],
-			lCenter: ['', []],
-			lBuilding: ['', []],
-			lFloor: ['', []],
-			lArea: ['', []],
-			lRoom: ['', []],
+			costCenter: ['',  [Validators.required]],
+			lCenter: ['',  [Validators.required]],
+			lBuilding: ['',  [Validators.required]],
+			lFloor: ['',  [Validators.required]],
+			lArea: ['',  [Validators.required]],
+			lRoom: ['',  [Validators.required]],
 		});
 	}
-//////////////////////////////////////////////
-checkObj(){
 
-let obj1 = {
-	"catalogClass": "22",
-	"specie": "8",
-	"specieAttributes": [
-		{ "value": "especie1", "specieAttribute": "108" },
-		{ "value": "especie2", "specieAttribute": "111" },
-		{ "value": "", "specieAttribute": "" }
-	],
-	"assetCount": "1", 
-	"assetRequestDetails": [
-		{
-		"serieNumber": "21312312",
-		 "costCenter": "1", 
-		 "lCenter": "1", 
-		 "lBuilding": "4", 
-		 "lFloor": "16", 
-		 "lArea": "29", 
-		 "lRoom": "147" }
-		], 
-		"creditorId": "33232", 
-		"newAsset": "1", 
-		"assetOrigin": "", 
-		"lifetimeYear": "2"
-}
-
-
-delete obj1.specieAttributes[2];
-console.log("data: " + JSON.stringify(obj1));
-
-
-
-
-
-}
-
-//////////////////////////////////////////////
 	onChangeSpecie(e: string) {
+		
 		this.specieService.getSpeciesPorId(e)
 			.then(obj => this.obj = obj)
+			.then(obj => {
+				console.log(obj.id)
+				this.reactiveForm.get("specie").setValue(obj.id);
+			})
+
+
 		this.specieService.getSpeciesPorId(e)
 			.then(obj => {
 				for (let i = 0; i < obj.attributes.length; i++) {
@@ -218,7 +188,8 @@ console.log("data: " + JSON.stringify(obj1));
 			"specie": this.reactiveForm.value.specie,
 			"specieAttributes": [
 				{
-					"value": this.reactiveForm.value.atributo_0, "specieAttribute": this.reactiveForm.value.atributo_id_0
+					"value": this.reactiveForm.value.atributo_0, 
+					"specieAttribute": this.reactiveForm.value.atributo_id_0
 				},
 
 				{
@@ -277,7 +248,9 @@ console.log("data: " + JSON.stringify(obj1));
 		}
 	
 		this.assetsService.InsertAssets(formValue);
+		this.reactiveForm.reset(this.reactiveForm.value);
 
+		
 	}
 
 

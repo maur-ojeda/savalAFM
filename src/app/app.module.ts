@@ -84,6 +84,14 @@ import { MoveFixedassetComponent } from './dialogs/move-fixedasset/move-fixedass
 import { DownFixedassetComponent } from './dialogs/down-fixedasset/down-fixedasset.component';
 import { NoRegisterComponent } from './dialogs/no-register/no-register.component';
 
+
+import { UsersService } from './services/user.service';
+import { AuthGuard } from './auth.guard';
+import { CreateErrorComponent } from './dialogs/create-error/create-error.component';
+import { CreateOkComponent } from './dialogs/create-ok/create-ok.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -117,6 +125,8 @@ import { NoRegisterComponent } from './dialogs/no-register/no-register.component
     MoveFixedassetComponent,
     DownFixedassetComponent,
     NoRegisterComponent,
+    CreateErrorComponent,
+    CreateOkComponent,
     
   ],
   imports: [
@@ -147,7 +157,7 @@ import { NoRegisterComponent } from './dialogs/no-register/no-register.component
       MatSelectModule
   ],
   entryComponents:[ OpenFixedassetComponent],
-  providers: [FixedassetsService, FixedAssetDataService, CookieService],
+  providers: [FixedassetsService, FixedAssetDataService, CookieService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

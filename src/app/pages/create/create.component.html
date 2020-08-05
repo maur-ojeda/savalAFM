@@ -12,13 +12,10 @@
 				Volver</button>
 
 
-<button mat-button color="warn" (click)="checkObj()" class="mb-3">
-				check</button>
-
 
 
 	<div class="mat-typography">
-		<h1>Crear activos fijo</h1>
+		<h1>Crear activo fijo</h1>
 	</div>
 	
 
@@ -59,13 +56,14 @@
 			<div class="form-group">	
 				<mat-form-field appearance="outline" class="full-width">
 					<mat-label>Especie</mat-label>
-					<select matNativeControl formControlName="specie" (change)="onChangeSpecie($event.target.value)">
+					<select matNativeControl formControlName="speciefake" (change)="onChangeSpecie($event.target.value)">
 						<option [ngValue]="null" disabled>Seleccione ...</option>   
 						<option *ngFor="let specie of species" [value]="specie.code">{{specie.code}} {{specie.name}}</option>
 					</select>
 				</mat-form-field>		
 				<small class="text-info" *ngIf="reactiveForm.get('specie').hasError('required')">Campo requerido</small>
 			</div>
+			<input style="display:none"  matInput formControlName="specie">
 <!--Atributos-->
 			<div class="form-group">
 				<div *ngIf='obj'>		
@@ -215,7 +213,7 @@
 				<small class="text-info" *ngIf="reactiveForm.get('newAsset').hasError('required')">Campo requerido</small>
 			</div>
 			<!--assetOrigin-->
-			<div class="form-group">
+			<!--div class="form-group">
 				<mat-form-field appearance="outline" class="full-width">
 					<mat-label>
 						Origen???
@@ -223,7 +221,7 @@
 					<input matInput placeholder="Origen" formControlName="assetOrigin">
 				</mat-form-field>
 				<small class="text-info" *ngIf="reactiveForm.get('assetOrigin').hasError('required')">Campo requerido</small>
-			</div>
+			</div-->
 
 
 <div class="mat-typography">
@@ -245,7 +243,7 @@
 
 
 		
-		<button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-primary">Enviar</button>
+		<button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-primary full-width">Enviar</button>
 		</form>
 		</div>
 	</div>
