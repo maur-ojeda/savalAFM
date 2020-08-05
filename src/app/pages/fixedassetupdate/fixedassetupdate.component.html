@@ -12,10 +12,15 @@
 				
 				
 				
-				<mat-button-toggle [routerLink]="['/fixedAsset',asset.code]" >Detalles</mat-button-toggle>
-				<mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.code]" class="btn-primary active" >Modificar</mat-button-toggle>
-				<mat-button-toggle [routerLink]="['/fixedAssetMove', asset.code]">Trasladar</mat-button-toggle>
-				<mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.code]" >Dar de baja</mat-button-toggle>
+				<mat-button-toggle [routerLink]="['/fixedAsset',asset.id]" >Detalles</mat-button-toggle>
+				<mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.id]" class="btn-primary active" >Modificar</mat-button-toggle>
+				<mat-button-toggle [routerLink]="['/fixedAssetMove', asset.id]">Trasladar</mat-button-toggle>
+				<mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.id]" >Dar de baja</mat-button-toggle>
+
+				<mat-button-toggle [routerLink]="['/fixedAsset',asset.id]">Detalles</mat-button-toggle>
+				<mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.id]"  >Modificar</mat-button-toggle>
+				<mat-button-toggle [routerLink]="['/fixedAssetMove', asset.id]">Trasladar</mat-button-toggle>
+				<mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.id]" >Dar de baja</mat-button-toggle>
 
 
 

@@ -125,13 +125,14 @@ this.http.post("https://afsaval.agenciasur.cl/webservice/rest/request/add",formV
       val => {
           console.log("PUT call successful value returned in body", val);
 
-         
+          
 
           this.dialog.open(CreateOkComponent,{
             width: '98VW',
             data: {
               anyProperty: val
             }
+            
           });
       },
       response => {

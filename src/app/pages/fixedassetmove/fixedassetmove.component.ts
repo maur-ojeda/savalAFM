@@ -3,13 +3,15 @@ import { AssetInterface } from 'src/app/interfaces/asset.interface';
 import { AssetsService } from 'src/app/services/assets.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-
 import { LocationsService } from 'src/app/services/locations.service';
 import { LocationInterface } from 'src/app/interfaces/location.interface';
 import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
 import { CcenterService } from 'src/app/services/ccenter.service';
 import { SpecieService } from 'src/app/services/specie.service';
 import { SpeciesInterface } from 'src/app/interfaces/specie.interface';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-fixedassetmove',
@@ -22,6 +24,7 @@ export class FixedassetmoveComponent implements OnInit {
   locations: LocationInterface[] = [];
   ccenters: CcenterInterface[] = [];
   species: SpeciesInterface[] = [];
+  reactiveForm: FormGroup;
 
   constructor(
     public assetsService: AssetsService,
@@ -30,7 +33,8 @@ export class FixedassetmoveComponent implements OnInit {
     public specieService: SpecieService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private location: Location 
+    private location: Location ,
+    private builder: FormBuilder
     
   ) { }
 
@@ -54,7 +58,25 @@ export class FixedassetmoveComponent implements OnInit {
    
 
 
+    this.reactiveForm = this.builder.group({
 
+      assetID:['',[]],
+      rfidLabelFake: ['', []],
+      rfidLabelSap: ['', []],
+      serieNumber: ['', []],
+      description: ['', []],
+      costCenter: ['', []],
+      creditorId: ['', []],
+      lifetimeYear: ['', []]
+		});
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+}
+/*
     this.assetsService.getAssetPorId( ide ).then( asset => {
       if ( !asset ) {
         return this.router.navigateByUrl('/');
@@ -69,3 +91,4 @@ export class FixedassetmoveComponent implements OnInit {
   }
 
 }
+*/

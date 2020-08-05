@@ -248,8 +248,7 @@ export class CreateComponent implements OnInit {
 		}
 	
 		this.assetsService.InsertAssets(formValue);
-		this.reactiveForm.reset(this.reactiveForm.value);
-
+		this.reactiveForm.reset();//todo:mejorar
 		
 	}
 
