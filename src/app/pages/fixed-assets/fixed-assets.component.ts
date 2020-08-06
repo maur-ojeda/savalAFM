@@ -5,16 +5,11 @@ import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-
-
-
 import { MatDialog } from '@angular/material/dialog';
 import { OpenFixedassetComponent } from 'src/app/dialogs/open-fixedasset/open-fixedasset.component';
 import { MoveFixedassetComponent } from 'src/app/dialogs/move-fixedasset/move-fixedasset.component';
 import { DownFixedassetComponent } from 'src/app/dialogs/down-fixedasset/down-fixedasset.component';
 import { NoRegisterComponent } from 'src/app/dialogs/no-register/no-register.component';
-
-
 
 @Component({
   selector: 'app-fixed-assets',
@@ -22,16 +17,12 @@ import { NoRegisterComponent } from 'src/app/dialogs/no-register/no-register.com
   styleUrls: ['./fixed-assets.component.scss']
 })
 
-
-
-
 export class FixedAssetsComponent implements OnInit {
   assets: AssetInterface[] = [];
   asset: AssetInterface;
-  
-  animal: string;
-  name: string;
-  
+
+  //animal: string;
+  //name: string;
   reactiveForm: FormGroup;
   ide;
 
@@ -93,29 +84,29 @@ export class FixedAssetsComponent implements OnInit {
 
   assetPorIde(valor: any) {
    
-    //vacio
+    // validacion de vacio
     if(valor==""){
       return this.router.navigateByUrl('/fixedAssets');
     }
     
-    if (valor.length > 20){
-      
+    // transformación rfid 
+    if (valor.length > 20){  
       let last8 = valor.substr(valor.length - 8); 
       let hexa = parseInt(last8, 16);
       console.log(hexa);
       console.log(hexa.toString());
-      
-
-
+      // busca por rfid
       this.assetsService.getAssetPorRfid(hexa.toString()).then(asset => {
         if (!asset) {
-          //alert('no hay registro')
+          // abre modal de error
           this.openNoRegister();
-          //return this.router.navigateByUrl('/fixedAssets');
+        }else{
+          // si encuentra devuelve id y dirige hacia el asset
+          this.asset = asset;
+          let route = "fixedAsset/" + asset.id;
+          return this.router.navigateByUrl(route);
         }
-        this.asset = asset;
-        let route = "fixedAsset/" + asset.id;
-        return this.router.navigateByUrl(route);
+        
       });
 
       //this.reactiveForm.controls['search'].setValue(hexa);
@@ -123,10 +114,9 @@ export class FixedAssetsComponent implements OnInit {
     }else{
 
       var splitted = valor.split("-", 3);
-      console.log(splitted[0]) //codigo
-      console.log(splitted[1]) //guion
-      console.log(splitted[2]) //subcodigo
-
+      //console.log(splitted[0]) //codigo
+      //console.log(splitted[1]) //guion
+      //console.log(splitted[2]) //subcodigo
       if (splitted[1] != undefined) { 
         //alert('referalCode: '+ valor);
         //comparar con referalCode y trae id
@@ -200,13 +190,13 @@ export class FixedAssetsComponent implements OnInit {
  }
 
 
-
+/***
+ * Toma el valor ingresado por el usuario en el input de busqueda y lo entrega al servicio
+ */
 search(){
-  //console.log("test");
 let ide = this.reactiveForm.value.search
 ide = ide.toString()
 this.assetPorIde(ide);
-
 }
 
 

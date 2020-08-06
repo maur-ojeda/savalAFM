@@ -47,19 +47,16 @@ export class OpenFixedassetComponent implements OnInit {
   
       let last8 = valor.substr(valor.length - 8); 
       let hexa = parseInt(last8, 16);
-      console.log(hexa);
-      console.log(hexa.toString());
-      
-
-
+      //console.log(hexa);
+      //console.log(hexa.toString());
       this.assetsService.getAssetPorRfid(hexa.toString()).then(asset => {
         if (!asset) {
-          this.estatus="No se ha encontrado registro asociado al número buscado.";
+          this.estatus="No se ha encontrado registro.";
           return this.router.navigateByUrl('/fixedAssets');
         }
         this.asset = asset;
         this.dialogRef.close();
-        let route = "fixedAsset/" + asset.id;
+        let route = "fixedAssetUpdate/" + asset.id;
         return this.router.navigateByUrl(route);
       });
 
@@ -68,9 +65,9 @@ export class OpenFixedassetComponent implements OnInit {
     }else{
 
       var splitted = valor.split("-", 3);
-      console.log(splitted[0]) //codigo
-      console.log(splitted[1]) //guion
-      console.log(splitted[2]) //subcodigo
+      //console.log(splitted[0]) //codigo
+      //console.log(splitted[1]) //guion
+      //console.log(splitted[2]) //subcodigo
 
       if (splitted[1] != undefined) { 
         //alert('referalCode: '+ valor);
@@ -78,14 +75,14 @@ export class OpenFixedassetComponent implements OnInit {
         this.assetsService.getAssetPorReferalCode(valor).then(asset => {
           if (!asset) {
             //this.openNoRegister();
-            this.estatus="No se ha encontrado registro asociado al número buscado.";
+            this.estatus="No se ha encontrado registro.";
             return this.router.navigateByUrl('/fixedAssets');
           }
 
           this.asset = asset;
-          console.log('here x referal'+ asset)
+          //console.log('here x referal'+ asset)
           this.dialogRef.close();
-          let route = "fixedAsset/" + asset.id;
+          let route = "fixedAssetUpdate/" + asset.id;
           return this.router.navigateByUrl(route);
         });
       }
@@ -94,42 +91,30 @@ export class OpenFixedassetComponent implements OnInit {
         //comparar con code y traer id
            this.assetsService.getAssetPorCode(valor).then(asset => {
             if (!asset) {
-           
               //this.openNoRegister();
-              this.estatus="No se ha encontrado registro asociado al número buscado.";
+              this.estatus="No se ha encontrado registro.";
               return this.router.navigateByUrl('/fixedAssets');
           
             }
             
             this.asset = asset;
-            console.log('here x code'+ asset)
+            //console.log('here x code'+ asset)
             this.dialogRef.close();
-            let route = "fixedAsset/" + asset.id;
+            let route = "fixedAssetUpdate/" + asset.id;
             return this.router.navigateByUrl(route);
           });
       }else{
-        this.estatus="No se ha encontrado registro asociado al número buscado.";
+        this.estatus="No se ha encontrado registro.";
       }
 
       
     }
  }
-
-/*
-  rfidConvert(n){
-    if (n.length > 20){
-    var last8 = n.substr(n.length - 8); 
-    var hexa = parseInt(last8, 16);
-    this.reactiveForm.controls['search'].setValue(hexa);
-  }
-}
-*/
-
 search(){
   //console.log("test");
-let ide = this.reactiveForm.value.search
-ide = ide.toString()
-this.assetPorIde(ide);
-}
+  let ide = this.reactiveForm.value.search
+  ide = ide.toString()
+  this.assetPorIde(ide);
+  }
 
 }

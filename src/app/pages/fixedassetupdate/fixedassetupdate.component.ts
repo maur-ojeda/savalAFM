@@ -24,8 +24,8 @@ export class FixedassetupdateComponent implements OnInit {
   asset: AssetInterface;
   reactiveForm: FormGroup;
   CCenters: CcenterInterface[] = [];
-  
-  
+
+
 
   constructor(
     public slCCenterService: CcenterService,
@@ -34,14 +34,11 @@ export class FixedassetupdateComponent implements OnInit {
     private router: Router,
     private location: Location,
     private builder: FormBuilder
-
-    
-
   ) { }
 
   ngOnInit(): void {
 
-   
+
     let id = this.activatedRoute.snapshot.paramMap.get('id');
 
     let ide = Number(id);
@@ -55,32 +52,32 @@ export class FixedassetupdateComponent implements OnInit {
     });
 
     this.slCCenterService.getCcenters()
-    .then(CCenters => this.CCenters = CCenters);
+      .then(CCenters => this.CCenters = CCenters);
 
     this.reactiveForm = this.builder.group({
-      assetID:['',[]],
-      rfidLabelFake: ['', []],
-      rfidLabelSap: ['', []],
-      serieNumber: ['', []],
-      description: ['', []],
-      costCenter: ['', []],
-      creditorId: ['', []],
-      lifetimeYear: ['', []]
-		});
+      assetID: ['', []],
+      rfidLabelFake: ['', [Validators.required]],
+      rfidLabelSap: ['', [Validators.required]],
+      serieNumber: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      costCenter: ['', [Validators.required]],
+      creditorId: ['', [Validators.required]],
+      lifetimeYear: ['', [Validators.required]]
+    });
   }
 
 
-rfidConvert(n){
-    if (n.length > 0){
-    var last8 = n.substr(n.length - 8); 
-    var hexa = parseInt(last8, 16);
-    //return hexa
-    this.reactiveForm.controls['rfidLabelFake'].setValue(hexa);
-    //alert(hexa)
+  rfidConvert(n) {
+    if (n.length > 0) {
+      var last8 = n.substr(n.length - 8);
+      var hexa = parseInt(last8, 16);
+      //return hexa
+      this.reactiveForm.controls['rfidLabelFake'].setValue(hexa);
+      //alert(hexa)
+    }
   }
-}
 
-  getAssetsData(e){
+  getAssetsData(e) {
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
     this.reactiveForm.controls['rfidLabelSap'].setValue(e.rfidLabelSap);
@@ -95,9 +92,8 @@ rfidConvert(n){
     this.location.back();
   }
 
-  updateData(){
-    
-    let ide =  this.reactiveForm.value.assetID;
+  updateData() {
+    let ide = this.reactiveForm.value.assetID;
 
     let formValue = {
       "rfidLabelFake": this.reactiveForm.value.rfidLabelFake,
@@ -106,14 +102,16 @@ rfidConvert(n){
       "description": this.reactiveForm.value.description,
       "costCenter": this.reactiveForm.value.costCenter,
       "creditorId": this.reactiveForm.value.creditorId,
-      "lifetimeYear": this.reactiveForm.value.lifetimeYear,
+      "lifetimeYear": this.reactiveForm.value.lifetimeYear
     }
 
-    //console.log(ide, formValue )
+    //console.log(ide, formValue );
+    //console.log(JSON.stringify(formValue));
     this.assetsService.updateAssets(formValue, ide);
     //alert(JSON.stringify(formValue));
 
-}
+
+  }
 
 
 

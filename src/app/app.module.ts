@@ -89,6 +89,8 @@ import { UsersService } from './services/user.service';
 import { AuthGuard } from './auth.guard';
 import { CreateErrorComponent } from './dialogs/create-error/create-error.component';
 import { CreateOkComponent } from './dialogs/create-ok/create-ok.component';
+import { UpdateOkComponent } from './dialogs/update-ok/update-ok.component';
+import { UpdateErrorComponent } from './dialogs/update-error/update-error.component';
 
 
 
@@ -127,6 +129,8 @@ import { CreateOkComponent } from './dialogs/create-ok/create-ok.component';
     NoRegisterComponent,
     CreateErrorComponent,
     CreateOkComponent,
+    UpdateOkComponent,
+    UpdateErrorComponent,
     
   ],
   imports: [

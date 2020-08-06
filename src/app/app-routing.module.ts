@@ -42,10 +42,21 @@ const routes: Routes = [
   { path: 'fixedAssets', component: FixedAssetsComponent, canActivate: [AuthGuard] },
   //individual
   { path: 'fixedAsset/:id', component: FixedassetComponent, canActivate: [AuthGuard] },
-  { path: 'fixedAssetMove/:id', component: FixedassetComponent, canActivate: [AuthGuard] },
-  { path: 'fixedAssetDelete/:id', component: FixedassetComponent, canActivate: [AuthGuard] },
-  { path: 'fixedAssetUpdate/:id', component: FixedassetComponent, canActivate: [AuthGuard] },
+
+
+  { path: 'fixedAssetMove/:id', component: FixedassetupdateComponent, canActivate: [AuthGuard] },
   
+  { path: 'fixedAssetDelete/:id', component: FixedassetComponent, canActivate: [AuthGuard] },
+ 
+
+
+//todo: aqui estoy
+{ path: 'fixedAssetMove/:id', component: FixedassetmoveComponent, canActivate: [AuthGuard] },
+  { path: 'fixedAssetUpdate/:id', component: FixedassetupdateComponent, canActivate: [AuthGuard] },
+ 
+  
+
+
   { path: 'create', component: CreateComponent, canActivate: [AuthGuard] },
   { path: 'fixedAssetCreate', component: FixedassetcreateComponent },
   { path: 'fixedAssetCreate2', component: Fixedassetcreate2Component },
