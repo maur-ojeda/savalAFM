@@ -27,7 +27,7 @@ getRequests(): Promise<RequestInterface[]>{
   return new Promise( resolve => {
 
     
-    this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/requests/',{ headers })
+    this.http.get('https://afsaval.agenciasur.cl/webservice/rest/requests/',{ headers })
       .subscribe( (requests: any) => {
         this.requests = requests.data;
         

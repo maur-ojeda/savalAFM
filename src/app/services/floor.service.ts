@@ -23,7 +23,7 @@ export class FloorService {
     return new Promise( resolve => {
   
       
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?all=true',{ headers })
+      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/locations?all=true',{ headers })
       
         .subscribe( (floors: any) => {
           this.floors = floors.data;
@@ -51,7 +51,7 @@ export class FloorService {
     }*/
     return new Promise( resolve => {
   
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/location/floors/'+id ,{ headers })
+      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/location/floors/'+id ,{ headers })
         .subscribe( (floors: any) => {
           this.floors = floors.data;
           console.log('floors.data');

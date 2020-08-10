@@ -28,7 +28,7 @@ export class CcenterService {
     return new Promise( resolve => {
 
       
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?all=true',{ headers })
+      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/locations?all=true',{ headers })
         .subscribe( (ccenters: any) => {
           this.ccenters = ccenters.data;
           //console.log('ccenters.data');
