@@ -1,300 +1,382 @@
 <app-header></app-header>
 <div class="container" class="pb-5">
-	<mat-spinner ></mat-spinner>
-
-<!--
-	<div *ngIf="asset?.code" class="mt-5 pt-5 p-3">
-		<div class="row">
-			<button mat-button color="primary" (click)="goBack()" class="mb-3">
-				<i class="fas fa-angle-left"></i>
-				Volver</button>
-		</div>
-		<div class="row">
-			<mat-button-toggle-group class="full-width">
-				
-				
-				
-				<mat-button-toggle [routerLink]="['/fixedAsset',asset.id]" >Detalles</mat-button-toggle>
-				<mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.id]"  >Modificar</mat-button-toggle>
-				<mat-button-toggle [routerLink]="['/fixedAssetMove', asset.id]" class="btn-primary active">Trasladar</mat-button-toggle>
-				<mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.id]" >Dar de baja</mat-button-toggle>
-
-
-
-							
-
-
-
-			</mat-button-toggle-group>
-		</div>
-
-<!--	<form [formGroup]="reactiveForm" (ngSubmit)="updateData()">
-
-	<form>
-
-	<input matInput formControlName="assetID">
-
-	
-		<div class="row pt-3">
-			<mat-accordion class="full-width" #accordion="matAccordion">
-				<mat-expansion-panel [expanded]="true">
-					<mat-expansion-panel-header>
-						<mat-panel-title>
-							Datos Activo fijo
-						</mat-panel-title>
-
-					</mat-expansion-panel-header>
-
-				
-					<p *ngIf="asset?.createdAt" class="display-5 pr-3 d-sm-block pr-3">Fecha de creación:
-						{{ asset.createdAt.date | date:"dd/MM/yyyy HH:mm:ss"}}
-					</p>
-					<p *ngIf="asset?.referalCode" class="display-5 pr-3 d-sm-block">Código:
-						{{ asset.referalCode }}
-					</p>
-					<p *ngIf="asset?.rfidLabelSap" class="display-5 pr-3 d-sm-block">Código RFID: {{asset.rfidLabelSap}}
-						
-					</p>
-					<p class="display-5 pr-3 d-sm-block">Condición:
-						<span *ngIf="asset?.status == 1" class="badge badge-secondary">En Proceso</span>
-						<span *ngIf="asset?.status == 2" class="badge badge-primary">Activo</span>
-						<span *ngIf="asset?.status == 3" class="badge badge-dark">Dado de Baja</span>
-					</p>
-
-
-					<br/>
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.catalogClass">
-						<mat-label>Clase activo fijo</mat-label>
-						<input matInput placeholder="" readonly disabled value="{{asset.catalogClass.name}}">
-					</mat-form-field>
-					<br/>
-	
-					<mat-form-field appearance="outline" class="full-width">
-						<mat-label>
-							Código Rfid
-						</mat-label>
-
-						<input matInput formControlName="rfidLabelFake" placeholder="Código Rfid" value="" >
-					</mat-form-field>
-					
-					<br/>
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.society">
-						<mat-label>
-							Sociedad
-						</mat-label>
-						<input matInput placeholder="" readonly disabled value="{{asset.society}}">
-					</mat-form-field>
-
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.society">
-						<mat-label>
-							Código RFID SAP
-						</mat-label>
-						<input matInput formControlName="rfidLabelSap" placeholder="" readonly disabled value="{{asset.rfidLabelSap}}">
-					</mat-form-field>
-
-
-					<br/>
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.capitalizationDateAt">
-						<mat-label>
-							Fecha de Capitalización
-						</mat-label>
-						<input matInput placeholder="" readonly  disabled value="{{asset.capitalizationDateAt.date | date :'short'}}">
-					</mat-form-field>
-					<br/>
-
-
-			
-				</mat-expansion-panel>
-
-
-				<mat-expansion-panel>
-					<mat-expansion-panel-header>
-						<mat-panel-title>
-							Especie
-						</mat-panel-title>
-					</mat-expansion-panel-header>
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.specie">
-						<mat-label>
-							Especie
-						</mat-label>
-						<input matInput placeholder="Especie" disabled [readonly]="false" value="{{asset.specie.code}}-{{asset.specie.name}}">
-					</mat-form-field>
-					<br/>
-					
-
-					<mat-form-field appearance="outline" class="full-width">
-						<mat-label>
-							Número de serie
-						</mat-label>
-						<input matInput placeholder="Número de serie"  formControlName="serieNumber" [readonly]="false" value="">
-					</mat-form-field>
-
-					<br/>
-				
-					<mat-form-field appearance="outline" class="full-width">
-						<mat-label>
-							Descripción
-						</mat-label>
-						<textarea matInput *ngIf="asset?.description" [readonly]="false"  formControlName="description"  cols="5">{{asset.description}}</textarea>
-					</mat-form-field>
-				
-					<br/>
-					<mat-checkbox [checked]="true" [disabled]="true">Incluir activo fijo en lista inventario</mat-checkbox>
-					<br/>
-					<mat-checkbox [checked]="true" [disabled]="true">Gestión histórica</mat-checkbox>
-					<br/>
-				
-
-
-				</mat-expansion-panel>
-
-
-				<mat-expansion-panel>
-					<mat-expansion-panel-header>
-						<mat-panel-title>
-							Centro de costo
-						</mat-panel-title>
-					</mat-expansion-panel-header>
-
-				
-			<div class="form-group">	
-				<mat-form-field appearance="outline" class="full-width">
-				
-				<mat-label>Centro de costo</mat-label>
-				
-					<select matNativeControl formControlName="costCenter">
-				
-						<option *ngFor="let ccenter of ccenters" [value]="ccenter.id">{{ccenter.code}}-{{ccenter.name}}</option>
-					</select>
-				
-				</mat-form-field>
+    <mat-spinner *ngIf="!asset"></mat-spinner>
+    <div *ngIf="asset?.code" class="mt-5 pt-5 p-3">
+        <div class="row">
+            <button mat-button color="primary" (click)="goBack()" class="mb-3">
+                <i class="fas fa-angle-left"></i>
+                Volver</button>
 
-				<small class="text-info" *ngIf="reactiveForm.get('costCenter').hasError('required')">Campo requerido</small>
-			</div>
+            <!--button class="btn" (click)="postSync()">
+                jhjh
+            </button-->
+        </div>
 
+        <div class="row">
+            <mat-button-toggle-group name="fontStyle" class="full-width">
+                <mat-button-toggle [routerLink]="['/fixedAsset',asset.id]">Detalles</mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.id]">Modificar</mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetMove', asset.id]" class="btn-primary active">Trasladar
+                </mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.id]">Dar de baja</mat-button-toggle>
 
-<
+            </mat-button-toggle-group>
+        </div>
 
 
+        <form [formGroup]="reactiveForm" (ngSubmit)="moveData()">
+
 
-
-				</mat-expansion-panel>
-
-
-				<mat-expansion-panel>
-					<mat-expansion-panel-header>
-						<mat-panel-title>
-							Asignaciones
-						</mat-panel-title>
-
-					</mat-expansion-panel-header>
-
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lCenter.code">
-						<mat-label>
-							Centro
-						</mat-label>
-						<input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lCenter.code}} - {{asset.lCenter.name}}">
-					</mat-form-field>
-
-
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lArea.code">
-						<mat-label>
-							Área
-						</mat-label>
-						<input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lArea.code}} - {{asset.lArea.name}}">
-					</mat-form-field>
-
-
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lBuilding.code">
-						<mat-label>
-							Edificio
-						</mat-label>
-						<input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lBuilding.code}} - {{asset.lBuilding.name}}">
-					</mat-form-field>
-
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lRoom.code">
-						<mat-label>
-							Sala
-						</mat-label>
-						<input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lRoom.code}} - {{asset.lRoom.name}}">
-					</mat-form-field>
-
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lFloor.code">
-						<mat-label>
-							Sala
-						</mat-label>
-						<input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lFloor.code}} - {{asset.lFloor.name}}">
-					</mat-form-field>
-
-				</mat-expansion-panel>
-
-
-				<mat-expansion-panel>
-					<mat-expansion-panel-header>
-						<mat-panel-title>
-							Origen
-						</mat-panel-title>
-
-					</mat-expansion-panel-header>
-
-
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.creditorId">
-						<mat-label>
-							ID Acreedor
-						</mat-label>
-						<input *ngIf="asset?.creditorId" matInput formControlName="creditorId" placeholder="ID Acreedor" value="{{asset.creditorId}}">
-					</mat-form-field>
-
-
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.creditorName">
-						<mat-label>
-							Fabricante
-						</mat-label>
-						<input *ngIf="asset?.creditorName" matInput placeholder="Fabricante" readonly value="{{asset.creditorName}}">
-					</mat-form-field>
-
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.assetOrigin">
-						<mat-label>
-							Origen
-						</mat-label>
-
-						<input *ngIf="asset?.assetOrigin" matInput placeholder="" readonly value="{{asset.assetOrigin}}">
-					</mat-form-field>
-
-					<mat-checkbox [checked]="asset.newAsset" [disabled]="true">¿Es un activo nuevo?</mat-checkbox>
-
-
-					
-
-				</mat-expansion-panel>
-
-				<mat-expansion-panel>
-					<mat-expansion-panel-header>
-						<mat-panel-title>
-							Años de vida útil
-						</mat-panel-title>
-
-					</mat-expansion-panel-header>
-					<mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lifetimeYear">
-						<mat-label>
-							Años de vida útil
-						</mat-label>
-						<input *ngIf="asset?.lifetimeYear" matInput placeholder="Años de vida útil"  formControlName="lifetimeYear" value="{{asset.lifetimeYear}}">
-					</mat-form-field>
-
-					<mat-form-field appearance="outline" class="full-width">
-						<mat-label>
-							Vida útil tributaria
-						</mat-label>
-						<input matInput placeholder="" readonly value="{{asset.lifetimeYear15}}">
-					</mat-form-field>
-
-				</mat-expansion-panel>
-			</mat-accordion>
-			 <button mat-flat-button color="primary" class="full-width mt-3">Guardar cambios y enviar</button>
-		</div>
-	</form>
-	</div>
--->
+
+            <input matInput formControlName="assetID" class="hidden">
+            <input matInput formControlName="costCenter" class="hidden">
+
+
+
+            <div class="row pt-3 pb-5">
+
+                <mat-accordion class="full-width">
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Datos Activo fijo
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+
+
+                        <p *ngIf="asset?.createdAt" class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{ asset.createdAt.date | date:"dd/MM/yyyy HH:mm:ss"}}
+                        </p>
+                        <p *ngIf="asset?.referalCode" class="display-5 pr-3 d-sm-block">Código: {{ asset.referalCode }}
+                        </p>
+                        <p *ngIf="asset?.rfidLabelSap" class="display-5 pr-3 d-sm-block">Código RFID: {{asset.rfidLabelSap}}
+
+                        </p>
+                        <p class="display-5 pr-3 d-sm-block">Condición:
+                            <span *ngIf="asset?.status == 1" class="badge badge-secondary">En Proceso</span>
+                            <span *ngIf="asset?.status == 2" class="badge badge-primary">Activo</span>
+                            <span *ngIf="asset?.status == 3" class="badge badge-dark">Dado de Baja</span>
+                        </p>
+
+
+                        <br />
+                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.catalogClass">
+                            <mat-label>Clase activo fijo</mat-label>
+                            <input matInput placeholder="" readonly disabled value="{{asset.catalogClass.name}}">
+                        </mat-form-field>
+                        <br />
+
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>
+                                Código Rfid
+                            </mat-label>
+
+                            <input matInput placeholder="Código Rfid" value="{{asset.rfidLabelSap}}">
+                        </mat-form-field>
+
+                        <br />
+                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.society">
+                            <mat-label>
+                                Sociedad
+                            </mat-label>
+                            <input matInput placeholder="" readonly disabled value="{{asset.society}}">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.society">
+                            <mat-label>
+                                Código RFID SAP
+                            </mat-label>
+                            <input matInput placeholder="" readonly disabled value="{{asset.rfidLabelSap}}">
+                        </mat-form-field>
+
+
+                        <br />
+                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.capitalizationDateAt">
+                            <mat-label>
+                                Fecha de Capitalización
+                            </mat-label>
+                            <input matInput placeholder="" readonly disabled value="{{asset.capitalizationDateAt.date | date :'short'}}">
+                        </mat-form-field>
+                        <br />
+
+
+
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Especie
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.specie">
+                            <mat-label>
+                                Especie
+                            </mat-label>
+                            <input matInput placeholder="Especie" disabled [readonly]="false" value="{{asset.specie.code}}-{{asset.specie.name}}">
+                        </mat-form-field>
+                        <br />
+
+
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>
+                                Número de serie
+                            </mat-label>
+                            <input matInput placeholder="Número de serie" [readonly]="false" value="">
+                        </mat-form-field>
+
+                        <br />
+
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>
+                                Descripción
+                            </mat-label>
+                            <textarea matInput *ngIf="asset?.description" [readonly]="false" cols="5">{{asset.description}}</textarea>
+                        </mat-form-field>
+
+                        <br />
+                        <mat-checkbox [checked]="true" [disabled]="true">Incluir activo fijo en lista inventario
+                        </mat-checkbox>
+                        <br />
+                        <mat-checkbox [checked]="true" [disabled]="true">Gestión histórica</mat-checkbox>
+                        <br />
+
+
+
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Centro de costo
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+
+                        <div class="form-group">
+                            <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.costCenter">
+                                <mat-label>
+                                    Centro de costo
+                                </mat-label>
+                                <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.costCenter.code}} - {{asset.costCenter.name}}">
+                            </mat-form-field>
+                        </div>
+
+
+
+
+
+
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="true">
+
+
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Asignaciones
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+
+                        <!--Centro-->
+
+
+
+                        <div class="form-group">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Centro</mat-label>
+                                <select matNativeControl [(ngModel)]='asset.lCenter.id' formControlName="lCenter" (change)="onChangeCenter($event.target.value)">
+                                    <option *ngFor="let Center of Centers" [ngValue]="Center.id">{{Center.code}} -
+                                        {{Center.name}}</option>
+                                </select>
+                            </mat-form-field>
+                            <small class="text-info" *ngIf="reactiveForm.get('lCenter').hasError('required')">Campo
+                                requerido</small>
+                        </div>
+
+                        <!--Edificio-->
+                        <div class="form-group">
+
+
+
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Edificio</mat-label>
+                                <select matNativeControl [(ngModel)]='asset.lBuilding.id' formControlName="lBuilding" (change)="onChangeBuilding($event.target.value)">
+                                    <option *ngFor="let lBuilding of lBuildings" [ngValue]="lBuilding.id">
+                                        {{lBuilding.code}} - {{lBuilding.name}}</option>
+                                </select>
+                            </mat-form-field>
+                            <small class="text-info" *ngIf="reactiveForm.get('lBuilding').hasError('required')">Campo
+                                requerido</small>
+                        </div>
+
+                        <!--Piso-->
+
+                        <div class="form-group">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Piso</mat-label>
+                                <select matNativeControl formControlName="lFloor" [(ngModel)]='asset.lFloor.id' (change)="onChangeFloor($event.target.value)">
+
+                                    <option *ngFor="let lFloor of lFloors" [ngValue]="lFloor.id">{{lFloor.code}} -
+                                        {{lFloor.name}}</option>
+                                </select>
+                            </mat-form-field>
+                            <small class="text-info" *ngIf="reactiveForm.get('lFloor').hasError('required')">Campo
+                                requerido</small>
+                        </div>
+
+                        <!--lArea-->
+
+                        <div class="form-group">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Área</mat-label>
+                                <select matNativeControl formControlName="lArea" [(ngModel)]='asset.lArea.id' (change)="onChangeArea($event.target.value)">
+                                    <option *ngFor="let lArea of lAreas" [ngValue]="lArea.id">{{lArea.code}} -
+                                        {{lArea.name}}</option>
+                                </select>
+                            </mat-form-field>
+                            <small class="text-info" *ngIf="reactiveForm.get('lArea').hasError('required')">Campo
+                                requerido</small>
+                        </div>
+
+                        <!--lRoom-->
+
+                        <div class="form-group">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Sala</mat-label>
+                                <select matNativeControl formControlName="lRoom" [(ngModel)]='asset.lRoom.id'>
+
+                                    <option *ngFor="let lRoom of lRooms" [ngValue]="lRoom.id">{{lRoom.code}} -
+                                        {{lRoom.name}}</option>
+                                </select>
+                            </mat-form-field>
+                            <small class="text-info" *ngIf="reactiveForm.get('lRoom').hasError('required')">Campo
+                                requerido</small>
+                        </div>
+
+
+
+                        <!--
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Asignaciones
+                                </mat-panel-title>
+
+                            </mat-expansion-panel-header>
+
+                            <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lCenter.code">
+                                <mat-label>
+                                    Centro
+                                </mat-label>
+                                <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lCenter.code}} - {{asset.lCenter.name}}">
+                            </mat-form-field>
+
+
+                            <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lArea.code">
+                                <mat-label>
+                                    Área
+                                </mat-label>
+                                <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lArea.code}} - {{asset.lArea.name}}">
+                            </mat-form-field>
+
+
+                            <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lBuilding.code">
+                                <mat-label>
+                                    Edificio
+                                </mat-label>
+                                <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lBuilding.code}} - {{asset.lBuilding.name}}">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lRoom.code">
+                                <mat-label>
+                                    Sala
+                                </mat-label>
+                                <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lRoom.code}} - {{asset.lRoom.name}}">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lFloor.code">
+                                <mat-label>
+                                    Sala
+                                </mat-label>
+                                <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lFloor.code}} - {{asset.lFloor.name}}">
+                            </mat-form-field>
+
+                        -->
+
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Origen
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+
+
+                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.creditorId">
+                            <mat-label>
+                                ID Acreedor
+                            </mat-label>
+                            <input *ngIf="asset?.creditorId" matInput placeholder="ID Acreedor" value="{{asset.creditorId}}">
+                        </mat-form-field>
+
+
+                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.creditorName">
+                            <mat-label>
+                                Fabricante
+                            </mat-label>
+                            <input *ngIf="asset?.creditorName" matInput placeholder="Fabricante" readonly value="{{asset.creditorName}}">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.assetOrigin">
+                            <mat-label>
+                                Origen
+                            </mat-label>
+
+                            <input *ngIf="asset?.assetOrigin" matInput placeholder="" readonly value="{{asset.assetOrigin}}">
+                        </mat-form-field>
+
+                        <mat-checkbox [checked]="asset.newAsset" [disabled]="true">¿Es un activo nuevo?</mat-checkbox>
+
+
+
+
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Años de vida útil
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lifetimeYear">
+                            <mat-label>
+                                Años de vida útil
+                            </mat-label>
+                            <input *ngIf="asset?.lifetimeYear" matInput placeholder="Años de vida útil" value="{{asset.lifetimeYear}}">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>
+                                Vida útil tributaria
+                            </mat-label>
+                            <input matInput placeholder="" readonly value="{{asset.lifetimeYear15}}">
+                        </mat-form-field>
+
+                    </mat-expansion-panel>
+
+                </mat-accordion>
+
+                <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-lg btn-primary full-width">Guardar
+                    cambios y enviar</button>
+            </div>
+        </form>
+
+    </div>
 </div>
 <app-footer></app-footer>

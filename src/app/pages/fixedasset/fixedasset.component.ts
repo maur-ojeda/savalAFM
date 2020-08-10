@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 
+
 @Component({
   selector: 'app-fixedasset',
   templateUrl: './fixedasset.component.html',
@@ -17,35 +18,52 @@ export class FixedassetComponent implements OnInit {
   panelOpenState = false;
   
   asset: AssetInterface;
+  asseto: AssetInterface;
+  
+
   constructor(
     public assetsService: AssetsService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private location: Location 
-    
-  ) { }
+    private location: Location,
+
+  ) {  }
+
 
   ngOnInit(): void {
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
+   
+this.router.routeReuseStrategy.shouldReuseRoute = () => { 
+  return false;
+}
 
+
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
     let ide = Number(id);
+ 
 
     this.assetsService.getAssetPorId( ide ).then( asset => {
       if ( !asset ) {
         return this.router.navigateByUrl('/');
       }
       this.asset = asset;
-      console.log( asset );
+     
     });
-
-  }
-  goBack() {
-    this.location.back();
-  }
-
-
-
 
   
 
+  }
+
+  goBack() {
+    this.location.back();
+  }
+ 
+
+  refreshPage() {
+    window.location.reload();
+
+   }
+
 }
+
+
+  

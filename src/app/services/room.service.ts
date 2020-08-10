@@ -11,6 +11,30 @@ export class RoomService {
 
   constructor(private http: HttpClient) { }
 
+
+
+  getallRooms(): Promise<RoomInterface[]>{
+    let user ="mobile_user";
+    let pass ="testing";
+    let headers = new HttpHeaders()
+    .set('Authorization',   `Basic ${btoa(user + ":" + pass)}`)
+    .set('Content-Type', 'application/x-www-form-urlencoded')
+  
+    if ( this.rooms.length > 0 ) {
+      return Promise.resolve( this.rooms );
+    }
+    return new Promise( resolve => {
+  this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?all=true',{ headers })
+        .subscribe( (rooms: any) => {
+          this.rooms = rooms.data;
+          resolve( rooms.data )
+        });
+    });
+  }
+
+
+  
+
   getRooms(id:number): Promise<RoomInterface[]>{
     let user ="mobile_user";
     let pass ="testing";
@@ -23,7 +47,7 @@ export class RoomService {
     }
     return new Promise( resolve => {
   
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/location/rooms/'+id ,{ headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/location/rooms/'+id ,{ headers })
         .subscribe( (rooms: any) => {
           this.rooms = rooms.data;
           //console.log('rooms.data');

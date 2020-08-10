@@ -58,7 +58,7 @@
                             </mat-label>
 
                             <!--(change)="rfidConvert($event.target.value)"-->
-                            <input matInput formControlName="rfidLabelFake" placeholder="Código Rfid" value="">
+                            <input matInput formControlName="rfidLabelFake" placeholder="Código Rfid" value={{asset.rfidLabelSap}}>
                             <small class="text-info" *ngIf="reactiveForm.get('rfidLabelFake').hasError('required')">Campo requerido</small>
                         </mat-form-field>
                         <!--Editable-->
@@ -153,8 +153,7 @@
 
                                 <select matNativeControl formControlName="costCenter">
 
-									<option *ngFor="let CCenter of CCenters" [value]="CCenter.id">
-										{{CCenter.code}}-{{CCenter.name}}</option>
+									<option *ngFor="let ccenter of ccenters" [value]="ccenter.id">{{ccenter.code}}-{{ccenter.name}}</option>
 								</select>
 
                             </mat-form-field>
@@ -171,6 +170,10 @@
                             </mat-panel-title>
 
                         </mat-expansion-panel-header>
+
+
+
+
 
                         <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lCenter.code">
                             <mat-label>
@@ -208,6 +211,9 @@
                             </mat-label>
                             <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lFloor.code}} - {{asset.lFloor.name}}">
                         </mat-form-field>
+
+
+
 
                     </mat-expansion-panel>
 
@@ -281,7 +287,7 @@
                 </mat-accordion>
 
 
-                <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-primary full-width">Guardar cambios y enviar</button>
+                <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-lg btn-primary full-width">Guardar cambios y enviar</button>
 
             </div>
         </form>

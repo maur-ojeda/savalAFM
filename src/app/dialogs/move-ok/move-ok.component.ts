@@ -2,13 +2,14 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-create-ok',
-  templateUrl: './create-ok.component.html',
-  styleUrls: ['./create-ok.component.scss']
+  selector: 'app-move-ok',
+  templateUrl: './move-ok.component.html',
+  styleUrls: ['./move-ok.component.scss']
 })
-export class CreateOkComponent implements OnInit {
+export class MoveOkComponent implements OnInit {
+
   mensaje;
-  constructor(public dialogRef: MatDialogRef<CreateOkComponent>,
+  constructor(public dialogRef: MatDialogRef<MoveOkComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       console.log('data passed in is:', this.data);
       this.mensaje = this.data;

@@ -1,10 +1,11 @@
 <h3 mat-dialog-title>Activo fijo nuevo</h3>
 <div mat-dialog-content>
-    <p>Se ha Modificado activo fijo</p>
+    <p>Activo fijo modificado</p>
+
+Se ha modificado correctamente el Activo Fijo
      <!--p>{{mensaje.anyProperty.message}}</p-->
 </div>
 <div mat-dialog-actions>
-	<button mat-flat-button mat-dialog-close class="full-width">Cerrar</button>
+	<button mat-flat-button mat-dialog-close class="full-width" [routerLink]="['/fixedAsset',mensaje.anyProperty]">Cerrar</button>
+    
 </div>
-
-

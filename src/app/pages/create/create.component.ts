@@ -156,7 +156,6 @@ export class CreateComponent implements OnInit {
 			.then(lBuildings => this.lBuildings = lBuildings)
 			.then(la => { console.log(la) });
 	}
-
 	onChangeBuilding(e: number) {
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
@@ -165,7 +164,6 @@ export class CreateComponent implements OnInit {
 			.then(lFloors => this.lFloors = lFloors)
 			.then(la => { console.log(la) });
 	}
-
 	onChangeFloor(e: number) {
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
@@ -244,11 +242,11 @@ export class CreateComponent implements OnInit {
 			"creditorId": this.reactiveForm.value.creditorId,
 			"newAsset": this.reactiveForm.value.newAsset,
 			"assetOrigin": this.reactiveForm.value.assetOrigin,
-			"lifetimeYear": this.reactiveForm.value.lifetimeYear
+			"lifetimeYear": this.reactiveForm.value.lifetimeYear,
 		}
 	
 		this.assetsService.InsertAssets(formValue);
-		this.reactiveForm.reset();//todo:mejorar
+		//this.reactiveForm.reset();//todo:mejorar mandar al detalle de asset
 		
 	}
 

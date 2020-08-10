@@ -8,6 +8,9 @@ import { CreateErrorComponent } from '../dialogs/create-error/create-error.compo
 import { CreateOkComponent } from '../dialogs/create-ok/create-ok.component';
 import { UpdateOkComponent } from '../dialogs/update-ok/update-ok.component';
 import { UpdateErrorComponent } from '../dialogs/update-error/update-error.component';
+import { MoveOkComponent } from '../dialogs/move-ok/move-ok.component';
+import { DeleteOkComponent } from '../dialogs/delete-ok/delete-ok.component';
+import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.component';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +33,9 @@ export class AssetsService {
     if (this.assets.length > 0) {
       return Promise.resolve(this.assets);
     }
-    
+
     return new Promise(resolve => {
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/', { headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/', { headers })
         .subscribe((assets: any) => {
           //console.log(items.data);
           this.assets = assets.data;
@@ -122,13 +125,10 @@ export class AssetsService {
     //.set("Content-Type", "application/json");
     //.set('Content-Type', 'application/x-www-form-urlencoded')//<--funciona desde servidor
 
-    this.http.post("https://afsaval.agenciasur.cl/webservice/rest/request/add", formValue, { headers })
+    this.http.post("https://devactivofijo.saval.cl:8443/webservice/rest/request/add", formValue, { headers })
       .subscribe(
         val => {
           console.log("PUT call successful value returned in body", val);
-
-
-
           this.dialog.open(CreateOkComponent, {
             width: '98VW',
             data: {
@@ -157,41 +157,30 @@ export class AssetsService {
 
 
 
-updateAssets(formValue, ide) {
+  updateAssets(formValue, ide) {
 
-
-console.log('ide:' + ide);
-console.log(formValue);
-
-
-
-    
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       //.set("Content-Type", "application/json");
       .set("Content-Type", "application/x-www-form-urlencoded");
-
-
-    this.http.put("https://afsaval.agenciasur.cl/webservice/rest/asset/update/" + ide, formValue, { headers })
+    this.http.put("https://devactivofijo.saval.cl:8443/webservice/rest/asset/update/" + ide, formValue, { headers })
       .subscribe(
         val => {
           console.log("PUT call successful value returned in body",
             val);
           this.dialog.open(UpdateOkComponent, {
             data: {
-              anyProperty: "myValue"
+              anyProperty: ide
             }
           });
         },
         response => {
           console.log("PUT call in error", response);
-
           this.dialog.open(UpdateErrorComponent, {
             data: {
               anyProperty: "myValue"
             }
           });
-
         },
         () => {
           console.log("The PUT observable is now completed.");
@@ -200,121 +189,86 @@ console.log(formValue);
   }
 
 
-
-  deleteAssets(code: string) {
-
-
+  moveAssets(formValue, ide) {
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set("Content-Type", "application/x-www-form-urlencoded");
+    this.http.put("https://devactivofijo.saval.cl:8443/webservice/rest/asset/move/" + ide, formValue, { headers })
+      .subscribe(
+        val => {
+          console.log("PUT call successful value returned in body",
+            val);
+          this.dialog.open(UpdateOkComponent, {
+            data: {
+              anyProperty: ide
+            }
+          });
+        },
+        response => {
+          console.log("PUT call in error", response);
+          this.dialog.open(UpdateErrorComponent, {
+            data: {
+              anyProperty: "myValue"
+            }
+          });
+        },
+        () => {
+          console.log("The PUT observable is now completed.");
+        }
+      );
   }
 
-  /*
-  httpPutExample() {
-  
-    const headers = new HttpHeaders()
-    application/json
-        .set("Content-Type", "application/json");
+
+  downAssets(formValue, ide) {
+    const options = {
+      headers: new HttpHeaders({
+        "Authorization": "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==",
+        "Content-Type": "application/x-www-form-urlencoded",
+      }),
+      body: { 
+        "downDocumentAt": formValue.downDocumentAt,
+        "downPostingAt": formValue.downPostingAt,
+        "downReferenceAt": formValue.downReferenceAt,
+        "downComment": formValue.downComment
+       },
+    };
+    console.log(options)
     
-    this.http.put("/courses/-KgVwECOnlc-LHb_B0cQ.json",
-        {
-            "courseListIcon": ".../main-page-logo-small-hat.png",
-            "description": "Angular Tutorial For Beginners TEST",
-            "iconUrl": ".../angular2-for-beginners.jpg",
-            "longDescription": "...",
-            "url": "new-value-for-url"
+    this.http.delete("https://devactivofijo.saval.cl:8443/webservice/rest/asset/delete/" + ide, options)
+      .subscribe(
+        val => {
+          console.log("PUT call successful value returned in body",
+            val);
+
+            this.dialog.open(DeleteOkComponent, {
+              width: '98VW',
+              data: {
+                anyProperty: val
+              }
+            });
         },
-        {headers})
-        .subscribe(
-            val => {
-                console.log("PUT call successful value returned in body", 
-                            val);
-            },
-            response => {
-                console.log("PUT call in error", response);
-            },
-            () => {
-                console.log("The PUT observable is now completed.");
+        response => {
+          console.log("PUT call in error", response);
+          this.dialog.open(DeleteErrorComponent, {
+            width: '98VW',
+            data: {
+              anyProperty: response
             }
-        );
-    }
-  */
-
-  /*
-    httpPatchExample() {
-  
-      this.http.patch("/courses/-KgVwECOnlc-LHb_B0cQ.json",
-          {
-              "description": "Angular Tutorial For Beginners PATCH TEST",
-          })
-          .subscribe(
-              (val) => {
-                  console.log("PATCH call successful value returned in body", 
-                              val);
-              },
-              response => {
-                  console.log("PATCH call in error", response);
-              },
-              () => {
-                  console.log("The PATCH observable is now completed.");
-              });
-      }
-  */
-
-  /*
-      httpDeleteExample() {
-  
-        this.http.delete("/courses/-KgVwECOnlc-LHb_B0cQ.json")
-            .subscribe(
-                (val) => {
-                    console.log("DELETE call successful value returned in body", 
-                                val);
-                },
-                response => {
-                    console.log("DELETE call in error", response);
-                },
-                () => {
-                    console.log("The DELETE observable is now completed.");
-                });
+          });
+        },
+        () => {
+          console.log("The PUT observable is now completed.");
         }
-  
-  */
-
-  /*
-        httpPostExample() {
-  
-          this.http.post("/courses/-KgVwECOnlc-LHb_B0cQ.json",
-              {
-                  "courseListIcon": "...",
-                  "description": "TEST",
-                  "iconUrl": "..",
-                  "longDescription": "...",
-                  "url": "new-url"
-              })
-              .subscribe(
-                  (val) => {
-                      console.log("POST call successful value returned in body", 
-                                  val);
-                  },
-                  response => {
-                      console.log("POST call in error", response);
-                  },
-                  () => {
-                      console.log("The POST observable is now completed.");
-                  });
-          }
-  */
+      );
+  }
 }
-/*
-$scope.buscar = function(){
-  let arrBusqueda = $scope.buscarActividad.split(",");
-  $scope.actividadesShow =
-  $scope.actividades
-            .filter((item)=>{
-               let a =  arrBusqueda.map((value)=>
-               {
-                return JSON.stringify(item)
-                          .toUpperCase()
-                          .indexOf(value.toUpperCase()) > -1 ? 1 : 0;
-               }).reduce((x, y) => x + y);
-               return a > 0
-              })
 
-}*/
+
+/**
+
+devactivofijo.saval.cl:8443
+
+devactivofijo.saval.cl:8443
+
+8443
+ */

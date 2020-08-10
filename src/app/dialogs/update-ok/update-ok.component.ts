@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-ok',
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./update-ok.component.scss']
 })
 export class UpdateOkComponent implements OnInit {
+  mensaje;
+  constructor(
+    private router: Router,
+    public dialogRef: MatDialogRef<UpdateOkComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
 
-  constructor() { }
+      this.mensaje = this.data;
+//console.log(this.mensaje)
+     }
 
   ngOnInit(): void {
+    
   }
 
+  
+  
 }
+

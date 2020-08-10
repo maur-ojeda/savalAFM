@@ -76,7 +76,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
-
+//import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 import { OpenFixedassetComponent } from './dialogs/open-fixedasset/open-fixedasset.component';
@@ -91,7 +91,11 @@ import { CreateErrorComponent } from './dialogs/create-error/create-error.compon
 import { CreateOkComponent } from './dialogs/create-ok/create-ok.component';
 import { UpdateOkComponent } from './dialogs/update-ok/update-ok.component';
 import { UpdateErrorComponent } from './dialogs/update-error/update-error.component';
-
+import { MoveErrorComponent } from './dialogs/move-error/move-error.component';
+import { MoveOkComponent } from './dialogs/move-ok/move-ok.component';
+import { DeleteOkComponent } from './dialogs/delete-ok/delete-ok.component';
+import { DeleteErrorComponent } from './dialogs/delete-error/delete-error.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -131,6 +135,10 @@ import { UpdateErrorComponent } from './dialogs/update-error/update-error.compon
     CreateOkComponent,
     UpdateOkComponent,
     UpdateErrorComponent,
+    MoveErrorComponent,
+    MoveOkComponent,
+    DeleteOkComponent,
+    DeleteErrorComponent,
     
   ],
   imports: [
@@ -140,25 +148,24 @@ import { UpdateErrorComponent } from './dialogs/update-error/update-error.compon
      ReactiveFormsModule,
       AngularFireModule.initializeApp(environment.firebase),
       AngularFireDatabaseModule,
-      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+      ServiceWorkerModule.register('service-worker.js', { enabled: environment.production }),
       HttpClientModule,
       NgbModule,
       BrowserAnimationsModule,
-
-
-    
       MatInputModule,
       MatFormFieldModule,
       MatButtonModule,
       MatCardModule,
       MatButtonToggleModule,
       MatSnackBarModule,
+    //  MatSnackBar,
       MatDialogModule,
       MatProgressSpinnerModule,
       MatTableModule,
       MatExpansionModule,
       MatCheckboxModule,
-      MatSelectModule
+      MatSelectModule,
+      
   ],
   entryComponents:[ OpenFixedassetComponent],
   providers: [FixedassetsService, FixedAssetDataService, CookieService, AuthGuard],

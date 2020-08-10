@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SplashComponent } from './pages/splash/splash.component';// no debe ir
+//import { SplashComponent } from './pages/splash/splash.component';// no debe ir
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UserDataComponent } from './pages/user-data/user-data.component';
@@ -32,29 +32,42 @@ import { RequestsComponent } from './pages/requests/requests.component';
 
 //import { UsersService } from './services/user.service';
 import { AuthGuard } from './auth.guard';
+//import { MoveFixedassetComponent } from './dialogs/move-fixedasset/move-fixedasset.component';
 
 const routes: Routes = [
+
+
   { path: '', component : LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'userData', component: UserDataComponent, canActivate: [AuthGuard]},
   //listado
   { path: 'fixedAssets', component: FixedAssetsComponent, canActivate: [AuthGuard] },
+  
+  
   //individual
   { path: 'fixedAsset/:id', component: FixedassetComponent, canActivate: [AuthGuard] },
 
-
-  { path: 'fixedAssetMove/:id', component: FixedassetupdateComponent, canActivate: [AuthGuard] },
-  
-  { path: 'fixedAssetDelete/:id', component: FixedassetComponent, canActivate: [AuthGuard] },
  
+
+
+
+
+
+
+  { path: 'fixedAssetMove/:id', component: FixedassetmoveComponent, canActivate: [AuthGuard] },
+  
+  { path: 'fixedAssetUpdate/:id', component: FixedassetupdateComponent, canActivate: [AuthGuard] },
 
 
 //todo: aqui estoy
-{ path: 'fixedAssetMove/:id', component: FixedassetmoveComponent, canActivate: [AuthGuard] },
-  { path: 'fixedAssetUpdate/:id', component: FixedassetupdateComponent, canActivate: [AuthGuard] },
- 
+{ path: 'fixedAssetDelete/:id', component: FixedassetdeleteComponent, canActivate: [AuthGuard] },
+
+
+
   
+ 
+  //FixedassetmoveComponent
 
 
   { path: 'create', component: CreateComponent, canActivate: [AuthGuard] },
@@ -76,7 +89,9 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{
+    onSameUrlNavigation: 'reload'
+  })],
   exports: [RouterModule]
 })
 

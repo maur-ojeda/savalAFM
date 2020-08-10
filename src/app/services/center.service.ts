@@ -24,10 +24,7 @@ export class CenterService {
     }
     return new Promise( resolve => {
   
-
-      
-
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/location/centers',{ headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/location/centers',{ headers })
         .subscribe( (centers: any) => {
           this.centers = centers.data;
           //console.log('ccenters.data');

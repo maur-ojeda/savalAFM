@@ -3,14 +3,9 @@ import { AssetsService } from '../../services/assets.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssetInterface } from '../../interfaces/asset.interface';
 import { Location } from '@angular/common';
-
-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
-
 import { CcenterService } from 'src/app/services/ccenter.service';
 import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
-
 
 
 
@@ -23,7 +18,7 @@ export class FixedassetupdateComponent implements OnInit {
 
   asset: AssetInterface;
   reactiveForm: FormGroup;
-  CCenters: CcenterInterface[] = [];
+  ccenters: CcenterInterface[] = [];
 
 
 
@@ -40,7 +35,6 @@ export class FixedassetupdateComponent implements OnInit {
 
 
     let id = this.activatedRoute.snapshot.paramMap.get('id');
-
     let ide = Number(id);
 
     this.assetsService.getAssetPorId(ide).then(asset => {
@@ -52,16 +46,16 @@ export class FixedassetupdateComponent implements OnInit {
     });
 
     this.slCCenterService.getCcenters()
-      .then(CCenters => this.CCenters = CCenters);
+      .then(ccenters => this.ccenters = ccenters);
 
     this.reactiveForm = this.builder.group({
       assetID: ['', []],
-      rfidLabelFake: ['', [Validators.required]],
-      rfidLabelSap: ['', [Validators.required]],
+      rfidLabelFake: ['', ],
+      rfidLabelSap: ['', ],
       serieNumber: ['', [Validators.required]],
       description: ['', [Validators.required]],
       costCenter: ['', [Validators.required]],
-      creditorId: ['', [Validators.required]],
+      creditorId: ['', []],
       lifetimeYear: ['', [Validators.required]]
     });
   }
