@@ -32,48 +32,57 @@ export class OpenFixedassetComponent implements OnInit {
     });
   }
   
+
+  
   assetPorIde(valor: any) {
-    
-    if (valor == "") {
-      
+  
+    //console.log(valor);
+
+   if (valor == null) {      
       return this.router.navigateByUrl('/fixedAssets');
     }
+
     if (valor.length > 20) {
       let last8 = valor.substr(valor.length - 8);
       let hexa = parseInt(last8, 16);
       let hexaStr = hexa.toString();
-      this.assetsService.getAssetsIdSearch(hexaStr)
+      
+      this.assetsService.getAssetsCode(hexaStr)
       .then( asset => {
         if (!asset) {
           this.estatus="No se ha encontrado registro.";
           return this.router.navigateByUrl('/fixedAssets');
         } else {
-          this.asset = asset
-          
+          this.asset = asset;
           this.dialogRef.close();
-          let route = "fixedAssetUpdate/" + asset.code;
+          let route = "fixedAssetUpdate/" + asset;
           return this.router.navigateByUrl(route);
         }
       })
-    } else {
+
+
+    } 
+    else {
       var splitted = valor.split("-", 3);
-      //console.log(splitted[0]) //codigo
-      this.assetsService.getAssetsIdSearch(splitted[0])
+      this.assetsService.getAssetsCode(splitted[0])
       .then( asset => {
         if (!asset) {
           this.estatus="No se ha encontrado registro.";
           return this.router.navigateByUrl('/fixedAssets');
         } else {
-         
           this.asset = asset;
           this.dialogRef.close();
-          let route = "fixedAssetUpdate/" + asset.code;
+          let route = "fixedAssetUpdate/" + asset;
           return this.router.navigateByUrl(route);
         }
       })
     }
   }
-  
+
+
+
+
+
 search(){
   let ide = this.reactiveForm.value.search
   ide = ide.toString()

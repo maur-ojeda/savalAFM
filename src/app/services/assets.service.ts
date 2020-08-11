@@ -23,6 +23,10 @@ export class AssetsService {
   private assets:  AssetSearchInterface[] = [];
 
   constructor(private http: HttpClient, public dialog: MatDialog) { }
+
+
+
+
   //todo:user y pass dinamico
   getAssets(): Promise<AssetSearchInterface[]> {
     let headers = new HttpHeaders()
@@ -57,23 +61,7 @@ export class AssetsService {
     console.log('todo');
   }
 
-  getAssetsIdSearch(code: string): Promise<AssetSearchInterface[]> {
-    let headers = new HttpHeaders()
-      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
-      .set('Content-Type', 'application/x-www-form-urlencoded')
-
-    if (this.assets.length > 0) {
-      return Promise.resolve(this.assets);
-    }
-
-    return new Promise(resolve => {
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/search/?code='+ code, { headers })
-        .subscribe((assets: any) => {
-          this.assets = assets.data;
-          resolve(assets);
-        });
-    });
-  }
+ 
  
 
 
@@ -276,6 +264,46 @@ export class AssetsService {
       );
   }
 
+
+
+
+
+  getAssetsCode(code: string): Promise<AssetSearchInterface[]> {
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    if (this.assets.length > 0) {
+      return Promise.resolve(this.assets);
+    }
+
+    return new Promise(resolve => {
+      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/search/?code='+ code, { headers })
+        .subscribe((assets: any) => {
+          this.assets = assets;
+          resolve(assets.data.code);
+         // console.log(assets.data.code)
+        });
+    });
+  }
+
+
+  getAssetsData(code: string): Promise<AssetSearchInterface[]> {
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+
+    if (this.assets.length > 0) {
+      return Promise.resolve(this.assets);
+    }
+
+    return new Promise(resolve => {
+      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/search/?code='+ code, { headers })
+        .subscribe((assets: any) => {
+          this.assets = assets;
+          resolve(assets.data);
+        });
+    });
+  }
 
 
 }

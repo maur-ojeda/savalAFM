@@ -65,51 +65,58 @@ export class FixedAssetsComponent implements OnInit {
       width: '98VW'
     });
   }
-
   cargarDatos() {
     this.assetsService.getAssets()
       .then(assets => this.assets = assets);
   }
 
+
   assetPorIde(valor: any) {
-    if (valor == "") {
-      
+  
+    console.log(valor);
+
+   if (valor == null) {      
       return this.router.navigateByUrl('/fixedAssets');
     }
+
     if (valor.length > 20) {
       let last8 = valor.substr(valor.length - 8);
       let hexa = parseInt(last8, 16);
       let hexaStr = hexa.toString();
-      this.assetsService.getAssetsIdSearch(hexaStr)
+      
+      this.assetsService.getAssetsCode(hexaStr)
       .then( asset => {
         if (!asset) {
           this.openNoRegister();
         } else {
           this.asset = asset
-          let route = "fixedAsset/" + asset.code;
+          console.log('rfid')
+          console.log(asset)
+          let route = "fixedAsset/" + asset;
           return this.router.navigateByUrl(route);
         }
       })
-    } else {
 
-console.log(valor)
- var splitted = valor.split("-", 3);
-      //console.log(splitted[0]) //codigo
-      //console.log(splitted[1]) //guion
-      //console.log(splitted[2]) //subcodigo
 
-      this.assetsService.getAssetsIdSearch(splitted[0])
+    } 
+    else {
+      var splitted = valor.split("-", 3);
+      this.assetsService.getAssetsCode(splitted[0])
       .then( asset => {
         if (!asset) {
           this.openNoRegister();
         } else {
+      
           this.asset = asset
-          console.log(asset)
-          let route = "fixedAsset/" + asset.code;
+          let route = "fixedAsset/" + asset;
           return this.router.navigateByUrl(route);
         }
       })
     }
+
+
+
+
   }
 
 

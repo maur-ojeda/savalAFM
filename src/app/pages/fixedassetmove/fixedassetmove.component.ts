@@ -31,8 +31,11 @@ import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 })
 export class FixedassetmoveComponent implements OnInit {
 
-  assets: AssetSearchInterface[] = [];
-  asset: AssetSearchInterface[] = [];
+ // assets: AssetSearchInterface[] = [];
+ // asset: AssetSearchInterface[] = [];
+
+  assets;
+  asset;
   locations: LocationInterface[] = [];
   ccenters: CcenterInterface[] = [];
   species: SpeciesInterface[] = [];
@@ -65,16 +68,14 @@ export class FixedassetmoveComponent implements OnInit {
   ngOnInit(): void {
  //getcode
  let code = this.activatedRoute.snapshot.paramMap.get('id');
- this.assetsService.getAssetsIdSearch( code ).then( asset => {
- if ( !asset ) {
+ this.assetsService.getAssetsData( code ).then( asset => {
+   if ( !asset ) {
    return this.router.navigateByUrl('/');
  }
-   this.asset = asset;
+ this.asset = asset;
 
-   this.getAssetsData(asset)
-
-
- });
+});
+//getcode
 
 
     this.slCenterService.getCenters()

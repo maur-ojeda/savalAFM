@@ -232,18 +232,18 @@
                             </mat-panel-title>
 
                         </mat-expansion-panel-header>
-                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lifetimeYear">
+                        <mat-form-field appearance="outline" class="full-width">
                             <mat-label>
                                 Años de vida útil
                             </mat-label>
-                            <input *ngIf="asset?.lifetimeYear" matInput placeholder="" readonly value="{{asset.lifetimeYear}}">
+                            <input matInput placeholder="  Años de vida útil" readonly value="{{asset.lifetimeYear}}">
                         </mat-form-field>
 
-                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lifetimeYear15">
+                        <mat-form-field appearance="outline" class="full-width">
                             <mat-label>
                                 Vida útil tributaria
                             </mat-label>
-                            <input *ngIf="asset?.lifetimeYear15" matInput placeholder="" readonly value="{{asset.lifetimeYear15}}">
+                            <input matInput placeholder="Vida útil tributaria" readonly value="{{asset.lifetimeYear15}}">
                         </mat-form-field>
 
                     </mat-expansion-panel>

@@ -13,8 +13,10 @@ import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
   styleUrls: ['./fixedassetdelete.component.scss']
 })
 export class FixedassetdeleteComponent implements OnInit {
-  assets: AssetSearchInterface[] = [];
-  asset: AssetSearchInterface[] = [];
+  // assets: AssetSearchInterface[] = [];
+  // asset: AssetSearchInterface[] = [];
+  assets;
+  asset;
   reactiveForm: FormGroup;
 
   constructor(
@@ -23,23 +25,20 @@ export class FixedassetdeleteComponent implements OnInit {
     private router: Router,
     private location: Location, 
     private builder: FormBuilder,
-    //private datePipe: DatePipe
   ) { }
 
   
   ngOnInit(): void {
-       //getcode
-       let code = this.activatedRoute.snapshot.paramMap.get('id');
-       this.assetsService.getAssetsIdSearch( code ).then( asset => {
-       if ( !asset ) {
-         return this.router.navigateByUrl('/');
-       }
-         this.asset = asset;
-         this.getAssetsData(asset)
-
-
-       });
-     //getcode
+    //getcode
+    let code = this.activatedRoute.snapshot.paramMap.get('id');
+    this.assetsService.getAssetsData( code ).then( asset => {
+      if ( !asset ) {
+      return this.router.navigateByUrl('/');
+    }
+    this.asset = asset;
+ 
+  });
+  //getcode
   
     this.reactiveForm = this.builder.group({
       assetID:['',[]],

@@ -35,16 +35,19 @@ export class DownFixedassetComponent implements OnInit {
   }
 
   assetPorIde(valor: any) {
-    
-    if (valor == "") {
-      // alert('vacio');
+  
+    console.log(valor);
+
+   if (valor == null) {      
       return this.router.navigateByUrl('/fixedAssets');
     }
+
     if (valor.length > 20) {
       let last8 = valor.substr(valor.length - 8);
       let hexa = parseInt(last8, 16);
       let hexaStr = hexa.toString();
-      this.assetsService.getAssetsIdSearch(hexaStr)
+      
+      this.assetsService.getAssetsCode(hexaStr)
       .then( asset => {
         if (!asset) {
           this.estatus="No se ha encontrado registro.";
@@ -52,30 +55,25 @@ export class DownFixedassetComponent implements OnInit {
         } else {
           this.asset = asset;
           this.dialogRef.close();
-          let route = "fixedAssetDelete/" + asset.code;
+          let route = "fixedAssetDelete/" + asset;
           return this.router.navigateByUrl(route);
         }
       })
-    } else {
+
+
+    } 
+    else {
       var splitted = valor.split("-", 3);
-      //console.log(splitted[0]) //codigo
-      this.assetsService.getAssetsIdSearch(splitted[0])  
+      this.assetsService.getAssetsCode(splitted[0])
       .then( asset => {
         if (!asset) {
           this.estatus="No se ha encontrado registro.";
           return this.router.navigateByUrl('/fixedAssets');
         } else {
-         
           this.asset = asset;
-
-          let donde = asset.code;
-
           this.dialogRef.close();
-          let route = "fixedAssetDelete/" + donde;
+          let route = "fixedAssetDelete/" + asset;
           return this.router.navigateByUrl(route);
-
-
-
         }
       })
     }
@@ -85,7 +83,6 @@ export class DownFixedassetComponent implements OnInit {
 
 
 search(){
-  //console.log("test");
 let ide = this.reactiveForm.value.search
 ide = ide.toString()
 this.assetPorIde(ide);

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetsService } from '../../services/assets.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssetInterface } from '../../interfaces/asset.interface';
+//import { AssetInterface } from '../../interfaces/asset.interface';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CcenterService } from 'src/app/services/ccenter.service';
 import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
-import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
+//import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 
 
 
@@ -17,8 +17,10 @@ import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 })
 export class FixedassetupdateComponent implements OnInit {
 
-  assets: AssetSearchInterface[] = [];
-  asset: AssetSearchInterface[] = [];
+  //assets: AssetSearchInterface[] = [];
+  //asset: AssetSearchInterface[] = [];
+  assets;
+  asset;
   reactiveForm: FormGroup;
   ccenters: CcenterInterface[] = [];
 
@@ -36,18 +38,16 @@ export class FixedassetupdateComponent implements OnInit {
   ngOnInit(): void {
 
 
-    //getcode
-    let code = this.activatedRoute.snapshot.paramMap.get('id');
-    this.assetsService.getAssetsIdSearch( code ).then( asset => {
-    if ( !asset ) {
-      return this.router.navigateByUrl('/');
-    }
-      this.asset = asset;
-
-      this.getAssetsData(asset)
-    });
   //getcode
+  let code = this.activatedRoute.snapshot.paramMap.get('id');
+  this.assetsService.getAssetsData( code ).then( asset => {
+    if ( !asset ) {
+    return this.router.navigateByUrl('/');
+  }
+  this.asset = asset;
 
+});
+//getcode
 
 
 
