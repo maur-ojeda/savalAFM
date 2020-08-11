@@ -15,8 +15,9 @@ export class UpdateOkComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
       this.mensaje = this.data;
-//console.log(this.mensaje)
-     }
+      //console.log(this.mensaje)
+     
+    }
 
   ngOnInit(): void {
     

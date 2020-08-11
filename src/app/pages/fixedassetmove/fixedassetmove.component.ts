@@ -68,10 +68,17 @@ export class FixedassetmoveComponent implements OnInit {
    return this.router.navigateByUrl('/');
  }
    this.asset = asset.data;
+
+   this.getAssetsData(asset.data)
+
+
  });
 //getcode
 
-   
+   /*
+       <input matInput formControlName="assetID" class="_hidden">
+            <input matInput formControlName="costCenter" class="_hidden">
+   */ 
 
     this.slCenterService.getCenters()
     .then(Centers => this.Centers = Centers);

@@ -3,17 +3,17 @@
 
 
 <div class="container">
-    <!-- container -->
+<!-- container -->
 
-    <!-- spinner -->
-    <mat-spinner *ngIf="!asset"></mat-spinner>
-    <!-- / spinner -->
+<!-- spinner -->
+    <mat-spinner *ngIf="!asset.code"></mat-spinner>
+<!-- / spinner -->
 
 
-    <div *ngIf="asset?.referalCode" class="mt-5 pt-5 p-3">
-        <!-- div -->
+    <div *ngIf="asset?.code" class="mt-5 pt-5 p-3">
+<!-- div -->    
 
-        <!-- row boton volver -->
+<!-- row boton volver --> 
         <div class="row">
             <div class="col text-left">
                 <button mat-button color="primary" (click)="goBack()" class="mb-3">
@@ -28,9 +28,9 @@
                 </div>
             </div>
         </div>
-        <!-- / row boton volver -->
+<!-- / row boton volver --> 
 
-        <!-- row botonera -->
+<!-- row botonera --> 
         <div class="row">
             <mat-button-toggle-group name="fontStyle">
                 <mat-button-toggle [routerLink]="['/fixedAsset',asset.code]" class="btn-primary active">Detalles
@@ -40,9 +40,9 @@
                 <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.code]">Dar de baja</mat-button-toggle>
             </mat-button-toggle-group>
         </div>
-        <!-- / row botonera -->
+<!-- / row botonera --> 
 
-        <!-- row accordion -->
+<!-- row accordion --> 
         <div class="row pt-3">
             <mat-accordion class="full-width">
 
@@ -89,7 +89,7 @@
                     <br />
 
 
-                    <!---->
+
                 </mat-expansion-panel>
 
 
@@ -125,7 +125,7 @@
                     <br />
                     <mat-checkbox [checked]="true" [disabled]="true">Gestión histórica</mat-checkbox>
                     <br />
-                    <!---->
+              
 
 
                 </mat-expansion-panel>
@@ -153,49 +153,47 @@
                         <mat-panel-title>
                             Asignaciones
                         </mat-panel-title>
-
                     </mat-expansion-panel-header>
 
-                    <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lCenter.code">
+                  
+                    <mat-form-field appearance="outline" class="full-width">
                         <mat-label>
                             Centro
                         </mat-label>
-                        <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lCenter.code}} - {{asset.lCenter.name}}">
+                        <input  matInput placeholder="Centro" readonly value="{{asset.lCenter.code}} - {{asset.lCenter.name}}">
                     </mat-form-field>
 
 
 
-
-
-                    <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lBuilding.code">
+                    <mat-form-field appearance="outline" class="full-width">
                         <mat-label>
                             Edificio
                         </mat-label>
-                        <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lBuilding.code}} - {{asset.lBuilding.name}}">
+                        <input  matInput placeholder="Edificio" readonly value="{{asset.lBuilding.code}} - {{asset.lBuilding.name}}">
                     </mat-form-field>
 
 
 
-                    <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lFloor.code">
+                    <mat-form-field appearance="outline" class="full-width" >
                         <mat-label>
                             Piso
                         </mat-label>
-                        <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lFloor.code}} - {{asset.lFloor.name}}">
+                        <input  matInput placeholder="Piso" readonly value="{{asset.lFloor.code}} - {{asset.lFloor.name}}">
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lArea.code">
+                    <mat-form-field appearance="outline" class="full-width">
                         <mat-label>
                             Área
                         </mat-label>
-                        <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lArea.code}} - {{asset.lArea.name}}">
+                        <input  matInput placeholder="Área" readonly value="{{asset.lArea.code}} - {{asset.lArea.name}}">
                     </mat-form-field>
 
 
-                    <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lRoom.code">
+                    <mat-form-field appearance="outline" class="full-width" >
                         <mat-label>
                             Sala
                         </mat-label>
-                        <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lRoom.code}} - {{asset.lRoom.name}}">
+                        <input matInput placeholder="Sala" readonly value="{{asset.lRoom.code}} - {{asset.lRoom.name}}">
                     </mat-form-field>
 
 
@@ -263,14 +261,18 @@
                     </mat-form-field>
 
                 </mat-expansion-panel>
+            
+            
+    
+            
             </mat-accordion>
         </div>
-        <!-- row accordion -->
+<!-- row accordion --> 
 
 
-        <!-- div -->
+<!-- div -->      
     </div>
-    <!-- / container -->
+<!-- / container -->
 </div>
 
 

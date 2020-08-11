@@ -41,6 +41,8 @@ export class FixedassetupdateComponent implements OnInit {
       return this.router.navigateByUrl('/');
     }
       this.asset = asset.data;
+
+      this.getAssetsData(asset.data)
     });
   //getcode
 
@@ -52,15 +54,14 @@ export class FixedassetupdateComponent implements OnInit {
 
     this.reactiveForm = this.builder.group({
       assetID: ['', []],
-      rfidLabelFake: ['', ],
-      rfidLabelSap: ['', ],
+      rfidLabelFake: ['', []],
+      rfidLabelSap: ['',[] ],
       serieNumber: ['', [Validators.required]],
       description: ['', [Validators.required]],
       costCenter: ['', [Validators.required]],
       creditorId: ['', []],
       lifetimeYear: ['', [Validators.required]]
     });
-
 
 
 
@@ -81,6 +82,7 @@ export class FixedassetupdateComponent implements OnInit {
   }
 
   getAssetsData(e) {
+   console.log ('aqui: ' + e)
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
     this.reactiveForm.controls['rfidLabelSap'].setValue(e.rfidLabelSap);

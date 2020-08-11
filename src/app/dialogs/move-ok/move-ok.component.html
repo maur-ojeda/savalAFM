@@ -3,7 +3,5 @@
      <p>{{mensaje.anyProperty.message}}</p>
 </div>
 <div mat-dialog-actions>
-    <button mat-flat-button mat-dialog-close class="full-width" [routerLink]="['/fixedAssetPending',mensaje.anyProperty.data.id]">Cerrar</button>
+	<button mat-flat-button mat-dialog-close class="full-width" color="primary" [routerLink]="['/fixedAsset',mensaje.anyProperty.data.code]">Cerrar</button>
 </div>
-
-

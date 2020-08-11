@@ -34,6 +34,9 @@ export class FixedassetdeleteComponent implements OnInit {
          return this.router.navigateByUrl('/');
        }
          this.asset = asset.data;
+         this.getAssetsData(asset.data)
+
+
        });
      //getcode
   

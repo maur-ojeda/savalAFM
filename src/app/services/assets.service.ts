@@ -184,7 +184,7 @@ export class AssetsService {
             val);
           this.dialog.open(UpdateOkComponent, {
             data: {
-              anyProperty: ide
+              anyProperty: val
             }
           });
         },
@@ -206,14 +206,15 @@ export class AssetsService {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set("Content-Type", "application/x-www-form-urlencoded");
-    this.http.put("https://afsaval.agenciasur.cl/webservice/rest/asset/move/" + ide, formValue, { headers })
-      .subscribe(
+      //alert(ide)
+      
+  this.http.put("https://afsaval.agenciasur.cl/webservice/rest/asset/move/" + ide, formValue, { headers }).subscribe(
         val => {
           console.log("PUT call successful value returned in body",
             val);
-          this.dialog.open(UpdateOkComponent, {
+          this.dialog.open(MoveOkComponent, {
             data: {
-              anyProperty: ide
+              anyProperty: val
             }
           });
         },

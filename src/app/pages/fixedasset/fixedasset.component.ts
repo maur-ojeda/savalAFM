@@ -35,7 +35,7 @@ export class FixedassetComponent implements OnInit {
 
     //getcode
     let code = this.activatedRoute.snapshot.paramMap.get('id');
-    console.log(code)
+
     this.assetsService.getAssetsIdSearch( code ).then( asset => {
     if ( !asset ) {
       return this.router.navigateByUrl('/');

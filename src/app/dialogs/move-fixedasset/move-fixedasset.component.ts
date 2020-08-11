@@ -13,7 +13,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class MoveFixedassetComponent implements OnInit {
 
   assets: AssetInterface[] = [];
-  asset: AssetInterface;
+  asset: AssetInterface[] = [];
   reactiveForm: FormGroup;
   ide;
   estatus;
@@ -27,91 +27,54 @@ export class MoveFixedassetComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.assetsService.getAssets()
-    .then(assets => this.assets = assets);
-    
+  
     this.reactiveForm = this.builder.group({
       search: ['', [Validators.required]]
 		});
   }
 
   assetPorIde(valor: any) {
-   /*
-    //vacio
-    if(valor==""){
+    
+    if (valor == "") {
+      // alert('vacio');
       return this.router.navigateByUrl('/fixedAssets');
     }
-    
-    if (valor.length > 20){
-  
-      let last8 = valor.substr(valor.length - 8); 
+    if (valor.length > 20) {
+      let last8 = valor.substr(valor.length - 8);
       let hexa = parseInt(last8, 16);
-      console.log(hexa);
-      console.log(hexa.toString());
-      
-
-
-      this.assetsService.getAssetPorRfid(hexa.toString()).then(asset => {
+      this.assetsService.getAssetsIdSearch(hexa)
+      .then( asset => {
         if (!asset) {
-          this.estatus="No se ha encontrado registro asociado al número buscado.";
+          this.estatus="No se ha encontrado registro.";
           return this.router.navigateByUrl('/fixedAssets');
-        }
-        this.asset = asset;
-        this.dialogRef.close();
-        let route = "fixedAssetMove/" + asset.id;
-        return this.router.navigateByUrl(route);
-      });
-
-      //this.reactiveForm.controls['search'].setValue(hexa);
-      //convertir a rfid y comparar por rfidLabelSap y devolver el id para navegar
-    }else{
-
-      var splitted = valor.split("-", 3);
-      console.log(splitted[0]) //codigo
-      console.log(splitted[1]) //guion
-      console.log(splitted[2]) //subcodigo
-
-      if (splitted[1] != undefined) { 
-        //alert('referalCode: '+ valor);
-        //comparar con referalCode y trae id
-        this.assetsService.getAssetPorReferalCode(valor).then(asset => {
-          if (!asset) {
-            //this.openNoRegister();
-            this.estatus="No se ha encontrado registro asociado al número buscado.";
-            return this.router.navigateByUrl('/fixedAssets');
-          }
+        } else {
           this.asset = asset;
           this.dialogRef.close();
-          let route = "fixedAssetMove/" + asset.id;
+          let route = "fixedAssetMove/" + asset.data.code;
           return this.router.navigateByUrl(route);
-        });
-      }
-      if (splitted[0].length > 11){ 
-        //alert('code: '+ valor);
-        //comparar con code y traer id
-           this.assetsService.getAssetPorCode(valor).then(asset => {
-            if (!asset) {
-              //this.openNoRegister();
-              this.estatus="No se ha encontrado registro asociado al número buscado.";
-              return this.router.navigateByUrl('/fixedAssets');
-          
-            }
-            this.asset = asset;
-            this.dialogRef.close();
-            let route = "fixedAssetMove/" + asset.id;
-            return this.router.navigateByUrl(route);
-          });
-      }else{this.estatus="No se ha encontrado registro asociado al número buscado.";}
-    }*/
-    console.log('test')
- }
+        }
+      })
+    } else {
+      this.assetsService.getAssetsIdSearch(valor)
+      .then( asset => {
+        if (!asset) {
+          this.estatus="No se ha encontrado registro.";
+          return this.router.navigateByUrl('/fixedAssets');
+        } else {
+         
+          this.asset = asset;
+          this.dialogRef.close();
+          let route = "fixedAssetMove/" + asset.data.code;
+          return this.router.navigateByUrl(route);
+        }
+      })
+    }
+  }
 
-search(){
-  //console.log("test");
-let ide = this.reactiveForm.value.search
-ide = ide.toString()
-this.assetPorIde(ide);
-
-}
+  search(){
+  let ide = this.reactiveForm.value.search
+  ide = ide.toString()
+  this.assetPorIde(ide);
+  }
 
 }

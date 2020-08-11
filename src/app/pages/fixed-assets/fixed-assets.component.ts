@@ -20,7 +20,6 @@ import { NoRegisterComponent } from 'src/app/dialogs/no-register/no-register.com
 export class FixedAssetsComponent implements OnInit {
   assets: AssetInterface[] = [];
   asset: AssetInterface[] = [];
-
   reactiveForm: FormGroup;
   ide;
 
@@ -36,13 +35,6 @@ export class FixedAssetsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-   alert('v8')
-   
-    /* 
-    this.assetsService.getAssets()
-       .then(assets => this.assets = assets);
-   */
 
     this.reactiveForm = this.builder.group({
       search: ['', [Validators.required]]
@@ -71,7 +63,6 @@ export class FixedAssetsComponent implements OnInit {
       width: '98VW'
     });
   }
-
 
   cargarDatos() {
     this.assetsService.getAssets()
@@ -108,7 +99,6 @@ export class FixedAssetsComponent implements OnInit {
         }
       })
     }
-
   }
 
 
@@ -152,3 +142,4 @@ export class FixedAssetsComponent implements OnInit {
   }
 
 }
+
