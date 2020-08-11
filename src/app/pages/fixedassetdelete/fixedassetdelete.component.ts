@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {AssetInterface } from '../../interfaces/asset.interface';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 //import { DatePipe } from '@angular/common';
 
 @Component({
@@ -12,8 +13,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./fixedassetdelete.component.scss']
 })
 export class FixedassetdeleteComponent implements OnInit {
-
-  asset: AssetInterface;
+  // assets: AssetSearchInterface[] = [];
+  // asset: AssetSearchInterface[] = [];
+  assets;
+  asset;
   reactiveForm: FormGroup;
 
   constructor(
@@ -22,24 +25,21 @@ export class FixedassetdeleteComponent implements OnInit {
     private router: Router,
     private location: Location, 
     private builder: FormBuilder,
-    //private datePipe: DatePipe
   ) { }
 
   
   ngOnInit(): void {
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-
-    let ide = Number(id);
-
-    this.assetsService.getAssetPorId( ide ).then( asset => {
+    //getcode
+    let code = this.activatedRoute.snapshot.paramMap.get('id');
+    this.assetsService.getAssetsData( code ).then( asset => {
       if ( !asset ) {
-        return this.router.navigateByUrl('/');
-      }   
-      this.asset = asset;
-      this.getAssetsData(asset);
-    });
-
-    
+      return this.router.navigateByUrl('/');
+    }
+    this.asset = asset;
+ 
+  });
+  //getcode
+  
     this.reactiveForm = this.builder.group({
       assetID:['',[]],
       downDocumentAt: ['',[Validators.required]],
@@ -48,7 +48,6 @@ export class FixedassetdeleteComponent implements OnInit {
       downComment: ['', [Validators.required]],
     });
     
-
   }
 
 
@@ -81,26 +80,12 @@ export class FixedassetdeleteComponent implements OnInit {
     //console.log(JSON.stringify(formValue, ide));
     this.assetsService.downAssets(formValue, ide);
 
-   
+
 
   }
 
 
 
-
-  /**
-   * Fecha documento
-   * fecha de referencia
-   * fecha de contabilizacion
-   * glosa de baja
-   * 
-   * clase movimiento
-   * clase documento
-   * baja total
-   * 
-   * 
-   * 
-   */
 
 }
 

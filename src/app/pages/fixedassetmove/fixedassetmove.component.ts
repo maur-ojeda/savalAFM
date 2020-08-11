@@ -21,6 +21,7 @@ import { FloorInterface } from 'src/app/interfaces/floor.interface';
 import { AreaInterface } from 'src/app/interfaces/area.interface';
 import { RoomInterface } from 'src/app/interfaces/room.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 
 
 @Component({
@@ -30,7 +31,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class FixedassetmoveComponent implements OnInit {
 
-  asset: AssetInterface;
+ // assets: AssetSearchInterface[] = [];
+ // asset: AssetSearchInterface[] = [];
+
+  assets;
+  asset;
   locations: LocationInterface[] = [];
   ccenters: CcenterInterface[] = [];
   species: SpeciesInterface[] = [];
@@ -61,22 +66,20 @@ export class FixedassetmoveComponent implements OnInit {
 
 
   ngOnInit(): void {
+ //getcode
+ let code = this.activatedRoute.snapshot.paramMap.get('id');
+ this.assetsService.getAssetsData( code ).then( asset => {
+   if ( !asset ) {
+   return this.router.navigateByUrl('/');
+ }
+ this.asset = asset;
 
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-    let ide = Number(id);
+});
+//getcode
 
-    this.assetsService.getAssetPorId(ide).then(asset => {
-      if (!asset) {
-        return this.router.navigateByUrl('/');
-      }
-      this.asset = asset;
-      this.getAssetsData(asset);
-    });
-   
 
     this.slCenterService.getCenters()
     .then(Centers => this.Centers = Centers);
-
 
     this.slBuilding.getallBuildings()
     .then(lBuildings => this.lBuildings = lBuildings);
@@ -110,6 +113,7 @@ export class FixedassetmoveComponent implements OnInit {
 
 
   getAssetsData(e) {
+    //console.log(e.data.id)
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
     this.reactiveForm.controls['lCenter'].setValue(e.lCenter);

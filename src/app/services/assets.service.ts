@@ -1,9 +1,11 @@
+/**
+ * Debe ir con el puerto correspondiente
+ * Prod:     sla
+ */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AssetInterface } from '../interfaces/asset.interface';
-
+//import { AssetInterface } from '../interfaces/asset.interface';
 import { MatDialog } from '@angular/material/dialog';
-
 import { CreateErrorComponent } from '../dialogs/create-error/create-error.component';
 import { CreateOkComponent } from '../dialogs/create-ok/create-ok.component';
 import { UpdateOkComponent } from '../dialogs/update-ok/update-ok.component';
@@ -11,21 +13,22 @@ import { UpdateErrorComponent } from '../dialogs/update-error/update-error.compo
 import { MoveOkComponent } from '../dialogs/move-ok/move-ok.component';
 import { DeleteOkComponent } from '../dialogs/delete-ok/delete-ok.component';
 import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.component';
+import { AssetSearchInterface } from '../interfaces/assetSearch.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssetsService {
 
-  private assets: AssetInterface[] = [];
-
+  private assets:  AssetSearchInterface[] = [];
 
   constructor(private http: HttpClient, public dialog: MatDialog) { }
 
+
+
+
   //todo:user y pass dinamico
-  getAssets(): Promise<AssetInterface[]> {
-    let user = "mobile_user";
-    let pass = "testing";
+  getAssets(): Promise<AssetSearchInterface[]> {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -35,28 +38,37 @@ export class AssetsService {
     }
 
     return new Promise(resolve => {
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/', { headers })
+      //this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/', { headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/?page=5&items=100', { headers })
         .subscribe((assets: any) => {
-          //console.log(items.data);
           this.assets = assets.data;
           resolve(assets.data);
+          console.log(assets.data)
         });
     });
   }
 
 
   getAssetPorId(id: number) {
-    if (this.assets.length > 0) {
+   /* if (this.assets.length > 0) {
       const asset = this.assets.find(p => p.id === id);
       return Promise.resolve(asset);
     }
     return this.getAssets().then(assets => {
       const asset = this.assets.find(p => p.id === id);
       return Promise.resolve(asset);
-    });
+    });*/
+    console.log('todo');
   }
 
+ 
+ 
+
+
+
+
   getAssetPorCode(code: string) {
+   /*
     if (this.assets.length > 0) {
       const asset = this.assets.find(p => p.code === code);
       return Promise.resolve(asset);
@@ -65,10 +77,12 @@ export class AssetsService {
       const asset = this.assets.find(p => p.code === code);
       return Promise.resolve(asset);
     });
+    */
+   console.log('todo');
   }
 
   getAssetPorReferalCode(referalCode: string) {
-    if (this.assets.length > 0) {
+  /*  if (this.assets.length > 0) {
       const asset = this.assets.find(p => p.referalCode === referalCode);
       return Promise.resolve(asset);
 
@@ -77,33 +91,33 @@ export class AssetsService {
       const asset = this.assets.find(p => p.referalCode === referalCode);
       return Promise.resolve(asset);
     });
+    */
+   console.log('todo');
   }
 
   getAssetPorRfid(rfidLabelSap: string) {
-    if (this.assets.length > 0) {
+   /* if (this.assets.length > 0) {
       const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
       return Promise.resolve(asset)
     }
     return this.getAssets().then(assets => {
       const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
       return Promise.resolve(asset);
-    });
+    });*/
+    console.log('todo');
   }
 
   getAssetPorrfid(rfidLabelSap: string) {
-    if (this.assets.length > 0) {
+    /*if (this.assets.length > 0) {
       const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
       return Promise.resolve(asset)
     }
     return this.getAssets().then(assets => {
       const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
       return Promise.resolve(asset);
-    });
+    });*/
+    console.log('todo');
   }
-
-
-
-
 
   getAssetPorValue(buscado: any) {
 
@@ -112,18 +126,11 @@ export class AssetsService {
 
   }
 
-
   InsertAssets(formValue) {
 
-    console.table(formValue);
-
-    let user = "mobile_user";
-    let pass = "testing";
     let headers = new HttpHeaders()
-      .set('Authorization', `Basic ${btoa(user + ":" + pass)}`)
-      .set("Content-Type", "text/plain")
-    //.set("Content-Type", "application/json");
-    //.set('Content-Type', 'application/x-www-form-urlencoded')//<--funciona desde servidor
+    .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+    .set('Content-Type', 'application/x-www-form-urlencoded')
 
     this.http.post("https://devactivofijo.saval.cl:8443/webservice/rest/request/add", formValue, { headers })
       .subscribe(
@@ -154,14 +161,10 @@ export class AssetsService {
 
   }
 
-
-
-
   updateAssets(formValue, ide) {
 
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
-      //.set("Content-Type", "application/json");
       .set("Content-Type", "application/x-www-form-urlencoded");
     this.http.put("https://devactivofijo.saval.cl:8443/webservice/rest/asset/update/" + ide, formValue, { headers })
       .subscribe(
@@ -170,7 +173,7 @@ export class AssetsService {
             val);
           this.dialog.open(UpdateOkComponent, {
             data: {
-              anyProperty: ide
+              anyProperty: val
             }
           });
         },
@@ -187,20 +190,20 @@ export class AssetsService {
         }
       );
   }
-
 
   moveAssets(formValue, ide) {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set("Content-Type", "application/x-www-form-urlencoded");
-    this.http.put("https://devactivofijo.saval.cl:8443/webservice/rest/asset/move/" + ide, formValue, { headers })
-      .subscribe(
+      //alert(ide)
+      
+  this.http.put("https://devactivofijo.saval.cl:8443/webservice/rest/asset/move/" + ide, formValue, { headers }).subscribe(
         val => {
           console.log("PUT call successful value returned in body",
             val);
-          this.dialog.open(UpdateOkComponent, {
+          this.dialog.open(MoveOkComponent, {
             data: {
-              anyProperty: ide
+              anyProperty: val
             }
           });
         },
@@ -217,7 +220,6 @@ export class AssetsService {
         }
       );
   }
-
 
   downAssets(formValue, ide) {
     const options = {
@@ -261,14 +263,48 @@ export class AssetsService {
         }
       );
   }
+
+
+
+
+
+  getAssetsCode(code: string): Promise<AssetSearchInterface[]> {
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    if (this.assets.length > 0) {
+      return Promise.resolve(this.assets);
+    }
+
+    return new Promise(resolve => {
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/search?code='+ code, { headers })
+        .subscribe((assets: any) => {
+          this.assets = assets;
+          resolve(assets.data.code);
+         // console.log(assets.data.code)
+        });
+    });
+  }
+
+
+  getAssetsData(code: string): Promise<AssetSearchInterface[]> {
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+
+    if (this.assets.length > 0) {
+      return Promise.resolve(this.assets);
+    }
+
+    return new Promise(resolve => {
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/search?code='+ code, { headers })
+        .subscribe((assets: any) => {
+          this.assets = assets;
+          resolve(assets.data);
+        });
+    });
+  }
+
+
 }
 
-
-/**
-
-devactivofijo.saval.cl:8443
-
-devactivofijo.saval.cl:8443
-
-8443
- */

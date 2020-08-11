@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetsService } from '../../services/assets.service';
-import {AssetInterface } from '../../interfaces/asset.interface';
+//import {AssetInterface } from '../../interfaces/asset.interface';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { Location } from '@angular/common';
+//import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 
 
 
@@ -16,10 +16,10 @@ export class FixedassetComponent implements OnInit {
   
 
   panelOpenState = false;
-  
-  asset: AssetInterface;
-  asseto: AssetInterface;
-  
+  //assets: AssetSearchInterface[] = [];
+  //asset: AssetSearchInterface[] = [];
+  assets;
+  asset;
 
   constructor(
     public assetsService: AssetsService,
@@ -31,39 +31,41 @@ export class FixedassetComponent implements OnInit {
 
 
   ngOnInit(): void {
-   
-this.router.routeReuseStrategy.shouldReuseRoute = () => { 
-  return false;
-}
-
-
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-    let ide = Number(id);
- 
-
-    this.assetsService.getAssetPorId( ide ).then( asset => {
+    //getcode
+    let code = this.activatedRoute.snapshot.paramMap.get('id');
+    this.assetsService.getAssetsData( code ).then( asset => {
       if ( !asset ) {
-        return this.router.navigateByUrl('/');
-      }
-      this.asset = asset;
-     
-    });
+      return this.router.navigateByUrl('/');
+    }
+    this.asset = asset;
 
-  
+    //console.log(JSON.stringify(asset)); 
 
-  }
+   // console.log(asset)
+ 
+  });
+  //getcode
+ 
+} //end init
 
   goBack() {
     this.location.back();
   }
  
-
   refreshPage() {
     window.location.reload();
+  }
 
-   }
+   parseDate(date) {
+  
+console.log(date)
+    var d = new Date(date); 
+    return( d.toLocaleString() ); 
 
-}
-
+  }
+  
+  
 
   
+
+}// end class

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetsService } from '../../services/assets.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssetInterface } from '../../interfaces/asset.interface';
+//import { AssetInterface } from '../../interfaces/asset.interface';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CcenterService } from 'src/app/services/ccenter.service';
 import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
+//import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 
 
 
@@ -16,7 +17,10 @@ import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
 })
 export class FixedassetupdateComponent implements OnInit {
 
-  asset: AssetInterface;
+  //assets: AssetSearchInterface[] = [];
+  //asset: AssetSearchInterface[] = [];
+  assets;
+  asset;
   reactiveForm: FormGroup;
   ccenters: CcenterInterface[] = [];
 
@@ -34,30 +38,37 @@ export class FixedassetupdateComponent implements OnInit {
   ngOnInit(): void {
 
 
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-    let ide = Number(id);
+  //getcode
+  let code = this.activatedRoute.snapshot.paramMap.get('id');
+  this.assetsService.getAssetsData( code ).then( asset => {
+    if ( !asset ) {
+    return this.router.navigateByUrl('/');
+  }
+  this.asset = asset;
 
-    this.assetsService.getAssetPorId(ide).then(asset => {
-      if (!asset) {
-        return this.router.navigateByUrl('/');
-      }
-      this.asset = asset;
-      this.getAssetsData(asset);
-    });
+});
+//getcode
+
+
 
     this.slCCenterService.getCcenters()
       .then(ccenters => this.ccenters = ccenters);
 
     this.reactiveForm = this.builder.group({
       assetID: ['', []],
-      rfidLabelFake: ['', ],
-      rfidLabelSap: ['', ],
+      rfidLabelFake: ['', []],
+      rfidLabelSap: ['',[] ],
       serieNumber: ['', [Validators.required]],
       description: ['', [Validators.required]],
       costCenter: ['', [Validators.required]],
       creditorId: ['', []],
       lifetimeYear: ['', [Validators.required]]
     });
+
+
+
+
+
   }
 
 
@@ -69,9 +80,12 @@ export class FixedassetupdateComponent implements OnInit {
       this.reactiveForm.controls['rfidLabelFake'].setValue(hexa);
       //alert(hexa)
     }
+  
   }
 
   getAssetsData(e) {
+   
+    console.log(e)
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
     this.reactiveForm.controls['rfidLabelSap'].setValue(e.rfidLabelSap);
