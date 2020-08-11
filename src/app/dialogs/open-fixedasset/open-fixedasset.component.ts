@@ -37,7 +37,8 @@ export class OpenFixedassetComponent implements OnInit {
 
   
   assetPorIde(valor: any) {
-   
+  console.log('test');
+   /*
     //vacio
     if(valor==""){
       return this.router.navigateByUrl('/fixedAssets');
@@ -109,6 +110,8 @@ export class OpenFixedassetComponent implements OnInit {
 
       
     }
+    */
+
  }
 search(){
   //console.log("test");

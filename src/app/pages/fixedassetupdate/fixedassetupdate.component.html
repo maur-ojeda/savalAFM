@@ -1,28 +1,48 @@
 <app-header></app-header>
-<div class="container" class="pb-5">
+<!-- header -->
+<div class="container">
+    <!-- container -->
+    <!-- spinner -->
     <mat-spinner *ngIf="!asset"></mat-spinner>
-    <div *ngIf="asset?.code" class="mt-5 pt-5 p-3">
+    <!-- / spinner -->
+    <div *ngIf="asset?.referalCode" class="mt-5 pt-5 p-3">
+        <!-- div -->
+        <!-- row boton volver -->
         <div class="row">
-            <button mat-button color="primary" (click)="goBack()" class="mb-3">
-				<i class="fas fa-angle-left"></i>
-				Volver</button>
+            <div class="col text-left">
+                <button mat-button color="primary" (click)="goBack()" class="mb-3">
+                    <i class="fas fa-angle-left"></i>
+                    Volver</button>
+            </div>
+            <div class="col text-right">
+                <div class="example-button-container" (click)="refreshPage()">
+                    <button mat-stroked-button color="primary">
+                        <i class="fa fa-refresh" aria-hidden="true"></i> Recargar datos
+                    </button>
+                </div>
+            </div>
         </div>
+        <!-- / row boton volver -->
+        <!-- row botonera -->
         <div class="row">
-            <mat-button-toggle-group class="full-width">
-                <mat-button-toggle [routerLink]="['/fixedAsset',asset.id]">Detalles</mat-button-toggle>
-                <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.id]" class="btn-primary active">Modificar
+            <mat-button-toggle-group name="fontStyle">
+                <mat-button-toggle [routerLink]="['/fixedAsset',asset.code]">Detalles
                 </mat-button-toggle>
-                <mat-button-toggle [routerLink]="['/fixedAssetMove', asset.id]">Trasladar</mat-button-toggle>
-                <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.id]">Dar de baja</mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.code]" class="btn-primary active">Modificar
+                </mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetMove', asset.code]">Trasladar</mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.code]">Dar de baja</mat-button-toggle>
             </mat-button-toggle-group>
         </div>
-
+        <!-- / row botonera -->
+        <!-- row accordion -->
         <form [formGroup]="reactiveForm" (ngSubmit)="updateData()">
-
             <input matInput formControlName="assetID" class="hidden">
             <div class="row pt-3">
-                <mat-accordion class="full-width" #accordion="matAccordion">
+                <mat-accordion class="full-width">
+
                     <mat-expansion-panel [expanded]="true">
+
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 Datos Activo fijo
@@ -30,7 +50,7 @@
 
                         </mat-expansion-panel-header>
 
-                        <!---->
+
                         <p *ngIf="asset?.createdAt" class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{ asset.createdAt.date | date:"dd/MM/yyyy HH:mm:ss"}}
                         </p>
                         <p *ngIf="asset?.referalCode" class="display-5 pr-3 d-sm-block">Código: {{ asset.referalCode }}
@@ -92,7 +112,6 @@
 
                     </mat-expansion-panel>
 
-
                     <mat-expansion-panel>
                         <mat-expansion-panel-header>
                             <mat-panel-title>
@@ -114,7 +133,8 @@
                                 Número de serie
                             </mat-label>
                             <input matInput placeholder="Número de serie" formControlName="serieNumber" [readonly]="false" value="">
-                            <small class="text-info" *ngIf="reactiveForm.get('serieNumber').hasError('required')">Campo requerido</small>
+                            <small class="text-info" *ngIf="reactiveForm.get('serieNumber').hasError('required')">Campo
+                                requerido</small>
                         </mat-form-field>
                         <!--Editable-->
                         <br />
@@ -137,7 +157,6 @@
 
                     </mat-expansion-panel>
 
-
                     <mat-expansion-panel>
                         <mat-expansion-panel-header>
                             <mat-panel-title>
@@ -153,16 +172,18 @@
 
                                 <select matNativeControl formControlName="costCenter">
 
-									<option *ngFor="let ccenter of ccenters" [value]="ccenter.id">{{ccenter.code}}-{{ccenter.name}}</option>
-								</select>
+                                    <option *ngFor="let ccenter of ccenters" [value]="ccenter.id">
+                                        {{ccenter.code}}-{{ccenter.name}}</option>
+                                </select>
 
                             </mat-form-field>
 
                             <small class="text-info" *ngIf="reactiveForm.get('costCenter').hasError('required')">Campo
-								requerido</small>
+                                requerido</small>
                         </div>
                         <!--Editable-->
                     </mat-expansion-panel>
+
                     <mat-expansion-panel>
                         <mat-expansion-panel-header>
                             <mat-panel-title>
@@ -232,7 +253,8 @@
                                 ID Acreedor
                             </mat-label>
                             <input matInput formControlName="creditorId" placeholder="ID Acreedor" value="{{asset.creditorId}}">
-                            <small class="text-info" *ngIf="reactiveForm.get('creditorId').hasError('required')">Campo requerido</small>
+                            <small class="text-info" *ngIf="reactiveForm.get('creditorId').hasError('required')">Campo
+                                requerido</small>
                         </mat-form-field>
 
 
@@ -273,7 +295,8 @@
                                 Años de vida útil
                             </mat-label>
                             <input matInput placeholder="Años de vida útil" formControlName="lifetimeYear" value="{{asset.lifetimeYear}}">
-                            <small class="text-info" *ngIf="reactiveForm.get('lifetimeYear').hasError('required')">Campo requerido</small>
+                            <small class="text-info" *ngIf="reactiveForm.get('lifetimeYear').hasError('required')">Campo
+                                requerido</small>
                         </mat-form-field>
 
                         <mat-form-field appearance="outline" class="full-width">
@@ -284,14 +307,23 @@
                         </mat-form-field>
 
                     </mat-expansion-panel>
+
+
                 </mat-accordion>
-
-
-                <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-lg btn-primary full-width">Guardar cambios y enviar</button>
-
             </div>
-        </form>
-    </div>
+            <div class="row mt-3 mb-5">
+                <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-lg btn-primary full-width mb-3">Guardar cambios y enviar</button>
+            </div>
 
+        </form>
+        <!-- row accordion -->
+
+
+        <!-- div -->
+    </div>
+    <!-- / container -->
 </div>
+
+
+<!-- footer -->
 <app-footer></app-footer>

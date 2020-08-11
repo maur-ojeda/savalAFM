@@ -1,40 +1,44 @@
 <app-header></app-header>
-<div class="container" class="pb-5">
-    <mat-spinner *ngIf="!asset"></mat-spinner>
-    <div *ngIf="asset?.code" class="mt-5 pt-5 p-3">
+<!-- header -->
+<div class="container">
+    <!-- container -->
+    <!-- spinner -->
+    <mat-spinner *ngIf="!asset"> </mat-spinner>
+    <!-- / spinner -->
+    <div *ngIf="asset?.referalCode" class="mt-5 pt-5 p-3">
+        <!-- div -->
+        <!-- row boton volver -->
         <div class="row">
-            <button mat-button color="primary" (click)="goBack()" class="mb-3">
-                <i class="fas fa-angle-left"></i>
-                Volver</button>
-
-            <!--button class="btn" (click)="postSync()">
-                jhjh
-            </button-->
+            <div class="col text-left">
+                <button mat-button color="primary" (click)="goBack()" class="mb-3">
+                    <i class="fas fa-angle-left"></i>
+                    Volver</button>
+            </div>
+            <div class="col text-right">
+                <div class="example-button-container" (click)="refreshPage()">
+                    <button mat-stroked-button color="primary">
+                        <i class="fa fa-refresh" aria-hidden="true"></i> Recargar datos
+                    </button>
+                </div>
+            </div>
         </div>
-
+        <!-- / row boton volver -->
+        <!-- row botonera -->
         <div class="row">
-            <mat-button-toggle-group name="fontStyle" class="full-width">
-                <mat-button-toggle [routerLink]="['/fixedAsset',asset.id]">Detalles</mat-button-toggle>
-                <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.id]">Modificar</mat-button-toggle>
-                <mat-button-toggle [routerLink]="['/fixedAssetMove', asset.id]" class="btn-primary active">Trasladar
+            <mat-button-toggle-group name="fontStyle">
+                <mat-button-toggle [routerLink]="['/fixedAsset',asset.code]">Detalles
                 </mat-button-toggle>
-                <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.id]">Dar de baja</mat-button-toggle>
-
+                <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.code]">Modificar
+                </mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetMove', asset.code]" class="btn-primary active">Trasladar</mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.code]">Dar de baja</mat-button-toggle>
             </mat-button-toggle-group>
         </div>
-
-
+        <!-- / row botonera -->
         <form [formGroup]="reactiveForm" (ngSubmit)="moveData()">
-
-
-
             <input matInput formControlName="assetID" class="hidden">
             <input matInput formControlName="costCenter" class="hidden">
-
-
-
-            <div class="row pt-3 pb-5">
-
+            <div class="row pt-3">
                 <mat-accordion class="full-width">
 
                     <mat-expansion-panel>
@@ -180,7 +184,7 @@
 
                         </mat-expansion-panel-header>
 
-                        <!--Centro-->
+                        <!--Centro loader-->
 
 
 
@@ -371,12 +375,15 @@
                     </mat-expansion-panel>
 
                 </mat-accordion>
-
-                <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-lg btn-primary full-width">Guardar
+            </div>
+            <div class="row pt-3 mb-5">
+                <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-lg btn-primary full-width mb-3">Guardar
                     cambios y enviar</button>
             </div>
         </form>
-
+        <!-- div -->
     </div>
+    <!-- / container -->
 </div>
+<!-- footer -->
 <app-footer></app-footer>

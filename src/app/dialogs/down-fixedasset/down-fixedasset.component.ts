@@ -36,7 +36,8 @@ export class DownFixedassetComponent implements OnInit {
   }
 
   assetPorIde(valor: any) {
-   
+    console.log('test')
+   /*
     //vacio
     if(valor==""){
       return this.router.navigateByUrl('/fixedAssets');
@@ -105,6 +106,7 @@ export class DownFixedassetComponent implements OnInit {
         this.estatus="No se ha encontrado registro asociado al número buscado.";
       }
     }
+    */
  }
 
 

@@ -46,7 +46,7 @@ const routes: Routes = [
   
   
   //individual
-  { path: 'fixedAsset/:id', component: FixedassetComponent, canActivate: [AuthGuard] },
+  { path: 'fixedAsset/:id', component: FixedassetComponent },
 
  
 

@@ -27,19 +27,16 @@ export class FixedassetdeleteComponent implements OnInit {
 
   
   ngOnInit(): void {
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-
-    let ide = Number(id);
-
-    this.assetsService.getAssetPorId( ide ).then( asset => {
-      if ( !asset ) {
-        return this.router.navigateByUrl('/');
-      }   
-      this.asset = asset;
-      this.getAssetsData(asset);
-    });
-
-    
+       //getcode
+       let code = this.activatedRoute.snapshot.paramMap.get('id');
+       this.assetsService.getAssetsIdSearch( code ).then( asset => {
+       if ( !asset ) {
+         return this.router.navigateByUrl('/');
+       }
+         this.asset = asset.data;
+       });
+     //getcode
+  
     this.reactiveForm = this.builder.group({
       assetID:['',[]],
       downDocumentAt: ['',[Validators.required]],
@@ -48,7 +45,6 @@ export class FixedassetdeleteComponent implements OnInit {
       downComment: ['', [Validators.required]],
     });
     
-
   }
 
 
@@ -81,26 +77,12 @@ export class FixedassetdeleteComponent implements OnInit {
     //console.log(JSON.stringify(formValue, ide));
     this.assetsService.downAssets(formValue, ide);
 
-   
+
 
   }
 
 
 
-
-  /**
-   * Fecha documento
-   * fecha de referencia
-   * fecha de contabilizacion
-   * glosa de baja
-   * 
-   * clase movimiento
-   * clase documento
-   * baja total
-   * 
-   * 
-   * 
-   */
 
 }
 

@@ -1,46 +1,49 @@
 <app-header></app-header>
-
-
+<!-- header -->
 
 
 <div class="container">
+    <!-- container -->
+
+    <!-- spinner -->
     <mat-spinner *ngIf="!asset"></mat-spinner>
-    <div *ngIf="asset?.code" class="mt-5 pt-5 p-3">
+    <!-- / spinner -->
+
+
+    <div *ngIf="asset?.referalCode" class="mt-5 pt-5 p-3">
+        <!-- div -->
+
+        <!-- row boton volver -->
         <div class="row">
             <div class="col text-left">
                 <button mat-button color="primary" (click)="goBack()" class="mb-3">
-        <i class="fas fa-angle-left"></i>
-        Volver</button>
+                    <i class="fas fa-angle-left"></i>
+                    Volver</button>
             </div>
-
             <div class="col text-right">
                 <div class="example-button-container" (click)="refreshPage()">
                     <button mat-stroked-button color="primary">
-                <i class="fa fa-refresh" aria-hidden="true"></i> Recargar datos
-            </button>
+                        <i class="fa fa-refresh" aria-hidden="true"></i> Recargar datos
+                    </button>
                 </div>
-
-
-
             </div>
-
-
-
         </div>
+        <!-- / row boton volver -->
 
+        <!-- row botonera -->
         <div class="row">
-            <mat-button-toggle-group name="fontStyle" class="full-width">
-                <mat-button-toggle [routerLink]="['/fixedAsset',asset.id]" class="btn-primary active">Detalles</mat-button-toggle>
-                <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.id]">Modificar</mat-button-toggle>
-                <mat-button-toggle [routerLink]="['/fixedAssetMove', asset.id]">Trasladar</mat-button-toggle>
-                <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.id]">Dar de baja</mat-button-toggle>
+            <mat-button-toggle-group name="fontStyle">
+                <mat-button-toggle [routerLink]="['/fixedAsset',asset.code]" class="btn-primary active">Detalles
+                </mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.code]">Modificar</mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetMove', asset.code]">Trasladar</mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.code]">Dar de baja</mat-button-toggle>
             </mat-button-toggle-group>
         </div>
+        <!-- / row botonera -->
 
-
-
+        <!-- row accordion -->
         <div class="row pt-3">
-
             <mat-accordion class="full-width">
 
                 <mat-expansion-panel [expanded]="true">
@@ -64,26 +67,26 @@
                     </p>
 
 
-                    <br/>
+                    <br />
                     <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.catalogClass">
                         <mat-label>Clase activo fijo</mat-label>
                         <input matInput placeholder="" readonly value="{{asset.catalogClass.name}}">
                     </mat-form-field>
-                    <br/>
+                    <br />
                     <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.society">
                         <mat-label>
                             Sociedad
                         </mat-label>
                         <input matInput placeholder="" readonly value="{{asset.society}}">
                     </mat-form-field>
-                    <br/>
+                    <br />
                     <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.capitalizationDateAt">
                         <mat-label>
                             Fecha de Capitalización
                         </mat-label>
                         <input matInput placeholder="" readonly value="{{asset.capitalizationDateAt.date | date :'short'}}">
                     </mat-form-field>
-                    <br/>
+                    <br />
 
 
                     <!---->
@@ -102,25 +105,26 @@
                         </mat-label>
                         <input matInput placeholder="" readonly value="{{asset.specie.name}}">
                     </mat-form-field>
-                    <br/>
+                    <br />
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>
                             Número de serie
                         </mat-label>
                         <input matInput placeholder="" readonly value="{{asset.serieNumber}}">
                     </mat-form-field>
-                    <br/>
+                    <br />
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>
                             Denominación
                         </mat-label>
                         <textarea matInput *ngIf="asset?.description" [readonly]="true" cols="5">{{asset.description}}</textarea>
                     </mat-form-field>
-                    <br/>
-                    <mat-checkbox [checked]="true" [disabled]="true">Incluir activo fijo en lista inventario</mat-checkbox>
-                    <br/>
+                    <br />
+                    <mat-checkbox [checked]="true" [disabled]="true">Incluir activo fijo en lista inventario
+                    </mat-checkbox>
+                    <br />
                     <mat-checkbox [checked]="true" [disabled]="true">Gestión histórica</mat-checkbox>
-                    <br/>
+                    <br />
                     <!---->
 
 
@@ -261,7 +265,14 @@
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
+        <!-- row accordion -->
 
+
+        <!-- div -->
     </div>
+    <!-- / container -->
 </div>
+
+
+<!-- footer -->
 <app-footer></app-footer>

@@ -34,16 +34,18 @@ export class FixedassetupdateComponent implements OnInit {
   ngOnInit(): void {
 
 
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-    let ide = Number(id);
-
-    this.assetsService.getAssetPorId(ide).then(asset => {
-      if (!asset) {
-        return this.router.navigateByUrl('/');
-      }
-      this.asset = asset;
-      this.getAssetsData(asset);
+    //getcode
+    let code = this.activatedRoute.snapshot.paramMap.get('id');
+    this.assetsService.getAssetsIdSearch( code ).then( asset => {
+    if ( !asset ) {
+      return this.router.navigateByUrl('/');
+    }
+      this.asset = asset.data;
     });
+  //getcode
+
+
+
 
     this.slCCenterService.getCcenters()
       .then(ccenters => this.ccenters = ccenters);
@@ -58,6 +60,12 @@ export class FixedassetupdateComponent implements OnInit {
       creditorId: ['', []],
       lifetimeYear: ['', [Validators.required]]
     });
+
+
+
+
+
+
   }
 
 
@@ -69,6 +77,7 @@ export class FixedassetupdateComponent implements OnInit {
       this.reactiveForm.controls['rfidLabelFake'].setValue(hexa);
       //alert(hexa)
     }
+  
   }
 
   getAssetsData(e) {

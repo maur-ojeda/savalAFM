@@ -61,22 +61,20 @@ export class FixedassetmoveComponent implements OnInit {
 
 
   ngOnInit(): void {
+ //getcode
+ let code = this.activatedRoute.snapshot.paramMap.get('id');
+ this.assetsService.getAssetsIdSearch( code ).then( asset => {
+ if ( !asset ) {
+   return this.router.navigateByUrl('/');
+ }
+   this.asset = asset.data;
+ });
+//getcode
 
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-    let ide = Number(id);
-
-    this.assetsService.getAssetPorId(ide).then(asset => {
-      if (!asset) {
-        return this.router.navigateByUrl('/');
-      }
-      this.asset = asset;
-      this.getAssetsData(asset);
-    });
    
 
     this.slCenterService.getCenters()
     .then(Centers => this.Centers = Centers);
-
 
     this.slBuilding.getallBuildings()
     .then(lBuildings => this.lBuildings = lBuildings);

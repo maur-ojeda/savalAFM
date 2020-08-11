@@ -1,31 +1,45 @@
 <app-header></app-header>
-<div class="container" class="pb-5">
-    <mat-spinner *ngIf="!asset"></mat-spinner>
-    <div *ngIf="asset?.code" class="mt-5 pt-5 p-3">
+<!-- header -->
+<div class="container">
+    <!-- container -->
+    <!-- spinner -->
+    <mat-spinner *ngIf="!asset"> </mat-spinner>
+    <!-- / spinner -->
+    <div *ngIf="asset?.referalCode" class="mt-5 pt-5 p-3">
+        <!-- div -->
+        <!-- row boton volver -->
         <div class="row">
-            <button mat-button color="primary" (click)="goBack()" class="mb-3">
-				<i class="fas fa-angle-left"></i>
-				Volver</button>
+            <div class="col text-left">
+                <button mat-button color="primary" (click)="goBack()" class="mb-3">
+                    <i class="fas fa-angle-left"></i>
+                    Volver</button>
+            </div>
+            <div class="col text-right">
+                <div class="example-button-container" (click)="refreshPage()">
+                    <button mat-stroked-button color="primary">
+                        <i class="fa fa-refresh" aria-hidden="true"></i> Recargar datos
+                    </button>
+                </div>
+            </div>
         </div>
-
+        <!-- / row boton volver -->
+        <!-- row botonera -->
         <div class="row">
-            <mat-button-toggle-group name="fontStyle" class="full-width">
-                <mat-button-toggle [routerLink]="['/fixedAsset',asset.id]">Detalles</mat-button-toggle>
-                <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.id]">Modificar</mat-button-toggle>
-                <mat-button-toggle [routerLink]="['/fixedAssetMove', asset.id]">Trasladar</mat-button-toggle>
-                <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.id]" class="btn-primary active">Dar de baja
+            <mat-button-toggle-group name="fontStyle">
+                <mat-button-toggle [routerLink]="['/fixedAsset',asset.code]">Detalles
+                </mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.code]">Modificar
+                </mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetMove', asset.code]">Trasladar</mat-button-toggle>
+                <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.code]" class="btn-primary active">Dar de baja
                 </mat-button-toggle>
             </mat-button-toggle-group>
         </div>
-
-
+        <!-- / row botonera -->
         <form [formGroup]="reactiveForm" (ngSubmit)="deleteAsset()">
-
             <input matInput formControlName="assetID" class="hidden">
-            <!--input matInput formControlName="costCenter" class="hidden"-->
 
-            <div class="row pt-3 pb-5">
-
+            <div class="row pt-3">
                 <mat-accordion class="full-width">
 
                     <mat-expansion-panel>
@@ -71,7 +85,6 @@
                         </mat-form-field>
                         <br />
 
-
                         <!---->
                     </mat-expansion-panel>
 
@@ -108,8 +121,6 @@
                         <mat-checkbox [checked]="true" [disabled]="true">Gestión histórica</mat-checkbox>
                         <br />
                         <!---->
-
-
                     </mat-expansion-panel>
 
                     <mat-expansion-panel>
@@ -143,18 +154,12 @@
                             <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lCenter.code}} - {{asset.lCenter.name}}">
                         </mat-form-field>
 
-
-
-
-
                         <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lBuilding.code">
                             <mat-label>
                                 Edificio
                             </mat-label>
                             <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lBuilding.code}} - {{asset.lBuilding.name}}">
                         </mat-form-field>
-
-
 
                         <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lFloor.code">
                             <mat-label>
@@ -170,15 +175,12 @@
                             <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lArea.code}} - {{asset.lArea.name}}">
                         </mat-form-field>
 
-
                         <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lRoom.code">
                             <mat-label>
                                 Sala
                             </mat-label>
                             <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lRoom.code}} - {{asset.lRoom.name}}">
                         </mat-form-field>
-
-
 
                     </mat-expansion-panel>
 
@@ -281,18 +283,19 @@
                             </mat-label>
                             <textarea matInput formControlName="downComment" [readonly]="false" cols="5"></textarea>
                         </mat-form-field>
-
-
-
-
                     </mat-expansion-panel>
 
                 </mat-accordion>
-
-                <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-lg btn-danger full-width">Dar de baja</button>
             </div>
+            <div class="row pt-3 mb-5">
+                <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-lg btn-danger full-width mb-3">Dar de
+                    baja</button>
+            </div>
+
         </form>
+
 
     </div>
 </div>
+<!-- footer -->
 <app-footer></app-footer>

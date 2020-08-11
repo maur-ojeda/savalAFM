@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AssetsService } from '../../services/assets.service';
 import {AssetInterface } from '../../interfaces/asset.interface';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { Location } from '@angular/common';
+
 
 
 
@@ -16,8 +16,8 @@ export class FixedassetComponent implements OnInit {
   
 
   panelOpenState = false;
-  
-  asset: AssetInterface;
+
+  asset: AssetInterface [] = [];
   asseto: AssetInterface;
   
 
@@ -31,39 +31,28 @@ export class FixedassetComponent implements OnInit {
 
 
   ngOnInit(): void {
-   
-this.router.routeReuseStrategy.shouldReuseRoute = () => { 
-  return false;
-}
 
 
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-    let ide = Number(id);
+    //getcode
+    let code = this.activatedRoute.snapshot.paramMap.get('id');
+    console.log(code)
+    this.assetsService.getAssetsIdSearch( code ).then( asset => {
+    if ( !asset ) {
+      return this.router.navigateByUrl('/');
+    }
+    this.asset = asset.data;
+  });
+  //getcode
  
-
-    this.assetsService.getAssetPorId( ide ).then( asset => {
-      if ( !asset ) {
-        return this.router.navigateByUrl('/');
-      }
-      this.asset = asset;
-     
-    });
-
-  
-
-  }
+} //end init
 
   goBack() {
     this.location.back();
   }
  
-
   refreshPage() {
     window.location.reload();
 
    }
 
-}
-
-
-  
+}// end class

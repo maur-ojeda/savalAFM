@@ -19,7 +19,7 @@ import { NoRegisterComponent } from 'src/app/dialogs/no-register/no-register.com
 
 export class FixedAssetsComponent implements OnInit {
   assets: AssetInterface[] = [];
-  asset: AssetInterface;
+  asset: AssetInterface[] = [];
 
   reactiveForm: FormGroup;
   ide;
@@ -32,47 +32,46 @@ export class FixedAssetsComponent implements OnInit {
     private router: Router,
     private builder: FormBuilder,
     public dialog: MatDialog
-    
-    ) { }
+
+  ) { }
 
   ngOnInit(): void {
 
+   alert('v8')
+   
+    /* 
     this.assetsService.getAssets()
-      .then(assets => this.assets = assets);
+       .then(assets => this.assets = assets);
+   */
 
-
-      this.reactiveForm = this.builder.group({
-        search: ['', [Validators.required]]
-      });
+    this.reactiveForm = this.builder.group({
+      search: ['', [Validators.required]]
+    });
   }
 
- 
+  //Dialogos
   openDialog() {
-    this.dialog.open(OpenFixedassetComponent,{
+    this.dialog.open(OpenFixedassetComponent, {
       width: '98VW'
     });
-    
-    }
 
+  }
+  openDialogMove() {
+    this.dialog.open(MoveFixedassetComponent, {
+      width: '98VW'
+    });
+  }
+  openDialogDown() {
+    this.dialog.open(DownFixedassetComponent, {
+      width: '98VW'
+    });
+  }
+  openNoRegister() {
+    this.dialog.open(NoRegisterComponent, {
+      width: '98VW'
+    });
+  }
 
-    openDialogMove() {
-      this.dialog.open(MoveFixedassetComponent,{
-        width: '98VW'
-      });
-      }
-  
-      openDialogDown() {
-        this.dialog.open(DownFixedassetComponent,{
-          width: '98VW'
-        });
-        }
-
-        openNoRegister() {
-          this.dialog.open(NoRegisterComponent,{
-            width: '98VW'
-          });
-          }
-    
 
   cargarDatos() {
     this.assetsService.getAssets()
@@ -80,127 +79,52 @@ export class FixedAssetsComponent implements OnInit {
   }
 
   assetPorIde(valor: any) {
-   
-    // validacion de vacio
-    if(valor==""){
+    if (valor == "") {
       alert('vacio');
       return this.router.navigateByUrl('/fixedAssets');
     }
-    
-    // transformación rfid 
-    if (valor.length > 20){  
-      alert('rfid');
-      let last8 = valor.substr(valor.length - 8); 
+    if (valor.length > 20) {
+      let last8 = valor.substr(valor.length - 8);
       let hexa = parseInt(last8, 16);
-      // busca por rfid
-      this.assetsService.getAssetPorRfid(hexa.toString()).then(asset => {
+      this.assetsService.getAssetsIdSearch(hexa)
+      .then( asset => {
         if (!asset) {
-          alert('no existe rfid');
-          // abre modal de error
           this.openNoRegister();
-        }else{
-          alert('existe y va a resultado');
-          // si encuentra devuelve id y dirige hacia el asset
-          this.asset = asset;
-          let route = "fixedAsset/" + asset.id;
+        } else {
+          this.asset = asset
+          let route = "fixedAsset/" + asset.data.code;
           return this.router.navigateByUrl(route);
         }
-        
-      });
-    }else{
-      var splitted = valor.split("-", 3);
-      
-      console.log(splitted[0]) //codigo
-      console.log(splitted[1]) //guion
-      console.log(splitted[2]) //subcodigo
-      if (splitted[1] != undefined) { 
-        //alert('referalCode: '+ valor);
-        //comparar con referalCode y trae id
-        this.assetsService.getAssetPorReferalCode(valor).then(asset => {
-          if (!asset) {
-            //Nº encontrado
-            this.openNoRegister();
-          }
-          this.asset = asset;
-          let route = "fixedAsset/" + asset.id;
+      })
+    } else {
+      this.assetsService.getAssetsIdSearch(valor)
+      .then( asset => {
+        if (!asset) {
+          this.openNoRegister();
+        } else {
+          this.asset = asset
+          let route = "fixedAsset/" + asset.data.code;
           return this.router.navigateByUrl(route);
-        });
-      }
-      if (splitted[0].length > 11){ 
-        alert('code: '+ valor);
-        //comparar con code y traer id
-           this.assetsService.getAssetPorCode(valor).then(asset => {
-            if (!asset) {
-              this.openNoRegister();
-              //return this.router.navigateByUrl('/fixedAssets');
-          
-            }
-            this.asset = asset;
-            let route = "fixedAsset/" + asset.id;
-            return this.router.navigateByUrl(route);
-          });
-      }else{
-        alert('aqui');
-        this.openNoRegister();
-      }
+        }
+      })
     }
 
+  }
 
 
 
-
-    //let id = Number(ide);
-    
-    //separo en arreglo si el codigo viene con "-"
-     
-
-
-
-
-
-
-
-
-
-
-//por id
-   /* this.assetsService.getAssetPorId(id).then(asset => {
-      if (!asset) {
-        return this.router.navigateByUrl('/fixedAssets');
-      }
-      this.asset = asset;
-      let route = "fixedAsset/" + asset.id;
-      return this.router.navigateByUrl(route);
-    });
-*/
-   
-  
-
-
-
-
-
-
-
-  
-
- }
-
-
-/***
- * Toma el valor ingresado por el usuario en el input de busqueda y lo entrega al servicio
- */
-search(){
-let ide = this.reactiveForm.value.search
-ide = ide.toString()
-this.assetPorIde(ide);
-}
-
+  /***
+   * Buscador principal
+   */
+  search() {
+    let ide = this.reactiveForm.value.search
+    ide = ide.toString()
+    this.assetPorIde(ide);
+  }
 
   navigateTo(value) {
     if (value) {
       this.router.navigate([value]);
-
     }
     return false;
   }
@@ -226,8 +150,5 @@ this.assetPorIde(ide);
       return `with: ${reason}`;
     }
   }
-
-
-
 
 }

@@ -36,7 +36,7 @@ export class MoveFixedassetComponent implements OnInit {
   }
 
   assetPorIde(valor: any) {
-   
+   /*
     //vacio
     if(valor==""){
       return this.router.navigateByUrl('/fixedAssets');
@@ -102,7 +102,8 @@ export class MoveFixedassetComponent implements OnInit {
             return this.router.navigateByUrl(route);
           });
       }else{this.estatus="No se ha encontrado registro asociado al número buscado.";}
-    }
+    }*/
+    console.log('test')
  }
 
 search(){

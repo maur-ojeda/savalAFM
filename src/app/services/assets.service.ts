@@ -45,14 +45,15 @@ export class AssetsService {
 
 
   getAssetPorId(id: number) {
-    if (this.assets.length > 0) {
+   /* if (this.assets.length > 0) {
       const asset = this.assets.find(p => p.id === id);
       return Promise.resolve(asset);
     }
     return this.getAssets().then(assets => {
       const asset = this.assets.find(p => p.id === id);
       return Promise.resolve(asset);
-    });
+    });*/
+    console.log('todo');
   }
 
   getAssetsIdSearch(code: number): Promise<AssetInterface[]> {
@@ -65,11 +66,10 @@ export class AssetsService {
     }
 
     return new Promise(resolve => {
-      this.http.get('https://afsaval.agenciasur.cl//webservice/rest/assets/search/'+ code, { headers })
+      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/search/?code='+ code, { headers })
         .subscribe((assets: any) => {
-          //console.log(items.data);
-          this.assets = assets.data;
-          resolve(assets.data);
+          this.assets = assets;
+          resolve(assets);
         });
     });
   }
@@ -77,12 +77,9 @@ export class AssetsService {
 
 
 
-  
-
-
-
 
   getAssetPorCode(code: string) {
+   /*
     if (this.assets.length > 0) {
       const asset = this.assets.find(p => p.code === code);
       return Promise.resolve(asset);
@@ -91,10 +88,12 @@ export class AssetsService {
       const asset = this.assets.find(p => p.code === code);
       return Promise.resolve(asset);
     });
+    */
+   console.log('todo');
   }
 
   getAssetPorReferalCode(referalCode: string) {
-    if (this.assets.length > 0) {
+  /*  if (this.assets.length > 0) {
       const asset = this.assets.find(p => p.referalCode === referalCode);
       return Promise.resolve(asset);
 
@@ -103,28 +102,32 @@ export class AssetsService {
       const asset = this.assets.find(p => p.referalCode === referalCode);
       return Promise.resolve(asset);
     });
+    */
+   console.log('todo');
   }
 
   getAssetPorRfid(rfidLabelSap: string) {
-    if (this.assets.length > 0) {
+   /* if (this.assets.length > 0) {
       const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
       return Promise.resolve(asset)
     }
     return this.getAssets().then(assets => {
       const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
       return Promise.resolve(asset);
-    });
+    });*/
+    console.log('todo');
   }
 
   getAssetPorrfid(rfidLabelSap: string) {
-    if (this.assets.length > 0) {
+    /*if (this.assets.length > 0) {
       const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
       return Promise.resolve(asset)
     }
     return this.getAssets().then(assets => {
       const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
       return Promise.resolve(asset);
-    });
+    });*/
+    console.log('todo');
   }
 
   getAssetPorValue(buscado: any) {
