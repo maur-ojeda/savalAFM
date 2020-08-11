@@ -44,12 +44,18 @@ const password = this.reactiveForm.value.pass;
     data => {
 if(!data.error){
 
-  this.router.navigate(['home'])
+  localStorage.setItem('userfirstName',data.data.firstName);
+  localStorage.setItem('userlastName',data.data.lastName);
+  localStorage.setItem('userusername',data.data.username);
+  localStorage.setItem('userfullName',data.data.fullName);
 
+
+  
+
+  this.router.navigate(['home'])
   this.userService.setLoggedIn(true)
-  
 }else{
-  
+
   window.alert(data.message);
   //this.router.navigate(['home'])
 }

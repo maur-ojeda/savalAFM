@@ -8,12 +8,25 @@ import { Location } from '@angular/common';
 })
 export class UserDataComponent implements OnInit {
 
+
+  userfirstName;
+  userlastName;
+  userusername;
+  
+  
   constructor( private location: Location) { }
 
   ngOnInit(): void {
+    this.userusername = localStorage.getItem('userusername');
+    this.userfirstName = localStorage.getItem('userfirstName');
+    this.userlastName = localStorage.getItem('userlastName');
+    
+
   }
   goBack() { 
     this.location.back();
   }
+
+
 
 }

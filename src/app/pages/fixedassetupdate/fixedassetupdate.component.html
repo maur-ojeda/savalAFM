@@ -70,7 +70,7 @@
                                 Código Rfid
                             </mat-label>
 
-                            <!--(change)="rfidConvert($event.target.value)"-->
+                            
                             <input matInput formControlName="rfidLabelFake" placeholder="Código Rfid" value={{asset.rfidLabelSap}}>
                             <small class="text-info" *ngIf="reactiveForm.get('rfidLabelFake').hasError('required')">Campo requerido</small>
                         </mat-form-field>
@@ -84,12 +84,12 @@
                             <input matInput placeholder="" readonly disabled value="{{asset.society}}">
                         </mat-form-field>
 
-                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.society">
+                        <!--mat-form-field appearance="outline" class="full-width" *ngIf="asset?.society">
                             <mat-label>
                                 Código RFID SAP
                             </mat-label>
                             <input matInput formControlName="rfidLabelSap" placeholder="" value="{{asset.rfidLabelSap}}">
-                        </mat-form-field>
+                        </mat-form-field-->
 
 
                         <br />

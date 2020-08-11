@@ -57,7 +57,7 @@ export class FixedassetupdateComponent implements OnInit {
     this.reactiveForm = this.builder.group({
       assetID: ['', []],
       rfidLabelFake: ['', []],
-      rfidLabelSap: ['',[] ],
+      //rfidLabelSap: ['',[] ],
       serieNumber: ['', [Validators.required]],
       description: ['', [Validators.required]],
       costCenter: ['', [Validators.required]],
@@ -88,7 +88,7 @@ export class FixedassetupdateComponent implements OnInit {
     console.log(e)
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
-    this.reactiveForm.controls['rfidLabelSap'].setValue(e.rfidLabelSap);
+    //this.reactiveForm.controls['rfidLabelSap'].setValue(e.rfidLabelSap);
     this.reactiveForm.controls['serieNumber'].setValue(e.serieNumber);
     this.reactiveForm.controls['description'].setValue(e.description);
     this.reactiveForm.controls['creditorId'].setValue(e.creditorId);
@@ -105,7 +105,7 @@ export class FixedassetupdateComponent implements OnInit {
 
     let formValue = {
       "rfidLabelFake": this.reactiveForm.value.rfidLabelFake,
-      "rfidLabelSap": this.reactiveForm.value.rfidLabelSap,
+      //"rfidLabelSap": this.reactiveForm.value.rfidLabelSap,
       "serieNumber": this.reactiveForm.value.serieNumber,
       "description": this.reactiveForm.value.description,
       "costCenter": this.reactiveForm.value.costCenter,

@@ -9,18 +9,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  userfullName;
   message="Cargando"
 
   constructor( public userService: UsersService, private router: Router ) { }
 
   ngOnInit(): void {
-
+    this.userfullName = localStorage.getItem('userfullName');
   //this.userService.getUserDetails().subscribe( data=>{this.message = data.message })
   
 }
   logOut(){
     localStorage.removeItem('loggedIn');
+    localStorage.removeItem('userfirstName');
+    localStorage.removeItem('userlastName');
+    localStorage.removeItem('userusername');
+    localStorage.removeItem('userfullName');
+
     return this.router.navigateByUrl('/login');
   }
 
