@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CcenterService } from 'src/app/services/ccenter.service';
 import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
+import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 
 
 
@@ -16,7 +17,8 @@ import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
 })
 export class FixedassetupdateComponent implements OnInit {
 
-  asset: AssetInterface;
+  assets: AssetSearchInterface[] = [];
+  asset: AssetSearchInterface[] = [];
   reactiveForm: FormGroup;
   ccenters: CcenterInterface[] = [];
 
@@ -40,9 +42,9 @@ export class FixedassetupdateComponent implements OnInit {
     if ( !asset ) {
       return this.router.navigateByUrl('/');
     }
-      this.asset = asset.data;
+      this.asset = asset;
 
-      this.getAssetsData(asset.data)
+      this.getAssetsData(asset)
     });
   //getcode
 
@@ -82,7 +84,8 @@ export class FixedassetupdateComponent implements OnInit {
   }
 
   getAssetsData(e) {
-   console.log ('aqui: ' + e)
+   
+    console.log(e)
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
     this.reactiveForm.controls['rfidLabelSap'].setValue(e.rfidLabelSap);

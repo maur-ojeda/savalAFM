@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetsService } from '../../services/assets.service';
-import { AssetInterface } from '../../interfaces/asset.interface';
+//import { AssetInterface } from '../../interfaces/asset.interface';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -10,6 +10,8 @@ import { OpenFixedassetComponent } from 'src/app/dialogs/open-fixedasset/open-fi
 import { MoveFixedassetComponent } from 'src/app/dialogs/move-fixedasset/move-fixedasset.component';
 import { DownFixedassetComponent } from 'src/app/dialogs/down-fixedasset/down-fixedasset.component';
 import { NoRegisterComponent } from 'src/app/dialogs/no-register/no-register.component';
+import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
+import { map, filter, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-fixed-assets',
@@ -18,10 +20,11 @@ import { NoRegisterComponent } from 'src/app/dialogs/no-register/no-register.com
 })
 
 export class FixedAssetsComponent implements OnInit {
-  assets: AssetInterface[] = [];
-  asset: AssetInterface[] = [];
+  assets: AssetSearchInterface[] = [];
+  asset: AssetSearchInterface[] = [];
   reactiveForm: FormGroup;
   ide;
+  hexa;
 
   closeResult = '';
 
@@ -35,7 +38,6 @@ export class FixedAssetsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.reactiveForm = this.builder.group({
       search: ['', [Validators.required]]
     });
@@ -71,30 +73,39 @@ export class FixedAssetsComponent implements OnInit {
 
   assetPorIde(valor: any) {
     if (valor == "") {
-      alert('vacio');
+      
       return this.router.navigateByUrl('/fixedAssets');
     }
     if (valor.length > 20) {
       let last8 = valor.substr(valor.length - 8);
       let hexa = parseInt(last8, 16);
-      this.assetsService.getAssetsIdSearch(hexa)
+      let hexaStr = hexa.toString();
+      this.assetsService.getAssetsIdSearch(hexaStr)
       .then( asset => {
         if (!asset) {
           this.openNoRegister();
         } else {
           this.asset = asset
-          let route = "fixedAsset/" + asset.data.code;
+          let route = "fixedAsset/" + asset.code;
           return this.router.navigateByUrl(route);
         }
       })
     } else {
-      this.assetsService.getAssetsIdSearch(valor)
+
+console.log(valor)
+ var splitted = valor.split("-", 3);
+      //console.log(splitted[0]) //codigo
+      //console.log(splitted[1]) //guion
+      //console.log(splitted[2]) //subcodigo
+
+      this.assetsService.getAssetsIdSearch(splitted[0])
       .then( asset => {
         if (!asset) {
           this.openNoRegister();
         } else {
           this.asset = asset
-          let route = "fixedAsset/" + asset.data.code;
+          console.log(asset)
+          let route = "fixedAsset/" + asset.code;
           return this.router.navigateByUrl(route);
         }
       })

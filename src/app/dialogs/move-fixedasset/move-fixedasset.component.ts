@@ -42,7 +42,8 @@ export class MoveFixedassetComponent implements OnInit {
     if (valor.length > 20) {
       let last8 = valor.substr(valor.length - 8);
       let hexa = parseInt(last8, 16);
-      this.assetsService.getAssetsIdSearch(hexa)
+      let hexaStr = hexa.toString();
+      this.assetsService.getAssetsIdSearch(hexaStr)
       .then( asset => {
         if (!asset) {
           this.estatus="No se ha encontrado registro.";
@@ -50,12 +51,14 @@ export class MoveFixedassetComponent implements OnInit {
         } else {
           this.asset = asset;
           this.dialogRef.close();
-          let route = "fixedAssetMove/" + asset.data.code;
+          let route = "fixedAssetMove/" + asset.code;
           return this.router.navigateByUrl(route);
         }
       })
     } else {
-      this.assetsService.getAssetsIdSearch(valor)
+      var splitted = valor.split("-", 3);
+      //console.log(splitted[0]) //codigo
+      this.assetsService.getAssetsIdSearch(splitted[0])   
       .then( asset => {
         if (!asset) {
           this.estatus="No se ha encontrado registro.";
@@ -64,7 +67,7 @@ export class MoveFixedassetComponent implements OnInit {
          
           this.asset = asset;
           this.dialogRef.close();
-          let route = "fixedAssetMove/" + asset.data.code;
+          let route = "fixedAssetMove/" + asset.code;
           return this.router.navigateByUrl(route);
         }
       })

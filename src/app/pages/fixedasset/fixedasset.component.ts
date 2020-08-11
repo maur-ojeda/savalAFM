@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetsService } from '../../services/assets.service';
-import {AssetInterface } from '../../interfaces/asset.interface';
+//import {AssetInterface } from '../../interfaces/asset.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 
 
 
@@ -17,9 +18,9 @@ export class FixedassetComponent implements OnInit {
 
   panelOpenState = false;
 
-  asset: AssetInterface [] = [];
-  asseto: AssetInterface;
-  
+  assets: AssetSearchInterface[] = [];
+  asset: AssetSearchInterface[] = [];
+
 
   constructor(
     public assetsService: AssetsService,
@@ -36,11 +37,15 @@ export class FixedassetComponent implements OnInit {
     //getcode
     let code = this.activatedRoute.snapshot.paramMap.get('id');
 
+ 
+
     this.assetsService.getAssetsIdSearch( code ).then( asset => {
-    if ( !asset ) {
+ 
+      if ( !asset ) {
       return this.router.navigateByUrl('/');
     }
-    this.asset = asset.data;
+    this.asset = asset;
+ 
   });
   //getcode
  

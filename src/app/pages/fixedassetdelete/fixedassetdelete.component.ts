@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {AssetInterface } from '../../interfaces/asset.interface';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 //import { DatePipe } from '@angular/common';
 
 @Component({
@@ -12,8 +13,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./fixedassetdelete.component.scss']
 })
 export class FixedassetdeleteComponent implements OnInit {
-
-  asset: AssetInterface;
+  assets: AssetSearchInterface[] = [];
+  asset: AssetSearchInterface[] = [];
   reactiveForm: FormGroup;
 
   constructor(
@@ -33,8 +34,8 @@ export class FixedassetdeleteComponent implements OnInit {
        if ( !asset ) {
          return this.router.navigateByUrl('/');
        }
-         this.asset = asset.data;
-         this.getAssetsData(asset.data)
+         this.asset = asset;
+         this.getAssetsData(asset)
 
 
        });

@@ -4,7 +4,7 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AssetInterface } from '../interfaces/asset.interface';
+//import { AssetInterface } from '../interfaces/asset.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateErrorComponent } from '../dialogs/create-error/create-error.component';
 import { CreateOkComponent } from '../dialogs/create-ok/create-ok.component';
@@ -13,17 +13,18 @@ import { UpdateErrorComponent } from '../dialogs/update-error/update-error.compo
 import { MoveOkComponent } from '../dialogs/move-ok/move-ok.component';
 import { DeleteOkComponent } from '../dialogs/delete-ok/delete-ok.component';
 import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.component';
+import { AssetSearchInterface } from '../interfaces/assetSearch.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssetsService {
 
-  private assets: AssetInterface[] = [];
+  private assets:  AssetSearchInterface[] = [];
 
   constructor(private http: HttpClient, public dialog: MatDialog) { }
   //todo:user y pass dinamico
-  getAssets(): Promise<AssetInterface[]> {
+  getAssets(): Promise<AssetSearchInterface[]> {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -56,7 +57,7 @@ export class AssetsService {
     console.log('todo');
   }
 
-  getAssetsIdSearch(code: number): Promise<AssetInterface[]> {
+  getAssetsIdSearch(code: string): Promise<AssetSearchInterface[]> {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -68,7 +69,7 @@ export class AssetsService {
     return new Promise(resolve => {
       this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/search/?code='+ code, { headers })
         .subscribe((assets: any) => {
-          this.assets = assets;
+          this.assets = assets.data;
           resolve(assets);
         });
     });

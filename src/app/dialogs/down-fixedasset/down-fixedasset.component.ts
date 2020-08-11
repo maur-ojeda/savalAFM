@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AssetInterface } from 'src/app/interfaces/asset.interface';
 import { Router } from '@angular/router';
 import { AssetsService } from 'src/app/services/assets.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 
 @Component({
   selector: 'app-down-fixedasset',
@@ -12,8 +12,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class DownFixedassetComponent implements OnInit {
 
-  assets: AssetInterface[] = [];
-  asset: AssetInterface[] = [];
+  assets: AssetSearchInterface[] = [];
+  asset: AssetSearchInterface[] = [];
+  code;
   reactiveForm: FormGroup;
   ide;
   estatus;
@@ -42,7 +43,8 @@ export class DownFixedassetComponent implements OnInit {
     if (valor.length > 20) {
       let last8 = valor.substr(valor.length - 8);
       let hexa = parseInt(last8, 16);
-      this.assetsService.getAssetsIdSearch(hexa)
+      let hexaStr = hexa.toString();
+      this.assetsService.getAssetsIdSearch(hexaStr)
       .then( asset => {
         if (!asset) {
           this.estatus="No se ha encontrado registro.";
@@ -50,12 +52,14 @@ export class DownFixedassetComponent implements OnInit {
         } else {
           this.asset = asset;
           this.dialogRef.close();
-          let route = "fixedAssetDelete/" + asset.data.code;
+          let route = "fixedAssetDelete/" + asset.code;
           return this.router.navigateByUrl(route);
         }
       })
     } else {
-      this.assetsService.getAssetsIdSearch(valor)
+      var splitted = valor.split("-", 3);
+      //console.log(splitted[0]) //codigo
+      this.assetsService.getAssetsIdSearch(splitted[0])  
       .then( asset => {
         if (!asset) {
           this.estatus="No se ha encontrado registro.";
@@ -63,8 +67,11 @@ export class DownFixedassetComponent implements OnInit {
         } else {
          
           this.asset = asset;
+
+          let donde = asset.code;
+
           this.dialogRef.close();
-          let route = "fixedAssetDelete/" + asset.data.code;
+          let route = "fixedAssetDelete/" + donde;
           return this.router.navigateByUrl(route);
 
 
