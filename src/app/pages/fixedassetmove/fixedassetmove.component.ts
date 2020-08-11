@@ -186,7 +186,7 @@ export class FixedassetmoveComponent implements OnInit {
     let obj ={
       name: 'subRat'
     }
-     this.http.put('https://afsaval.agenciasur.cl/webservice/rest/asset/move/', obj).subscribe(
+     this.http.put('https://devactivofijo.saval.cl:8443/webservice/rest/asset/move/', obj).subscribe(
        res =>{
          console.log(res)
        }, err => {

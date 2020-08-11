@@ -27,7 +27,7 @@ export class BuildingService {
     }
     return new Promise( resolve => {
   
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/locations?all=true',{ headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?all=true',{ headers })
         .subscribe( (buildings: any) => {
           this.buildings = buildings.data;
           resolve( buildings.data )
@@ -50,7 +50,7 @@ export class BuildingService {
   
 
     return new Promise( resolve => {
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/location/buildings/'+id ,{ headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/location/buildings/'+id ,{ headers })
         .subscribe( (buildings: any) => {
           this.buildings = buildings.data;
           //console.log('buildings.data');

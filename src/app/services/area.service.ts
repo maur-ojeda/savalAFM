@@ -23,7 +23,7 @@ export class AreaService {
     }
     return new Promise( resolve => {
       
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/locations?all=true',{ headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?all=true',{ headers })
         .subscribe( (areas: any) => {
           this.areas = areas.data;
           resolve( areas.data )
@@ -45,7 +45,7 @@ export class AreaService {
       return Promise.resolve( this.areas );
     }
     return new Promise( resolve => {
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/location/areas/'+id ,{ headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/location/areas/'+id ,{ headers })
         .subscribe( (areas: any) => {
           this.areas = areas.data;
           console.log('areas.data');

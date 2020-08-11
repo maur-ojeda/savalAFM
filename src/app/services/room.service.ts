@@ -24,7 +24,7 @@ export class RoomService {
       return Promise.resolve( this.rooms );
     }
     return new Promise( resolve => {
-  this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/locations?all=true',{ headers })
+  this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?all=true',{ headers })
         .subscribe( (rooms: any) => {
           this.rooms = rooms.data;
           resolve( rooms.data )
@@ -47,7 +47,7 @@ export class RoomService {
     }
     return new Promise( resolve => {
   
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/location/rooms/'+id ,{ headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/location/rooms/'+id ,{ headers })
         .subscribe( (rooms: any) => {
           this.rooms = rooms.data;
           //console.log('rooms.data');

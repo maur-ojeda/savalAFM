@@ -34,7 +34,7 @@
     "dataGroups": [{
             "name": "request",
             "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/requests"
+                "https://devactivofijo.saval.cl:8443/webservice/rest/requests"
             ],
             "cacheConfig": {
                 "maxSize": 5000,
@@ -46,7 +46,7 @@
         {
             "name": "assets",
             "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/assets"
+                "https://devactivofijo.saval.cl:8443/webservice/rest/assets"
             ],
             "cacheConfig": {
                 "maxSize": 5000,
@@ -58,7 +58,7 @@
         {
             "name": "locations",
             "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/catalog/locations"
+                "https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations"
 
             ],
             "cacheConfig": {
@@ -71,7 +71,7 @@
         {
             "name": "costcenters",
             "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/catalog/costcenters"
+                "https://devactivofijo.saval.cl:8443/webservice/rest/catalog/costcenters"
 
             ],
             "cacheConfig": {
@@ -84,7 +84,7 @@
         {
             "name": "species",
             "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/catalog/species"
+                "https://devactivofijo.saval.cl:8443/webservice/rest/catalog/species"
 
             ],
             "cacheConfig": {
@@ -97,7 +97,7 @@
         {
             "name": "species",
             "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/catalog/class"
+                "https://devactivofijo.saval.cl:8443/webservice/rest/catalog/class"
 
             ],
             "cacheConfig": {
@@ -110,7 +110,7 @@
         {
             "name": "centers",
             "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/location/centers"
+                "https://devactivofijo.saval.cl:8443/webservice/rest/location/centers"
 
             ],
             "cacheConfig": {

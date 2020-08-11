@@ -73,7 +73,7 @@ export class FixedAssetsComponent implements OnInit {
 
   assetPorIde(valor: any) {
   
-    console.log(valor);
+    console.log('aqui' + valor);
 
    if (valor == null) {      
       return this.router.navigateByUrl('/fixedAssets');

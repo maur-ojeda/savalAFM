@@ -54,7 +54,18 @@ export class FixedassetComponent implements OnInit {
  
   refreshPage() {
     window.location.reload();
+  }
 
-   }
+   parseDate(date) {
+  
+console.log(date)
+    var d = new Date(date); 
+    return( d.toLocaleString() ); 
+
+  }
+  
+  
+
+  
 
 }// end class

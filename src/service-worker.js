@@ -16,7 +16,7 @@ function addData() {
     let obj = {
         name: 'subRat'
     }
-    fetch('https://afsaval.agenciasur.cl/webservice/rest/asset/move/', {
+    fetch('https://devactivofijo.saval.cl:8443/webservice/rest/asset/move/', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

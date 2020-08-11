@@ -38,8 +38,8 @@ export class AssetsService {
     }
 
     return new Promise(resolve => {
-      //this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/', { headers })
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/?page=5&items=100', { headers })
+      //this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/', { headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/?page=5&items=100', { headers })
         .subscribe((assets: any) => {
           this.assets = assets.data;
           resolve(assets.data);
@@ -132,7 +132,7 @@ export class AssetsService {
     .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
     .set('Content-Type', 'application/x-www-form-urlencoded')
 
-    this.http.post("https://afsaval.agenciasur.cl/webservice/rest/request/add", formValue, { headers })
+    this.http.post("https://devactivofijo.saval.cl:8443/webservice/rest/request/add", formValue, { headers })
       .subscribe(
         val => {
           console.log("PUT call successful value returned in body", val);
@@ -166,7 +166,7 @@ export class AssetsService {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set("Content-Type", "application/x-www-form-urlencoded");
-    this.http.put("https://afsaval.agenciasur.cl/webservice/rest/asset/update/" + ide, formValue, { headers })
+    this.http.put("https://devactivofijo.saval.cl:8443/webservice/rest/asset/update/" + ide, formValue, { headers })
       .subscribe(
         val => {
           console.log("PUT call successful value returned in body",
@@ -197,7 +197,7 @@ export class AssetsService {
       .set("Content-Type", "application/x-www-form-urlencoded");
       //alert(ide)
       
-  this.http.put("https://afsaval.agenciasur.cl/webservice/rest/asset/move/" + ide, formValue, { headers }).subscribe(
+  this.http.put("https://devactivofijo.saval.cl:8443/webservice/rest/asset/move/" + ide, formValue, { headers }).subscribe(
         val => {
           console.log("PUT call successful value returned in body",
             val);
@@ -236,7 +236,7 @@ export class AssetsService {
     };
     console.log(options)
     
-    this.http.delete("https://afsaval.agenciasur.cl/webservice/rest/asset/delete/" + ide, options)
+    this.http.delete("https://devactivofijo.saval.cl:8443/webservice/rest/asset/delete/" + ide, options)
       .subscribe(
         val => {
           console.log("PUT call successful value returned in body",
@@ -277,7 +277,7 @@ export class AssetsService {
     }
 
     return new Promise(resolve => {
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/search/?code='+ code, { headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/search?code='+ code, { headers })
         .subscribe((assets: any) => {
           this.assets = assets;
           resolve(assets.data.code);
@@ -297,7 +297,7 @@ export class AssetsService {
     }
 
     return new Promise(resolve => {
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/search/?code='+ code, { headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/search?code='+ code, { headers })
         .subscribe((assets: any) => {
           this.assets = assets;
           resolve(assets.data);
