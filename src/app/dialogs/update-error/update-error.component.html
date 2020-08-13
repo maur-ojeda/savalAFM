@@ -1,9 +1,11 @@
-<h3 mat-dialog-title>Ups!</h3>
+<h3 mat-dialog-title>Modificar activo fijo</h3>
 <div mat-dialog-content>
-    <p>Algo no ha funcionado, intenta nuevamente</p>
-    <!--p>{{mensaje.anyProperty.title}}</p-->
+  <p>{{mensaje.anyProperty.name}}</p>
+    <p>{{mensaje.anyProperty.error.message | json}}</p>
 </div>
 <div mat-dialog-actions>
 <button mat-flat-button mat-dialog-close class="full-width" color="warn">Cerrar</button>
 </div>
+
+
 

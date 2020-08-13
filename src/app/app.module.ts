@@ -69,14 +69,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCardModule} from '@angular/material/card';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
-//import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 
 import { OpenFixedassetComponent } from './dialogs/open-fixedasset/open-fixedasset.component';
@@ -84,8 +83,6 @@ import { MoveFixedassetComponent } from './dialogs/move-fixedasset/move-fixedass
 import { DownFixedassetComponent } from './dialogs/down-fixedasset/down-fixedasset.component';
 import { NoRegisterComponent } from './dialogs/no-register/no-register.component';
 
-
-import { UsersService } from './services/user.service';
 import { AuthGuard } from './auth.guard';
 import { CreateErrorComponent } from './dialogs/create-error/create-error.component';
 import { CreateOkComponent } from './dialogs/create-ok/create-ok.component';
@@ -95,7 +92,13 @@ import { MoveErrorComponent } from './dialogs/move-error/move-error.component';
 import { MoveOkComponent } from './dialogs/move-ok/move-ok.component';
 import { DeleteOkComponent } from './dialogs/delete-ok/delete-ok.component';
 import { DeleteErrorComponent } from './dialogs/delete-error/delete-error.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { LogoutComponent } from './dialogs/logout/logout.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { DeleteConfirmationComponent } from './dialogs/delete-confirmation/delete-confirmation.component';
+import { MoveConfirmationComponent } from './dialogs/move-confirmation/move-confirmation.component';
+import { UpdateConfirmationComponent } from './dialogs/update-confirmation/update-confirmation.component';
+import { CreateConfirmationComponent } from './dialogs/create-confirmation/create-confirmation.component';
+import { LoginErrorComponent } from './dialogs/login-error/login-error.component';
 
 
 @NgModule({
@@ -139,9 +142,16 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MoveOkComponent,
     DeleteOkComponent,
     DeleteErrorComponent,
+    LogoutComponent,
+    DeleteConfirmationComponent,
+    MoveConfirmationComponent,
+    UpdateConfirmationComponent,
+    CreateConfirmationComponent,
+    LoginErrorComponent
     
   ],
   imports: [
+    MatSnackBarModule,
     BrowserModule,
     AppRoutingModule,
      FormsModule,
@@ -157,8 +167,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
       MatButtonModule,
       MatCardModule,
       MatButtonToggleModule,
-      MatSnackBarModule,
-    //  MatSnackBar,
       MatDialogModule,
       MatProgressSpinnerModule,
       MatTableModule,

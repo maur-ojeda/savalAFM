@@ -22,7 +22,8 @@ import { AreaInterface } from 'src/app/interfaces/area.interface';
 import { RoomInterface } from 'src/app/interfaces/room.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
-
+import { MoveConfirmationComponent } from 'src/app/dialogs/move-confirmation/move-confirmation.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-fixedassetmove',
@@ -61,7 +62,8 @@ export class FixedassetmoveComponent implements OnInit {
     private router: Router,
     private location: Location ,
     private builder: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    public dialog: MatDialog 
   ) { }
 
 
@@ -73,7 +75,7 @@ export class FixedassetmoveComponent implements OnInit {
    return this.router.navigateByUrl('/');
  }
  this.asset = asset;
-
+ this.getAssetsData(asset)
 });
 //getcode
 
@@ -148,62 +150,68 @@ export class FixedassetmoveComponent implements OnInit {
     this.location.back();
   }
 
-	onChangeCenter(e: number) {
+	onChangeCenter(e) {
+
+    
+
+		this.lBuildings = [];
+		this.lFloors = [];
+		this.lAreas = [];
+		this.lRooms = [];
 		this.reactiveForm.get('lBuilding').reset();
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		this.slBuilding.getbuildings(e)
-			.then(lBuildings => this.lBuildings = lBuildings)
-			//.then(la => { console.log(la) });
+		this.slBuilding.getbuildings(this.reactiveForm.controls.lCenter.value)
+      .then(lBuildings => this.lBuildings = lBuildings)
+    
+ 
 	}
-	onChangeBuilding(e: number) {
+	onChangeBuilding(e) {
+		this.lFloors = [];
+		this.lAreas = [];
+		this.lRooms = [];
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		this.slFloor.getfloors(e)
-			.then(lFloors => this.lFloors = lFloors)
-			//.then(la => { console.log(la) });
+		this.slFloor.getfloors(this.reactiveForm.controls.lBuilding.value)
+      .then(lFloors => this.lFloors = lFloors)
+    
 	}
-	onChangeFloor(e: number) {
+	onChangeFloor(e) {
+		this.lAreas = [];
+		this.lRooms = [];
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		this.slArea.getareas(e)
-			.then(lAreas => this.lAreas = lAreas)
-			//.then(la => { console.log(la) });
+		this.slArea.getareas(this.reactiveForm.controls.lFloor.value)
+      .then(lAreas => this.lAreas = lAreas)
+      
+
 	}
-	onChangeArea(e: number) {
+	onChangeArea(e) {
+		this.lRooms = [];
 		this.reactiveForm.get('lRoom').reset();
-		this.slRoom.getRooms(e)
-			.then(lRooms => this.lRooms = lRooms)
-			//.then(la => { console.log(la) });
+		this.slRoom.getRooms(this.reactiveForm.controls.lRoom.value)
+      .then(lRooms => this.lRooms = lRooms)
 	}
 
 
 
 
-  postSync(){
-    let obj ={
-      name: 'subRat'
-    }
-     this.http.put('https://devactivofijo.saval.cl:8443/webservice/rest/asset/move/', obj).subscribe(
-       res =>{
-         console.log(res)
-       }, err => {
-         this.backgroundSync()
-       }
-     )
-   
-   }
-   
-   backgroundSync(){
-     navigator.serviceWorker.ready.then(
-     (swRegistration) => swRegistration.sync.register('post-data')
-     .catch(console.log)
-   
-   
-     )
-   }
+
+
+  Dialog() {
+    const dialogRef = this.dialog.open(MoveConfirmationComponent,{
+          width: '98VW'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+              if(result){
+                this.moveData();
+              }
+
+    });
+  }
    
 
 

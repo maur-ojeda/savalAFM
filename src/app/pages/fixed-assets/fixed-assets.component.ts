@@ -11,7 +11,7 @@ import { MoveFixedassetComponent } from 'src/app/dialogs/move-fixedasset/move-fi
 import { DownFixedassetComponent } from 'src/app/dialogs/down-fixedasset/down-fixedasset.component';
 import { NoRegisterComponent } from 'src/app/dialogs/no-register/no-register.component';
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
-import { map, filter, switchMap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-fixed-assets',
@@ -71,9 +71,10 @@ export class FixedAssetsComponent implements OnInit {
   }
 
 
-  assetPorIde(valor: any) {
+  assetPorIde(valor: any ) {
   
-    console.log('aqui' + valor);
+    console.log('aqui :' + valor);
+  
 
    if (valor == null) {      
       return this.router.navigateByUrl('/fixedAssets');
@@ -83,7 +84,9 @@ export class FixedAssetsComponent implements OnInit {
       let last8 = valor.substr(valor.length - 8);
       let hexa = parseInt(last8, 16);
       let hexaStr = hexa.toString();
-      
+
+      console.log(hexaStr)
+
       this.assetsService.getAssetsCode(hexaStr)
       .then( asset => {
         if (!asset) {
@@ -92,24 +95,26 @@ export class FixedAssetsComponent implements OnInit {
           this.asset = asset
           console.log('rfid')
           console.log(asset)
+
           let route = "fixedAsset/" + asset;
           return this.router.navigateByUrl(route);
         }
       })
 
-
+      
     } 
     else {
-      var splitted = valor.split("-", 3);
-      this.assetsService.getAssetsCode(splitted[0])
+    
+      this.assetsService.getAssetsCode(valor)
       .then( asset => {
         if (!asset) {
           this.openNoRegister();
         } else {
       
           this.asset = asset
-          let route = "fixedAsset/" + asset;
-          return this.router.navigateByUrl(route);
+          console.log(asset['data'].code)
+          let route = "fixedAsset/" + asset['data'].code;
+         return this.router.navigateByUrl(route);
         }
       })
     }
@@ -126,6 +131,7 @@ export class FixedAssetsComponent implements OnInit {
    */
   search() {
     let ide = this.reactiveForm.value.search
+  
     ide = ide.toString()
     this.assetPorIde(ide);
   }

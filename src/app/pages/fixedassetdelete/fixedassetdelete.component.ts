@@ -5,7 +5,9 @@ import {AssetInterface } from '../../interfaces/asset.interface';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
+import { DeleteConfirmationComponent } from 'src/app/dialogs/delete-confirmation/delete-confirmation.component';
 //import { DatePipe } from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-fixedassetdelete',
@@ -25,6 +27,7 @@ export class FixedassetdeleteComponent implements OnInit {
     private router: Router,
     private location: Location, 
     private builder: FormBuilder,
+    public dialog: MatDialog 
   ) { }
 
   
@@ -36,6 +39,7 @@ export class FixedassetdeleteComponent implements OnInit {
       return this.router.navigateByUrl('/');
     }
     this.asset = asset;
+    this.getAssetsData(asset)
  
   });
   //getcode
@@ -84,6 +88,20 @@ export class FixedassetdeleteComponent implements OnInit {
 
   }
 
+
+
+  Dialog() {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent,{
+          width: '98VW'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+              if(result){
+                this.deleteAsset();
+              }
+
+    });
+  }
 
 
 

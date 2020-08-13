@@ -13,7 +13,7 @@ export class CreateErrorComponent implements OnInit {
   mensaje;
   constructor(public dialogRef: MatDialogRef<CreateErrorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      console.log('data passed in is:', this.data);
+      
     
       this.mensaje = this.data;
 

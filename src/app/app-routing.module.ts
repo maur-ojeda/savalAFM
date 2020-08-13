@@ -47,7 +47,7 @@ const routes: Routes = [
   
   //individual
   { path: 'fixedAsset/:id', component: FixedassetComponent },
-
+//  { path: 'fixedAsset/:id/:code', component: FixedassetComponent },
  
 
 

@@ -6,8 +6,9 @@ import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CcenterService } from 'src/app/services/ccenter.service';
 import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
+import { UpdateConfirmationComponent } from 'src/app/dialogs/update-confirmation/update-confirmation.component';
 //import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
-
+import {MatDialog} from '@angular/material/dialog';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class FixedassetupdateComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private builder: FormBuilder
+    private builder: FormBuilder,
+    public dialog: MatDialog 
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +47,7 @@ export class FixedassetupdateComponent implements OnInit {
     return this.router.navigateByUrl('/');
   }
   this.asset = asset;
+  this.getAssetsData(asset)
 
 });
 //getcode
@@ -58,11 +61,11 @@ export class FixedassetupdateComponent implements OnInit {
       assetID: ['', []],
       rfidLabelFake: ['', []],
       //rfidLabelSap: ['',[] ],
-      serieNumber: ['', [Validators.required]],
+      serieNumber: ['', []],
       description: ['', [Validators.required]],
       costCenter: ['', [Validators.required]],
       creditorId: ['', []],
-      lifetimeYear: ['', [Validators.required]]
+      lifetimeYear: ['', []]
     });
 
 
@@ -73,12 +76,10 @@ export class FixedassetupdateComponent implements OnInit {
 
 
   rfidConvert(n) {
-    if (n.length > 0) {
+    if (n.length > 20) {
       var last8 = n.substr(n.length - 8);
       var hexa = parseInt(last8, 16);
-      //return hexa
       this.reactiveForm.controls['rfidLabelFake'].setValue(hexa);
-      //alert(hexa)
     }
   
   }
@@ -88,7 +89,6 @@ export class FixedassetupdateComponent implements OnInit {
     console.log(e)
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
-    //this.reactiveForm.controls['rfidLabelSap'].setValue(e.rfidLabelSap);
     this.reactiveForm.controls['serieNumber'].setValue(e.serieNumber);
     this.reactiveForm.controls['description'].setValue(e.description);
     this.reactiveForm.controls['creditorId'].setValue(e.creditorId);
@@ -105,7 +105,6 @@ export class FixedassetupdateComponent implements OnInit {
 
     let formValue = {
       "rfidLabelFake": this.reactiveForm.value.rfidLabelFake,
-      //"rfidLabelSap": this.reactiveForm.value.rfidLabelSap,
       "serieNumber": this.reactiveForm.value.serieNumber,
       "description": this.reactiveForm.value.description,
       "costCenter": this.reactiveForm.value.costCenter,
@@ -113,14 +112,27 @@ export class FixedassetupdateComponent implements OnInit {
       "lifetimeYear": this.reactiveForm.value.lifetimeYear
     }
 
-    //console.log(ide, formValue );
-    //console.log(JSON.stringify(formValue));
+   
     this.assetsService.updateAssets(formValue, ide);
-    //alert(JSON.stringify(formValue));
+   
 
 
   }
 
+
+
+  Dialog() {
+    const dialogRef = this.dialog.open(UpdateConfirmationComponent,{
+          width: '98VW'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+              if(result){
+                this.updateData();
+              }
+
+    });
+  }
 
 
 

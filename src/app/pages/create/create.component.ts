@@ -33,6 +33,15 @@ import { BuildingInterface } from 'src/app/interfaces/building.interface';
 
 import { CenterInterface } from 'src/app/interfaces/center.interface';
 import { CenterService } from 'src/app/services/center.service';
+import { CreateConfirmationComponent } from 'src/app/dialogs/create-confirmation/create-confirmation.component';
+
+import { MatDialog } from '@angular/material/dialog';
+
+
+
+
+
+
 
 
 @Component({
@@ -68,7 +77,8 @@ export class CreateComponent implements OnInit {
 		public slArea: AreaService,
 		public slRoom: RoomService,
 		private builder: FormBuilder,
-		private location: Location
+		private location: Location,
+		public dialog: MatDialog
 
 	) { }
 
@@ -85,19 +95,18 @@ export class CreateComponent implements OnInit {
 		this.slCenterService.getCenters()
 			.then(Centers => this.Centers = Centers);
 
-
 		this.reactiveForm = this.builder.group({
 			catalogClass: ['', [Validators.required]],
-			speciefake: ['',  [Validators.required]],
-			specie: ['', []],
-			sociedad: ['LS01', []],
-			history_check: ['true', []],
-			inventory_check: ['true', []],
+			speciefake: ['', [Validators.required]],
+			specie: ['', [Validators.required]],
+			sociedad: [{ value: 'LS01', disabled: true }, []],
+			history_check: [{ value: 'true', disabled: true }, []],
+			inventory_check: [{ value: 'true', disabled: true }, []],
 			assetCount: ["1", []],
-			creditorId: ['',  [Validators.required]],
-			newAsset: ['true', []],
+			creditorId: ['', [Validators.required]],
+			newAsset: [{ value: 'true', disabled: true }, []],
 			assetOrigin: ['', []],
-			lifetimeYear: ['', []],
+			lifetimeYear: ['', [Validators.required]],
 			atributo_0: ['', []],
 			atributo_id_0: ['', []],
 			atributo_1: ['', []],
@@ -119,21 +128,114 @@ export class CreateComponent implements OnInit {
 			atributo_9: ['', []],
 			atributo_id_9: ['', []],
 			serieNumber: ['', []],
-			costCenter: ['',  [Validators.required]],
-			lCenter: ['',  [Validators.required]],
-			lBuilding: ['',  [Validators.required]],
-			lFloor: ['',  [Validators.required]],
-			lArea: ['',  [Validators.required]],
-			lRoom: ['',  [Validators.required]],
+			costCenter: ['', [Validators.required]],
+			lCenter: ['', [Validators.required]],
+			lFloor: ['', []],
+			lBuilding: ['', []],
+			lArea: ['', []],
+			lRoom: ['', []]
 		});
+//[null]
+/*
+	
+		this.reactiveForm.controls['lBuilding'].disable();
+		this.reactiveForm.controls['lFloor'].disable();
+		this.reactiveForm.controls['lArea'].disable();
+		this.reactiveForm.controls['lRoom'].disable();
+*/
+
+/*
+		this.reactiveForm.controls['lCenter'].valueChanges
+		.subscribe( value => {		
+			if ( this.reactiveForm.controls['lBuilding'].value !== '') {
+			
+				this.reactiveForm.controls['lBuilding'].enable()
+				this.setValidatorRequired('lBuilding', Validators.required);
+				
+			} else {
+				this.setValidatorRequired('lBuilding', null);
+				}
+		})
+
+		if(this.reactiveForm.controls['lBuilding'].touched){
+			this.reactiveForm.controls['lFloor'].enable()
+			this.setValidatorRequired('lFloor', Validators.required);
+		}
+		*/	
+
+	/*	if(this.reactiveForm.controls['lFloor'].touched){
+			this.reactiveForm.controls['lArea'].enable()
+			this.setValidatorRequired('lArea', Validators.required);
+		}
+			
+
+		if(this.reactiveForm.controls['lArea'].touched){
+			this.reactiveForm.controls['lRoom'].enable()
+			this.setValidatorRequired('lRoom', Validators.required);
+		}
+		*/
+		
+		/*.subscribe( value =>{		
+			if ( this.reactiveForm.controls['lBuilding'].value !== '') {
+				this.setValidatorRequired('lBuilding', Validators.required);
+				} else {
+				this.setValidatorRequired('lBuilding', null);
+				}
+		})*/
+
+	/*	this.reactiveForm.controls['lBuilding'].valueChanges
+		.subscribe( value =>{				
+			if ( value !== '') {
+				this.setValidatorRequired('lFloor', Validators.required);
+				} else {
+				this.setValidatorRequired('lFloor', null);
+				}
+		})
+
+		this.reactiveForm.controls['lFloor'].valueChanges
+		.subscribe( value =>{				
+			if ( value !== '') {
+				this.setValidatorRequired('lArea', Validators.required);
+				} else {
+				this.setValidatorRequired('lArea', null);
+				}
+		})
+
+		this.reactiveForm.controls['lArea'].valueChanges
+		.subscribe( value =>{				
+			if ( value !== '') {
+				this.setValidatorRequired('lRoom', Validators.required);
+				} else {
+				this.setValidatorRequired('lRoom', null);
+				}
+		})
+	*/	
+
 	}
 
-	onChangeSpecie(e: string) {
+
+
+
+
+	
+
+
+
+	setValidatorRequired(campo, requerido) {
+
 		
+		this.reactiveForm.controls[campo].setValidators(requerido);
+		this.reactiveForm.controls[campo].updateValueAndValidity();
+				
+		}
+
+
+	onChangeSpecie(e: string) {
+
 		this.specieService.getSpeciesPorId(e)
 			.then(obj => this.obj = obj)
 			.then(obj => {
-				console.log(obj.id)
+				//console.log(obj.id)
 				this.reactiveForm.get("specie").setValue(obj.id);
 			})
 
@@ -147,37 +249,62 @@ export class CreateComponent implements OnInit {
 			})
 	}
 
+
+
+
+
+	
+
+
+
+
+
+
+
 	onChangeCenter(e: number) {
+		
+		alert('center ' + e )
+		this.lBuildings = [];
+		this.lFloors = [];
+		this.lAreas = [];
+		this.lRooms = [];
 		this.reactiveForm.get('lBuilding').reset();
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
+		
 		this.slBuilding.getbuildings(e)
-			.then(lBuildings => this.lBuildings = lBuildings)
-			.then(la => { console.log(la) });
+		.then(lBuildings => this.lBuildings = lBuildings)
 	}
 	onChangeBuilding(e: number) {
+		alert('building ' + e )
+		this.lFloors = [];
+		this.lAreas = [];
+		this.lRooms = [];
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
 		this.slFloor.getfloors(e)
 			.then(lFloors => this.lFloors = lFloors)
-			.then(la => { console.log(la) });
 	}
 	onChangeFloor(e: number) {
+		alert('floor ' + e )
+		this.lAreas = [];
+		this.lRooms = [];
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
 		this.slArea.getareas(e)
 			.then(lAreas => this.lAreas = lAreas)
-			.then(la => { console.log(la) });
+
 	}
 	onChangeArea(e: number) {
+		alert('area ' + e )
+	
 		this.reactiveForm.get('lRoom').reset();
 		this.slRoom.getRooms(e)
 			.then(lRooms => this.lRooms = lRooms)
-			.then(la => { console.log(la) });
+			this.lRooms = [];
 	}
-
 
 	saveData() {
 
@@ -186,7 +313,7 @@ export class CreateComponent implements OnInit {
 			"specie": this.reactiveForm.value.specie,
 			"specieAttributes": [
 				{
-					"value": this.reactiveForm.value.atributo_0, 
+					"value": this.reactiveForm.value.atributo_0,
 					"specieAttribute": this.reactiveForm.value.atributo_id_0
 				},
 
@@ -230,31 +357,46 @@ export class CreateComponent implements OnInit {
 			"assetCount": this.reactiveForm.value.assetCount,
 			"assetRequestDetails": [
 				{
-					"serieNumber": this.reactiveForm.value.serieNumber,
 					"costCenter": this.reactiveForm.value.costCenter,
-					"lCenter": this.reactiveForm.value.lCenter,
-					"lBuilding": this.reactiveForm.value.lBuilding,
-					"lFloor": this.reactiveForm.value.lFloor,
 					"lArea": this.reactiveForm.value.lArea,
+					"lBuilding": this.reactiveForm.value.lBuilding,
+					"lCenter": this.reactiveForm.value.lCenter,
+					"lFloor": this.reactiveForm.value.lFloor,
 					"lRoom": this.reactiveForm.value.lRoom,
+					"serieNumber": this.reactiveForm.value.serieNumber,
 				}
 			],
 			"creditorId": this.reactiveForm.value.creditorId,
 			"newAsset": this.reactiveForm.value.newAsset,
-			"assetOrigin": this.reactiveForm.value.assetOrigin,
+			//"assetOrigin": this.reactiveForm.value.assetOrigin,
 			"lifetimeYear": this.reactiveForm.value.lifetimeYear,
 		}
-	
+
+		console.log(JSON.stringify(formValue));
 		this.assetsService.InsertAssets(formValue);
 		//this.reactiveForm.reset();//todo:mejorar mandar al detalle de asset
-		
-	}
 
+	}
 
 	goBack() {
 		this.location.back();
 	}
+
+	Dialog() {
+		const dialogRef = this.dialog.open(CreateConfirmationComponent, {
+			width: '98VW'
+		});
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				this.saveData();
+			}
+		});
+	}
+
+
 }
+
+
 
 
 

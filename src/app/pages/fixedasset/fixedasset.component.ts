@@ -33,6 +33,10 @@ export class FixedassetComponent implements OnInit {
   ngOnInit(): void {
     //getcode
     let code = this.activatedRoute.snapshot.paramMap.get('id');
+
+    let codex = this.activatedRoute.snapshot.paramMap.get('code');
+
+
     this.assetsService.getAssetsData( code ).then( asset => {
       if ( !asset ) {
       return this.router.navigateByUrl('/');

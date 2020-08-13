@@ -29,12 +29,12 @@
         </div>
         <!-- / row botonera -->
         <!-- row accordion -->
-        <form [formGroup]="reactiveForm" (ngSubmit)="updateData()">
+        <form [formGroup]="reactiveForm" (ngSubmit)="Dialog()">
             <input matInput formControlName="assetID" class="hidden">
             <div class="row pt-3">
-                <mat-accordion class="full-width">
 
-                    <mat-expansion-panel [expanded]="true">
+
+    <mat-expansion-panel [expanded]="true" class="full-width mb-3">
 
                         <mat-expansion-panel-header>
                             <mat-panel-title>
@@ -92,18 +92,23 @@
                         </mat-form-field-->
 
 
-                        <br />
+                        
                         <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.capitalizationDateAt">
                             <mat-label>
                                 Fecha de Capitalización
                             </mat-label>
                             <input matInput placeholder="" readonly disabled value="{{asset.capitalizationDateAt.date}}">
                         </mat-form-field>
-                        <br />
+                        
 
 
 
                     </mat-expansion-panel>
+
+
+                <mat-accordion class="full-width">
+
+                
 
                     <mat-expansion-panel>
                         <mat-expansion-panel-header>

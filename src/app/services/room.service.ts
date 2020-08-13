@@ -7,6 +7,7 @@ import { RoomInterface } from '../interfaces/room.interface';
 })
 export class RoomService {
 
+  private url = "https://devactivofijo.saval.cl:8443"
   private rooms: RoomInterface[] = [];
 
   constructor(private http: HttpClient) { }
@@ -14,10 +15,8 @@ export class RoomService {
 
 
   getallRooms(): Promise<RoomInterface[]>{
-    let user ="mobile_user";
-    let pass ="testing";
     let headers = new HttpHeaders()
-    .set('Authorization',   `Basic ${btoa(user + ":" + pass)}`)
+    .append("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
     .set('Content-Type', 'application/x-www-form-urlencoded')
   
     if ( this.rooms.length > 0 ) {
@@ -36,10 +35,8 @@ export class RoomService {
   
 
   getRooms(id:number): Promise<RoomInterface[]>{
-    let user ="mobile_user";
-    let pass ="testing";
     let headers = new HttpHeaders()
-    .set('Authorization',   `Basic ${btoa(user + ":" + pass)}`)
+    .append("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
     .set('Content-Type', 'application/x-www-form-urlencoded')
   
     if ( this.rooms.length > 0 ) {
@@ -47,12 +44,11 @@ export class RoomService {
     }
     return new Promise( resolve => {
   
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/location/rooms/'+id ,{ headers })
+      this.http.get(this.url+'/webservice/rest/locations/'+id+'/children' ,{ headers })
         .subscribe( (rooms: any) => {
-          this.rooms = rooms.data;
-          //console.log('rooms.data');
-          //console.log(rooms.data);
-          resolve( rooms.data );
+          this.rooms = rooms['data'];
+
+          resolve( rooms['data'] );
           
         });
     });

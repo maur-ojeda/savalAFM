@@ -1,1 +1,4 @@
-/* No CSS *//*# sourceMappingURL=login.component.css.map */
+.mat-snack-bar-container {
+  color: red !important;
+  background: red !important;
+}

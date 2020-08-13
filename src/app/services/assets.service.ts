@@ -14,32 +14,28 @@ import { MoveOkComponent } from '../dialogs/move-ok/move-ok.component';
 import { DeleteOkComponent } from '../dialogs/delete-ok/delete-ok.component';
 import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.component';
 import { AssetSearchInterface } from '../interfaces/assetSearch.interface';
+import { MoveErrorComponent } from '../dialogs/move-error/move-error.component';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AssetsService {
 
-  private assets:  AssetSearchInterface[] = [];
 
+  private url = "https://devactivofijo.saval.cl:8443"
+  private assets:  AssetSearchInterface[] = [];
   constructor(private http: HttpClient, public dialog: MatDialog) { }
 
-
-
-
-  //todo:user y pass dinamico
   getAssets(): Promise<AssetSearchInterface[]> {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set('Content-Type', 'application/x-www-form-urlencoded')
-
     if (this.assets.length > 0) {
       return Promise.resolve(this.assets);
     }
-
     return new Promise(resolve => {
-      //this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/', { headers })
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/?page=5&items=100', { headers })
+      this.http.get(this.url+'/webservice/rest/assets/?page=5&items=100', { headers })
         .subscribe((assets: any) => {
           this.assets = assets.data;
           resolve(assets.data);
@@ -49,90 +45,15 @@ export class AssetsService {
   }
 
 
-  getAssetPorId(id: number) {
-   /* if (this.assets.length > 0) {
-      const asset = this.assets.find(p => p.id === id);
-      return Promise.resolve(asset);
-    }
-    return this.getAssets().then(assets => {
-      const asset = this.assets.find(p => p.id === id);
-      return Promise.resolve(asset);
-    });*/
-    console.log('todo');
-  }
-
- 
- 
-
-
-
-
-  getAssetPorCode(code: string) {
-   /*
-    if (this.assets.length > 0) {
-      const asset = this.assets.find(p => p.code === code);
-      return Promise.resolve(asset);
-    }
-    return this.getAssets().then(assets => {
-      const asset = this.assets.find(p => p.code === code);
-      return Promise.resolve(asset);
-    });
-    */
-   console.log('todo');
-  }
-
-  getAssetPorReferalCode(referalCode: string) {
-  /*  if (this.assets.length > 0) {
-      const asset = this.assets.find(p => p.referalCode === referalCode);
-      return Promise.resolve(asset);
-
-    }
-    return this.getAssets().then(assets => {
-      const asset = this.assets.find(p => p.referalCode === referalCode);
-      return Promise.resolve(asset);
-    });
-    */
-   console.log('todo');
-  }
-
-  getAssetPorRfid(rfidLabelSap: string) {
-   /* if (this.assets.length > 0) {
-      const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
-      return Promise.resolve(asset)
-    }
-    return this.getAssets().then(assets => {
-      const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
-      return Promise.resolve(asset);
-    });*/
-    console.log('todo');
-  }
-
-  getAssetPorrfid(rfidLabelSap: string) {
-    /*if (this.assets.length > 0) {
-      const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
-      return Promise.resolve(asset)
-    }
-    return this.getAssets().then(assets => {
-      const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
-      return Promise.resolve(asset);
-    });*/
-    console.log('todo');
-  }
-
-  getAssetPorValue(buscado: any) {
-
-    alert('desde servicio' + buscado);
-
-
-  }
-
   InsertAssets(formValue) {
+
+    //alert(JSON.stringify(formValue) )
 
     let headers = new HttpHeaders()
     .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
     .set('Content-Type', 'application/x-www-form-urlencoded')
 
-    this.http.post("https://devactivofijo.saval.cl:8443/webservice/rest/request/add", formValue, { headers })
+    this.http.post(this.url+'/webservice/rest/request/add', formValue, { headers })
       .subscribe(
         val => {
           console.log("PUT call successful value returned in body", val);
@@ -150,7 +71,7 @@ export class AssetsService {
           this.dialog.open(CreateErrorComponent, {
             width: '98VW',
             data: {
-              anyProperty: response.error
+              anyProperty: response
             }
           });
         },
@@ -160,7 +81,6 @@ export class AssetsService {
       );
 
   }
-
   updateAssets(formValue, ide) {
 
     let headers = new HttpHeaders()
@@ -190,7 +110,6 @@ export class AssetsService {
         }
       );
   }
-
   moveAssets(formValue, ide) {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
@@ -209,7 +128,7 @@ export class AssetsService {
         },
         response => {
           console.log("PUT call in error", response);
-          this.dialog.open(UpdateErrorComponent, {
+          this.dialog.open(MoveErrorComponent, {
             data: {
               anyProperty: "myValue"
             }
@@ -220,7 +139,6 @@ export class AssetsService {
         }
       );
   }
-
   downAssets(formValue, ide) {
     const options = {
       headers: new HttpHeaders({
@@ -235,7 +153,7 @@ export class AssetsService {
        },
     };
     console.log(options)
-    
+
     this.http.delete("https://devactivofijo.saval.cl:8443/webservice/rest/asset/delete/" + ide, options)
       .subscribe(
         val => {
@@ -263,11 +181,6 @@ export class AssetsService {
         }
       );
   }
-
-
-
-
-
   getAssetsCode(code: string): Promise<AssetSearchInterface[]> {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
@@ -280,13 +193,11 @@ export class AssetsService {
       this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/search?code='+ code, { headers })
         .subscribe((assets: any) => {
           this.assets = assets;
-          resolve(assets.data.code);
-         // console.log(assets.data.code)
+          resolve(assets);
+         
         });
     });
   }
-
-
   getAssetsData(code: string): Promise<AssetSearchInterface[]> {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
@@ -304,6 +215,83 @@ export class AssetsService {
         });
     });
   }
+
+
+
+
+
+
+  ////DEPRECRED
+  getAssetPorId(id: number) {
+
+   /* if (this.assets.length > 0) {
+      const asset = this.assets.find(p => p.id === id);
+      return Promise.resolve(asset);
+    }
+    return this.getAssets().then(assets => {
+      const asset = this.assets.find(p => p.id === id);
+      return Promise.resolve(asset);
+    });*/
+    console.log('todo');
+  }
+  getAssetPorCode(code: string) {
+   /*
+    if (this.assets.length > 0) {
+      const asset = this.assets.find(p => p.code === code);
+      return Promise.resolve(asset);
+    }
+    return this.getAssets().then(assets => {
+      const asset = this.assets.find(p => p.code === code);
+      return Promise.resolve(asset);
+    });
+    */
+   console.log('todo');
+  }
+  getAssetPorReferalCode(referalCode: string) {
+  /*  if (this.assets.length > 0) {
+      const asset = this.assets.find(p => p.referalCode === referalCode);
+      return Promise.resolve(asset);
+
+    }
+    return this.getAssets().then(assets => {
+      const asset = this.assets.find(p => p.referalCode === referalCode);
+      return Promise.resolve(asset);
+    });
+    */
+   console.log('todo');
+  }
+  getAssetPorRfid(rfidLabelSap: string) {
+   /* if (this.assets.length > 0) {
+      const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
+      return Promise.resolve(asset)
+    }
+    return this.getAssets().then(assets => {
+      const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
+      return Promise.resolve(asset);
+    });*/
+    console.log('todo');
+  }
+  getAssetPorrfid(rfidLabelSap: string) {
+    /*if (this.assets.length > 0) {
+      const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
+      return Promise.resolve(asset)
+    }
+    return this.getAssets().then(assets => {
+      const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
+      return Promise.resolve(asset);
+    });*/
+    console.log('todo');
+  }
+  getAssetPorValue(buscado: any) {
+
+    alert('desde servicio' + buscado);
+
+
+  }
+
+
+
+
 
 
 }
