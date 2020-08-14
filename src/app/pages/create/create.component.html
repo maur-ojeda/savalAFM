@@ -22,7 +22,6 @@
         <div class="col-12 mb-5">
 
 
-{{ reactiveForm.value | json }}
 
 
             <form [formGroup]="reactiveForm" (ngSubmit)="Dialog()">
@@ -195,6 +194,8 @@
 						requerido</small>
                 </div>
 
+<!--{{ lAreas | json }}-->
+
                 <!--lArea-->
                 <div class="form-group">
                     <mat-form-field appearance="outline" class="full-width" (change)="onChangeArea($event.target.value)">
@@ -209,11 +210,15 @@
                 </div>
 
                 <!--lRoom-->
+
+
+                   <!-- {{lRooms | json }}-->
+
                 <div class="form-group">
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Sala</mat-label>
                         <select matNativeControl formControlName="lRoom">
-<option [ngValue]="null" disabled>Seleccione ...</option> 
+                            <option [ngValue]="null" disabled>Seleccione ...</option> 
 							<option *ngFor="let lRoom of lRooms" [value]="lRoom.id">{{lRoom.code}} - {{lRoom.name}}</option>
 						</select>
                     </mat-form-field>

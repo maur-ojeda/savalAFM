@@ -23,13 +23,17 @@ export class RoomService {
       return Promise.resolve( this.rooms );
     }
     return new Promise( resolve => {
-  this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?all=true',{ headers })
+  this.http.get(this.url+'/webservice/rest/catalog/locations?all=true&type=5',{ headers })
         .subscribe( (rooms: any) => {
           this.rooms = rooms.data;
           resolve( rooms.data )
         });
     });
   }
+
+  
+
+
 
 
   

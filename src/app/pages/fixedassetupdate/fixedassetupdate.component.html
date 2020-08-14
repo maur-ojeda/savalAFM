@@ -61,7 +61,7 @@
                         <br />
                         <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.catalogClass">
                             <mat-label>Clase activo fijo</mat-label>
-                            <input matInput placeholder="" readonly disabled value="{{asset.catalogClass.name}}">
+                            <input matInput placeholder="" readonly  value="{{asset.catalogClass.name}}">
                         </mat-form-field>
                         <br />
                         <!--Editable-->
@@ -71,8 +71,8 @@
                             </mat-label>
 
                             
-                            <input matInput formControlName="rfidLabelFake" placeholder="Código Rfid" value={{asset.rfidLabelSap}}>
-                            <small class="text-info" *ngIf="reactiveForm.get('rfidLabelFake').hasError('required')">Campo requerido</small>
+                            <input matInput formControlName="rfidLabelSap" placeholder="Código Rfid" value={{asset.rfidLabelSap}} (change)="toRfid()">
+                            <small class="text-info" *ngIf="reactiveForm.get('rfidLabelSap').hasError('required')">Campo requerido</small>
                         </mat-form-field>
                         <!--Editable-->
 
@@ -81,7 +81,7 @@
                             <mat-label>
                                 Sociedad
                             </mat-label>
-                            <input matInput placeholder="" readonly disabled value="{{asset.society}}">
+                            <input matInput placeholder="" readonly  value="{{asset.society}}">
                         </mat-form-field>
 
                         <!--mat-form-field appearance="outline" class="full-width" *ngIf="asset?.society">
@@ -97,7 +97,7 @@
                             <mat-label>
                                 Fecha de Capitalización
                             </mat-label>
-                            <input matInput placeholder="" readonly disabled value="{{asset.capitalizationDateAt.date}}">
+                            <input matInput placeholder="" readonly  value="{{asset.capitalizationDateAt.date}}">
                         </mat-form-field>
                         
 
@@ -120,7 +120,7 @@
                             <mat-label>
                                 Especie
                             </mat-label>
-                            <input matInput placeholder="Especie" disabled [readonly]="false" value="{{asset.specie.code}}-{{asset.specie.name}}">
+                            <input matInput placeholder="Especie"  readonly value="{{asset.specie.code}}-{{asset.specie.name}}">
                         </mat-form-field>
                         <br />
 

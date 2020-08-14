@@ -4,7 +4,8 @@ import { AssetsService } from '../../services/assets.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 //import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
-
+import { MatDialog } from '@angular/material/dialog';
+import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class FixedassetComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private location: Location,
+    public dialog: MatDialog
 
   ) {  }
 
@@ -42,6 +44,11 @@ export class FixedassetComponent implements OnInit {
       return this.router.navigateByUrl('/');
     }
     this.asset = asset;
+
+    if(asset['data'].status == 1){
+      alert('0')
+        this.Warning()
+    }
 
     //console.log(JSON.stringify(asset)); 
 
@@ -60,14 +67,19 @@ export class FixedassetComponent implements OnInit {
     window.location.reload();
   }
 
-   parseDate(date) {
-  
-console.log(date)
-    var d = new Date(date); 
-    return( d.toLocaleString() ); 
-
-  }
-  
+   
+  Warning() {
+		const dialogRef = this.dialog.open(WarningComponent, {
+			width: '98VW'
+		});
+    /*
+    dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				this.saveData();
+			}
+    });
+    */
+	}
   
 
   

@@ -101,7 +101,7 @@ export class AssetsService {
           console.log("PUT call in error", response);
           this.dialog.open(UpdateErrorComponent, {
             data: {
-              anyProperty: "myValue"
+              anyProperty: "response"
             }
           });
         },

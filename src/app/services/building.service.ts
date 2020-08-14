@@ -34,7 +34,7 @@ export class BuildingService {
     }
     return new Promise( resolve => {
   
-      this.http.get(this.url+'/webservice/rest/catalog/locations?all=true',{ headers })
+      this.http.get(this.url+'/webservice/rest/catalog/locations?all=true&type=2',{ headers })
         .subscribe( (buildings: any) => {
           this.buildings = buildings.data;
           resolve( buildings.data )

@@ -60,7 +60,7 @@
                     <br />
                     <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.catalogClass">
                         <mat-label>Clase activo fijo</mat-label>
-                        <input matInput placeholder="" readonly disabled value="{{asset.catalogClass.name}}">
+                        <input matInput placeholder="" readonly  value="{{asset.catalogClass.name}}">
                     </mat-form-field>
                     <br />
 
@@ -77,7 +77,7 @@
                         <mat-label>
                             Sociedad
                         </mat-label>
-                        <input matInput placeholder="" readonly disabled value="{{asset.society}}">
+                        <input matInput placeholder="" readonly  value="{{asset.society}}">
                     </mat-form-field>
 
                     <!--mat-form-field appearance="outline" class="full-width" *ngIf="asset?.society">
@@ -120,7 +120,7 @@
                             <mat-label>
                                 Especie
                             </mat-label>
-                            <input matInput placeholder="Especie" disabled [readonly]="false" value="{{asset.specie.code}}-{{asset.specie.name}}">
+                            <input matInput placeholder="Especie" readonly value="{{asset.specie.code}}-{{asset.specie.name}}">
                         </mat-form-field>
                         <br />
 
@@ -129,7 +129,7 @@
                             <mat-label>
                                 Número de serie
                             </mat-label>
-                            <input matInput placeholder="Número de serie" disabled [readonly]="false" value="">
+                            <input matInput placeholder="Número de serie" readonly value="{{asset.serieNumber}}">
                         </mat-form-field>
 
                         <br />
@@ -138,7 +138,7 @@
                             <mat-label>
                                 Descripción
                             </mat-label>
-                            <textarea matInput *ngIf="asset?.description" disabled [readonly]="false" cols="5">{{asset.description}}</textarea>
+                            <textarea matInput *ngIf="asset?.description" readonly  cols="5">{{asset.description}}</textarea>
                         </mat-form-field>
 
                         <br />

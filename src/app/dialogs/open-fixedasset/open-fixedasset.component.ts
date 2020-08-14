@@ -51,7 +51,7 @@ export class OpenFixedassetComponent implements OnInit {
           } else {
             this.asset = asset;
             this.dialogRef.close();
-            let route = "fixedAssetUpdate/" + asset;
+            let route = "fixedAssetUpdate/" + asset['data'].code;
             return this.router.navigateByUrl(route);
           }
         })

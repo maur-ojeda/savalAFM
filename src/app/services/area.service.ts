@@ -23,7 +23,7 @@ export class AreaService {
     }
     return new Promise( resolve => {
       
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?all=true',{ headers })
+      this.http.get(this.url+'/webservice/rest/catalog/locations?all=true&type=4',{ headers })
         .subscribe( (areas: any) => {
           this.areas = areas.data;
           resolve( areas.data )
@@ -42,9 +42,7 @@ export class AreaService {
    
     return new Promise( resolve => {
 
-let ob = this.url+'/webservice/rest/locations/'+id+'/children'
 
-alert(ob)
       this.http.get(this.url+'/webservice/rest/locations/'+id+'/children' ,{ headers })
         .subscribe( (areas: any) => {
           this.areas = areas.data;

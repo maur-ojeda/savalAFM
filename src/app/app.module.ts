@@ -99,6 +99,7 @@ import { MoveConfirmationComponent } from './dialogs/move-confirmation/move-conf
 import { UpdateConfirmationComponent } from './dialogs/update-confirmation/update-confirmation.component';
 import { CreateConfirmationComponent } from './dialogs/create-confirmation/create-confirmation.component';
 import { LoginErrorComponent } from './dialogs/login-error/login-error.component';
+import { WarningComponent } from './dialogs/warning/warning.component';
 
 
 @NgModule({
@@ -147,7 +148,8 @@ import { LoginErrorComponent } from './dialogs/login-error/login-error.component
     MoveConfirmationComponent,
     UpdateConfirmationComponent,
     CreateConfirmationComponent,
-    LoginErrorComponent
+    LoginErrorComponent,
+    WarningComponent
     
   ],
   imports: [

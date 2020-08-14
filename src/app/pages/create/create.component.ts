@@ -213,32 +213,19 @@ export class CreateComponent implements OnInit {
 
 	}
 
-
-
-
-
-	
-
-
-
-	setValidatorRequired(campo, requerido) {
-
-		
+	setValidatorRequired(campo, requerido) {		
 		this.reactiveForm.controls[campo].setValidators(requerido);
-		this.reactiveForm.controls[campo].updateValueAndValidity();
-				
+		this.reactiveForm.controls[campo].updateValueAndValidity();				
 		}
 
 
 	onChangeSpecie(e: string) {
-
 		this.specieService.getSpeciesPorId(e)
 			.then(obj => this.obj = obj)
 			.then(obj => {
 				//console.log(obj.id)
 				this.reactiveForm.get("specie").setValue(obj.id);
 			})
-
 
 		this.specieService.getSpeciesPorId(e)
 			.then(obj => {
@@ -249,48 +236,31 @@ export class CreateComponent implements OnInit {
 			})
 	}
 
-
-
-
-
-	
-
-
-
-
-
-
-
 	onChangeCenter(e: number) {
-		
-		alert('center ' + e )
-		this.lBuildings = [];
-		this.lFloors = [];
-		this.lAreas = [];
-		this.lRooms = [];
+		this.lBuildings.length = 0
+		this.lFloors.length = 0
+		this.lAreas.length = 0
+		this.lRooms.length = 0
 		this.reactiveForm.get('lBuilding').reset();
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		
 		this.slBuilding.getbuildings(e)
 		.then(lBuildings => this.lBuildings = lBuildings)
 	}
-	onChangeBuilding(e: number) {
-		alert('building ' + e )
-		this.lFloors = [];
-		this.lAreas = [];
-		this.lRooms = [];
+	onChangeBuilding(e: number) {	
+		this.lFloors.length = 0
+		this.lAreas.length = 0
+		this.lRooms.length = 0
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
 		this.slFloor.getfloors(e)
 			.then(lFloors => this.lFloors = lFloors)
 	}
-	onChangeFloor(e: number) {
-		alert('floor ' + e )
-		this.lAreas = [];
-		this.lRooms = [];
+	onChangeFloor(e: number) {		
+		this.lAreas.length = 0
+		this.lRooms.length = 0
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
 		this.slArea.getareas(e)
@@ -298,16 +268,13 @@ export class CreateComponent implements OnInit {
 
 	}
 	onChangeArea(e: number) {
-		alert('area ' + e )
-	
+		this.lRooms.length = 0
 		this.reactiveForm.get('lRoom').reset();
 		this.slRoom.getRooms(e)
 			.then(lRooms => this.lRooms = lRooms)
-			this.lRooms = [];
 	}
 
 	saveData() {
-
 		let formValue = {
 			"catalogClass": this.reactiveForm.value.catalogClass,
 			"specie": this.reactiveForm.value.specie,
@@ -371,11 +338,9 @@ export class CreateComponent implements OnInit {
 			//"assetOrigin": this.reactiveForm.value.assetOrigin,
 			"lifetimeYear": this.reactiveForm.value.lifetimeYear,
 		}
-
-		console.log(JSON.stringify(formValue));
+		//console.log(JSON.stringify(formValue));
 		this.assetsService.InsertAssets(formValue);
 		//this.reactiveForm.reset();//todo:mejorar mandar al detalle de asset
-
 	}
 
 	goBack() {

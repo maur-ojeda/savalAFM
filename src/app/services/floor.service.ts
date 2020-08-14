@@ -23,7 +23,7 @@ export class FloorService {
     return new Promise( resolve => {
   
       
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?all=true',{ headers })
+      this.http.get(this.url+'/webservice/rest/catalog/locations?all=true&type=3',{ headers })
       
         .subscribe( (floors: any) => {
           this.floors = floors.data;

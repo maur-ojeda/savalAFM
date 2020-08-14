@@ -93,11 +93,9 @@ export class FixedAssetsComponent implements OnInit {
           this.openNoRegister();
         } else {
           this.asset = asset
-          console.log('rfid')
-          console.log(asset)
-
-          let route = "fixedAsset/" + asset;
-          return this.router.navigateByUrl(route);
+          
+          let route = "fixedAsset/" + asset['data'].code;
+         return this.router.navigateByUrl(route);
         }
       })
 
@@ -112,7 +110,6 @@ export class FixedAssetsComponent implements OnInit {
         } else {
       
           this.asset = asset
-          console.log(asset['data'].code)
           let route = "fixedAsset/" + asset['data'].code;
          return this.router.navigateByUrl(route);
         }

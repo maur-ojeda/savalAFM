@@ -94,7 +94,8 @@ export class FixedassetmoveComponent implements OnInit {
 
     this.slRoom.getallRooms()
     .then(lRooms => this.lRooms = lRooms)
-
+      
+    
   
 
     this.reactiveForm = this.builder.group({
@@ -115,7 +116,7 @@ export class FixedassetmoveComponent implements OnInit {
 
 
   getAssetsData(e) {
-    //console.log(e.data.id)
+  
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
     this.reactiveForm.controls['lCenter'].setValue(e.lCenter);
@@ -123,6 +124,7 @@ export class FixedassetmoveComponent implements OnInit {
     this.reactiveForm.controls['lFloor'].setValue(e.lFloor);
     this.reactiveForm.controls['lArea'].setValue(e.lArea);
     this.reactiveForm.controls['lRoom'].setValue(e.lRoom);
+
   }
 
   moveData(){
@@ -150,52 +152,44 @@ export class FixedassetmoveComponent implements OnInit {
     this.location.back();
   }
 
-	onChangeCenter(e) {
-
-    
-
-		this.lBuildings = [];
-		this.lFloors = [];
-		this.lAreas = [];
-		this.lRooms = [];
+  onChangeCenter(e: number) {
+		this.lBuildings.length = 0
+		this.lFloors.length = 0
+		this.lAreas.length = 0
+		this.lRooms.length = 0
 		this.reactiveForm.get('lBuilding').reset();
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		this.slBuilding.getbuildings(this.reactiveForm.controls.lCenter.value)
-      .then(lBuildings => this.lBuildings = lBuildings)
-    
- 
+		this.slBuilding.getbuildings(e)
+		.then(lBuildings => this.lBuildings = lBuildings)
 	}
-	onChangeBuilding(e) {
-		this.lFloors = [];
-		this.lAreas = [];
-		this.lRooms = [];
+	onChangeBuilding(e: number) {	
+		this.lFloors.length = 0
+		this.lAreas.length = 0
+		this.lRooms.length = 0
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		this.slFloor.getfloors(this.reactiveForm.controls.lBuilding.value)
-      .then(lFloors => this.lFloors = lFloors)
-    
+		this.slFloor.getfloors(e)
+			.then(lFloors => this.lFloors = lFloors)
 	}
-	onChangeFloor(e) {
-		this.lAreas = [];
-		this.lRooms = [];
+	onChangeFloor(e: number) {		
+		this.lAreas.length = 0
+		this.lRooms.length = 0
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		this.slArea.getareas(this.reactiveForm.controls.lFloor.value)
-      .then(lAreas => this.lAreas = lAreas)
-      
+		this.slArea.getareas(e)
+			.then(lAreas => this.lAreas = lAreas)
 
 	}
-	onChangeArea(e) {
-		this.lRooms = [];
+	onChangeArea(e: number) {
+		this.lRooms.length = 0
 		this.reactiveForm.get('lRoom').reset();
-		this.slRoom.getRooms(this.reactiveForm.controls.lRoom.value)
-      .then(lRooms => this.lRooms = lRooms)
+		this.slRoom.getRooms(e)
+			.then(lRooms => this.lRooms = lRooms)
 	}
-
-
+ng
 
 
 
