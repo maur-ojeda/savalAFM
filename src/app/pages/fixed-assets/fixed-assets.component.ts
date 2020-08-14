@@ -73,13 +73,36 @@ export class FixedAssetsComponent implements OnInit {
 
   assetPorIde(valor: any ) {
   
-    console.log('aqui :' + valor);
+   alert('aqui :' + valor);
   
-
+/*
    if (valor == null) {      
       return this.router.navigateByUrl('/fixedAssets');
     }
+    if (valor == '') {
+      alert('vacio ingrese un número')
+      return this.router.navigateByUrl('/fixedAssets');
+    } 
 
+*/
+
+
+
+    this.assetsService.getAssetsCode(valor)
+      .then( asset => {
+        if (!asset) {
+          this.openNoRegister();
+        } else {
+          this.asset = asset
+          let route = "fixedAsset/" + asset['data'].code;
+         return this.router.navigateByUrl(route);
+        }
+      }).catch(err => 
+        this.openNoRegister()
+        )
+
+   /*
+   
     if (valor.length > 20) {
       let last8 = valor.substr(valor.length - 8);
       let hexa = parseInt(last8, 16);
@@ -116,11 +139,39 @@ export class FixedAssetsComponent implements OnInit {
       })
     }
 
-
+*/
 
 
   }
 
+
+  onClickSubmit(data){
+
+
+let c = data.code.substring(0, 24);
+alert(c)
+
+    alert('Codigo recogido por formulario' + JSON.stringify(data)) 
+    //this.assetPorIde(data.code);
+    this.assetsService.getAssetsCode(c)
+    .then( asset => {
+      if (!asset) {
+        this.openNoRegister();
+      } else {
+        this.asset = asset
+        let route = "fixedAsset/" + asset['data'].code;
+       return this.router.navigateByUrl(route);
+      }
+    }).catch(err => 
+      this.openNoRegister()
+      )
+
+
+
+     
+
+
+  }
 
 
   /***

@@ -202,6 +202,22 @@
                         </mat-form-field>
 
 
+                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lBuilding.code">
+                            <mat-label>
+                                Edificio
+                            </mat-label>
+                            <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lBuilding.code}} - {{asset.lBuilding.name}}">
+                        </mat-form-field>
+
+
+   <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lFloor.code">
+                            <mat-label>
+                                Piso
+                            </mat-label>
+                            <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lFloor.code}} - {{asset.lFloor.name}}">
+                        </mat-form-field>
+
+
                         <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lArea.code">
                             <mat-label>
                                 Área
@@ -210,12 +226,6 @@
                         </mat-form-field>
 
 
-                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lBuilding.code">
-                            <mat-label>
-                                Edificio
-                            </mat-label>
-                            <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lBuilding.code}} - {{asset.lBuilding.name}}">
-                        </mat-form-field>
 
                         <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lRoom.code">
                             <mat-label>
@@ -224,13 +234,7 @@
                             <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lRoom.code}} - {{asset.lRoom.name}}">
                         </mat-form-field>
 
-                        <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.lFloor.code">
-                            <mat-label>
-                                Sala
-                            </mat-label>
-                            <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.lFloor.code}} - {{asset.lFloor.name}}">
-                        </mat-form-field>
-
+                     
 
 
 

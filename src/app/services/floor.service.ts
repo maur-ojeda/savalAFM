@@ -40,6 +40,7 @@ export class FloorService {
 
 
   getfloors(id:number): Promise<FloorInterface[]>{
+
     let headers = new HttpHeaders()
     .append("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
     .set('Content-Type', 'application/x-www-form-urlencoded')

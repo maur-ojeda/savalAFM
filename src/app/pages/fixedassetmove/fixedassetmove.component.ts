@@ -107,9 +107,8 @@ export class FixedassetmoveComponent implements OnInit {
       lArea: ['', [Validators.required]],
       lRoom: ['', [Validators.required]]
     });
-    
 
-  
+
 
 
   }
@@ -152,7 +151,8 @@ export class FixedassetmoveComponent implements OnInit {
     this.location.back();
   }
 
-  onChangeCenter(e: number) {
+ 	onChangeCenter() {
+    let e = this.reactiveForm.controls['lCenter'].value
 		this.lBuildings.length = 0
 		this.lFloors.length = 0
 		this.lAreas.length = 0
@@ -163,8 +163,10 @@ export class FixedassetmoveComponent implements OnInit {
 		this.reactiveForm.get('lRoom').reset();
 		this.slBuilding.getbuildings(e)
 		.then(lBuildings => this.lBuildings = lBuildings)
-	}
-	onChangeBuilding(e: number) {	
+  }
+  
+	onChangeBuilding() {	
+    let e = this.reactiveForm.controls['lBuilding'].value
 		this.lFloors.length = 0
 		this.lAreas.length = 0
 		this.lRooms.length = 0
@@ -174,7 +176,8 @@ export class FixedassetmoveComponent implements OnInit {
 		this.slFloor.getfloors(e)
 			.then(lFloors => this.lFloors = lFloors)
 	}
-	onChangeFloor(e: number) {		
+	onChangeFloor() {
+    let e = this.reactiveForm.controls['lFloor'].value		
 		this.lAreas.length = 0
 		this.lRooms.length = 0
 		this.reactiveForm.get('lArea').reset();
@@ -183,13 +186,14 @@ export class FixedassetmoveComponent implements OnInit {
 			.then(lAreas => this.lAreas = lAreas)
 
 	}
-	onChangeArea(e: number) {
+	onChangeArea() {
+    let e = this.reactiveForm.controls['lArea'].value
 		this.lRooms.length = 0
 		this.reactiveForm.get('lRoom').reset();
 		this.slRoom.getRooms(e)
 			.then(lRooms => this.lRooms = lRooms)
 	}
-ng
+
 
 
 

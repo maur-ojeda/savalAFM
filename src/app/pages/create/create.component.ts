@@ -274,6 +274,8 @@ export class CreateComponent implements OnInit {
 			.then(lRooms => this.lRooms = lRooms)
 	}
 
+	
+
 	saveData() {
 		let formValue = {
 			"catalogClass": this.reactiveForm.value.catalogClass,

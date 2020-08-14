@@ -36,13 +36,13 @@ getRequests(): Promise<RequestInterface[]>{
   });
 }
 
-getRequestsPorId( id:number ) {
+getRequestsPorId( number:number ) {
   if ( this.requests.length > 0 ) {
-    const request = this.requests.find( p => p.id === id );
+    const request = this.requests.find( p => p.number === number );
     return Promise.resolve( request );
   }
   return this.getRequests().then( requests => {
-    const request= this.requests.find( p => p.id === id );
+    const request= this.requests.find( p => p.number === number );
     return Promise.resolve( request );
   });
 }

@@ -2,7 +2,7 @@
 <div class="container">
 	<mat-spinner *ngIf="!request"></mat-spinner>
 	{{request}}
-	<div *ngIf="request?.id" class="mt-5 pt-5 p-3">	
+	<div *ngIf="request?.number" class="mt-5 pt-5 p-3">	
 		<div class="row">
 			<button mat-button color="primary" (click)="goBack()" class="mb-3">
 				<i class="fas fa-angle-left"></i>

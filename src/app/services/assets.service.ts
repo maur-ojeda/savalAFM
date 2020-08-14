@@ -80,6 +80,11 @@ export class AssetsService {
         }
       );
 
+
+      
+
+      
+
   }
   updateAssets(formValue, ide) {
 
@@ -181,23 +186,40 @@ export class AssetsService {
         }
       );
   }
-  getAssetsCode(code: string): Promise<AssetSearchInterface[]> {
+
+
+
+
+getAssetsCode(code: string): Promise<AssetSearchInterface[]> {
+alert('codigo en servicio:'+ code)
+console.log(code)
+    let cod = code
+    if (cod.length > 20) {
+      let last8 = cod.substr(code.length - 8);
+      let hexa = parseInt(last8, 16);
+      let hexaStr = hexa.toString();
+
+     code = hexaStr 
+
+    }
+    alert('codigo en servicio post transformacion :'+ code)
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set('Content-Type', 'application/x-www-form-urlencoded')
-    if (this.assets.length > 0) {
-      return Promise.resolve(this.assets);
-    }
+
+      
 
     return new Promise(resolve => {
       this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/assets/search?code='+ code, { headers })
         .subscribe((assets: any) => {
           this.assets = assets;
           resolve(assets);
-         
         });
     });
   }
+
+
+
   getAssetsData(code: string): Promise<AssetSearchInterface[]> {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")

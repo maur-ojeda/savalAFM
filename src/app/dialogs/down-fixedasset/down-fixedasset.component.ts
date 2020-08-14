@@ -39,6 +39,11 @@ export class DownFixedassetComponent implements OnInit {
     if (valor == null) {
       return this.router.navigateByUrl('/fixedAssets');
     }
+    if (valor == '') {
+      alert('vacio ingrese un número')
+      return this.router.navigateByUrl('/fixedAssets');
+    } 
+
 
     if (valor.length > 20) {
       let last8 = valor.substr(valor.length - 8);

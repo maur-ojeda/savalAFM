@@ -39,6 +39,8 @@ export class RoomService {
   
 
   getRooms(id:number): Promise<RoomInterface[]>{
+    
+    
     let headers = new HttpHeaders()
     .append("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
     .set('Content-Type', 'application/x-www-form-urlencoded')
