@@ -4,7 +4,6 @@ import { AssetsService } from '../../services/assets.service';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
 import { MatDialog } from '@angular/material/dialog';
 import { OpenFixedassetComponent } from 'src/app/dialogs/open-fixedasset/open-fixedasset.component';
 import { MoveFixedassetComponent } from 'src/app/dialogs/move-fixedasset/move-fixedasset.component';
@@ -25,8 +24,10 @@ export class FixedAssetsComponent implements OnInit {
   reactiveForm: FormGroup;
   ide;
   hexa;
-
+  /*desuse*/
   closeResult = '';
+  element;
+
 
   constructor(
     private assetsService: AssetsService,
@@ -34,48 +35,105 @@ export class FixedAssetsComponent implements OnInit {
     private router: Router,
     private builder: FormBuilder,
     public dialog: MatDialog
-
   ) { }
 
   ngOnInit(): void {
     this.reactiveForm = this.builder.group({
       search: ['', [Validators.required]]
     });
+
+    
+    this.element = document.getElementById('search') as HTMLElement;
+    alert('este id: ' + this.element.value)
+
+    //var event = new Event('change');
+    //element.dispatchEvent(event);
+    
+    //this.detectDivChanges();
+  
+    //var element = document.getElementById('just_an_example');
+    var event = new Event('change');
+    let a = this.element.dispatchEvent(event);
+  console.log(a)
+  
+  }
+ 
+
+  /*detectDivChanges() {
+    const div = document.getElementById('buscador')
+    const config = { attributes: true, childList: true, subtree: true };
+    const observer = new MutationObserver((mutation) => {
+      alert("cambio");
+      div.blur();
+    })
+    observer.observe(div, config);
+  }
+  */
+
+
+
+
+  search() {
+    let ide = this.reactiveForm.value.search
+    ide = ide.toString()
+    this.assetPorIde(ide);
   }
 
+
+  navigateTo(value) {
+    if (value) {
+      this.router.navigate([value]);
+    }
+    return false;
+  }
+
+
   //Dialogos
+  /**
+   *Dialog for update fixed assets
+  */
   openDialog() {
     this.dialog.open(OpenFixedassetComponent, {
       width: '98VW'
     });
-
   }
+
+/**
+   *Dialog for move fixed assets
+  */
   openDialogMove() {
     this.dialog.open(MoveFixedassetComponent, {
       width: '98VW'
     });
   }
+
+  /**
+   *Dialog for down fixed assets
+  */
   openDialogDown() {
     this.dialog.open(DownFixedassetComponent, {
       width: '98VW'
     });
   }
+  /**
+   *Dialog for no find fixed asstes
+  */
   openNoRegister() {
     this.dialog.open(NoRegisterComponent, {
       width: '98VW'
     });
   }
+  /**
+   *get assets
+  */
   cargarDatos() {
     this.assetsService.getAssets()
       .then(assets => this.assets = assets);
   }
-
-
   assetPorIde(valor: any ) {
-  
    alert('aqui :' + valor);
   
-/*
+
    if (valor == null) {      
       return this.router.navigateByUrl('/fixedAssets');
     }
@@ -84,7 +142,6 @@ export class FixedAssetsComponent implements OnInit {
       return this.router.navigateByUrl('/fixedAssets');
     } 
 
-*/
 
 
 
@@ -143,8 +200,6 @@ export class FixedAssetsComponent implements OnInit {
 
 
   }
-
-
   onClickSubmit(data){
 
 
@@ -177,23 +232,6 @@ alert(c)
   /***
    * Buscador principal
    */
-  search() {
-    let ide = this.reactiveForm.value.search
-  
-    ide = ide.toString()
-    this.assetPorIde(ide);
-  }
-
-  navigateTo(value) {
-    if (value) {
-      this.router.navigate([value]);
-    }
-    return false;
-  }
-
-
-
-
   //modal 
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -212,6 +250,11 @@ alert(c)
       return `with: ${reason}`;
     }
   }
+
+
+
+
+
 
 }
 

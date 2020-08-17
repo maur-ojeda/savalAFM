@@ -7,7 +7,7 @@ import { RoomInterface } from '../interfaces/room.interface';
 })
 export class RoomService {
 
-  private url = "https://devactivofijo.saval.cl:8443"
+  private url = "https://afsaval.agenciasur.cl"
   private rooms: RoomInterface[] = [];
 
   constructor(private http: HttpClient) { }

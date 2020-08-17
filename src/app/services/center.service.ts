@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CenterService {
-  private url = "https://devactivofijo.saval.cl:8443"
+  private url = "https://afsaval.agenciasur.cl"
   private centers: CenterInterface[] = [];
   
   constructor(private http: HttpClient) { }
