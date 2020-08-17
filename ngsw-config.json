@@ -34,90 +34,14 @@
     "dataGroups": [{
             "name": "request",
             "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/requests"
+                "https://afsaval.agenciasur.cl/*"
             ],
             "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
-            }
-        },
-        {
-            "name": "assets",
-            "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/assets"
-            ],
-            "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
-            }
-        },
-        {
-            "name": "locations",
-            "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/catalog/locations"
+                "strategy": "performance",
+                "maxSize": 100,
+                "maxAge": "10h",
+                "timeout": "5s"
 
-            ],
-            "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
-            }
-        },
-        {
-            "name": "costcenters",
-            "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/catalog/costcenters"
-
-            ],
-            "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
-            }
-        },
-        {
-            "name": "species",
-            "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/catalog/species"
-
-            ],
-            "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
-            }
-        },
-        {
-            "name": "species",
-            "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/catalog/class"
-
-            ],
-            "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
-            }
-        },
-        {
-            "name": "centers",
-            "urls": [
-                "https://afsaval.agenciasur.cl/webservice/rest/location/centers"
-
-            ],
-            "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
             }
         }
 

@@ -47,7 +47,7 @@ export class AssetsService {
 
   InsertAssets(formValue) {
 
-    //alert(JSON.stringify(formValue) )
+    
 
     let headers = new HttpHeaders()
     .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
@@ -119,7 +119,7 @@ export class AssetsService {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set("Content-Type", "application/x-www-form-urlencoded");
-      //alert(ide)
+      
       
   this.http.put("https://afsaval.agenciasur.cl/webservice/rest/asset/move/" + ide, formValue, { headers }).subscribe(
         val => {
@@ -191,8 +191,8 @@ export class AssetsService {
 
 
 getAssetsCode(code: string): Promise<AssetSearchInterface[]> {
-alert('codigo en servicio:'+ code)
-console.log(code)
+
+
     let cod = code
     if (cod.length > 20) {
       let last8 = cod.substr(code.length - 8);
@@ -202,7 +202,7 @@ console.log(code)
      code = hexaStr 
 
     }
-    alert('codigo en servicio post transformacion :'+ code)
+    
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -302,11 +302,11 @@ console.log(code)
       const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
       return Promise.resolve(asset);
     });*/
-    console.log('todo');
+    
   }
   getAssetPorValue(buscado: any) {
 
-    alert('desde servicio' + buscado);
+    
 
 
   }
