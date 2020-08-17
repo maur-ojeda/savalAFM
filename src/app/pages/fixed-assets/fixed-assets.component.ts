@@ -24,9 +24,10 @@ export class FixedAssetsComponent implements OnInit {
   reactiveForm: FormGroup;
   ide;
   hexa;
+  element;
   /*desuse*/
   closeResult = '';
-  element;
+  
 
 
   constructor(
@@ -41,45 +42,17 @@ export class FixedAssetsComponent implements OnInit {
     this.reactiveForm = this.builder.group({
       search: ['', [Validators.required]]
     });
-
-    
-    this.element = document.getElementById('search') as HTMLElement;
-    alert('este id: ' + this.element.value)
-
-    //var event = new Event('change');
-    //element.dispatchEvent(event);
-    
-    //this.detectDivChanges();
-  
-    //var element = document.getElementById('just_an_example');
-    var event = new Event('change');
-    let a = this.element.dispatchEvent(event);
-  console.log(a)
-  
   }
  
 
-  /*detectDivChanges() {
-    const div = document.getElementById('buscador')
-    const config = { attributes: true, childList: true, subtree: true };
-    const observer = new MutationObserver((mutation) => {
-      alert("cambio");
-      div.blur();
-    })
-    observer.observe(div, config);
-  }
-  */
-
-
-
-
+  /** Funcion que busca por numero ingresado*/
   search() {
     let ide = this.reactiveForm.value.search
     ide = ide.toString()
     this.assetPorIde(ide);
   }
 
-
+/**Funcion que navega a la url correspondiente */
   navigateTo(value) {
     if (value) {
       this.router.navigate([value]);

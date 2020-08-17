@@ -6,6 +6,8 @@ import { Location } from '@angular/common';
 //import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
+import * as moment from 'moment';
+
 
 
 @Component({
@@ -45,6 +47,7 @@ export class FixedassetComponent implements OnInit {
     }
     this.asset = asset;
 
+    //TODO: revisar el estatus
     if(asset['data'].status == 1){
       alert('0')
         this.Warning()
@@ -81,7 +84,13 @@ export class FixedassetComponent implements OnInit {
     */
 	}
   
+/**
+ * transforma fecha 
+*/
+  formatDate(f) {
+    let dateInFormat = moment(f).format('DD-MM-YYYY HH:MM');
+    return dateInFormat
+}
 
-  
 
 }// end class

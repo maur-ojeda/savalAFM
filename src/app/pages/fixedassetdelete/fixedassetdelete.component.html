@@ -50,7 +50,7 @@
                         </mat-expansion-panel-header>
 
 
-                        <p *ngIf="asset?.createdAt" class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{ asset.createdAt.date}}
+                        <p *ngIf="asset?.createdAt" class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{ formatDate(asset.createdAt.date)}}
                         </p>
                         <p *ngIf="asset?.referalCode" class="display-5 pr-3 d-sm-block">Código: {{ asset.referalCode }}
                         </p>
@@ -80,7 +80,7 @@
                             <mat-label>
                                 Fecha de Capitalización
                             </mat-label>
-                            <input matInput placeholder="" readonly value="{{asset.capitalizationDateAt.date}}">
+                            <input matInput placeholder="" readonly value="{{formatDate(asset.capitalizationDateAt.date)}}">
                         </mat-form-field>
 
                         <mat-form-field appearance="outline" class="full-width" *ngIf="!asset?.capitalizationDateAt">

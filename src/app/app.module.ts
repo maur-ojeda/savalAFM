@@ -43,7 +43,7 @@ import { HttpClientModule } from '@angular/common/http';
 //cookie
 import { CookieService } from 'ngx-cookie-service';
 
-
+import * as moment from 'moment';
 
 //firebase
 import{AngularFireModule} from 'angularfire2';

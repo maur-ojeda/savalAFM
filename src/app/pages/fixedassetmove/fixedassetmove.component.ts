@@ -24,6 +24,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 import { MoveConfirmationComponent } from 'src/app/dialogs/move-confirmation/move-confirmation.component';
 import {MatDialog} from '@angular/material/dialog';
+import * as moment from 'moment';
+
+
 
 @Component({
   selector: 'app-fixedassetmove',
@@ -211,7 +214,13 @@ export class FixedassetmoveComponent implements OnInit {
     });
   }
    
-
+/**
+ * transforma fecha 
+*/
+formatDate(f) {
+  let dateInFormat = moment(f).format('DD-MM-YYYY HH:MM');
+  return dateInFormat
+}
 
 
 }

@@ -10,6 +10,8 @@ import { UpdateConfirmationComponent } from 'src/app/dialogs/update-confirmation
 //import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 import {MatDialog} from '@angular/material/dialog';
 import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
+import * as moment from 'moment';
+
 
 
 @Component({
@@ -171,6 +173,13 @@ export class FixedassetupdateComponent implements OnInit {
     });
     */
 	}
+/**
+ * transforma fecha 
+*/
+formatDate(f) {
+  let dateInFormat = moment(f).format('DD-MM-YYYY HH:MM');
+  return dateInFormat
+}
 
 
 }

@@ -5,15 +5,11 @@
     <div class="p3 mt-3">
 
 
-        <!--soy search-->
-        <form #search="ngForm" (ngSubmit)="onClickSubmit(search.value)">
-            <input type="text" name="code" placeholder="codigo" ngModel>
-            <input type="submit" value="submit">
-        </form>
+
 
 
         <!--soy buscador-->
-        <form [formGroup]="reactiveForm">
+        <form [formGroup]="reactiveForm" (ngSubmit)="search()">
             <div class="row no-gutters">
                 <div class="col-9">
                     <mat-form-field appearance="outline" class="full-width">
@@ -26,9 +22,6 @@
                 </div>
             </div>
         </form>
-
-
-
 
 
 
@@ -86,6 +79,8 @@
                 </div>
             </div>
         </div>
+
+
     </div>
 </div>
 <app-footer></app-footer>

@@ -8,6 +8,8 @@ import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 import { DeleteConfirmationComponent } from 'src/app/dialogs/delete-confirmation/delete-confirmation.component';
 //import { DatePipe } from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-fixedassetdelete',
@@ -103,6 +105,13 @@ export class FixedassetdeleteComponent implements OnInit {
     });
   }
 
+/**
+ * transforma fecha 
+*/
+formatDate(f) {
+  let dateInFormat = moment(f).format('DD-MM-YYYY HH:MM');
+  return dateInFormat
+}
 
 
 }
