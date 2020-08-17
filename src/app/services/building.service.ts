@@ -1,25 +1,32 @@
 import { Injectable } from '@angular/core';
 import { BuildingInterface } from '../interfaces/building.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RoomInterface } from '../interfaces/room.interface';
+
+
+
+
+  
 
 @Injectable({
   providedIn: 'root'
 })
 export class BuildingService {
+  
 
+  private url = "https://afsaval.agenciasur.cl"
   private buildings: BuildingInterface[] = [];
+
+  bbuildings: Array<Object>;
+
 
   constructor(private http: HttpClient) { }
 
 
-
-
+  
   getallBuildings(): Promise<BuildingInterface[]>{
-    let user ="mobile_user";
-    let pass ="testing";
+    
     let headers = new HttpHeaders()
-    .set('Authorization',   `Basic ${btoa(user + ":" + pass)}`)
+    .append("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
     .set('Content-Type', 'application/x-www-form-urlencoded')
   
     if ( this.buildings.length > 0 ) {
@@ -27,40 +34,44 @@ export class BuildingService {
     }
     return new Promise( resolve => {
   
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?all=true',{ headers })
+      this.http.get(this.url+'/webservice/rest/catalog/locations?all=true&type=2',{ headers })
         .subscribe( (buildings: any) => {
           this.buildings = buildings.data;
           resolve( buildings.data )
         });
     });
 
-
-
   }
 
-
-
-
-  getbuildings(id:number): Promise<BuildingInterface[]>{
-    let user ="mobile_user";
-    let pass ="testing";
+ _getbuildings(id:number): Promise<BuildingInterface[]>{    
     let headers = new HttpHeaders()
-    .set('Authorization',   `Basic ${btoa(user + ":" + pass)}`)
+    .append("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
     .set('Content-Type', 'application/x-www-form-urlencoded')
-  
-
+    
     return new Promise( resolve => {
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/location/buildings/'+id ,{ headers })
+
+      this.http.get(this.url+'/webservice/rest/locations/'+id+'/children' ,{ headers })
         .subscribe( (buildings: any) => {
-          this.buildings = buildings.data;
-          //console.log('buildings.data');
-         console.log(buildings.data);
-          resolve( buildings.data );
-          
+          this.buildings = buildings;
+          resolve(buildings);
         });
     });
 
 
+  }
+
+
+  getbuildings(id:number): Promise<BuildingInterface[]>{
+    let headers = new HttpHeaders()
+    .append("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+    .set('Content-Type', 'application/x-www-form-urlencoded')
+    return new Promise( resolve => {
+      this.http.get(this.url+'/webservice/rest/locations/'+id+'/children' ,{ headers })
+        .subscribe( (buildings: any) => {
+          this.buildings = buildings['data'];
+          resolve( buildings['data'] );
+        });
+    });
 
 
   }
@@ -69,4 +80,6 @@ export class BuildingService {
 
 
 
-}
+
+
+}//class

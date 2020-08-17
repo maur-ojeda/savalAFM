@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestInterface } from 'src/app/interfaces/request.interface';
 import { RequestsService } from 'src/app/services/requests.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-fixed-asset-approved',
@@ -38,6 +39,15 @@ export class FixedAssetApprovedComponent implements OnInit {
   goBack() {
     this.location.back();
   }
+
+    /**
+ * transforma fecha 
+*/
+formatDate(f) {
+	let dateInFormat = moment(f).format('DD-MM-YYYY HH:MM');
+	return dateInFormat
+  }
+
 
 }
 

@@ -7,23 +7,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SpecieService {
-
+  private url = "https://afsaval.agenciasur.cl"
   private species: SpeciesInterface[] = [];
-
   constructor(private http: HttpClient) { }
 
   getSpecies(): Promise<SpeciesInterface[]>{
-    let user ="mobile_user";
-    let pass ="testing";
+
     let headers = new HttpHeaders()
-    .set('Authorization',   `Basic ${btoa(user + ":" + pass)}`)
+    .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
     .set('Content-Type', 'application/x-www-form-urlencoded')
-  
+
     if ( this.species.length > 0 ) {
       return Promise.resolve( this.species );
     }
     return new Promise( resolve => {
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/species',{ headers })
+      this.http.get(this.url+'/webservice/rest/catalog/species?all=true',{ headers })
         .subscribe( (species: any) => {
           this.species = species.data;
           resolve( species.data );

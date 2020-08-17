@@ -27,7 +27,7 @@ getRequests(): Promise<RequestInterface[]>{
   return new Promise( resolve => {
 
     
-    this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/requests/',{ headers })
+    this.http.get('https://afsaval.agenciasur.cl/webservice/rest/requests/',{ headers })
       .subscribe( (requests: any) => {
         this.requests = requests.data;
         
@@ -36,13 +36,13 @@ getRequests(): Promise<RequestInterface[]>{
   });
 }
 
-getRequestsPorId( id:number ) {
+getRequestsPorId( number:number ) {
   if ( this.requests.length > 0 ) {
-    const request = this.requests.find( p => p.id === id );
+    const request = this.requests.find( p => p.number === number );
     return Promise.resolve( request );
   }
   return this.getRequests().then( requests => {
-    const request= this.requests.find( p => p.id === id );
+    const request= this.requests.find( p => p.number === number );
     return Promise.resolve( request );
   });
 }

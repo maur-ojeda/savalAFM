@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CenterService {
-
+  private url = "https://afsaval.agenciasur.cl"
   private centers: CenterInterface[] = [];
   
   constructor(private http: HttpClient) { }
@@ -24,7 +24,7 @@ export class CenterService {
     }
     return new Promise( resolve => {
   
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/location/centers',{ headers })
+      this.http.get(this.url+'/webservice/rest/catalog/locations?all=true&type=1',{ headers })
         .subscribe( (centers: any) => {
           this.centers = centers.data;
           //console.log('ccenters.data');

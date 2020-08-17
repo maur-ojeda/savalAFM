@@ -6,7 +6,11 @@ import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CcenterService } from 'src/app/services/ccenter.service';
 import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
+import { UpdateConfirmationComponent } from 'src/app/dialogs/update-confirmation/update-confirmation.component';
 //import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
+import {MatDialog} from '@angular/material/dialog';
+import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
+import * as moment from 'moment';
 
 
 
@@ -32,7 +36,8 @@ export class FixedassetupdateComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private builder: FormBuilder
+    private builder: FormBuilder,
+    public dialog: MatDialog 
   ) { }
 
   ngOnInit(): void {
@@ -45,10 +50,37 @@ export class FixedassetupdateComponent implements OnInit {
     return this.router.navigateByUrl('/');
   }
   this.asset = asset;
+  this.getAssetsData(asset)
+
+
+
+
+
+  if(this.reactiveForm.controls['rfidLabelSap'].touched){
+    
+    var v  = this.reactiveForm.controls['rfidLabelSap'].value;
+    var last8 = v.substr(v.length - 8);
+    var hexa = parseInt(last8, 16);
+    this.reactiveForm.controls['rfidLabelSap'].setValue(hexa);
+  }
+  
+
+    
+
+    /*value => {		
+    if ( this.reactiveForm.controls['lBuilding'].value !== '') {
+    
+      this.reactiveForm.controls['lBuilding'].enable()
+      this.setValidatorRequired('lBuilding', Validators.required);
+      
+    } else {
+      this.setValidatorRequired('lBuilding', null);
+      }
+  })*/
+
 
 });
 //getcode
-
 
 
     this.slCCenterService.getCcenters()
@@ -56,29 +88,24 @@ export class FixedassetupdateComponent implements OnInit {
 
     this.reactiveForm = this.builder.group({
       assetID: ['', []],
-      rfidLabelFake: ['', []],
+      //rfidLabelFake: ['', []],
       rfidLabelSap: ['',[] ],
-      serieNumber: ['', [Validators.required]],
+      serieNumber: ['', []],
       description: ['', [Validators.required]],
       costCenter: ['', [Validators.required]],
       creditorId: ['', []],
-      lifetimeYear: ['', [Validators.required]]
+      lifetimeYear: ['', []]
     });
-
-
-
-
-
   }
 
 
-  rfidConvert(n) {
-    if (n.length > 0) {
+
+  toRfid(){
+    var n  = this.reactiveForm.controls['rfidLabelSap'].value;
+    if (n.length > 20) {
       var last8 = n.substr(n.length - 8);
       var hexa = parseInt(last8, 16);
-      //return hexa
-      this.reactiveForm.controls['rfidLabelFake'].setValue(hexa);
-      //alert(hexa)
+      this.reactiveForm.controls['rfidLabelSap'].setValue(hexa);
     }
   
   }
@@ -87,8 +114,8 @@ export class FixedassetupdateComponent implements OnInit {
    
     console.log(e)
     this.reactiveForm.controls['assetID'].setValue(e.id);
-    this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
     this.reactiveForm.controls['rfidLabelSap'].setValue(e.rfidLabelSap);
+    this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
     this.reactiveForm.controls['serieNumber'].setValue(e.serieNumber);
     this.reactiveForm.controls['description'].setValue(e.description);
     this.reactiveForm.controls['creditorId'].setValue(e.creditorId);
@@ -104,7 +131,6 @@ export class FixedassetupdateComponent implements OnInit {
     let ide = this.reactiveForm.value.assetID;
 
     let formValue = {
-      "rfidLabelFake": this.reactiveForm.value.rfidLabelFake,
       "rfidLabelSap": this.reactiveForm.value.rfidLabelSap,
       "serieNumber": this.reactiveForm.value.serieNumber,
       "description": this.reactiveForm.value.description,
@@ -113,15 +139,48 @@ export class FixedassetupdateComponent implements OnInit {
       "lifetimeYear": this.reactiveForm.value.lifetimeYear
     }
 
-    //console.log(ide, formValue );
-    //console.log(JSON.stringify(formValue));
+   
     this.assetsService.updateAssets(formValue, ide);
-    //alert(JSON.stringify(formValue));
+   
 
 
   }
 
 
+
+  Dialog() {
+    const dialogRef = this.dialog.open(UpdateConfirmationComponent,{
+          width: '98VW'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+              if(result){
+                this.updateData();
+              }
+
+    });
+  }
+
+  Warning() {
+		const dialogRef = this.dialog.open(WarningComponent, {
+			width: '98VW'
+		});
+    /*
+    dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				this.saveData();
+			}
+    });
+    */
+  }
+  
+/**
+ * transforma fecha 
+*/
+formatDate(f) {
+  let dateInFormat = moment(f).format('DD-MM-YYYY HH:MM');
+  return dateInFormat
+}
 
 
 }

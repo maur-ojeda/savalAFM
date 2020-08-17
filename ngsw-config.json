@@ -34,90 +34,14 @@
     "dataGroups": [{
             "name": "request",
             "urls": [
-                "https://devactivofijo.saval.cl:8443/webservice/rest/requests"
+                "https://afsaval.agenciasur.cl/*"
             ],
             "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
-            }
-        },
-        {
-            "name": "assets",
-            "urls": [
-                "https://devactivofijo.saval.cl:8443/webservice/rest/assets"
-            ],
-            "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
-            }
-        },
-        {
-            "name": "locations",
-            "urls": [
-                "https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations"
+                "strategy": "performance",
+                "maxSize": 100,
+                "maxAge": "10h",
+                "timeout": "5s"
 
-            ],
-            "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
-            }
-        },
-        {
-            "name": "costcenters",
-            "urls": [
-                "https://devactivofijo.saval.cl:8443/webservice/rest/catalog/costcenters"
-
-            ],
-            "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
-            }
-        },
-        {
-            "name": "species",
-            "urls": [
-                "https://devactivofijo.saval.cl:8443/webservice/rest/catalog/species"
-
-            ],
-            "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
-            }
-        },
-        {
-            "name": "species",
-            "urls": [
-                "https://devactivofijo.saval.cl:8443/webservice/rest/catalog/class"
-
-            ],
-            "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
-            }
-        },
-        {
-            "name": "centers",
-            "urls": [
-                "https://devactivofijo.saval.cl:8443/webservice/rest/location/centers"
-
-            ],
-            "cacheConfig": {
-                "maxSize": 5000,
-                "maxAge": "7d",
-                "timeout": "10s",
-                "strategy": "freshness"
             }
         }
 

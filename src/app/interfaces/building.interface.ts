@@ -1,3 +1,4 @@
+
 export interface BuildingInterface {
   error: boolean;
   message: string;

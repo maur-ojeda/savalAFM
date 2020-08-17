@@ -44,8 +44,8 @@
 						<i *ngIf="request?.status == 3" class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="En revisión"></i>
 					</span>
 				</td>
-				<td *ngIf="request?.id">
-					<small>{{request.id}}</small>
+				<td *ngIf="request?.number">
+					<small>{{request.number}}</small>
 				</td>
 				<td *ngIf="request?.catalogClass">
 					<small>{{request.catalogClass.name}}</small>
@@ -54,7 +54,7 @@
 					<small>{{request.createdBy.username}}</small>
 				</td>
 				<td *ngIf="request?.createdAt">
-					<small>{{request.createdAt.date}}</small>
+					<small>{{formatDate(request.createdAt.date)}}</small>
 				</td>
 				<td *ngIf="request?.specie.name">
 					<small>{{request.specie.name}}</small>
@@ -72,10 +72,10 @@
 				</td>
 				<td>
 				
-					 <button mat-flat-button color="primary"*ngIf="request?.status == 2" name="" id=""  [routerLink]="['/fixedAssetPending', request.id ]"> Revisar</button>
-					 <button mat-flat-button color="primary"*ngIf="request?.status == 3" name="" id=""  [routerLink]="['/fixedAssetReject', request.id ]" >Revisar</button>
-					 <button mat-flat-button color="primary"*ngIf="request?.status == 4" name="" id=""  [routerLink]="['/fixedAssetApproved', request.id ]" >Revisar</button>
-					 <button mat-flat-button color="primary" *ngIf="request?.status == 5" name="" id=""  [routerLink]="['/fixedAssetClosed', request.id ]">Revisar</button>
+					 <button mat-flat-button color="primary"*ngIf="request?.status == 2" name="" id=""  [routerLink]="['/fixedAssetPending', request.number ]"> Revisar</button>
+					 <button mat-flat-button color="primary"*ngIf="request?.status == 3" name="" id=""  [routerLink]="['/fixedAssetReject', request.number ]" >Revisar</button>
+					 <button mat-flat-button color="primary"*ngIf="request?.status == 4" name="" id=""  [routerLink]="['/fixedAssetApproved', request.number ]" >Revisar</button>
+					 <button mat-flat-button color="primary" *ngIf="request?.status == 5" name="" id=""  [routerLink]="['/fixedAssetClosed', request.number ]">Revisar</button>
 				</td>
 			</tr>
 		</tbody>

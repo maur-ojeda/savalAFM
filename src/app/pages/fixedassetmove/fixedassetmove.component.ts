@@ -22,6 +22,10 @@ import { AreaInterface } from 'src/app/interfaces/area.interface';
 import { RoomInterface } from 'src/app/interfaces/room.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
+import { MoveConfirmationComponent } from 'src/app/dialogs/move-confirmation/move-confirmation.component';
+import {MatDialog} from '@angular/material/dialog';
+import * as moment from 'moment';
+
 
 
 @Component({
@@ -61,7 +65,8 @@ export class FixedassetmoveComponent implements OnInit {
     private router: Router,
     private location: Location ,
     private builder: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    public dialog: MatDialog 
   ) { }
 
 
@@ -73,7 +78,7 @@ export class FixedassetmoveComponent implements OnInit {
    return this.router.navigateByUrl('/');
  }
  this.asset = asset;
-
+ this.getAssetsData(asset)
 });
 //getcode
 
@@ -92,7 +97,8 @@ export class FixedassetmoveComponent implements OnInit {
 
     this.slRoom.getallRooms()
     .then(lRooms => this.lRooms = lRooms)
-
+      
+    
   
 
     this.reactiveForm = this.builder.group({
@@ -104,16 +110,15 @@ export class FixedassetmoveComponent implements OnInit {
       lArea: ['', [Validators.required]],
       lRoom: ['', [Validators.required]]
     });
-    
 
-  
+
 
 
   }
 
 
   getAssetsData(e) {
-    //console.log(e.data.id)
+  
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
     this.reactiveForm.controls['lCenter'].setValue(e.lCenter);
@@ -121,6 +126,7 @@ export class FixedassetmoveComponent implements OnInit {
     this.reactiveForm.controls['lFloor'].setValue(e.lFloor);
     this.reactiveForm.controls['lArea'].setValue(e.lArea);
     this.reactiveForm.controls['lRoom'].setValue(e.lRoom);
+
   }
 
   moveData(){
@@ -148,64 +154,73 @@ export class FixedassetmoveComponent implements OnInit {
     this.location.back();
   }
 
-	onChangeCenter(e: number) {
+ 	onChangeCenter() {
+    let e = this.reactiveForm.controls['lCenter'].value
+		this.lBuildings.length = 0
+		this.lFloors.length = 0
+		this.lAreas.length = 0
+		this.lRooms.length = 0
 		this.reactiveForm.get('lBuilding').reset();
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
 		this.slBuilding.getbuildings(e)
-			.then(lBuildings => this.lBuildings = lBuildings)
-			//.then(la => { console.log(la) });
-	}
-	onChangeBuilding(e: number) {
+		.then(lBuildings => this.lBuildings = lBuildings)
+  }
+  
+	onChangeBuilding() {	
+    let e = this.reactiveForm.controls['lBuilding'].value
+		this.lFloors.length = 0
+		this.lAreas.length = 0
+		this.lRooms.length = 0
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
 		this.slFloor.getfloors(e)
 			.then(lFloors => this.lFloors = lFloors)
-			//.then(la => { console.log(la) });
 	}
-	onChangeFloor(e: number) {
+	onChangeFloor() {
+    let e = this.reactiveForm.controls['lFloor'].value		
+		this.lAreas.length = 0
+		this.lRooms.length = 0
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
 		this.slArea.getareas(e)
 			.then(lAreas => this.lAreas = lAreas)
-			//.then(la => { console.log(la) });
+
 	}
-	onChangeArea(e: number) {
+	onChangeArea() {
+    let e = this.reactiveForm.controls['lArea'].value
+		this.lRooms.length = 0
 		this.reactiveForm.get('lRoom').reset();
 		this.slRoom.getRooms(e)
 			.then(lRooms => this.lRooms = lRooms)
-			//.then(la => { console.log(la) });
 	}
 
 
 
 
-  postSync(){
-    let obj ={
-      name: 'subRat'
-    }
-     this.http.put('https://devactivofijo.saval.cl:8443/webservice/rest/asset/move/', obj).subscribe(
-       res =>{
-         console.log(res)
-       }, err => {
-         this.backgroundSync()
-       }
-     )
-   
-   }
-   
-   backgroundSync(){
-     navigator.serviceWorker.ready.then(
-     (swRegistration) => swRegistration.sync.register('post-data')
-     .catch(console.log)
-   
-   
-     )
-   }
-   
 
+  Dialog() {
+    const dialogRef = this.dialog.open(MoveConfirmationComponent,{
+          width: '98VW'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+              if(result){
+                this.moveData();
+              }
+
+    });
+  }
+   
+/**
+ * transforma fecha 
+*/
+formatDate(f) {
+  let dateInFormat = moment(f).format('DD-MM-YYYY HH:MM');
+  return dateInFormat
+}
 
 
 }

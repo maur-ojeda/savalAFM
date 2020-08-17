@@ -2,7 +2,7 @@
 <div class="container">
 	<mat-spinner *ngIf="!request"></mat-spinner>
 	{{request}}
-	<div *ngIf="request?.id" class="mt-5 pt-5 p-3">	
+	<div *ngIf="request?.number" class="mt-5 pt-5 p-3">	
 		<div class="row">
 			<button mat-button color="primary" (click)="goBack()" class="mb-3">
 				<i class="fas fa-angle-left"></i>
@@ -27,7 +27,7 @@
 					<span *ngIf="request?.status == 3" class="badge badge-danger">Rechazado</span>
 					<span *ngIf="request?.status == 4" class="badge badge-success">Aprobado</span></p>
 						
-					<p>Fecha de creación: {{request.createdAt.date}}<p>
+					<p>Fecha de creación: {{formatDate(request.createdAt.date)}}<p>
 					<!--contenido-->	
 
 

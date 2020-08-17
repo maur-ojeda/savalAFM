@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 
@@ -18,20 +18,18 @@ interface Data {
   isActive: boolean;
 }
 
-
-
 @Injectable({
   providedIn: "root"
 })
-
 export class UsersService {
   
+private url = "https://afsaval.agenciasur.cl"
 
 private loggedInStatus = JSON.parse( localStorage.getItem('loggedIn') || 'false' );
 
     constructor(
       private http: HttpClient,
-      private router: Router
+      //private router: Router
 
     ) {}
 
@@ -44,19 +42,21 @@ private loggedInStatus = JSON.parse( localStorage.getItem('loggedIn') || 'false'
     }
 
     login(email , password){
-    
-      //let formValue = {"email":email , "password":password}
+
       let formdata = new FormData();
       formdata.append("email", email );
       formdata.append("password", password);
       let headers = new HttpHeaders()
         .append("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
-        return this.http.post<myData>("https://devactivofijo.saval.cl:8443/webservice/rest/user/login",formdata,{headers})
+        return this.http.post<myData>(this.url+"/webservice/rest/user/login",formdata,{headers})
     }
+
+
+    
 
 
    
   }
 
 
-  
+

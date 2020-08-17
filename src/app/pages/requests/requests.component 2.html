@@ -1,0 +1,84 @@
+<app-header></app-header>
+<mat-spinner *ngIf="!requests"></mat-spinner>
+<div *ngIf="requests" class="mt-5 mb-5 p-3">
+	<button mat-button color="primary" (click)="goBack()" class="mt-5 mb-3">
+		<i class="fas fa-angle-left"></i>
+		Volver</button>
+	<div class="mat-typography">
+		<h1>Activos fijos en proceso</h1>
+	</div>
+	<table class="table table-responsive table-sm table-hover">
+		<thead>
+			<tr title="Tooltip on top">
+				<th scope="col"></th>
+				<th scope="col">
+					<small>Id</small>
+				</th>
+				<th scope="col">
+					<small>Clase de AF</small>
+				</th>
+				<th scope="col">
+					<small>Solicitante</small>
+				</th>
+				<th scope="col">
+					<small>Fecha de solicitud</small>
+				</th>
+				<th scope="col">
+					<small>Nombre AF</small>
+				</th>
+				<th scope="col">
+					<small>Especie</small>
+				</th>
+				<th scope="col">
+					<small>Estado</small>
+				</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor='let request of requests'>
+				<td>
+
+					<span *ngIf="!request?.isEvaluated">
+						<i *ngIf="request?.status == 2" class="fas fa-info-circle text-warning" data-toggle="tooltip" data-placement="top" title="En revisión"></i>
+						<i *ngIf="request?.status == 3" class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="En revisión"></i>
+					</span>
+				</td>
+				<td *ngIf="request?.id">
+					<small>{{request.id}}</small>
+				</td>
+				<td *ngIf="request?.catalogClass">
+					<small>{{request.catalogClass.name}}</small>
+				</td>
+				<td *ngIf="request?.createdBy">
+					<small>{{request.createdBy.username}}</small>
+				</td>
+				<td *ngIf="request?.createdAt">
+					<small>{{request.createdAt.date}}</small>
+				</td>
+				<td *ngIf="request?.specie.name">
+					<small>{{request.specie.name}}</small>
+				</td>
+				<td *ngIf="request?.specie.code">
+					<small>{{request.specie.code}}
+						-
+						{{request.specie.name}}</small>
+				</td>
+				<td>
+					<span *ngIf="request?.status == 5" class="badge badge-secondary">Cerrado</span>
+					<span *ngIf="request?.status == 2" class="badge badge-secondary">En Evaluación</span>
+					<span *ngIf="request?.status == 3" class="badge badge-secondary">Rechazado</span>
+					<span *ngIf="request?.status == 4" class="badge badge-secondary">Aprobado</span>
+				</td>
+				<td>
+				
+					 <button mat-flat-button color="primary"*ngIf="request?.status == 2" name="" id=""  [routerLink]="['/fixedAssetPending', request.id ]"> Revisar</button>
+					 <button mat-flat-button color="primary"*ngIf="request?.status == 3" name="" id=""  [routerLink]="['/fixedAssetReject', request.id ]" >Revisar</button>
+					 <button mat-flat-button color="primary"*ngIf="request?.status == 4" name="" id=""  [routerLink]="['/fixedAssetApproved', request.id ]" >Revisar</button>
+					 <button mat-flat-button color="primary" *ngIf="request?.status == 5" name="" id=""  [routerLink]="['/fixedAssetClosed', request.id ]">Revisar</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<app-footer></app-footer>

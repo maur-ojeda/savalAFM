@@ -27,7 +27,7 @@
 					<span *ngIf="request?.status == 3" class="badge badge-danger">Rechazado</span>
 					<span *ngIf="request?.status == 4" class="badge badge-success">Aprobado</span></p>
 						
-					<p *ngIf="request?.createdAt">Fecha de creación: {{request.createdAt.date }}<p>
+					<p *ngIf="request?.createdAt">Fecha de creación: {{formatDate(request.createdAt.date) }}<p>
 					<!--contenido-->	
 					<mat-form-field appearance="outline" class="full-width" *ngIf="request?.catalogClass.name">
 						<mat-label>Clase activo fijo</mat-label>
