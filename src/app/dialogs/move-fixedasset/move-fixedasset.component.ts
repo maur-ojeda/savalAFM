@@ -11,13 +11,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./move-fixedasset.component.scss']
 })
 export class MoveFixedassetComponent implements OnInit {
-
   assets: AssetInterface[] = [];
   asset: AssetInterface[] = [];
   reactiveForm: FormGroup;
   ide;
   estatus;
   url ='fixedAssetMove/';
+  //url ='fixedAssetUpdate/'
 
   constructor(
     private router: Router,
@@ -26,19 +26,11 @@ export class MoveFixedassetComponent implements OnInit {
     public dialogRef: MatDialogRef<MoveFixedassetComponent>
   ) { }
 
-  ngOnInit(): void {
-  
+  ngOnInit(): void { 
     this.reactiveForm = this.builder.group({
       search: ['', [Validators.required]]
 		});
   }
-
-
-
-  
-
- 
-
   assetPorIde(valor: any) {
     if (valor == null) {
       return this.router.navigateByUrl('/fixedAssets');
@@ -57,10 +49,6 @@ export class MoveFixedassetComponent implements OnInit {
         alert("No se ha encontrado registro.")
       )
   }
-
-
-
-
   search(){
   let ide = this.reactiveForm.value.search
   ide = ide.toString()

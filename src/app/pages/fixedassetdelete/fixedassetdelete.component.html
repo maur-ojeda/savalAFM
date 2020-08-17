@@ -44,6 +44,14 @@
                             </mat-panel-title>
 
                         </mat-expansion-panel-header>
+                        
+                         <div *ngIf="asset.status == 3">
+                        <div class="alert alert-dismissible alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <h4 class="alert-heading"><strong>Atención</strong></h4>
+                            <p class="mb-0 mt-0">Este activo fijo esta dado de baja</p>
+                        </div>
+                    </div>
 
 
                         <p *ngIf="asset?.createdAt" class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{ formatDate(asset.createdAt.date)}}
@@ -56,7 +64,7 @@
                         <p class="display-5 pr-3 d-sm-block">Condición:
                             <span *ngIf="asset?.status == 1" class="badge badge-secondary">En Proceso</span>
                             <span *ngIf="asset?.status == 2" class="badge badge-primary">Activo</span>
-                            <span *ngIf="asset?.status == 3" class="badge badge-dark">Dado de Baja</span>
+                            <span *ngIf="asset?.status == 3" class="badge badge-danger">Dado de Baja</span>
                         </p>
                         <br />
                         <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.catalogClass">

@@ -45,15 +45,20 @@ export class FixedassetComponent implements OnInit {
       if ( !asset ) {
       return this.router.navigateByUrl('/');
     }
+
     this.asset = asset;
+ 
+  
+    //console.log(JSON.stringify(this.asset['data'].status)); 
+
 
     //TODO: revisar el estatus
-    if(asset['data'].status == 1){
-      alert('0')
-        this.Warning()
-    }
+    //if(this.asset['data'].status == 1){
+     // alert(1)
+        //this.Warning()
+    //}
 
-    //console.log(JSON.stringify(asset)); 
+    
 
    // console.log(asset)
  

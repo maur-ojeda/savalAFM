@@ -1,27 +1,27 @@
 <app-header></app-header>
 <!-- header -->
 <div class="container">
-<!-- container -->
+    <!-- container -->
 
-<!-- spinner -->
+    <!-- spinner -->
     <mat-spinner *ngIf="!asset"></mat-spinner>
-<!-- / spinner -->
+    <!-- / spinner -->
 
 
     <div *ngIf="asset" class="mt-5 pt-5 p-3">
-<!-- div -->   
-<!-- row boton volver --> 
+        <!-- div -->
+        <!-- row boton volver -->
         <div class="row">
             <div class="col text-left">
                 <button mat-button color="primary" (click)="goBack()" class="mb-3">
                     <i class="fas fa-angle-left"></i>
                     Volver</button>
             </div>
-          
-        </div>
-<!-- / row boton volver --> 
 
-<!-- row botonera --> 
+        </div>
+        <!-- / row boton volver -->
+
+        <!-- row botonera -->
         <div class="row">
             <mat-button-toggle-group name="fontStyle">
                 <mat-button-toggle [routerLink]="['/fixedAsset',asset.code]" class="btn-primary active">Detalles
@@ -31,9 +31,9 @@
                 <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.code]">Dar de baja</mat-button-toggle>
             </mat-button-toggle-group>
         </div>
-<!-- / row botonera --> 
+        <!-- / row botonera -->
 
-<!-- row accordion --> 
+        <!-- row accordion -->
         <div class="row pt-3">
             <mat-accordion class="full-width">
 
@@ -45,9 +45,16 @@
 
                     </mat-expansion-panel-header>
 
+                    <div *ngIf="asset.status == 3">
+                        <div class="alert alert-dismissible alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <h4 class="alert-heading"><strong>Atención</strong></h4>
+                            <p class="mb-0 mt-0">Este activo fijo esta dado de baja</p>
+                        </div>
+                    </div>
 
-                    <p *ngIf="asset?.createdAt" class="display-5 pr-3 d-sm-block pr-3">Fecha de creación:         
-                   {{formatDate(asset.createdAt.date)}}
+
+                    <p *ngIf="asset?.createdAt" class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{formatDate(asset.createdAt.date)}}
                     </p>
                     <p *ngIf="asset?.referalCode" class="display-5 pr-3 d-sm-block">Número AF: {{ asset.referalCode }}
                     </p>
@@ -56,7 +63,7 @@
                     <p class="display-5 pr-3 d-sm-block">Condición:
                         <span *ngIf="asset?.status == 1" class="badge badge-secondary">En Proceso</span>
                         <span *ngIf="asset?.status == 2" class="badge badge-primary">Activo</span>
-                        <span *ngIf="asset?.status == 3" class="badge badge-dark">Dado de Baja</span>
+                        <span *ngIf="asset?.status == 3" class="badge badge-danger">Dado de Baja</span>
                     </p>
 
 
@@ -69,14 +76,14 @@
 
 
                     <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>
-                                Código Rfid
-                            </mat-label>
+                        <mat-label>
+                            Código Rfid
+                        </mat-label>
 
-    
-                            <input matInput readonly  placeholder="Código Rfid" value={{asset.rfidLabelSap}}>
-                            
-                        </mat-form-field>
+
+                        <input matInput readonly placeholder="Código Rfid" value={{asset.rfidLabelSap}}>
+
+                    </mat-form-field>
 
 
 
@@ -97,7 +104,7 @@
 
 
                     </mat-form-field>
-                    
+
 
 
 
@@ -136,7 +143,7 @@
                     <br />
                     <mat-checkbox [checked]="true" [disabled]="true">Gestión histórica</mat-checkbox>
                     <br />
-              
+
 
 
                 </mat-expansion-panel>
@@ -166,12 +173,12 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
 
-                  
+
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>
                             Centro
                         </mat-label>
-                        <input  matInput placeholder="Centro" readonly value="{{asset.lCenter.code}} - {{asset.lCenter.name}}">
+                        <input matInput placeholder="Centro" readonly value="{{asset.lCenter.code}} - {{asset.lCenter.name}}">
                     </mat-form-field>
 
 
@@ -180,27 +187,27 @@
                         <mat-label>
                             Edificio
                         </mat-label>
-                        <input  matInput placeholder="Edificio" readonly value="{{asset.lBuilding.code}} - {{asset.lBuilding.name}}">
+                        <input matInput placeholder="Edificio" readonly value="{{asset.lBuilding.code}} - {{asset.lBuilding.name}}">
                     </mat-form-field>
 
 
 
-                    <mat-form-field appearance="outline" class="full-width" >
+                    <mat-form-field appearance="outline" class="full-width">
                         <mat-label>
                             Piso
                         </mat-label>
-                        <input  matInput placeholder="Piso" readonly value="{{asset.lFloor.code}} - {{asset.lFloor.name}}">
+                        <input matInput placeholder="Piso" readonly value="{{asset.lFloor.code}} - {{asset.lFloor.name}}">
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>
                             Área
                         </mat-label>
-                        <input  matInput placeholder="Área" readonly value="{{asset.lArea.code}} - {{asset.lArea.name}}">
+                        <input matInput placeholder="Área" readonly value="{{asset.lArea.code}} - {{asset.lArea.name}}">
                     </mat-form-field>
 
 
-                    <mat-form-field appearance="outline" class="full-width" >
+                    <mat-form-field appearance="outline" class="full-width">
                         <mat-label>
                             Sala
                         </mat-label>
@@ -268,22 +275,22 @@
                         <mat-label>
                             Vida útil tributaria
                         </mat-label>
-                        <input  matInput placeholder="Vida útil tributaria" readonly value="{{asset.lifetimeYear15}}">
+                        <input matInput placeholder="Vida útil tributaria" readonly value="{{asset.lifetimeYear15}}">
                     </mat-form-field>
 
                 </mat-expansion-panel>
-            
-            
-    
-            
+
+
+
+
             </mat-accordion>
         </div>
-<!-- row accordion --> 
+        <!-- row accordion -->
 
 
-<!-- div -->      
+        <!-- div -->
     </div>
-<!-- / container -->
+    <!-- / container -->
 </div>
 
 

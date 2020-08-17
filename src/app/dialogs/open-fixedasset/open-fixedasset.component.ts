@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssetsService } from 'src/app/services/assets.service';
-//import { AssetInterface } from 'src/app/interfaces/asset.interface';
-import { MatDialogRef } from '@angular/material/dialog';
+import { AssetInterface } from 'src/app/interfaces/asset.interface';
+import {MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
-
 
 @Component({
   selector: 'app-open-fixedasset',
@@ -13,12 +11,12 @@ import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
   styleUrls: ['./open-fixedasset.component.scss']
 })
 export class OpenFixedassetComponent implements OnInit {
-  assets: AssetSearchInterface[] = [];
-  asset: AssetSearchInterface[] = [];
+  assets: AssetInterface[] = [];
+  asset: AssetInterface[] = [];
   reactiveForm: FormGroup;
   ide;
   estatus;
-  url ='/fixedAssets';
+  url ='fixedAssetUpdate/';
 
   constructor(
     private router: Router,
@@ -32,8 +30,6 @@ export class OpenFixedassetComponent implements OnInit {
       search: ['', [Validators.required]]
     });
   }
-
-
   assetPorIde(valor: any) {
     if (valor == null) {
       return this.router.navigateByUrl('/fixedAssets');
@@ -52,19 +48,6 @@ export class OpenFixedassetComponent implements OnInit {
         alert("No se ha encontrado registro.")
       )
   }
-
-
-  /**
-   * Muestra error y retorna a pantalla
-  */
-  /*errorCode() {
-    this.estatus = "No se ha encontrado registro.";
-    //return this.router.navigateByUrl('/fixedAssets');
-  }
-*/
-  /**
-   * Busca AF por código
-  */
   search() {
     let ide = this.reactiveForm.value.search
     ide = ide.toString()
