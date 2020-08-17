@@ -36,6 +36,7 @@ import { CenterService } from 'src/app/services/center.service';
 import { CreateConfirmationComponent } from 'src/app/dialogs/create-confirmation/create-confirmation.component';
 
 import { MatDialog } from '@angular/material/dialog';
+import { Asset } from 'src/app/models/asset.model';
 
 
 
@@ -51,7 +52,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 
 export class CreateComponent implements OnInit {
-
+	public asset = new Asset();
 	//formbuilder	
 	reactiveForm: FormGroup;
 	cClasses: cClassInterface[] = [];
@@ -341,6 +342,7 @@ export class CreateComponent implements OnInit {
 			"lifetimeYear": this.reactiveForm.value.lifetimeYear,
 		}
 		//console.log(JSON.stringify(formValue));
+		this.asset.fakeid = (Math.floor((Math.random() * 100) + 1).toString(8));
 		this.assetsService.InsertAssets(formValue);
 		//this.reactiveForm.reset();//todo:mejorar mandar al detalle de asset
 	}

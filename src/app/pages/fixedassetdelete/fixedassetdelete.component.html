@@ -31,16 +31,12 @@
         </div>
         <!-- / row botonera -->
         <form [formGroup]="reactiveForm" (ngSubmit)="Dialog()">
-
             <input matInput formControlName="assetID" value="{{asset.id}}" class="hidden">
 
 
 
 
             <div class="row pt-3">
-
-
-   <!---->
                     <mat-expansion-panel class="full-width mb-3" [expanded]="true">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
@@ -55,20 +51,25 @@
                         <p *ngIf="asset?.referalCode" class="display-5 pr-3 d-sm-block">Número AF:   
                          {{ asset.referalCode }}
                         </p>
-                        <p *ngIf="asset?.rfidLabelSap" class="display-5 pr-3 d-sm-block">Código RFID: {{ asset.rfidLabelSap }}
+                        <p class="display-5 pr-3 d-sm-block">Código RFID: {{ asset.rfidLabelSap }}
                         </p>
                         <p class="display-5 pr-3 d-sm-block">Condición:
                             <span *ngIf="asset?.status == 1" class="badge badge-secondary">En Proceso</span>
                             <span *ngIf="asset?.status == 2" class="badge badge-primary">Activo</span>
                             <span *ngIf="asset?.status == 3" class="badge badge-dark">Dado de Baja</span>
                         </p>
-
-
                         <br />
                         <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.catalogClass">
                             <mat-label>Clase activo fijo</mat-label>
                             <input matInput placeholder="" readonly value="{{asset.catalogClass.name}}">
                         </mat-form-field>
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>
+                                Código Rfid
+                            </mat-label>
+                            <input matInput readonly  placeholder="Código Rfid" value={{asset.rfidLabelSap}}>                            
+                        </mat-form-field>
+
                         <br />
                         <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.society">
                             <mat-label>

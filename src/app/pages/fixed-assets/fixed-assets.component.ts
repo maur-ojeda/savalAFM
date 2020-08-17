@@ -103,10 +103,11 @@ export class FixedAssetsComponent implements OnInit {
     this.assetsService.getAssets()
       .then(assets => this.assets = assets);
   }
-  assetPorIde(valor: any ) {
-   alert('aqui :' + valor);
-  
 
+
+
+  assetPorIde(valor: any ) {
+alert('desde buscador: ' +  valor  )
    if (valor == null) {      
       return this.router.navigateByUrl('/fixedAssets');
     }
@@ -114,9 +115,6 @@ export class FixedAssetsComponent implements OnInit {
       alert('vacio ingrese un número')
       return this.router.navigateByUrl('/fixedAssets');
     } 
-
-
-
 
     this.assetsService.getAssetsCode(valor)
       .then( asset => {

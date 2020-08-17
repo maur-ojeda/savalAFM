@@ -1,6 +1,6 @@
 /**
  * Debe ir con el puerto correspondiente
- * Prod:     sla
+ * Prod: sla
  */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -15,6 +15,9 @@ import { DeleteOkComponent } from '../dialogs/delete-ok/delete-ok.component';
 import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.component';
 import { AssetSearchInterface } from '../interfaces/assetSearch.interface';
 import { MoveErrorComponent } from '../dialogs/move-error/move-error.component';
+import { Asset } from '../models/asset.model'
+import { OnlineOfflineService } from './online-offline.service';
+import  Dexie  from 'dexie'
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +26,31 @@ import { MoveErrorComponent } from '../dialogs/move-error/move-error.component';
 export class AssetsService {
 
 
-  private url = "https://afsaval.agenciasur.cl"
+  private API_URL = "https://afsaval.agenciasur.cl"
+  private db: Dexie;
+  private table: Dexie.Table<Asset, any> = null;
+
+
   private assets:  AssetSearchInterface[] = [];
-  constructor(private http: HttpClient, public dialog: MatDialog) { }
+  constructor(
+    private http: HttpClient, 
+    public dialog: MatDialog,
+    private onlineOfflineService: OnlineOfflineService
+    ) {
+      this.oirStatusConexion();
+      this.iniciarIndexDB();
+     }
+
+     private iniciarIndexDB(){
+      this.db = new Dexie('db-assets')
+      this.db.version(1).stores({
+        asset: 'fakeid'
+      });
+      this.table = this.db.table('asset');
+    }
+    
+
+
 
   getAssets(): Promise<AssetSearchInterface[]> {
     let headers = new HttpHeaders()
@@ -35,7 +60,7 @@ export class AssetsService {
       return Promise.resolve(this.assets);
     }
     return new Promise(resolve => {
-      this.http.get(this.url+'/webservice/rest/assets/?page=5&items=100', { headers })
+      this.http.get(this.API_URL+'/webservice/rest/assets/?page=5&items=100', { headers })
         .subscribe((assets: any) => {
           this.assets = assets.data;
           resolve(assets.data);
@@ -44,32 +69,111 @@ export class AssetsService {
     });
   }
 
-
+//test
   InsertAssets(formValue) {
-
-    
-
     let headers = new HttpHeaders()
     .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
     .set('Content-Type', 'application/x-www-form-urlencoded')
-
-    this.http.post(this.url+'/webservice/rest/request/add', formValue, { headers })
+    this.http.post(this.API_URL+'/webservice/rest/request/add', formValue, { headers })
       .subscribe(
         val => {
-          console.log("PUT call successful value returned in body", val);
           this.dialog.open(CreateOkComponent, {
             width: '98VW',
             data: {
               anyProperty: val
             }
-
           });
         },
         response => {
-          console.log("PUT call in error", response);
-
           this.dialog.open(CreateErrorComponent, {
             width: '98VW',
+            data: {
+              anyProperty: response
+            }
+          });
+        },
+       
+      );
+
+
+      
+
+      
+
+  }
+
+  private async InsertAssetIndexDB(asset){
+    try{
+        // await espera la resolucion de esta linea, como una promesa
+      await this.table.add(asset)
+      // resultado de la promesa
+      const todosAssets: Asset[] = await this.table.toArray();
+      console.log('asset se guardo en indexDB', todosAssets)
+    } catch(error) {
+      console.log('error al agregar asset a la base de datos', error)
+    }
+  }
+
+  private async enviarIndexDBaApi(){
+    const todosAssets: Asset[] = await this.table.toArray();
+    for (const asset of todosAssets){
+      this.InsertAssets(asset)
+      await this.table.delete(asset.id)
+      console.log(`asset con el id ${asset.id} fue eliminnado con exito`)
+    }
+  }
+
+  InsertarAsset(asset){
+    if(this.onlineOfflineService.isOnline ){
+        this.InsertAssets(asset)
+    }
+    else{
+        this.InsertAssetIndexDB(asset);
+    }  
+  }
+  
+
+
+
+  updateAssets(formValue, ide) {
+
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set("Content-Type", "application/x-www-form-urlencoded");
+    this.http.put(this.API_URL+'/webservice/rest/asset/update/' + ide, formValue, { headers })
+      .subscribe(
+        val => {
+          this.dialog.open(UpdateOkComponent, {
+            data: {
+              anyProperty: val
+            }
+          });
+        },
+        response => {
+          this.dialog.open(UpdateErrorComponent, {
+            data: {
+              anyProperty: response
+            }
+          });
+        }
+      );
+  }
+
+  moveAssets(formValue, ide) {
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set("Content-Type", "application/x-www-form-urlencoded");
+    
+      this.http.put(this.API_URL+'/webservice/rest/asset/move/' + ide, formValue, { headers }).subscribe(
+        val => {
+          this.dialog.open(MoveOkComponent, {
+            data: {
+              anyProperty: val
+            }
+          });
+        },
+        response => {
+          this.dialog.open(MoveErrorComponent, {
             data: {
               anyProperty: response
             }
@@ -79,71 +183,8 @@ export class AssetsService {
           console.log("The PUT observable is now completed.");
         }
       );
-
-
-      
-
-      
-
   }
-  updateAssets(formValue, ide) {
 
-    let headers = new HttpHeaders()
-      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
-      .set("Content-Type", "application/x-www-form-urlencoded");
-    this.http.put("https://afsaval.agenciasur.cl/webservice/rest/asset/update/" + ide, formValue, { headers })
-      .subscribe(
-        val => {
-          console.log("PUT call successful value returned in body",
-            val);
-          this.dialog.open(UpdateOkComponent, {
-            data: {
-              anyProperty: val
-            }
-          });
-        },
-        response => {
-          console.log("PUT call in error", response);
-          this.dialog.open(UpdateErrorComponent, {
-            data: {
-              anyProperty: "response"
-            }
-          });
-        },
-        () => {
-          console.log("The PUT observable is now completed.");
-        }
-      );
-  }
-  moveAssets(formValue, ide) {
-    let headers = new HttpHeaders()
-      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
-      .set("Content-Type", "application/x-www-form-urlencoded");
-      
-      
-  this.http.put("https://afsaval.agenciasur.cl/webservice/rest/asset/move/" + ide, formValue, { headers }).subscribe(
-        val => {
-          console.log("PUT call successful value returned in body",
-            val);
-          this.dialog.open(MoveOkComponent, {
-            data: {
-              anyProperty: val
-            }
-          });
-        },
-        response => {
-          console.log("PUT call in error", response);
-          this.dialog.open(MoveErrorComponent, {
-            data: {
-              anyProperty: "myValue"
-            }
-          });
-        },
-        () => {
-          console.log("The PUT observable is now completed.");
-        }
-      );
-  }
   downAssets(formValue, ide) {
     const options = {
       headers: new HttpHeaders({
@@ -159,12 +200,9 @@ export class AssetsService {
     };
     console.log(options)
 
-    this.http.delete("https://afsaval.agenciasur.cl/webservice/rest/asset/delete/" + ide, options)
+    this.http.delete(this.API_URL+"/webservice/rest/asset/delete/" + ide, options)
       .subscribe(
         val => {
-          console.log("PUT call successful value returned in body",
-            val);
-
             this.dialog.open(DeleteOkComponent, {
               width: '98VW',
               data: {
@@ -173,16 +211,12 @@ export class AssetsService {
             });
         },
         response => {
-          console.log("PUT call in error", response);
           this.dialog.open(DeleteErrorComponent, {
             width: '98VW',
             data: {
               anyProperty: response
             }
           });
-        },
-        () => {
-          console.log("The PUT observable is now completed.");
         }
       );
   }
@@ -190,27 +224,27 @@ export class AssetsService {
 
 
 
+
+
+
+
 getAssetsCode(code: string): Promise<AssetSearchInterface[]> {
 
-
+  
     let cod = code
-    if (cod.length > 20) {
+    if (cod.length > 23) {
       let last8 = cod.substr(code.length - 8);
       let hexa = parseInt(last8, 16);
       let hexaStr = hexa.toString();
-
-     code = hexaStr 
-
+      code = hexaStr 
+      alert('codigo transformado: ' +  code  )
     }
     
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set('Content-Type', 'application/x-www-form-urlencoded')
-
-      
-
     return new Promise(resolve => {
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/search?code='+ code, { headers })
+      this.http.get(this.API_URL+'/webservice/rest/assets/search?code='+ code, { headers })
         .subscribe((assets: any) => {
           this.assets = assets;
           resolve(assets);
@@ -230,7 +264,7 @@ getAssetsCode(code: string): Promise<AssetSearchInterface[]> {
     }
 
     return new Promise(resolve => {
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/assets/search?code='+ code, { headers })
+      this.http.get(this.API_URL+'/webservice/rest/assets/search?code='+ code, { headers })
         .subscribe((assets: any) => {
           this.assets = assets;
           resolve(assets.data);
@@ -312,7 +346,26 @@ getAssetsCode(code: string): Promise<AssetSearchInterface[]> {
   }
 
 
+/**Funcion que escucha si la aplicacion esta en linea 
+ * 
+ */
+private oirStatusConexion(){
+  this.onlineOfflineService.statusConexion
+  .subscribe(
 
+  online =>{
+    if(online){
+      //envia lo grabado desde indexDB a la api
+      this.enviarIndexDBaApi();
+      console.log('Grabarbacion aqui')
+    }
+    else{
+      console.log('estoy offline')
+    }
+  }
+  
+  )
+  }
 
 
 

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BuildingService } from './building.service';
+import { OnlineOfflineService } from './online-offline.service';
 
-describe('BuildingService', () => {
-  let service: BuildingService;
+describe('OnlineOfflineService', () => {
+  let service: OnlineOfflineService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(BuildingService);
+    service = TestBed.inject(OnlineOfflineService);
   });
 
   it('should be created', () => {
