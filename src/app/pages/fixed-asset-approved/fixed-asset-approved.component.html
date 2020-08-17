@@ -27,7 +27,7 @@
 					<span *ngIf="request?.status == 3" class="badge badge-danger">Rechazado</span>
 					<span *ngIf="request?.status == 4" class="badge badge-success">Aprobado</span></p>
 						
-					<p>Fecha de creación: {{request.createdAt.date}}<p>
+					<p>Fecha de creación: {{formatDate(request.createdAt.date)}}<p>
 					<!--contenido-->	
 
 

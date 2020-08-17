@@ -172,7 +172,8 @@ export class FixedassetupdateComponent implements OnInit {
 			}
     });
     */
-	}
+  }
+  
 /**
  * transforma fecha 
 */

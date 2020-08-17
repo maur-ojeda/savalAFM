@@ -10,6 +10,7 @@ import { SpeciesInterface } from 'src/app/interfaces/specie.interface';
 import { SpecieService } from 'src/app/services/specie.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-fixed-asset-closed',
@@ -125,6 +126,14 @@ export class FixedAssetClosedComponent implements OnInit {
     alert('ok');
 
 	}
+
+    /**
+ * transforma fecha 
+*/
+formatDate(f) {
+	let dateInFormat = moment(f).format('DD-MM-YYYY HH:MM');
+	return dateInFormat
+  }
 
 
 

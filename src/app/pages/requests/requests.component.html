@@ -54,7 +54,7 @@
 					<small>{{request.createdBy.username}}</small>
 				</td>
 				<td *ngIf="request?.createdAt">
-					<small>{{request.createdAt.date}}</small>
+					<small>{{formatDate(request.createdAt.date)}}</small>
 				</td>
 				<td *ngIf="request?.specie.name">
 					<small>{{request.specie.name}}</small>

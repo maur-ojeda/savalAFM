@@ -3,6 +3,8 @@ import { RequestInterface } from 'src/app/interfaces/request.interface';
 import { RequestsService } from 'src/app/services/requests.service';
 import { Location } from '@angular/common';
 
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-requests',
@@ -34,6 +36,14 @@ export class RequestsComponent implements OnInit {
     this.location.back();
   }
 
+
+  /**
+ * transforma fecha 
+*/
+formatDate(f) {
+  let dateInFormat = moment(f).format('DD-MM-YYYY HH:MM');
+  return dateInFormat
+}
 
 }
 
