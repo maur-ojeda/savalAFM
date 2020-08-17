@@ -63,7 +63,7 @@ export class FixedAssetsComponent implements OnInit {
 
   //Dialogos
   /**
-   *Dialog for update fixed assets
+   *Dialog for updatefixed assets
   */
   openDialog() {
     this.dialog.open(OpenFixedassetComponent, {
@@ -128,49 +128,10 @@ alert('desde buscador: ' +  valor  )
       }).catch(err => 
         this.openNoRegister()
         )
-
-   /*
-   
-    if (valor.length > 20) {
-      let last8 = valor.substr(valor.length - 8);
-      let hexa = parseInt(last8, 16);
-      let hexaStr = hexa.toString();
-
-      console.log(hexaStr)
-
-      this.assetsService.getAssetsCode(hexaStr)
-      .then( asset => {
-        if (!asset) {
-          this.openNoRegister();
-        } else {
-          this.asset = asset
-          
-          let route = "fixedAsset/" + asset['data'].code;
-         return this.router.navigateByUrl(route);
-        }
-      })
-
-      
-    } 
-    else {
-    
-      this.assetsService.getAssetsCode(valor)
-      .then( asset => {
-        if (!asset) {
-          this.openNoRegister();
-        } else {
-      
-          this.asset = asset
-          let route = "fixedAsset/" + asset['data'].code;
-         return this.router.navigateByUrl(route);
-        }
-      })
-    }
-
-*/
-
-
   }
+
+
+  
   onClickSubmit(data){
 
 

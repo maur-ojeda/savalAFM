@@ -18,7 +18,7 @@ export class DownFixedassetComponent implements OnInit {
   reactiveForm: FormGroup;
   ide;
   estatus;
-
+  url ='fixedAssetDelete/';
   constructor(
     private router: Router,
     private assetsService: AssetsService,
@@ -35,56 +35,22 @@ export class DownFixedassetComponent implements OnInit {
   }
 
   assetPorIde(valor: any) {
-
     if (valor == null) {
       return this.router.navigateByUrl('/fixedAssets');
     }
     if (valor == '') {
       alert('vacio ingrese un número')
-      return this.router.navigateByUrl('/fixedAssets');
-    } 
-
-
-    if (valor.length > 20) {
-      let last8 = valor.substr(valor.length - 8);
-      let hexa = parseInt(last8, 16);
-      let hexaStr = hexa.toString();
-
-      this.assetsService.getAssetsCode(hexaStr)
-        .then(asset => {
-          if (!asset) {
-            this.estatus = "No se ha encontrado registro.";
-            return this.router.navigateByUrl('/fixedAssets');
-          } else {
-            this.asset = asset;
-            this.dialogRef.close();
-            let route = "fixedAssetUpdate/" + asset['data'].code;
-            return this.router.navigateByUrl(route);
-          }
-        })
-
-
+      return this.router.navigateByUrl(this.url);
     }
-    else {
-
-      this.assetsService.getAssetsCode(valor)
-        .then(asset => {
-          if (!asset) {
-            this.estatus = "No se ha encontrado registro.";
-            return this.router.navigateByUrl('/fixedAssets');
-          } else {
-
-
-            this.asset = asset;
-
-            //alert(JSON.stringify(asset['data'].code))
-
-            this.dialogRef.close();
-            let route = "fixedAssetDelete/" + asset['data'].code;
-            return this.router.navigateByUrl(route);
-          }
-        })
-    }
+    this.assetsService.getAssetsCode(valor)
+      .then(asset => {
+          this.asset = asset;
+          this.dialogRef.close();
+          let route = this.url + asset['data'].code;
+          return this.router.navigateByUrl(route);
+      }).catch(err =>
+        alert("No se ha encontrado registro.")
+      )
   }
 
   

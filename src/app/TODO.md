@@ -6,12 +6,13 @@ Project Description
 
 - [ ] Actualización automática  de app  
   - [ ] Modo Offline  
-- [ ] Alerta de activo fijo dado de baja: fixedasset.component.ts:51:  
 - [ ] Eliminar refererencias  a angularfire2: revisión  
 - [ ] implementar ng-template para cargando y no encontrado  
 
 ### In Progress
 
+- [ ] alerta de codigo no encontrado e UPDATE, MOVE, DELETE  
+- [ ] Alerta de activo fijo dado de baja: fixedasset.component.ts:51:  
 
 ### Done ✓
 
