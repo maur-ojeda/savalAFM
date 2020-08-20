@@ -12,8 +12,8 @@
             <br />
             <br />
             <button mat-button color="primary" (click)="goBack()" class="mb-3">
-				<i class="fas fa-angle-left"></i>
-				Volver</button>
+                <i class="fas fa-angle-left"></i>
+                Volver</button>
 
             <div class="mat-typography">
                 <h1>Crear activo fijo</h1>
@@ -31,13 +31,13 @@
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Clase activo fijo</mat-label>
                         <select matNativeControl formControlName="catalogClass">
-							<option [ngValue]="null" disabled>Seleccione ...</option>
-							<option *ngFor="let cClass of cClasses" [value]="cClass.id">{{cClass.code}} -
-								{{cClass.name}}</option>
-						</select>
+                            <option [ngValue]="null" disabled>Seleccione ...</option>
+                            <option *ngFor="let cClass of cClasses" [value]="cClass.id">{{cClass.code}} -
+                                {{cClass.name}}</option>
+                        </select>
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('catalogClass').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
                 <!--Sociedad-->
                 <div class="form-group">
@@ -48,11 +48,11 @@
                         <input matInput placeholder="Sociedad" formControlName="sociedad">
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('sociedad').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                     <small class="text-danger" *ngIf="reactiveForm.get('sociedad').hasError('minlength')">min of
-						characters</small>
+                        characters</small>
                     <small class="text-danger" *ngIf="reactiveForm.get('sociedad').hasError('minlength')">max of 10
-						characters</small>
+                        characters</small>
                 </div>
                 <!--Especie-->
 
@@ -66,12 +66,13 @@
                             Especie
                         </mat-label>
                         <select matNativeControl formControlName="speciefake" (change)="onChangeSpecie($event.target.value)">
-							<option *ngFor="let specie of species" [value]="specie.code">{{specie.code}} - {{specie.name}}
-							</option>
-						</select>
+                            <option *ngFor="let specie of species" [value]="specie.code">{{specie.code}} -
+                                {{specie.name}}
+                            </option>
+                        </select>
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('specie').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
                 <input style="display:none" matInput formControlName="specie">
                 <!--Atributos-->
@@ -96,7 +97,7 @@
                 <div class="form-group">
                     <mat-checkbox formControlName="history_check">Gestión histórica</mat-checkbox>
                     <small class="text-info" *ngIf="reactiveForm.get('history_check').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
 
                 <!--inventario-->
@@ -104,7 +105,7 @@
                     <mat-checkbox formControlName="inventory_check">Incluir activo fijo en lista inventario
                     </mat-checkbox>
                     <small class="text-info" *ngIf="reactiveForm.get('history_check').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
 
                 <!---->
@@ -123,7 +124,7 @@
                         <input matInput placeholder="Número de serie" formControlName="serieNumber">
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('serieNumber').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
 
 
@@ -133,12 +134,12 @@
                         <mat-label>Centro de costo</mat-label>
                         <select matNativeControl formControlName="costCenter">
 
-							<option *ngFor="let CCenter of CCenters" [value]="CCenter.id">{{CCenter.code}} -
-								{{CCenter.name}}</option>
-						</select>
+                            <option *ngFor="let CCenter of CCenters" [value]="CCenter.id">{{CCenter.code}} -
+                                {{CCenter.name}}</option>
+                        </select>
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('costCenter').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
 
 
@@ -151,12 +152,13 @@
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Centro</mat-label>
                         <select matNativeControl formControlName="lCenter" (change)="onChangeCenter($event.target.value)">
-<option [ngValue]="null" disabled>Seleccione ...</option> 
-							<option *ngFor="let Center of Centers" [value]="Center.id">{{Center.code}} - {{Center.name}}</option>
-						</select>
+                            <option [ngValue]="null" disabled>Seleccione ...</option>
+                            <option *ngFor="let Center of Centers" [value]="Center.id">{{Center.code}} - {{Center.name}}
+                            </option>
+                        </select>
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('lCenter').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
 
                 <!--Edificio-->
@@ -169,15 +171,16 @@
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Edificio</mat-label>
                         <select matNativeControl formControlName="lBuilding" (change)="onChangeBuilding($event.target.value)">
-                            <option [ngValue]="null" disabled>Seleccione ...</option> 
-                            <option *ngFor="let lBuilding of lBuildings" [value]="lBuilding.id">{{lBuilding.code}} - {{lBuilding.name}}
+                            <option [ngValue]="null" disabled>Seleccione ...</option>
+                            <option *ngFor="let lBuilding of lBuildings" [value]="lBuilding.id">{{lBuilding.code}} -
+                                {{lBuilding.name}}
                             </option>
-                            
-						</select>
+
+                        </select>
                     </mat-form-field>
 
                     <small class="text-info" *ngIf="reactiveForm.get('lBuilding').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
 
                 </div>
 
@@ -186,44 +189,46 @@
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Piso</mat-label>
                         <select matNativeControl formControlName="lFloor" (change)="onChangeFloor($event.target.value)">
-                            <option [ngValue]="null" disabled>Seleccione ...</option> 
-							<option *ngFor="let lFloor of lFloors" [value]="lFloor.id">{{lFloor.code}} - {{lFloor.name}}</option>
-						</select>
+                            <option [ngValue]="null" disabled>Seleccione ...</option>
+                            <option *ngFor="let lFloor of lFloors" [value]="lFloor.id">{{lFloor.code}} - {{lFloor.name}}
+                            </option>
+                        </select>
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('lFloor').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
 
-<!--{{ lAreas | json }}-->
+                <!--{{ lAreas | json }}-->
 
                 <!--lArea-->
                 <div class="form-group">
                     <mat-form-field appearance="outline" class="full-width" (change)="onChangeArea($event.target.value)">
                         <mat-label>Área</mat-label>
                         <select matNativeControl formControlName="lArea">
-                            <option [ngValue]="null" disabled>Seleccione ...</option> 
-							<option *ngFor="let lArea of lAreas" [value]="lArea.id">{{lArea.code}} - {{lArea.name}}</option>
-						</select>
+                            <option [ngValue]="null" disabled>Seleccione ...</option>
+                            <option *ngFor="let lArea of lAreas" [value]="lArea.id">{{lArea.code}} - {{lArea.name}}
+                            </option>
+                        </select>
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('lArea').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
 
                 <!--lRoom-->
 
 
-                   <!-- {{lRooms | json }}-->
-
+                <!-- {{lRooms | json }}-->
                 <div class="form-group">
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Sala</mat-label>
                         <select matNativeControl formControlName="lRoom">
-                            <option [ngValue]="null" disabled>Seleccione ...</option> 
-							<option *ngFor="let lRoom of lRooms" [value]="lRoom.id">{{lRoom.code}} - {{lRoom.name}}</option>
-						</select>
+                            <option [ngValue]="null" disabled>Seleccione ...</option>
+                            <option *ngFor="let lRoom of lRooms" [value]="lRoom.id">{{lRoom.code}} - {{lRoom.name}}
+                            </option>
+                        </select>
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('lRoom').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
                 <div class="mat-typography">
                     <h2>Origen</h2>
@@ -240,13 +245,13 @@
                         </mat-hint>
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('creditorId').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
                 <!--newAsset-->
                 <div class="form-group">
                     <mat-checkbox formControlName="newAsset">Nuevo</mat-checkbox>
                     <small class="text-info" *ngIf="reactiveForm.get('newAsset').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
                 <!--assetOrigin-->
                 <!--div class="form-group">
@@ -272,7 +277,7 @@
                         <input matInput placeholder="Origen" formControlName="lifetimeYear">
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('lifetimeYear').hasError('required')">Campo
-						requerido</small>
+                        requerido</small>
                 </div>
                 <!--assetOrigin-->
 

@@ -25,7 +25,7 @@ getRequests(): Promise<RequestInterface[]>{
   return new Promise( resolve => {
 
     
-    this.http.get(this.API_URL + 'webservice/rest/requests/',{ headers })
+    this.http.get(this.API_URL + 'webservice/rest/requests?all=true',{ headers })
       .subscribe( (requests: any) => {
         this.requests = requests.data;
         resolve( requests.data );

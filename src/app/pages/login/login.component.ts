@@ -5,6 +5,7 @@ import { UserInterface } from 'src/app/interfaces/user.interface';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginErrorComponent } from 'src/app/dialogs/login-error/login-error.component';
+//
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,10 @@ export class LoginComponent implements OnInit {
     private userService: UsersService,
     private router: Router,
     private builder: FormBuilder,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+
+    
+
 
 
   ) { }
@@ -54,11 +58,11 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userfullName', data.data.fullName);
           this.router.navigate(['home'])
           this.userService.setLoggedIn(true)
-        } 
+        }
       },
       response => {
-        console.log("PUT call in error", response);
-       
+        //console.log("PUT call in error", response);
+
 
         this.dialog.open(LoginErrorComponent, {
           width: '98VW',
@@ -67,17 +71,12 @@ export class LoginComponent implements OnInit {
           }
         })
 
-      }
-      
-      
-      )
-
-
+      })
   }
 
- toggleFieldTextType() {
-  this.fieldTextType = !this.fieldTextType;
-}
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
 
 
 }

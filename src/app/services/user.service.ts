@@ -21,16 +21,14 @@ interface Data {
 @Injectable({
   providedIn: "root"
 })
-export class UsersService {
-  
-private url = "https://afsaval.agenciasur.cl"
 
+export class UsersService {
+
+private url = "https://afsaval.agenciasur.cl"
 private loggedInStatus = JSON.parse( localStorage.getItem('loggedIn') || 'false' );
 
     constructor(
-      private http: HttpClient,
-      //private router: Router
-
+      private http: HttpClient
     ) {}
 
     setLoggedIn(value: boolean){
@@ -41,8 +39,7 @@ private loggedInStatus = JSON.parse( localStorage.getItem('loggedIn') || 'false'
       return  JSON.parse( localStorage.getItem('loggedIn') || this.loggedInStatus.toString())
     }
 
-    login(email , password){
-
+    login(email, password){
       let formdata = new FormData();
       formdata.append("email", email );
       formdata.append("password", password);
@@ -50,13 +47,10 @@ private loggedInStatus = JSON.parse( localStorage.getItem('loggedIn') || 'false'
         .append("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
         return this.http.post<myData>(this.url+"/webservice/rest/user/login",formdata,{headers})
     }
+   
 
 
     
-
-
-   
   }
-
 
 

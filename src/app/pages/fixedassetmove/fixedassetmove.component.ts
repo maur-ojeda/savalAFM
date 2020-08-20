@@ -41,7 +41,7 @@ export class FixedassetmoveComponent implements OnInit {
   assets;
   asset;
   locations: LocationInterface[] = [];
-  ccenters: CcenterInterface[] = [];
+  CCenters: CcenterInterface[] = [];
   species: SpeciesInterface[] = [];
   reactiveForm: FormGroup;
 	Centers: CenterInterface[] = [];
@@ -54,7 +54,7 @@ export class FixedassetmoveComponent implements OnInit {
   constructor(
     public assetsService: AssetsService,
     public locationsService: LocationsService,
-    public ccentersService: CcenterService,
+    public slCCenterService: CcenterService,
     public specieService: SpecieService,
     public slCenterService: CenterService,
 		public slBuilding: BuildingService,
@@ -82,6 +82,10 @@ export class FixedassetmoveComponent implements OnInit {
 });
 //getcode
 
+
+
+  this.slCCenterService.getCcenters()
+  .then(CCenters => this.CCenters = CCenters);
 
     this.slCenterService.getCenters()
     .then(Centers => this.Centers = Centers);

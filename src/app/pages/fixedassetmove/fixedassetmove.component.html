@@ -34,7 +34,7 @@
             <div class="row pt-3">
 
 
-                <mat-expansion-panel [expanded]="true" class="full-width mb-3">
+                <mat-expansion-panel [expanded]="true" class="full-width mb-2">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             Datos Activo fijo
@@ -42,9 +42,9 @@
 
                     </mat-expansion-panel-header>
 
-<button mat-stroked-button color="primary" class="btn-block mb-3" (click)="refresh()">Refrescar</button>
+                    <button mat-stroked-button color="primary" class="btn-block mb-3" (click)="refresh()">Refrescar</button>
 
-                      <div *ngIf="asset.status == 3">
+                    <div *ngIf="asset.status == 3">
                         <div class="alert alert-dismissible alert-warning">
                             <button type="button" class="close" data-dismiss="alert">×</button>
                             <h4 class="alert-heading"><strong>Atención</strong></h4>
@@ -119,8 +119,8 @@
                 </mat-expansion-panel>
 
 
-                <mat-accordion class="full-width">
-                    <mat-expansion-panel>
+                <mat-accordion class="full-width" [multi]="true">
+                    <mat-expansion-panel class="full-width">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 Especie
@@ -162,22 +162,41 @@
 
                     </mat-expansion-panel>
 
-                    <mat-expansion-panel>
+                    <mat-expansion-panel [expanded]="true" class="full-width">
                         <mat-expansion-panel-header>
-                            <mat-panel-title>
+                            <mat-panel-title class="text-primary">
                                 Centro de costo
                             </mat-panel-title>
                         </mat-expansion-panel-header>
 
 
+
+                        <!--CCentro-->
                         <div class="form-group">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label class="text-primary">Centro de costo
+                                    <mat-icon aria-hidden="false">edit</mat-icon>
+                                </mat-label>
+                                <select matNativeControl formControlName="costCenter">
+
+                                    <option *ngFor="let CCenter of CCenters" [value]="CCenter.id">{{CCenter.code}} -
+                                        {{CCenter.name}}</option>
+                                </select>
+                            </mat-form-field>
+                            <!--small class="text-info" *ngIf="reactiveForm.get('costCenter').hasError('required')">Campo
+        requerido</small-->
+                        </div>
+                        <!--CCentro-->
+
+
+                        <!--div class="form-group">
                             <mat-form-field appearance="outline" class="full-width" *ngIf="asset?.costCenter">
                                 <mat-label>
                                     Centro de costo
                                 </mat-label>
                                 <input *ngIf="asset?.costCenter" matInput placeholder="" readonly value="{{asset.costCenter.code}} - {{asset.costCenter.name}}">
                             </mat-form-field>
-                        </div>
+                        </div-->
 
 
 
@@ -186,11 +205,11 @@
 
                     </mat-expansion-panel>
 
-                    <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel [expanded]="true" class="full-width">
 
 
                         <mat-expansion-panel-header>
-                            <mat-panel-title>
+                            <mat-panel-title class="text-primary">
                                 Asignaciones
                             </mat-panel-title>
 
@@ -202,7 +221,9 @@
 
                         <div class="form-group">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Centro</mat-label>
+                                <mat-label>Centro
+                                    <mat-icon aria-hidden="false" class="text-primary">edit</mat-icon>
+                                </mat-label>
                                 <select matNativeControl [(ngModel)]='asset.lCenter.id' formControlName="lCenter" (change)="onChangeCenter()">
                                     <option [ngValue]="null" disabled>Seleccione ...</option>
                                     <option *ngFor="let Center of Centers" [ngValue]="Center.id">{{Center.code}} -
@@ -219,7 +240,9 @@
 
 
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Edificio</mat-label>
+                                <mat-label class="text-primary">Edificio
+                                    <mat-icon aria-hidden="false">edit</mat-icon>
+                                </mat-label>
                                 <select matNativeControl [(ngModel)]='asset.lBuilding.id' formControlName="lBuilding" (change)="onChangeBuilding()">
                                     <option [ngValue]="null" disabled>Seleccione ...</option>
                                     <option *ngFor="let lBuilding of lBuildings" [ngValue]='lBuilding.id'>
@@ -234,10 +257,13 @@
 
                         <div class="form-group">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Piso</mat-label>
+                                <mat-label class="text-primary">Piso
+                                    <mat-icon aria-hidden="false">edit</mat-icon>
+                                </mat-label>
                                 <select matNativeControl formControlName="lFloor" [(ngModel)]='asset.lFloor.id' (change)="onChangeFloor()">
                                     <option [ngValue]="null" disabled>Seleccione ...</option>
-                                    <option *ngFor="let lFloor of lFloors" [ngValue]='lFloor.id'>{{lFloor.id}} {{lFloor.code}} -
+                                    <option *ngFor="let lFloor of lFloors" [ngValue]='lFloor.id'>{{lFloor.id}}
+                                        {{lFloor.code}} -
                                         {{lFloor.name}}</option>
                                 </select>
                             </mat-form-field>
@@ -249,9 +275,11 @@
 
                         <div class="form-group">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Área </mat-label>
+                                <mat-label class="text-primary">Área
+                                    <mat-icon aria-hidden="false">edit</mat-icon>
+                                </mat-label>
                                 <select matNativeControl formControlName="lArea" [(ngModel)]='asset.lArea.id' (change)="onChangeArea()">
-                                <option [ngValue]="null" disabled>Seleccione ...</option>
+                                    <option [ngValue]="null" disabled>Seleccione ...</option>
                                     <option *ngFor="let lArea of lAreas" [ngValue]="lArea.id">{{lArea.code}} -
                                         {{lArea.name}}</option>
                                 </select>
@@ -264,7 +292,9 @@
 
                         <div class="form-group">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Sala</mat-label>
+                                <mat-label class="text-primary">Sala
+                                    <mat-icon aria-hidden="false">edit</mat-icon>
+                                </mat-label>
                                 <select matNativeControl formControlName="lRoom" [(ngModel)]='asset.lRoom.id'>
                                     <option [ngValue]="null" disabled>Seleccione ...</option>
                                     <option *ngFor="let lRoom of lRooms" [ngValue]='lRoom.id'>{{lRoom.code}} -
@@ -327,7 +357,7 @@
 
                     </mat-expansion-panel>
 
-                    <mat-expansion-panel>
+                    <mat-expansion-panel class="full-width">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 Origen
@@ -366,7 +396,7 @@
 
                     </mat-expansion-panel>
 
-                    <mat-expansion-panel>
+                    <mat-expansion-panel class="full-width">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 Años de vida útil
@@ -390,6 +420,7 @@
                     </mat-expansion-panel>
 
                 </mat-accordion>
+
             </div>
             <div class="row pt-3 mb-5">
                 <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-lg btn-primary full-width mb-3">Guardar
