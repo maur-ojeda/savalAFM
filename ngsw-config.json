@@ -37,11 +37,10 @@
                 "https://afsaval.agenciasur.cl/*"
             ],
             "cacheConfig": {
-                "strategy": "performance",
+                "strategy": "freshness",
                 "maxSize": 100,
-                "maxAge": "10h",
+                "maxAge": "1h",
                 "timeout": "5s"
-
             }
         }
 

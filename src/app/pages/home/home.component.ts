@@ -38,14 +38,14 @@ export class HomeComponent implements OnInit {
           width: '98VW'
     });
     dialogRef.afterClosed().subscribe(result => {
-      //console.log(`Dialog result: ${result}`);
               if(result){
                 this.logOut()
               }
-
     });
   }
 
+
+  //carga de recursos
 
 
 

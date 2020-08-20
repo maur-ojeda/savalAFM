@@ -107,7 +107,7 @@ export class FixedAssetsComponent implements OnInit {
 
 
   assetPorIde(valor: any ) {
-alert('desde buscador: ' +  valor  )
+    //alert('desde buscador: ' +  valor  )
    if (valor == null) {      
       return this.router.navigateByUrl('/fixedAssets');
     }

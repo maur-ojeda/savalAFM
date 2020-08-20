@@ -237,7 +237,7 @@ getAssetsCode(code: string): Promise<AssetSearchInterface[]> {
       let hexa = parseInt(last8, 16);
       let hexaStr = hexa.toString();
       code = hexaStr 
-      alert('codigo transformado: ' +  code  )
+      //alert('codigo transformado: ' +  code  )
     }
     
     let headers = new HttpHeaders()

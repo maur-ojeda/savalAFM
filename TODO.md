@@ -5,12 +5,14 @@ Project Description
 ### Todo
 
 - [ ] Actualización automática  de app  
-  - [ ] Modo Offline  
 - [ ] Eliminar refererencias  a angularfire2: revisión  
 - [ ] implementar ng-template para cargando y no encontrado  
+- [ ] mostrar alerta de cuando este offline  
+- [ ] Logo saval a SVG  
 
 ### In Progress
 
+  - [ ] Modo Offline  
 
 ### Done ✓
 

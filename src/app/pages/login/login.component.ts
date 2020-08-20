@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   user: UserInterface[] = [];
   reactiveForm: FormGroup;
   requestOptions;
+  fieldTextType: boolean;
 
   constructor(
     private userService: UsersService,
@@ -73,6 +74,10 @@ export class LoginComponent implements OnInit {
 
 
   }
+
+ toggleFieldTextType() {
+  this.fieldTextType = !this.fieldTextType;
+}
 
 
 }

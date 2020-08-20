@@ -1,24 +1,37 @@
 <form [formGroup]="reactiveForm" (ngSubmit)="sendData()">
-<div class="container">
-<div class="text-center">
-	<img src="/assets/images/logoSaval.png" alt="">
-	<h3>Gestión de Activo Fijo</h3>
-   
-</div>
-<div class="mt-5 mb-2">
+    <div class="container">
+        <div class="text-center">
+            <img src="/assets/images/logoSaval.png" alt="">
+            <h3>Gestión de Activo Fijo</h3>
 
-	 <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Usuario</mat-label>
-    <input matInput formControlName="user" type="email" placeholder="Ingrese usuario">
-  </mat-form-field>
+        </div>
+        <div class="mt-5 mb-2">
 
-<mat-form-field appearance="outline" class="full-width">
-    <mat-label>Contraseña</mat-label>
-    <input matInput  type="password" formControlName='pass' placeholder="Ingrese contraseña">
-  </mat-form-field>
-</div>
-<button mat-flat-button color="primary"  class="full-width">Ingresar</button>
- <p class="text-center"><small>v40</small></p>
-</div>
-  </form>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Usuario</mat-label>
+                <input matInput formControlName="user" type="email" placeholder="Ingrese usuario">
+            </mat-form-field>
 
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [type]="fieldTextType ? 'text' : 'password'" formControlName='pass' placeholder="Ingrese contraseña">
+
+
+
+                <mat-icon matSuffix (click)="toggleFieldTextType()"> {{ !fieldTextType ? "visibility_off" : "visibility" }}</mat-icon>
+            </mat-form-field>
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <button mat-flat-button color="primary" class="full-width">Ingresar</button>
+        <p class="text-center"><small>v43</small></p>
+    </div>
+</form>

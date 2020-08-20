@@ -7,17 +7,15 @@ import { RequestInterface } from '../interfaces/request.interface';
   providedIn: 'root'
 })
 export class RequestsService {
+  private API_URL = "https://afsaval.agenciasur.cl/"
+
 
   private requests: RequestInterface[] = [];
-  
-  constructor(private http: HttpClient) { }
 
-    //todo:user y pass dinamico
+  constructor(private http: HttpClient) { }
 getRequests(): Promise<RequestInterface[]>{
-  let user ="mobile_user";
-  let pass ="testing";
   let headers = new HttpHeaders()
-  .set('Authorization',   `Basic ${btoa(user + ":" + pass)}`)
+  .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
   .set('Content-Type', 'application/x-www-form-urlencoded')
 
   if ( this.requests.length > 0 ) {
@@ -27,10 +25,9 @@ getRequests(): Promise<RequestInterface[]>{
   return new Promise( resolve => {
 
     
-    this.http.get('https://afsaval.agenciasur.cl/webservice/rest/requests/',{ headers })
+    this.http.get(this.API_URL + 'webservice/rest/requests/',{ headers })
       .subscribe( (requests: any) => {
         this.requests = requests.data;
-        
         resolve( requests.data );
       });
   });

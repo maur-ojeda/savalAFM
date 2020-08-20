@@ -97,5 +97,11 @@ export class FixedassetComponent implements OnInit {
     return dateInFormat
 }
 
+refresh(){
+
+  location.reload(true)
+
+}
+
 
 }// end class

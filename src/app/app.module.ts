@@ -48,6 +48,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+
 
 
 
@@ -141,6 +143,7 @@ import { WarningComponent } from './dialogs/warning/warning.component';
       MatExpansionModule,
       MatCheckboxModule,
       MatSelectModule,
+      MatIconModule
       
   ],
   entryComponents:[ OpenFixedassetComponent],
