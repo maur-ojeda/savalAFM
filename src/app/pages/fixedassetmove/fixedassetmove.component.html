@@ -204,6 +204,7 @@
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Centro</mat-label>
                                 <select matNativeControl [(ngModel)]='asset.lCenter.id' formControlName="lCenter" (change)="onChangeCenter()">
+                                    <option [ngValue]="null" disabled>Seleccione ...</option>
                                     <option *ngFor="let Center of Centers" [ngValue]="Center.id">{{Center.code}} -
                                         {{Center.name}}</option>
                                 </select>
@@ -220,6 +221,7 @@
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Edificio</mat-label>
                                 <select matNativeControl [(ngModel)]='asset.lBuilding.id' formControlName="lBuilding" (change)="onChangeBuilding()">
+                                    <option [ngValue]="null" disabled>Seleccione ...</option>
                                     <option *ngFor="let lBuilding of lBuildings" [ngValue]='lBuilding.id'>
                                         {{lBuilding.code}} - {{lBuilding.name}}</option>
                                 </select>
@@ -234,7 +236,7 @@
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Piso</mat-label>
                                 <select matNativeControl formControlName="lFloor" [(ngModel)]='asset.lFloor.id' (change)="onChangeFloor()">
-
+                                    <option [ngValue]="null" disabled>Seleccione ...</option>
                                     <option *ngFor="let lFloor of lFloors" [ngValue]='lFloor.id'>{{lFloor.id}} {{lFloor.code}} -
                                         {{lFloor.name}}</option>
                                 </select>
@@ -249,6 +251,7 @@
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Área </mat-label>
                                 <select matNativeControl formControlName="lArea" [(ngModel)]='asset.lArea.id' (change)="onChangeArea()">
+                                <option [ngValue]="null" disabled>Seleccione ...</option>
                                     <option *ngFor="let lArea of lAreas" [ngValue]="lArea.id">{{lArea.code}} -
                                         {{lArea.name}}</option>
                                 </select>
@@ -263,7 +266,7 @@
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Sala</mat-label>
                                 <select matNativeControl formControlName="lRoom" [(ngModel)]='asset.lRoom.id'>
-
+                                    <option [ngValue]="null" disabled>Seleccione ...</option>
                                     <option *ngFor="let lRoom of lRooms" [ngValue]='lRoom.id'>{{lRoom.code}} -
                                         {{lRoom.name}}</option>
                                 </select>
