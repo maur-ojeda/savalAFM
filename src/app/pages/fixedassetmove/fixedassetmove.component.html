@@ -221,8 +221,8 @@
 
                         <div class="form-group">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Centro
-                                    <mat-icon aria-hidden="false" class="text-primary">edit</mat-icon>
+                                <mat-label class="text-primary">Centro
+                                    <mat-icon aria-hidden="false">edit</mat-icon>
                                 </mat-label>
                                 <select matNativeControl [(ngModel)]='asset.lCenter.id' formControlName="lCenter" (change)="onChangeCenter()">
                                     <option [ngValue]="null" disabled>Seleccione ...</option>
@@ -245,7 +245,7 @@
                                 </mat-label>
                                 <select matNativeControl [(ngModel)]='asset.lBuilding.id' formControlName="lBuilding" (change)="onChangeBuilding()">
                                     <option [ngValue]="null" disabled>Seleccione ...</option>
-                                    <option *ngFor="let lBuilding of lBuildings" [ngValue]='lBuilding.id'>
+                                    <option *ngFor="let lBuilding of lBuildings" [ngValue]="lBuilding.id">
                                         {{lBuilding.code}} - {{lBuilding.name}}</option>
                                 </select>
                             </mat-form-field>
@@ -263,8 +263,7 @@
                                 <select matNativeControl formControlName="lFloor" [(ngModel)]='asset.lFloor.id' (change)="onChangeFloor()">
                                     <option [ngValue]="null" disabled>Seleccione ...</option>
                                     <option *ngFor="let lFloor of lFloors" [ngValue]='lFloor.id'>{{lFloor.id}}
-                                        {{lFloor.code}} -
-                                        {{lFloor.name}}</option>
+                                        {{lFloor.code}} - {{lFloor.name}}</option>
                                 </select>
                             </mat-form-field>
                             <small class="text-info" *ngIf="reactiveForm.get('lFloor').hasError('required')">Campo

@@ -125,11 +125,11 @@ export class FixedassetmoveComponent implements OnInit {
   
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
-    this.reactiveForm.controls['lCenter'].setValue(e.lCenter);
-    this.reactiveForm.controls['lBuilding'].setValue(e.lBuilding);
-    this.reactiveForm.controls['lFloor'].setValue(e.lFloor);
-    this.reactiveForm.controls['lArea'].setValue(e.lArea);
-    this.reactiveForm.controls['lRoom'].setValue(e.lRoom);
+    this.reactiveForm.controls['lCenter'].setValue(e.lCenter.id);
+    this.reactiveForm.controls['lBuilding'].setValue(e.lBuilding.id);
+    this.reactiveForm.controls['lFloor'].setValue(e.lFloor.id);
+    this.reactiveForm.controls['lArea'].setValue(e.lArea.id);
+    this.reactiveForm.controls['lRoom'].setValue(e.lRoom.id);
 
   }
 
@@ -147,7 +147,7 @@ export class FixedassetmoveComponent implements OnInit {
     }
 
 
-    //console.log(JSON.stringify(formValue));
+    console.log(JSON.stringify(formValue));
     this.assetsService.moveAssets(formValue, ide);
 
 

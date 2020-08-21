@@ -31,7 +31,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AssetsService {
 
 
-  private API_URL = "https://afsaval.agenciasur.cl"
+  private API_URL = "https://devactivofijo.saval.cl:8443"
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
 
@@ -178,9 +178,6 @@ export class AssetsService {
             anyProperty: response
           }
         });
-      },
-      () => {
-        console.log("The PUT observable is now completed.");
       }
     );
   }

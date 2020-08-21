@@ -49,7 +49,7 @@ export class FixedassetComponent implements OnInit {
     this.asset = asset;
  
   
-    //console.log(JSON.stringify(this.asset['data'].status)); 
+console.log(JSON.stringify(this.asset)); 
 
 
     //TODO: revisar el estatus

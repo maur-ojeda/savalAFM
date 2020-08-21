@@ -12,7 +12,6 @@ import { LogoutComponent } from 'src/app/dialogs/logout/logout.component';
 })
 export class HomeComponent implements OnInit {
   userfullName;
-  message="Cargando"
 
   constructor( 
     public userService: UsersService, 
@@ -46,7 +45,9 @@ export class HomeComponent implements OnInit {
   }
 
 
-  //carga de recursos
+//carga de recursos
+//carga de assets
+//carga de locations
 
 
 

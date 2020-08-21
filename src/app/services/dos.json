@@ -1,0 +1,174 @@
+{
+    "id": 7578,
+    "status": 2,
+    "createdAt": {
+        "date": "2020-08-07 18:26:04.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+    },
+    "updatedAt": {
+        "date": "2020-08-18 05:30:32.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+    },
+    "society": "LS01",
+    "referalCode": "5009139-0",
+    "code": "000005009139",
+    "subCode": "0000",
+    "catalogClass": {
+        "id": 5,
+        "code": "50000",
+        "name": "MUEBLES Y UTILES LS"
+    },
+    "specie": {
+        "id": 53,
+        "name": "CAJONERA",
+        "code": "ESPECIE37",
+        "attributes": [{
+                "id": 59,
+                "name": "MCA",
+                "human_name": "MARCA",
+                "help_message": "MARCA"
+            },
+            {
+                "id": 61,
+                "name": "MOD",
+                "human_name": "MODELO",
+                "help_message": "MODELO"
+            },
+            {
+                "id": 47,
+                "name": "ESTRUCTURA",
+                "human_name": "ESTRUCTURA (MATERIAL)",
+                "help_message": "INDICAR MATERIAL DE ESTRUCTURA"
+            },
+            {
+                "id": 90,
+                "name": "REVESTIDO EN",
+                "human_name": "REVESTIMIENTO",
+                "help_message": "INDICAR TIPO DE REVESTIMIENTO"
+            },
+            {
+                "id": 67,
+                "name": "NÚM. DE CAJÓN(ES)",
+                "human_name": "NÚMERO DE CAJÓN(ES)",
+                "help_message": "INDICAR NÚMERO DE CAJÓN(ES)"
+            },
+            {
+                "id": 69,
+                "name": "NÚM. DE ESTANTE(S)",
+                "human_name": "NÚMERO DE ESTANTE(S)",
+                "help_message": "INDICAR NÚMERO DE ESTANTE(S)"
+            },
+            {
+                "id": 81,
+                "name": "NÚM. DE RUEDA(S)",
+                "human_name": "NÚMERO DE RUEDA(S)",
+                "help_message": "INDICAR NÚMERO DE RUEDA(S)"
+            },
+            {
+                "id": 31,
+                "name": "DIMENSIÓN",
+                "human_name": "DIMENSIÓN (ANC X PROF X ALT) EN MM",
+                "help_message": "ANC X PROF X ALT EN MM"
+            },
+            null,
+            null
+        ]
+    },
+    "description": "CAJONERA EN MADERA C/2 CAJON(ES) DIM 500X500X550 MM CAJONERA EN MADERA C/2 CAJON(ES) DIM 500X500X550",
+    "serieNumber": "",
+    "rfidLabelSap": "0143703510",
+    "count": 1,
+    "unitType": "UN",
+    "historyManagement": true,
+    "lastInventoryAt": {
+        "date": "2019-12-30 00:00:00.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+    },
+    "moreInfoInventory": "",
+    "inventoryFlag": true,
+    "capitalizationDateAt": {
+        "date": "2020-03-31 00:00:00.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+    },
+    "costCenter": {
+        "id": 77,
+        "name": "Bodega Producto Term",
+        "code": "L06"
+    },
+    "lCenter": {
+        "id": 2,
+        "code": "C002",
+        "name": "CD Lo Ruiz",
+        "type": 1
+    },
+    "lBuilding": {
+        "id": 9,
+        "code": "E006",
+        "name": "Galpon 1",
+        "type": 2
+    },
+    "lFloor": {
+        "id": 17,
+        "code": "P002",
+        "name": "Piso 2",
+        "type": 3
+    },
+    "lArea": {
+        "id": 101,
+        "code": "A073",
+        "name": "OFICINA JEFATURAS",
+        "type": 4
+    },
+    "lRoom": {
+        "id": 262,
+        "code": "S116",
+        "name": "OFICINAS JEFACTURAS",
+        "type": 5
+    },
+    "creditorId": "",
+    "creditorName": "",
+    "newAsset": false,
+    "assetOrigin": "000001400004",
+    "valorationArea": 1,
+    "amortizationCode": "LINF",
+    "lifetimeYear": 6,
+    "lifetimeCycle": 0,
+    "amortizationStartedAt": {
+        "date": "2020-04-01 00:00:00.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+    },
+    "valorationArea15": 15,
+    "amortizationCode15": "LINF",
+    "lifetimeYear15": 6,
+    "lifetimeCycle15": 8,
+    "amortizationStartedAt15": {
+        "date": "2020-05-01 00:00:00.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+    },
+    "descapitalizationDateAt": null,
+    "downDocumentAt": {
+        "date": "2020-03-31 00:00:00.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+    },
+    "downPostingAt": {
+        "date": "2020-03-31 00:00:00.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+    },
+    "downMoveClass": "",
+    "downReferenceAt": {
+        "date": "2020-08-18 05:30:32.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+    },
+    "downTotal": false,
+    "downComment": "AJUSTE AGRUPADOS POR INVENTARIO AF 2019",
+    "downDocumentClass": ""
+}

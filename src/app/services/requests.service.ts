@@ -7,7 +7,7 @@ import { RequestInterface } from '../interfaces/request.interface';
   providedIn: 'root'
 })
 export class RequestsService {
-  private API_URL = "https://afsaval.agenciasur.cl/"
+  private API_URL = "https://devactivofijo.saval.cl:8443/"
 
 
   private requests: RequestInterface[] = [];
