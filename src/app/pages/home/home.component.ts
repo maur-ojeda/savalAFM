@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import { LogoutComponent } from 'src/app/dialogs/logout/logout.component';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,7 +12,6 @@ import { LogoutComponent } from 'src/app/dialogs/logout/logout.component';
 })
 export class HomeComponent implements OnInit {
   userfullName;
-  message="Cargando"
 
   constructor( 
     public userService: UsersService, 
@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('userlastName');
     localStorage.removeItem('userusername');
     localStorage.removeItem('userfullName');
-
     return this.router.navigateByUrl('/login');
   }
 
@@ -37,15 +36,18 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(LogoutComponent,{
           width: '98VW'
     });
+
     dialogRef.afterClosed().subscribe(result => {
-      //console.log(`Dialog result: ${result}`);
               if(result){
                 this.logOut()
               }
-
     });
   }
 
+
+//carga de recursos
+//carga de assets
+//carga de locations
 
 
 

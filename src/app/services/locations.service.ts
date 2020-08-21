@@ -28,8 +28,8 @@ export class LocationsService {
     }
 
     return new Promise(resolve => {
-      //this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/locations?items=1000/', { headers })
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/locations', { headers })
+      //this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?items=1000/', { headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations', { headers })
         .subscribe((locations: any) => {
           this.locations = locations.data;
           resolve(locations.data);

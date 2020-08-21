@@ -41,7 +41,7 @@ export class FixedassetmoveComponent implements OnInit {
   assets;
   asset;
   locations: LocationInterface[] = [];
-  ccenters: CcenterInterface[] = [];
+  CCenters: CcenterInterface[] = [];
   species: SpeciesInterface[] = [];
   reactiveForm: FormGroup;
 	Centers: CenterInterface[] = [];
@@ -54,7 +54,7 @@ export class FixedassetmoveComponent implements OnInit {
   constructor(
     public assetsService: AssetsService,
     public locationsService: LocationsService,
-    public ccentersService: CcenterService,
+    public slCCenterService: CcenterService,
     public specieService: SpecieService,
     public slCenterService: CenterService,
 		public slBuilding: BuildingService,
@@ -82,6 +82,10 @@ export class FixedassetmoveComponent implements OnInit {
 });
 //getcode
 
+
+
+  this.slCCenterService.getCcenters()
+  .then(CCenters => this.CCenters = CCenters);
 
     this.slCenterService.getCenters()
     .then(Centers => this.Centers = Centers);
@@ -121,11 +125,11 @@ export class FixedassetmoveComponent implements OnInit {
   
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
-    this.reactiveForm.controls['lCenter'].setValue(e.lCenter);
-    this.reactiveForm.controls['lBuilding'].setValue(e.lBuilding);
-    this.reactiveForm.controls['lFloor'].setValue(e.lFloor);
-    this.reactiveForm.controls['lArea'].setValue(e.lArea);
-    this.reactiveForm.controls['lRoom'].setValue(e.lRoom);
+    this.reactiveForm.controls['lCenter'].setValue(e.lCenter.id);
+    this.reactiveForm.controls['lBuilding'].setValue(e.lBuilding.id);
+    this.reactiveForm.controls['lFloor'].setValue(e.lFloor.id);
+    this.reactiveForm.controls['lArea'].setValue(e.lArea.id);
+    this.reactiveForm.controls['lRoom'].setValue(e.lRoom.id);
 
   }
 
@@ -143,7 +147,7 @@ export class FixedassetmoveComponent implements OnInit {
     }
 
 
-    //console.log(JSON.stringify(formValue));
+    console.log(JSON.stringify(formValue));
     this.assetsService.moveAssets(formValue, ide);
 
 
@@ -222,5 +226,11 @@ formatDate(f) {
   return dateInFormat
 }
 
+
+refresh(){
+
+  location.reload(true)
+
+}
 
 }

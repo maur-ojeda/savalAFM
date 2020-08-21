@@ -114,5 +114,11 @@ formatDate(f) {
 }
 
 
+refresh(){
+
+  location.reload(true)
+
+}
+
 }
 

@@ -182,6 +182,12 @@ formatDate(f) {
   return dateInFormat
 }
 
+refresh(){
+
+  location.reload(true)
+
+}
+
 
 }
 

@@ -62,3 +62,21 @@ body {
 .hidden {
     display: none;
 }
+
+.online-snackbar {
+    background: #0047cc;
+    .mat-button {
+        color: #ffffff;
+    }
+}
+
+.offline-snackbar {
+    background: #FF7518;
+    .mat-button {
+        color: #ffffff;
+    }
+}
+
+.md-12 {
+    font-size: 12px !important;
+}

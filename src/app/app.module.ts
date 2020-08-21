@@ -48,8 +48,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
-
-
+import {MatIconModule} from '@angular/material/icon';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { OpenFixedassetComponent } from './dialogs/open-fixedasset/open-fixedasset.component';
 import { MoveFixedassetComponent } from './dialogs/move-fixedasset/move-fixedasset.component';
@@ -66,7 +66,6 @@ import { MoveOkComponent } from './dialogs/move-ok/move-ok.component';
 import { DeleteOkComponent } from './dialogs/delete-ok/delete-ok.component';
 import { DeleteErrorComponent } from './dialogs/delete-error/delete-error.component';
 import { LogoutComponent } from './dialogs/logout/logout.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { DeleteConfirmationComponent } from './dialogs/delete-confirmation/delete-confirmation.component';
 import { MoveConfirmationComponent } from './dialogs/move-confirmation/move-confirmation.component';
 import { UpdateConfirmationComponent } from './dialogs/update-confirmation/update-confirmation.component';
@@ -116,7 +115,7 @@ import { WarningComponent } from './dialogs/warning/warning.component';
     UpdateConfirmationComponent,
     CreateConfirmationComponent,
     LoginErrorComponent,
-    WarningComponent 
+    WarningComponent,
   ],
   imports: [
     MatSnackBarModule,
@@ -141,6 +140,7 @@ import { WarningComponent } from './dialogs/warning/warning.component';
       MatExpansionModule,
       MatCheckboxModule,
       MatSelectModule,
+      MatIconModule
       
   ],
   entryComponents:[ OpenFixedassetComponent],

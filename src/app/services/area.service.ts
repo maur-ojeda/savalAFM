@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AreaService {
-  private url = "https://afsaval.agenciasur.cl"
+  private url = "https://devactivofijo.saval.cl:8443"
   private areas: AreaInterface[] = [];
   constructor(private http: HttpClient) { }
 

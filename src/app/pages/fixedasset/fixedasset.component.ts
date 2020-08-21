@@ -49,7 +49,7 @@ export class FixedassetComponent implements OnInit {
     this.asset = asset;
  
   
-    //console.log(JSON.stringify(this.asset['data'].status)); 
+console.log(JSON.stringify(this.asset)); 
 
 
     //TODO: revisar el estatus
@@ -95,6 +95,12 @@ export class FixedassetComponent implements OnInit {
   formatDate(f) {
     let dateInFormat = moment(f).format('DD-MM-YYYY HH:MM');
     return dateInFormat
+}
+
+refresh(){
+
+  location.reload(true)
+
 }
 
 

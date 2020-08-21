@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 
-  
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class BuildingService {
   
 
-  private url = "https://afsaval.agenciasur.cl"
+  private url = "https://devactivofijo.saval.cl:8443"
   private buildings: BuildingInterface[] = [];
 
   bbuildings: Array<Object>;
