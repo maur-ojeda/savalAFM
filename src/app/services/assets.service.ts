@@ -31,7 +31,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AssetsService {
 
 
-  private API_URL = "https://devactivofijo.saval.cl:8443"
+  private API_URL = "https://afsaval.agenciasur.cl"
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
 

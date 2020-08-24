@@ -342,7 +342,7 @@ export class CreateComponent implements OnInit {
 			"lifetimeYear": this.reactiveForm.value.lifetimeYear,
 		}
 		//console.log(JSON.stringify(formValue));
-		this.asset.fakeid = (Math.floor((Math.random() * 100) + 1).toString(8));
+		//this.asset.fakeid = (Math.floor((Math.random() * 100) + 1).toString(8));
 		this.assetsService.InsertAssets(formValue);
 		//this.reactiveForm.reset();//todo:mejorar mandar al detalle de asset
 	}

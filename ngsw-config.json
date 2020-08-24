@@ -34,7 +34,7 @@
     "dataGroups": [{
             "name": "request",
             "urls": [
-                "https://devactivofijo.saval.cl:8443/*"
+                "https://afsaval.agenciasur.cl/*"
             ],
             "cacheConfig": {
                 "strategy": "freshness",

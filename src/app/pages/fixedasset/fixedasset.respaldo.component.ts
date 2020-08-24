@@ -1,19 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { MatDialog } from '@angular/material/dialog';
-//import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
-//import * as moment from 'moment';
-
-import { AssetsDetailsService } from '../../services/assets-details.service';
-
-
 import { AssetsService } from '../../services/assets.service';
 //import {AssetInterface } from '../../interfaces/asset.interface';
-
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 //import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
-
+import { MatDialog } from '@angular/material/dialog';
+import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
+import * as moment from 'moment';
 
 
 
@@ -25,19 +18,18 @@ import { AssetsService } from '../../services/assets.service';
 export class FixedassetComponent implements OnInit {
   
 
-  //panelOpenState = false;
+  panelOpenState = false;
   //assets: AssetSearchInterface[] = [];
   //asset: AssetSearchInterface[] = [];
-  //assets;
-  //asset;
+  assets;
+  asset;
 
   constructor(
-    public assetsDetailsService: AssetsDetailsService,
-    public assetService: AssetsService,
+    public assetsService: AssetsService,
     private activatedRoute: ActivatedRoute,
-    //private router: Router,
-    //
-    //public dialog: MatDialog
+    private router: Router,
+    private location: Location,
+    public dialog: MatDialog
 
   ) {  }
 
@@ -46,12 +38,9 @@ export class FixedassetComponent implements OnInit {
     //getcode
     let code = this.activatedRoute.snapshot.paramMap.get('id');
 
-    //this.assetService.getAssetsData( code ).then( asset => {
-     // if ( !asset ) {
-      //return this.router.navigateByUrl('/');
-    //}
+    let codex = this.activatedRoute.snapshot.paramMap.get('code');
 
-/*
+
     this.assetsService.getAssetsData( code ).then( asset => {
       if ( !asset ) {
       return this.router.navigateByUrl('/');
@@ -100,12 +89,19 @@ console.log(JSON.stringify(this.asset));
     */
 	}
   
+/**
+ * transforma fecha 
+*/
+  formatDate(f) {
+    let dateInFormat = moment(f).format('DD-MM-YYYY HH:MM');
+    return dateInFormat
+}
 
-/*refresh(){
+refresh(){
 
   location.reload(true)
 
-}*/
+}
 
 
 }// end class

@@ -1,5 +1,4 @@
 export class Asset {
-    fakeid: string;
     id: number;
     status: number;
     createdAt: CreatedAt;

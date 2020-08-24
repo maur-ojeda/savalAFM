@@ -27,8 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
 //cookie
 import { CookieService } from 'ngx-cookie-service';
 //firebase
-import{AngularFireModule} from 'angularfire2';
-import{AngularFireDatabaseModule} from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 //services
 import { CreateComponent } from './pages/create/create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -37,19 +37,19 @@ import { FixedAssetClosedComponent } from './pages/fixed-asset-closed/fixed-asse
 import { RequestsComponent } from './pages/requests/requests.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Material
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatButtonModule} from '@angular/material/button';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatCardModule} from '@angular/material/card';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatTableModule} from '@angular/material/table';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatSelectModule} from '@angular/material/select';
-import {MatIconModule} from '@angular/material/icon';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { OpenFixedassetComponent } from './dialogs/open-fixedasset/open-fixedasset.component';
 import { MoveFixedassetComponent } from './dialogs/move-fixedasset/move-fixedasset.component';
@@ -72,6 +72,7 @@ import { UpdateConfirmationComponent } from './dialogs/update-confirmation/updat
 import { CreateConfirmationComponent } from './dialogs/create-confirmation/create-confirmation.component';
 import { LoginErrorComponent } from './dialogs/login-error/login-error.component';
 import { WarningComponent } from './dialogs/warning/warning.component';
+import { SharedserviceService } from '../app/services/sharedservice.service';
 
 
 @NgModule({
@@ -121,30 +122,30 @@ import { WarningComponent } from './dialogs/warning/warning.component';
     MatSnackBarModule,
     BrowserModule,
     AppRoutingModule,
-     FormsModule,
-     ReactiveFormsModule,
-      AngularFireModule.initializeApp(environment.firebase),
-      AngularFireDatabaseModule,
-      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-      HttpClientModule,
-      NgbModule,
-      BrowserAnimationsModule,
-      MatInputModule,
-      MatFormFieldModule,
-      MatButtonModule,
-      MatCardModule,
-      MatButtonToggleModule,
-      MatDialogModule,
-      MatProgressSpinnerModule,
-      MatTableModule,
-      MatExpansionModule,
-      MatCheckboxModule,
-      MatSelectModule,
-      MatIconModule
-      
+    FormsModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    HttpClientModule,
+    NgbModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatCardModule,
+    MatButtonToggleModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatExpansionModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatIconModule
+
   ],
-  entryComponents:[ OpenFixedassetComponent],
-  providers: [ CookieService, AuthGuard],
+  entryComponents: [OpenFixedassetComponent],
+  providers: [CookieService, AuthGuard, SharedserviceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
