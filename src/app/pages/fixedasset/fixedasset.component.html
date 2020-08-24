@@ -2,24 +2,235 @@
 </app-header>
 
 <div class="container">
+    <ng-container *ngIf="asset$ | async as asset; else loading">
+        <ng-container *ngIf="asset['data'] !== null; else noContent">
+
+
+
+            <div class="mt-5 pt-5 p-3">
+
+                <app-back-button></app-back-button>
+
+
+                <!--refactorizar a componente-->
+                <div class="row">
+                    <mat-button-toggle-group name="fontStyle">
+                        <mat-button-toggle [routerLink]="['/fixedAsset',asset['data'].code]" class="btn-primary active">Detalles
+                        </mat-button-toggle>
+                        <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset['data'].code]">Modificar</mat-button-toggle>
+                        <mat-button-toggle [routerLink]="['/fixedAssetMove', asset['data'].code]">Trasladar</mat-button-toggle>
+                        <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset['data'].code]">Dar de baja</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+
+
+
+
+                <div class="row pt-3">
+                    <mat-accordion class="full-width" [multi]="true">
+                        <mat-expansion-panel [expanded]="true">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Datos Activo fijo
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div *ngIf="asset['data'].status == 3">
+                                <div class="alert alert-dismissible alert-warning">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <h4 class="alert-heading"><strong>Atención</strong></h4>
+                                    <p class="mb-0 mt-0">Este activo fijo esta dado de baja</p>
+                                </div>
+                            </div>
+                            <p class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{utils.formatDate(asset['data'].createdAt.date)}}
+                            </p>
+                            <p class="display-5 pr-3 d-sm-block">Número AF: {{ asset['data'].referalCode }}
+                            </p>
+                            <p class="display-5 pr-3 d-sm-block">Código RFID: {{ asset['data'].rfidLabelSap }}
+                            </p>
+                            <p class="display-5 pr-3 d-sm-block">Condición:
+                                <span *ngIf="asset['data']?.status == 1" class="badge badge-secondary">En Proceso</span>
+                                <span *ngIf="asset['data']?.status == 2" class="badge badge-primary">Activo</span>
+                                <span *ngIf="asset['data']?.status == 3" class="badge badge-danger">Dado de Baja</span>
+                            </p>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Clase activo fijo</mat-label>
+                                <input matInput placeholder="" readonly value="{{asset['data'].catalogClass.name}}">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Código Rfid
+                                </mat-label>
+                                <input matInput readonly placeholder="Código Rfid" value={{asset.rfidLabelSap}}>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Sociedad
+                                </mat-label>
+                                <input matInput placeholder="" readonly value="{{asset['data'].society}}">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Fecha de Capitalización
+                                </mat-label>
+                                <input matInput placeholder="" readonly value="{{utils.formatDate(asset['data'].capitalizationDateAt.date)}}">
+                            </mat-form-field>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Especie
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Especie
+                                </mat-label>
+                                <input matInput placeholder="" readonly value="{{asset['data'].specie.name}}">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Número de serie
+                                </mat-label>
+                                <input matInput placeholder="" readonly value="{{asset['data'].serieNumber}}">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Denominación
+                                </mat-label>
+                                <textarea matInput [readonly]="true" cols="5">{{asset['data'].description}}</textarea>
+                            </mat-form-field>
+                            <mat-checkbox [checked]="true" [disabled]="true">Incluir activo fijo en lista inventario
+                            </mat-checkbox>
+                            <mat-checkbox [checked]="true" [disabled]="true">Gestión histórica</mat-checkbox>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Centro de costo
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Centro de costo
+                                </mat-label>
+                                <input matInput placeholder="" readonly value="{{asset['data'].costCenter.code}} - {{asset['data'].costCenter.name}}">
+                            </mat-form-field>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Asignaciones
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Centro
+                                </mat-label>
+                                <input matInput placeholder="Centro" readonly value="{{asset['data'].lCenter.code}} - {{asset['data'].lCenter.name}}">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Edificio
+                                </mat-label>
+                                <input matInput placeholder="Edificio" readonly value="{{asset['data'].lBuilding.code}} - {{asset['data'].lBuilding.name}}">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Piso
+                                </mat-label>
+                                <input matInput placeholder="Piso" readonly value="{{asset['data'].lFloor.code}} - {{asset['data'].lFloor.name}}">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Área
+                                </mat-label>
+                                <input matInput placeholder="Área" readonly value="{{asset['data'].lArea.code}} - {{asset['data'].lArea.name}}">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Sala
+                                </mat-label>
+                                <input matInput placeholder="Sala" readonly value="{{asset['data'].lRoom.code}} - {{asset['data'].lRoom.name}}">
+                            </mat-form-field>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Origen
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    ID Acreedor
+                                </mat-label>
+                                <input matInput placeholder="ID Acreedor" readonly value="{{asset['data'].creditorId}}">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Fabricante
+                                </mat-label>
+                                <input matInput placeholder="Fabricante" readonly value="{{asset['data'].creditorName}}">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Origen
+                                </mat-label>
+                                <input matInput placeholder="" readonly value="{{asset['data'].assetOrigin}}">
+                            </mat-form-field>
+                            <mat-checkbox [checked]="true" [disabled]="true">¿Es un activo nuevo?</mat-checkbox>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Años de vida útil
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Años de vida útil
+                                </mat-label>
+                                <input matInput placeholder="" readonly value="{{asset['data'].lifetimeYear}}">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>
+                                    Vida útil tributaria
+                                </mat-label>
+                                <input matInput placeholder="Vida útil tributaria" readonly value="{{asset['data'].lifetimeYear15}}">
+                            </mat-form-field>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
 
 
 
 
 
-    <!--
-        <ng-container *ngIf="seguros$ | async as seguros; else carregando">
-            <ng-container *ngIf="seguros.length > 0; else semSeguros">
-            </ng-container>
+
+            </div>
+
+
+
+
+
+
+
+
+
         </ng-container>
--->
+    </ng-container>
 
-    <ng-template #carregando>
-        Cargando ...
+
+    <ng-template #loading>
+        <mat-spinner></mat-spinner>
     </ng-template>
 
-    <ng-template #semSeguros>
-        No hay contenido
+    <ng-template #noContent>
+
+
+        <h1 class="text-danger">
+            {{utils.toHome()}}
+        </h1>
+
     </ng-template>
 
 

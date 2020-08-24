@@ -1,3 +1,7 @@
+/**
+ * se factorizaran las funciones
+ */
+
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -5,76 +9,60 @@ import { OnlineOfflineService } from './online-offline.service';
 import Dexie from 'dexie'
 
 
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+//puede ser instanciada por cualquier componenete solo se requiere el id
 export abstract class BaseService<T extends {id: string}> {
-
 
   private db: Dexie;
   private table: Dexie.Table<T, any> = null;
+
+  //protected, solo accesible en esta clase y en sus clase hijas 
   protected http: HttpClient;
   protected onlineOfflineService: OnlineOfflineService;
 
-
   constructor(
+    // solo servicios que psaran los hijos al padre
     protected injector: Injector,
     protected nombreTabla: string,
-    protected urlAPI: string,
-    private snackBar: MatSnackBar,
-  ) { 
+    protected urlAPI: string
 
+
+
+
+  ) {
     this.http = this.injector.get(HttpClient);
     this.onlineOfflineService = this.injector.get(OnlineOfflineService);
+    //llamada a los metodos
     this.oirStatusConexion();
     this.iniciarIndexDB();
-  }
 
+  }
 
 /**
  * funcion que inicia la base de datos indexDB
 */
-private iniciarIndexDB() {
-  this.db = new Dexie('db-assets')
-  this.db.version(1).stores({
-    [this.nombreTabla]: 'id'
-  });
-  this.table = this.db.table(this.nombreTabla);
-}
-
-listar(): Observable<T[]> {
-  return this.http.get<T[]>(this.urlAPI);
-}
-
-/**AssetsDetails
- * toma los datos desde la API 
-*/
-AssetsDetails(code: string): Observable<T[]> {
-  let headers = new HttpHeaders()
-  .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
-  .set('Content-Type', 'application/x-www-form-urlencoded')
-  return this.http.get<T[]>(this.urlAPI + '/webservice/rest/assets/search?code=' + code, { headers })
-}
+  private iniciarIndexDB() {
+    this.db = new Dexie('db-seguros')
+    this.db.version(1).stores({
+      [this.nombreTabla]: 'id'
+    });
+    this.table = this.db.table(this.nombreTabla);
+  }
 
 
+  private salvarAPI(tabla: T) {
+    this.http.post(this.urlAPI, tabla)
+      .subscribe(
+        () => alert('tabla ingresado correctamente'),
+        (err) => console.log('error en registro')
+      );
+  }
 
-
-
-
-
-//grabar en db post
-private salvarAPI(tabla: T) {
-  this.http.post(this.urlAPI, tabla)
-    .subscribe(
-      () => alert('tabla ingresado correctamente'),
-      (err) => console.log('error en registro')
-    );
-}
-// grabar en indexdb
-private async salvarindexDB(tabla: T) {
+  /**
+   * funcion asincrona que graba en indexDB
+   * */
+  private async salvarindexDB(tabla: T) {
     try {
       // await espera la resolucion de esta linea, como una promesa
       await this.table.add(tabla)
@@ -85,9 +73,14 @@ private async salvarindexDB(tabla: T) {
       console.log('error al agregar tabla a la base de datos', error)
     }
   }
-//revision que pasa con el resto de metodos
-private async enviarIndexDBaApi() {
+
+
+  /**
+   * Funcion que envia lo de la indexdb a la api
+  */
+  private async enviarIndexDBaApi() {
     const todostabla: T[] = await this.table.toArray();
+
     for (const tabla of todostabla) {
       //por cada uno de los seguros en todosSeguros los grabo en la API
       this.salvarAPI(tabla)
@@ -95,29 +88,57 @@ private async enviarIndexDBaApi() {
       await this.table.delete(tabla.id)
       console.log(`tabla con el id ${tabla.id} fue eliminado con éxito`)
     }
+
+
   }
 
 
-   /**Funcion que escucha si la aplicacion esta en linea 
+  grabar(tabla: T) {
+    if (this.onlineOfflineService.isOnline) {
+      this.salvarAPI(tabla);
+    }
+    else {
+      this.salvarindexDB(tabla);
+    }
+
+
+
+  }
+
+  listar(): Observable<T[]> {
+    return this.http.get<T[]>(this.urlAPI);
+  }
+
+
+  findByCode(code: string): Observable<T[]> {
+    let headers = new HttpHeaders()
+    .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+    .set('Content-Type', 'application/x-www-form-urlencoded')
+
+    return this.http.get<T[]>(this.urlAPI+ '/webservice/rest/assets/search?code=' + code, { headers })
+  }
+
+
+
+
+  /**Funcion que escucha si la aplicacion esta en linea 
+   * 
    */
   private oirStatusConexion() {
     this.onlineOfflineService.statusConexion
       .subscribe(
         online => {
           if (online) {
-            //envia lo grabado desde indexDB a la api
-            //this.enviarIndexDBaApi();
-            this.snackBar.open('Con conexión', 'Aceptar', { panelClass: ['online-snackbar'], duration: 4000 });
-            
+            //envia lo grabado en el index a la api
+            this.enviarIndexDBaApi();
           }
           else {
-            //console.log('estoy offline')
-            this.snackBar.open('Sin conexión', 'aceptar', { panelClass:['offline-snackbar'], duration: 4000 });          
+            console.log('estoy offline')
           }
-        })
+        }
+
+      )
   }
-
-
 
 
 }

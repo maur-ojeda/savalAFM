@@ -1,5 +1,5 @@
 export class Asset {
-    id: number;
+    id: string;
     status: number;
     createdAt: CreatedAt;
     updatedAt: CreatedAt;

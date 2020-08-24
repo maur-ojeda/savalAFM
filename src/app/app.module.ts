@@ -73,6 +73,8 @@ import { CreateConfirmationComponent } from './dialogs/create-confirmation/creat
 import { LoginErrorComponent } from './dialogs/login-error/login-error.component';
 import { WarningComponent } from './dialogs/warning/warning.component';
 import { SharedserviceService } from '../app/services/sharedservice.service';
+import { BackButtonComponent } from './shared/back-button/back-button.component';
+import { TabsComponent } from './shared/tabs/tabs.component';
 
 
 @NgModule({
@@ -117,6 +119,8 @@ import { SharedserviceService } from '../app/services/sharedservice.service';
     CreateConfirmationComponent,
     LoginErrorComponent,
     WarningComponent,
+    BackButtonComponent,
+    TabsComponent,
   ],
   imports: [
     MatSnackBarModule,

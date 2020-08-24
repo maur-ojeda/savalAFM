@@ -10,6 +10,8 @@ Project Description
 - [ ] Logo saval a SVG  
 - [ ] ordenar tabla  
 - [ ] ordenar selects por numero o nombre  
+- [ ] poner "seleccione.." en crear  
+- [ ] loader en login  
 
 ### In Progress
 

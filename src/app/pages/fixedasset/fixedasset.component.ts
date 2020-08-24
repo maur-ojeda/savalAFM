@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SharedserviceService} from '../../services/sharedservice.service'
 
 import { MatDialog } from '@angular/material/dialog';
 //import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
@@ -9,6 +10,8 @@ import { AssetsDetailsService } from '../../services/assets-details.service';
 
 
 import { AssetsService } from '../../services/assets.service';
+import { Asset } from 'src/app/models/asset.model';
+import { Observable } from 'rxjs';
 //import {AssetInterface } from '../../interfaces/asset.interface';
 
 
@@ -23,7 +26,7 @@ import { AssetsService } from '../../services/assets.service';
   styleUrls: ['./fixedasset.component.scss']
 })
 export class FixedassetComponent implements OnInit {
-  
+  public asset$:Observable<Asset[]>;
 
   //panelOpenState = false;
   //assets: AssetSearchInterface[] = [];
@@ -35,6 +38,7 @@ export class FixedassetComponent implements OnInit {
     public assetsDetailsService: AssetsDetailsService,
     public assetService: AssetsService,
     private activatedRoute: ActivatedRoute,
+    public utils: SharedserviceService
     //private router: Router,
     //
     //public dialog: MatDialog
@@ -44,7 +48,15 @@ export class FixedassetComponent implements OnInit {
 
   ngOnInit(): void {
     //getcode
+
+    
     let code = this.activatedRoute.snapshot.paramMap.get('id');
+    this.asset$ = this.assetsDetailsService.findByCode(code);
+
+    this.asset$.subscribe(
+      (asset)=>{console.log(asset)},
+      (error)=>{console.log(error)},
+    )
 
     //this.assetService.getAssetsData( code ).then( asset => {
      // if ( !asset ) {
