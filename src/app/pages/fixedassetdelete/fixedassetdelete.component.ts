@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetsService } from '../../services/assets.service';
+import { SharedserviceService} from '../../services/sharedservice.service';
+import { AssetsDeleteService } from '../../services/assets-delete.service';
+
+
 import { ActivatedRoute, Router } from '@angular/router';
+
 import {AssetInterface } from '../../interfaces/asset.interface';
-import { Location } from '@angular/common';
+//import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 import { DeleteConfirmationComponent } from 'src/app/dialogs/delete-confirmation/delete-confirmation.component';
@@ -19,31 +24,30 @@ import * as moment from 'moment';
 export class FixedassetdeleteComponent implements OnInit {
   // assets: AssetSearchInterface[] = [];
   // asset: AssetSearchInterface[] = [];
-  assets;
-  asset;
+  // assets;
+  // asset;
+  public asset$:Observable<Asset[]>;
   reactiveForm: FormGroup;
 
   constructor(
-    public assetsService: AssetsService,
+    public assetsDeleteService: AssetsDeleteService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private location: Location, 
     private builder: FormBuilder,
     public dialog: MatDialog 
   ) { }
 
   
   ngOnInit(): void {
+
     //getcode
     let code = this.activatedRoute.snapshot.paramMap.get('id');
-    this.assetsService.getAssetsData( code ).then( asset => {
-      if ( !asset ) {
-      return this.router.navigateByUrl('/');
-    }
-    this.asset = asset;
-    this.getAssetsData(asset)
- 
-  });
+    this.asset$ = this.assetsDeleteService.findByCode(code);
+
+    this.asset$.suscribe(
+      (asset)=>{this.getAssetsData(asset)}
+    )
+    
   //getcode
   
     this.reactiveForm = this.builder.group({
@@ -63,19 +67,8 @@ export class FixedassetdeleteComponent implements OnInit {
   }
 
 
-
-  goBack() {
-    this.location.back();
-  }
-
-  transformDate(date) {
-   // this.datePipe.transform(date, 'dd/MM/aaaa');
-  }
-
   deleteAsset(){
-
     let ide = this.reactiveForm.value.assetID;
-
     let formValue = {
       "downDocumentAt": this.reactiveForm.value.downDocumentAt,
       "downPostingAt": this.reactiveForm.value.downPostingAt,
@@ -83,8 +76,26 @@ export class FixedassetdeleteComponent implements OnInit {
       "downComment": this.reactiveForm.value.downComment
     }
 
-    //console.log(JSON.stringify(formValue, ide));
-    this.assetsService.downAssets(formValue, ide);
+  
+    this.assetsDeleteService.deleteAsset(formValue, ide)
+    .subscribe(
+      val => {
+        this.dialog.open(DeleteOkComponent, {
+          width: '98VW',
+          data: {
+            anyProperty: val
+          }
+        });
+      },
+      response => {
+        this.dialog.open(DeleteErrorComponent, {
+          width: '98VW',
+          data: {
+            anyProperty: response
+          }
+        });
+      }
+    );
 
 
 

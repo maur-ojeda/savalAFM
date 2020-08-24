@@ -7,12 +7,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OnlineOfflineService } from './online-offline.service';
 import Dexie from 'dexie'
+import { CreateErrorComponent } from '../dialogs/create-error/create-error.component';
+import { CreateOkComponent } from '../dialogs/create-ok/create-ok.component';
+import { UpdateOkComponent } from '../dialogs/update-ok/update-ok.component';
+import { UpdateErrorComponent } from '../dialogs/update-error/update-error.component';
+import { MoveOkComponent } from '../dialogs/move-ok/move-ok.component';
+import { DeleteOkComponent } from '../dialogs/delete-ok/delete-ok.component';
+import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.component';
+import { MoveErrorComponent } from '../dialogs/move-error/move-error.component';
 
+import { MatDialog } from '@angular/material/dialog';
 
 
 
 //puede ser instanciada por cualquier componenete solo se requiere el id
-export abstract class BaseService<T extends {id: string}> {
+export abstract class BaseService<T extends { id: string }> {
 
   private db: Dexie;
   private table: Dexie.Table<T, any> = null;
@@ -25,7 +34,8 @@ export abstract class BaseService<T extends {id: string}> {
     // solo servicios que psaran los hijos al padre
     protected injector: Injector,
     protected nombreTabla: string,
-    protected urlAPI: string
+    protected urlAPI: string,
+    public dialog: MatDialog
 
 
 
@@ -39,9 +49,9 @@ export abstract class BaseService<T extends {id: string}> {
 
   }
 
-/**
- * funcion que inicia la base de datos indexDB
-*/
+  /**
+   * funcion que inicia la base de datos indexDB
+  */
   private iniciarIndexDB() {
     this.db = new Dexie('db-seguros')
     this.db.version(1).stores({
@@ -110,13 +120,122 @@ export abstract class BaseService<T extends {id: string}> {
   }
 
 
+
+  /////////
   findByCode(code: string): Observable<T[]> {
     let headers = new HttpHeaders()
-    .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
-    .set('Content-Type', 'application/x-www-form-urlencoded')
-
-    return this.http.get<T[]>(this.urlAPI+ '/webservice/rest/assets/search?code=' + code, { headers })
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.get<T[]>(this.urlAPI + '/webservice/rest/assets/search?code=' + code, { headers })
   }
+
+
+
+  deleteAsset(formValue, ide) {
+    const options = {
+      headers: new HttpHeaders({
+        "Authorization": "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==",
+        "Content-Type": "application/x-www-form-urlencoded",
+      }),
+      body: {
+        "downDocumentAt": formValue.downDocumentAt,
+        "downPostingAt": formValue.downPostingAt,
+        "downReferenceAt": formValue.downReferenceAt,
+        "downComment": formValue.downComment
+      },
+    };
+    this.http.delete(this.urlAPI + "/webservice/rest/asset/delete/" + ide, options)
+      .subscribe(
+        val => {
+          this.dialog.open(DeleteOkComponent, {
+            width: '98VW',
+            data: {
+              anyProperty: val
+            }
+          });
+        },
+        response => {
+          this.dialog.open(DeleteErrorComponent, {
+            width: '98VW',
+            data: {
+              anyProperty: response
+            }
+          });
+        }
+      );
+  }
+  InsertAssets(formValue) {
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    this.http.post(this.API_URL + '/webservice/rest/request/add', formValue, { headers })
+      .subscribe(
+        val => {
+          this.dialog.open(CreateOkComponent, {
+            width: '98VW',
+            data: {
+              anyProperty: val
+            }
+          });
+        },
+        response => {
+          this.dialog.open(CreateErrorComponent, {
+            width: '98VW',
+            data: {
+              anyProperty: response
+            }
+          });
+        }
+      );
+  }
+  updateAssets(formValue, ide) {
+
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set("Content-Type", "application/x-www-form-urlencoded");
+    this.http.put(this.API_URL + '/webservice/rest/asset/update/' + ide, formValue, { headers })
+      .subscribe(
+        val => {
+          this.dialog.open(UpdateOkComponent, {
+            data: {
+              anyProperty: val
+            }
+          });
+        },
+        response => {
+          this.dialog.open(UpdateErrorComponent, {
+            data: {
+              anyProperty: response
+            }
+          });
+        }
+      );
+  }
+  moveAssets(formValue, ide) {
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set("Content-Type", "application/x-www-form-urlencoded");
+    this.http.put(this.API_URL + '/webservice/rest/asset/move/' + ide, formValue, { headers }).subscribe(
+      val => {
+        this.dialog.open(MoveOkComponent, {
+          data: {
+            anyProperty: val
+          }
+        });
+      },
+      response => {
+        this.dialog.open(MoveErrorComponent, {
+          data: {
+            anyProperty: response
+          }
+        });
+      }
+    );
+  }
+
+
+
+
 
 
 
