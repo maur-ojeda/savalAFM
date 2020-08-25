@@ -31,7 +31,7 @@
         </div>
         <!-- / row botonera -->
         <form [formGroup]="reactiveForm" (ngSubmit)="Dialog()">
-            <input matInput formControlName="assetID" value="{{asset.id}}" class="hidden">
+            <input matInput formControlName="assetID" value="{{asset['data'].id}}" class="hidden">
 
 
 
@@ -319,6 +319,7 @@
 
                 </mat-accordion>
             </div>
+
             <div class="row pt-3 mb-5">
                 <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-lg btn-danger full-width mb-3">Dar de
                     baja</button>
