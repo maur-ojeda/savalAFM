@@ -75,6 +75,10 @@ import { WarningComponent } from './dialogs/warning/warning.component';
 import { SharedserviceService } from '../app/services/sharedservice.service';
 import { BackButtonComponent } from './shared/back-button/back-button.component';
 import { TabsComponent } from './shared/tabs/tabs.component';
+import { AssetDetailsComponent } from './pages/asset-details/asset-details.component';
+import { AssetMoveComponent } from './pages/asset-move/asset-move.component';
+import { AssetUpdateComponent } from './pages/asset-update/asset-update.component';
+import { AssetDeleteComponent } from './pages/asset-delete/asset-delete.component';
 
 
 @NgModule({
@@ -121,6 +125,10 @@ import { TabsComponent } from './shared/tabs/tabs.component';
     WarningComponent,
     BackButtonComponent,
     TabsComponent,
+    AssetDetailsComponent,
+    AssetMoveComponent,
+    AssetUpdateComponent,
+    AssetDeleteComponent,
   ],
   imports: [
     MatSnackBarModule,

@@ -15,10 +15,18 @@ Project Description
 
 ### In Progress
 
-  - [ ] Modo Offline  
+- [ ] Modo Offline  
+  - [ ] assetsDeleteService  
+  - [ ] crear assetUpdate  
+  - [ ] assetsUpdateService  
+  - [ ] crear assetMove  
+  - [ ] assetsMoveService  
+  - [ ] crear assetDelete  
 
 ### Done ✓
 
+  - [x] assetsDetailsService  
+  - [x] crear assetDetails  
 - [x] mostrar alerta de cuando este offline  
 - [x] Alerta de activo fijo dado de baja: fixedasset.component.ts:51:  
 - [x] alerta de codigo no encontrado e UPDATE, MOVE, DELETE  

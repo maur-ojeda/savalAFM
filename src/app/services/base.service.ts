@@ -7,16 +7,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OnlineOfflineService } from './online-offline.service';
 import Dexie from 'dexie'
-import { CreateErrorComponent } from '../dialogs/create-error/create-error.component';
-import { CreateOkComponent } from '../dialogs/create-ok/create-ok.component';
-import { UpdateOkComponent } from '../dialogs/update-ok/update-ok.component';
-import { UpdateErrorComponent } from '../dialogs/update-error/update-error.component';
-import { MoveOkComponent } from '../dialogs/move-ok/move-ok.component';
-import { DeleteOkComponent } from '../dialogs/delete-ok/delete-ok.component';
-import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.component';
-import { MoveErrorComponent } from '../dialogs/move-error/move-error.component';
+//import { CreateErrorComponent } from '../dialogs/create-error/create-error.component';
+//import { CreateOkComponent } from '../dialogs/create-ok/create-ok.component';
+//import { UpdateOkComponent } from '../dialogs/update-ok/update-ok.component';
+//import { UpdateErrorComponent } from '../dialogs/update-error/update-error.component';
+//import { MoveOkComponent } from '../dialogs/move-ok/move-ok.component';
+//import { DeleteOkComponent } from '../dialogs/delete-ok/delete-ok.component';
+//import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.component';
+//import { MoveErrorComponent } from '../dialogs/move-error/move-error.component';
 
-import { MatDialog } from '@angular/material/dialog';
+//import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -35,7 +35,7 @@ export abstract class BaseService<T extends { id: string }> {
     protected injector: Injector,
     protected nombreTabla: string,
     protected urlAPI: string,
-    public dialog: MatDialog
+    //public dialog: MatDialog
 
 
 

@@ -13,6 +13,6 @@ export class AssetsDetailsService extends BaseService<Asset> {
   ){
     super(injector, 'asset', 'https://afsaval.agenciasur.cl');
   }
-
+x
 
 }

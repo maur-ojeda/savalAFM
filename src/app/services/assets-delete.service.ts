@@ -12,7 +12,7 @@ export class AssetsDeleteService extends BaseService<Asset> {
   constructor(
     protected injector:Injector
   ){
-    super(injector, 'deleteaAsset', 'https://afsaval.agenciasur.cl');
+    super(injector, 'deleteAsset', 'https://afsaval.agenciasur.cl');
   }
 
 
