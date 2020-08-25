@@ -144,8 +144,9 @@ export abstract class BaseService<T extends { id: string }> {
         "downComment": formValue.downComment
       },
     };
-    this.http.delete(this.urlAPI + "/webservice/rest/asset/delete/" + ide, options)
-      .subscribe(
+   return this.http.delete(this.urlAPI + "/webservice/rest/asset/delete/" + ide, options)
+    /* 
+    .subscribe(
         val => {
           this.dialog.open(DeleteOkComponent, {
             width: '98VW',
@@ -163,13 +164,14 @@ export abstract class BaseService<T extends { id: string }> {
           });
         }
       );
+      */
   }
   InsertAssets(formValue) {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set('Content-Type', 'application/x-www-form-urlencoded')
-    this.http.post(this.API_URL + '/webservice/rest/request/add', formValue, { headers })
-      .subscribe(
+    return this.http.post(this.urlAPI + '/webservice/rest/request/add', formValue, { headers })
+     /* .subscribe(
         val => {
           this.dialog.open(CreateOkComponent, {
             width: '98VW',
@@ -186,15 +188,15 @@ export abstract class BaseService<T extends { id: string }> {
             }
           });
         }
-      );
+      );*/
   }
   updateAssets(formValue, ide) {
 
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set("Content-Type", "application/x-www-form-urlencoded");
-    this.http.put(this.API_URL + '/webservice/rest/asset/update/' + ide, formValue, { headers })
-      .subscribe(
+    return this.http.put(this.urlAPI + '/webservice/rest/asset/update/' + ide, formValue, { headers })
+    /*  .subscribe(
         val => {
           this.dialog.open(UpdateOkComponent, {
             data: {
@@ -209,13 +211,15 @@ export abstract class BaseService<T extends { id: string }> {
             }
           });
         }
-      );
+      );*/
   }
   moveAssets(formValue, ide) {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set("Content-Type", "application/x-www-form-urlencoded");
-    this.http.put(this.API_URL + '/webservice/rest/asset/move/' + ide, formValue, { headers }).subscribe(
+  return this.http.put(this.urlAPI  + '/webservice/rest/asset/move/' + ide, formValue, { headers })
+    /*
+    .subscribe(
       val => {
         this.dialog.open(MoveOkComponent, {
           data: {
@@ -230,7 +234,7 @@ export abstract class BaseService<T extends { id: string }> {
           }
         });
       }
-    );
+    );*/
   }
 
 

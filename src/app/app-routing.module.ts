@@ -12,6 +12,8 @@ import { FixedAssetsComponent } from './pages/fixed-assets/fixed-assets.componen
 import { FixedassetmoveComponent } from './pages/fixedassetmove/fixedassetmove.component';
 import { FixedassetdeleteComponent } from './pages/fixedassetdelete/fixedassetdelete.component';
 import { FixedassetupdateComponent } from './pages/fixedassetupdate/fixedassetupdate.component';
+
+
 import { FixedassetComponent } from './pages/fixedasset/fixedasset.component';
 
 
@@ -26,6 +28,10 @@ import { RequestsComponent } from './pages/requests/requests.component';
 
 ////
 import {AssetDetailsComponent} from './pages/asset-details/asset-details.component';
+import {AssetDeleteComponent} from './pages/asset-delete/asset-delete.component';
+import {AssetMoveComponent} from './pages/asset-move/asset-move.component';
+import {AssetUpdateComponent} from './pages/asset-update/asset-update.component';
+
 
 
 //import { UsersService } from './services/user.service';
@@ -43,19 +49,17 @@ const routes: Routes = [
   { path: 'fixedAssets', component: FixedAssetsComponent, canActivate: [AuthGuard] },
   
   
-  //individual
-  { path: 'fixedAsset/:id', component: AssetDetailsComponent },
+  //individual - antiguo
+  { path: 'fixedAssetOld/:id', component: FixedassetComponent, canActivate: [AuthGuard] },
+  { path: 'fixedAssetMoveOld/:id', component: FixedassetmoveComponent, canActivate: [AuthGuard] },
+  { path: 'fixedAssetUpdateOld/:id', component: FixedassetupdateComponent, canActivate: [AuthGuard] },
+  { path: 'fixedAssetDeleteOld/:id', component: FixedassetdeleteComponent, canActivate: [AuthGuard] },
 
-
-  { path: 'fixedAssetMove/:id', component: FixedassetmoveComponent, canActivate: [AuthGuard] },
-  
-  { path: 'fixedAssetUpdate/:id', component: FixedassetupdateComponent, canActivate: [AuthGuard] },
-
-
-//todo: aqui estoy
-{ path: 'fixedAssetDelete/:id', component: FixedassetdeleteComponent, canActivate: [AuthGuard] },
-
-
+//nuevos
+{ path: 'fixedAsset/:id', component: AssetDetailsComponent, canActivate: [AuthGuard] },
+{ path: 'fixedAssetMove/:id', component: AssetMoveComponent, canActivate: [AuthGuard] },
+{ path: 'fixedAssetUpdate/:id', component: AssetUpdateComponent, canActivate: [AuthGuard] },
+{ path: 'fixedAssetDelete/:id', component: AssetDeleteComponent, canActivate: [AuthGuard] },
 
   
  

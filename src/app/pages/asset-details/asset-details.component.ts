@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SharedserviceService} from '../../services/sharedservice.service';
 import { AssetsDetailsService } from '../../services/assets-details.service';
 import { Asset } from 'src/app/models/asset.model';
 import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-asset-details',
