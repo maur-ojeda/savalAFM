@@ -29,7 +29,7 @@ export class AssetDeleteComponent implements OnInit {
 
   ngOnInit(): void {
       let code = this.activatedRoute.snapshot.paramMap.get('id');
-      this.asset$ = this.assetsDeleteService.findByCode(code);
+      this.asset$ = this.utils.findByCode(code);
       this.asset$.subscribe((e)=>{
         this.reactiveForm.controls['assetID'].setValue(e['data'].id);
       });
@@ -47,23 +47,22 @@ export class AssetDeleteComponent implements OnInit {
 
 
     deleteAsset(){
-
-      let ide = this.reactiveForm.value.assetID; 
+      /*let ide = ; 
       let formValue = {
         "downDocumentAt": this.reactiveForm.value.downDocumentAt,
         "downPostingAt": this.reactiveForm.value.downPostingAt,
         "downReferenceAt": this.reactiveForm.value.downReferenceAt,
         "downComment": this.reactiveForm.value.downComment
-      }
+      }*/
  
-      this.asset.id = ide; 
+      this.asset.id = this.reactiveForm.value.assetID; 
       this.asset.downDocumentAt = this.reactiveForm.value.downDocumentAt;
       this.asset.downPostingAt = this.reactiveForm.value.downPostingAt;
       this.asset.downReferenceAt = this.reactiveForm.value.downReferenceAt;
       this.asset.downComment = this.reactiveForm.value.downComment;
       
-      this.assetsDeleteService.delete( this.asset,formValue, ide);
-      
+      this.assetsDeleteService.delete(this.asset);
+      console.log(this.asset)
     }
 
 
@@ -73,7 +72,6 @@ export class AssetDeleteComponent implements OnInit {
       });
       
       dialogRef.afterClosed().subscribe(result => {
-        //console.log(`Dialog result: ${result}`);
                 if(result){
                   this.deleteAsset();
                 }
