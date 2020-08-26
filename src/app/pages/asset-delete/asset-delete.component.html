@@ -11,7 +11,9 @@
                 <app-tabs [asset]=asset></app-tabs>
 
                 <form [formGroup]="reactiveForm" (ngSubmit)="Dialog()">
-                    <input matInput formControlName="assetID" value="{{asset.id}}" class="hidden">
+
+
+                    <input matInput formControlName="assetID" value="{{asset['data'].id}}" class="hidden">
 
 
                     <div class="row pt-3">

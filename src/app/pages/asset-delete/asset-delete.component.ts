@@ -15,6 +15,7 @@ import { DeleteConfirmationComponent } from 'src/app/dialogs/delete-confirmation
 })
 export class AssetDeleteComponent implements OnInit {
   public asset$:Observable<Asset[]>;
+  public asset = new Asset();
   reactiveForm: FormGroup;
 
   constructor(
@@ -23,12 +24,15 @@ export class AssetDeleteComponent implements OnInit {
     public utils: SharedserviceService,
     private builder: FormBuilder,
     public dialog: MatDialog 
+
   ) { }
 
   ngOnInit(): void {
       let code = this.activatedRoute.snapshot.paramMap.get('id');
       this.asset$ = this.assetsDeleteService.findByCode(code);
-   
+      this.asset$.subscribe((e)=>{
+        this.reactiveForm.controls['assetID'].setValue(e['data'].id);
+      });
    
       this.reactiveForm = this.builder.group({
         assetID:['',[]],
@@ -37,25 +41,29 @@ export class AssetDeleteComponent implements OnInit {
         downReferenceAt: ['', [Validators.required]],
         downComment: ['', [Validators.required]],
       });
+
     }
 
 
 
     deleteAsset(){
 
-      let ide = this.reactiveForm.value.assetID;
-  
+      let ide = this.reactiveForm.value.assetID; 
       let formValue = {
         "downDocumentAt": this.reactiveForm.value.downDocumentAt,
         "downPostingAt": this.reactiveForm.value.downPostingAt,
         "downReferenceAt": this.reactiveForm.value.downReferenceAt,
         "downComment": this.reactiveForm.value.downComment
       }
-  
-      console.log(JSON.stringify(formValue));
-      console.log(JSON.stringify(ide));
-      // Buscar el metodo en base service
-      // this.assetsService.downAssets(formValue, ide);
+ 
+      this.asset.id = ide; 
+      this.asset.downDocumentAt = this.reactiveForm.value.downDocumentAt;
+      this.asset.downPostingAt = this.reactiveForm.value.downPostingAt;
+      this.asset.downReferenceAt = this.reactiveForm.value.downReferenceAt;
+      this.asset.downComment = this.reactiveForm.value.downComment;
+      
+      this.assetsDeleteService.delete( this.asset,formValue, ide);
+      
     }
 
 

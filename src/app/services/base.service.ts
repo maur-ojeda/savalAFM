@@ -2,33 +2,22 @@
  * se factorizaran las funciones
  */
 
-import { Injectable, Injector } from '@angular/core';
+import { Injector } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OnlineOfflineService } from './online-offline.service';
 import Dexie from 'dexie'
-//import { CreateErrorComponent } from '../dialogs/create-error/create-error.component';
-//import { CreateOkComponent } from '../dialogs/create-ok/create-ok.component';
-//import { UpdateOkComponent } from '../dialogs/update-ok/update-ok.component';
-//import { UpdateErrorComponent } from '../dialogs/update-error/update-error.component';
-//import { MoveOkComponent } from '../dialogs/move-ok/move-ok.component';
-//import { DeleteOkComponent } from '../dialogs/delete-ok/delete-ok.component';
-//import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.component';
-//import { MoveErrorComponent } from '../dialogs/move-error/move-error.component';
-
-//import { MatDialog } from '@angular/material/dialog';
 
 
 
 //puede ser instanciada por cualquier componenete solo se requiere el id
 export abstract class BaseService<T extends { id: string }> {
-
   private db: Dexie;
   private table: Dexie.Table<T, any> = null;
 
-  //protected, solo accesible en esta clase y en sus clase hijas 
   protected http: HttpClient;
   protected onlineOfflineService: OnlineOfflineService;
+
 
   constructor(
     // solo servicios que psaran los hijos al padre
@@ -36,10 +25,7 @@ export abstract class BaseService<T extends { id: string }> {
     protected nombreTabla: string,
     protected urlAPI: string,
     //public dialog: MatDialog
-
-
-
-
+    //private snackBar: MatSnackBar
   ) {
     this.http = this.injector.get(HttpClient);
     this.onlineOfflineService = this.injector.get(OnlineOfflineService);
@@ -90,7 +76,6 @@ export abstract class BaseService<T extends { id: string }> {
   */
   private async enviarIndexDBaApi() {
     const todostabla: T[] = await this.table.toArray();
-
     for (const tabla of todostabla) {
       //por cada uno de los seguros en todosSeguros los grabo en la API
       this.salvarAPI(tabla)
@@ -110,17 +95,18 @@ export abstract class BaseService<T extends { id: string }> {
     else {
       this.salvarindexDB(tabla);
     }
-
-
-
   }
+
+
+
+
+insert(tabla: T){}
+update(tabla: T){}
+move(tabla: T){}
 
   listar(): Observable<T[]> {
     return this.http.get<T[]>(this.urlAPI);
   }
-
-
-
   /////////
   findByCode(code: string): Observable<T[]> {
     let headers = new HttpHeaders()
@@ -128,10 +114,97 @@ export abstract class BaseService<T extends { id: string }> {
       .set('Content-Type', 'application/x-www-form-urlencoded')
     return this.http.get<T[]>(this.urlAPI + '/webservice/rest/assets/search?code=' + code, { headers })
   }
+  InsertAssetsApi(formValue) {
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    return this.http.post(this.urlAPI + '/webservice/rest/request/add', formValue, { headers })
+     /* .subscribe(
+        val => {
+          this.dialog.open(CreateOkComponent, {
+            width: '98VW',
+            data: {
+              anyProperty: val
+            }
+          });
+        },
+        response => {
+          this.dialog.open(CreateErrorComponent, {
+            width: '98VW',
+            data: {
+              anyProperty: response
+            }
+          });
+        }
+      );*/
+  }
+  updateAssetsApi(formValue, ide) {
+
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set("Content-Type", "application/x-www-form-urlencoded");
+    return this.http.put(this.urlAPI + '/webservice/rest/asset/update/' + ide, formValue, { headers })
+    /*  .subscribe(
+        val => {
+          this.dialog.open(UpdateOkComponent, {
+            data: {
+              anyProperty: val
+            }
+          });
+        },
+        response => {
+          this.dialog.open(UpdateErrorComponent, {
+            data: {
+              anyProperty: response
+            }
+          });
+        }
+      );*/
+  }
+  moveAssetsApi(formValue, ide) {
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set("Content-Type", "application/x-www-form-urlencoded");
+  return this.http.put(this.urlAPI  + '/webservice/rest/asset/move/' + ide, formValue, { headers })
+    /*
+    .subscribe(
+      val => {
+        this.dialog.open(MoveOkComponent, {
+          data: {
+            anyProperty: val
+          }
+        });
+      },
+      response => {
+        this.dialog.open(MoveErrorComponent, {
+          data: {
+            anyProperty: response
+          }
+        });
+      }
+    );*/
+  }
 
 
 
-  deleteAsset(formValue, ide) {
+  delete(tabla: T,  ide: any, formValue: any ){
+    if (this.onlineOfflineService.isOnline) {
+        //this.salvarAPI(tabla);
+      //  this.deleteAssetApi(ide, formValue)
+
+      //prueba de grabacion local
+      this.deleteAssetindexDB(tabla)
+      }
+    else {
+      //acción en indexdb
+      //this.salvarindexDB(tabla);
+      this.deleteAssetindexDB(tabla)
+    }
+  }
+
+
+///DELETE
+  deleteAssetApi(formValue: any, ide: any ) {
     const options = {
       headers: new HttpHeaders({
         "Authorization": "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==",
@@ -166,80 +239,16 @@ export abstract class BaseService<T extends { id: string }> {
       );
       */
   }
-  InsertAssets(formValue) {
-    let headers = new HttpHeaders()
-      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
-      .set('Content-Type', 'application/x-www-form-urlencoded')
-    return this.http.post(this.urlAPI + '/webservice/rest/request/add', formValue, { headers })
-     /* .subscribe(
-        val => {
-          this.dialog.open(CreateOkComponent, {
-            width: '98VW',
-            data: {
-              anyProperty: val
-            }
-          });
-        },
-        response => {
-          this.dialog.open(CreateErrorComponent, {
-            width: '98VW',
-            data: {
-              anyProperty: response
-            }
-          });
-        }
-      );*/
+ 
+  private async deleteAssetindexDB(tabla: T) {
+    try {
+      await this.table.add(tabla)
+      const todostabla: T[] = await this.table.toArray();
+      console.log('tabla se guardo en indexDB', todostabla)
+    } catch (error) {
+      console.log('error al agregar tabla a la base de datos', error)
+    }
   }
-  updateAssets(formValue, ide) {
-
-    let headers = new HttpHeaders()
-      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
-      .set("Content-Type", "application/x-www-form-urlencoded");
-    return this.http.put(this.urlAPI + '/webservice/rest/asset/update/' + ide, formValue, { headers })
-    /*  .subscribe(
-        val => {
-          this.dialog.open(UpdateOkComponent, {
-            data: {
-              anyProperty: val
-            }
-          });
-        },
-        response => {
-          this.dialog.open(UpdateErrorComponent, {
-            data: {
-              anyProperty: response
-            }
-          });
-        }
-      );*/
-  }
-  moveAssets(formValue, ide) {
-    let headers = new HttpHeaders()
-      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
-      .set("Content-Type", "application/x-www-form-urlencoded");
-  return this.http.put(this.urlAPI  + '/webservice/rest/asset/move/' + ide, formValue, { headers })
-    /*
-    .subscribe(
-      val => {
-        this.dialog.open(MoveOkComponent, {
-          data: {
-            anyProperty: val
-          }
-        });
-      },
-      response => {
-        this.dialog.open(MoveErrorComponent, {
-          data: {
-            anyProperty: response
-          }
-        });
-      }
-    );*/
-  }
-
-
-
-
 
 
 
@@ -252,16 +261,24 @@ export abstract class BaseService<T extends { id: string }> {
       .subscribe(
         online => {
           if (online) {
+            console.log('online');
             //envia lo grabado en el index a la api
-            this.enviarIndexDBaApi();
+            //deactivado por test: this.enviarIndexDBaApi();
+           // this.snackBar.open('Con conexión', 'Aceptar', { panelClass: ['online-snackbar'], duration: 4000 });
           }
           else {
-            console.log('estoy offline')
+            console.log('estoy offline');
+          //  this.snackBar.open('Sin conexión', 'aceptar', { panelClass:['offline-snackbar'], duration: 4000 });          
           }
         }
 
       )
   }
+
+
+
+
+  
 
 
 }

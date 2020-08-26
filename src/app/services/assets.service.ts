@@ -34,14 +34,11 @@ export class AssetsService {
   private API_URL = "https://afsaval.agenciasur.cl"
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
-
-
   private assets: AssetSearchInterface[] = [];
-  constructor(
-
+  private snackBar: MatSnackBar;
+  constructor( 
     private http: HttpClient,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar,
     private onlineOfflineService: OnlineOfflineService
 
   ) {

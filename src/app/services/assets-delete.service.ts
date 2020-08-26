@@ -16,4 +16,7 @@ export class AssetsDeleteService extends BaseService<Asset> {
   }
 
 
+
+
+
 }
