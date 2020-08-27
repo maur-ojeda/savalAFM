@@ -6,7 +6,7 @@ import { Injector } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OnlineOfflineService } from './online-offline.service';
-import Dexie from 'dexie'
+import Dexie from 'dexie';
 
 
 
@@ -14,18 +14,18 @@ import Dexie from 'dexie'
 export abstract class BaseService<T extends { id: string }> {
   private db: Dexie;
   private table: Dexie.Table<T, any> = null;
-
   protected http: HttpClient;
   protected onlineOfflineService: OnlineOfflineService;
 
 
+
   constructor(
-    // solo servicios que psaran los hijos al padre
+    // solo servicios que pasaran los hijos al padre
     protected injector: Injector,
     protected nombreTabla: string,
     protected urlAPI: string,
-    //public dialog: MatDialog
-    //private snackBar: MatSnackBar
+
+    
   ) {
     this.http = this.injector.get(HttpClient);
     this.onlineOfflineService = this.injector.get(OnlineOfflineService);
@@ -102,7 +102,16 @@ export abstract class BaseService<T extends { id: string }> {
 
 insert(tabla: T){}
 update(tabla: T){}
-move(tabla: T){}
+move(formValue: T){
+  if (this.onlineOfflineService.isOnline){
+   this.moveAssetApi(formValue)
+  }
+  else{
+  this.moveAssetindexDB(formValue)
+  }
+
+
+}
 
   listar(): Observable<T[]> {
     return this.http.get<T[]>(this.urlAPI);
@@ -161,28 +170,59 @@ move(tabla: T){}
         }
       );*/
   }
-  moveAssetsApi(formValue, ide) {
+
+
+  ///MOVE
+  moveAssetApi(formValue) {
+
+    let data = {
+      "lCenter": formValue.lCenter,
+      "lBuilding": formValue.lBuilding,
+      "lFloor": formValue.lFloor,
+      "lArea": formValue.lArea,
+      "lRoom": formValue.lRoom,
+      "costCenter": formValue.costCenter
+    }
+
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set("Content-Type", "application/x-www-form-urlencoded");
-  return this.http.put(this.urlAPI  + '/webservice/rest/asset/move/' + ide, formValue, { headers })
-    /*
-    .subscribe(
-      val => {
-        this.dialog.open(MoveOkComponent, {
-          data: {
-            anyProperty: val
-          }
-        });
-      },
-      response => {
-        this.dialog.open(MoveErrorComponent, {
-          data: {
-            anyProperty: response
-          }
-        });
-      }
-    );*/
+  
+  
+  
+      return this.http.put(this.urlAPI  + '/webservice/rest/asset/move/' + formValue.id, data, { headers })
+      .subscribe(
+        val => {
+         /* this.dialog.open(MoveOkComponent, {
+            data: {
+              anyProperty: val
+            }
+          });*/
+        console.log(val);
+  
+  
+        },
+        response => {
+          /*this.dialog.open(MoveErrorComponent, {
+            data: {
+              anyProperty: response
+            }
+          });*/
+          console.log(response);
+        }
+      );
+  
+      
+  
+  }
+ private async moveAssetindexDB(tabla: T) {
+    try {
+      await this.table.add(tabla)
+      const todostabla: T[] = await this.table.toArray();
+      console.log('tabla se guardo en indexDB', todostabla)
+    } catch (error) {
+      console.log('error al agregar tabla a la base de datos', error)
+    }
   }
 
 
@@ -261,14 +301,14 @@ move(tabla: T){}
       .subscribe(
         online => {
           if (online) {
-            console.log('online');
+            alert('online');
             //envia lo grabado en el index a la api
             //deactivado por test: this.enviarIndexDBaApi();
-           // this.snackBar.open('Con conexión', 'Aceptar', { panelClass: ['online-snackbar'], duration: 4000 });
+          // this.snackBar.open('Con conexión', 'Aceptar', { panelClass: ['online-snackbar'], duration: 4000 });
           }
           else {
-            console.log('estoy offline');
-          //  this.snackBar.open('Sin conexión', 'aceptar', { panelClass:['offline-snackbar'], duration: 4000 });          
+            alert('estoy offline');
+          //this.snackBar.open('Sin conexión', 'aceptar', { panelClass:['offline-snackbar'], duration: 4000 });          
           }
         }
 

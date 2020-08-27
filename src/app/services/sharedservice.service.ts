@@ -33,15 +33,14 @@ toHome(){
 
 findByCode(code: string): Observable<Asset[]> {
 
-  /*let cod = code
+  let cod = code
     if (cod.length > 23) {
       let last8 = cod.substr(code.length - 8);
       let hexa = parseInt(last8, 16);
       let hexaStr = hexa.toString();
-      code = hexaStr
-      //alert('codigo transformado: ' +  code  )
+      code = hexaStr;
     }
-*/
+
 
   let headers = new HttpHeaders()
     .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")

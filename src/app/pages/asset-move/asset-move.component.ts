@@ -2,27 +2,38 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SharedserviceService} from '../../services/sharedservice.service';
 import { AssetsMoveService } from '../../services/assets-Move.service';
-import { Asset } from 'src/app/models/asset.model';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LocationInterface } from 'src/app/interfaces/location.interface';
-import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
 import { SpeciesInterface } from 'src/app/interfaces/specie.interface';
-import { CenterInterface } from 'src/app/interfaces/center.interface';
-import { BuildingInterface } from 'src/app/interfaces/building.interface';
-import { FloorInterface } from 'src/app/interfaces/floor.interface';
-import { AreaInterface } from 'src/app/interfaces/area.interface';
-import { RoomInterface } from 'src/app/interfaces/room.interface';
 import { LocationsService } from 'src/app/services/locations.service';
-import { CcenterService } from 'src/app/services/ccenter.service';
 import { SpecieService } from 'src/app/services/specie.service';
+
+
+import { LocationInterface } from 'src/app/interfaces/location.interface';
+
+import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
+import { CcenterService } from 'src/app/services/ccenter.service';
+
+import { CenterInterface } from 'src/app/interfaces/center.interface';
 import { CenterService } from 'src/app/services/center.service';
+
+import { BuildingInterface } from 'src/app/interfaces/building.interface';
 import { BuildingService } from 'src/app/services/building.service';
+
+import { FloorInterface } from 'src/app/interfaces/floor.interface';
 import { FloorService } from 'src/app/services/floor.service';
+
+import { AreaInterface } from 'src/app/interfaces/area.interface';
 import { AreaService } from 'src/app/services/area.service';
+
+import { RoomInterface } from 'src/app/interfaces/room.interface';
 import { RoomService } from 'src/app/services/room.service';
+
+
+
 import { MoveConfirmationComponent } from 'src/app/dialogs/move-confirmation/move-confirmation.component';
 import {MatDialog} from '@angular/material/dialog';
+import { Asset } from 'src/app/models/asset.model';
 
 
 
@@ -33,10 +44,14 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class AssetMoveComponent implements OnInit {
   public asset$:Observable<Asset[]>;
+  public asset = new Asset();
+
   reactiveForm: FormGroup;
   locations: LocationInterface[] = [];
-  CCenters: CcenterInterface[] = [];
   species: SpeciesInterface[] = [];
+
+
+  CCenters: CcenterInterface[] = [];
 	Centers: CenterInterface[] = [];
 	lBuildings: BuildingInterface[] = [];
 	lFloors: FloorInterface[] = [];
@@ -108,6 +123,8 @@ export class AssetMoveComponent implements OnInit {
     this.reactiveForm.controls['lArea'].setValue(e.lArea.id);
     this.reactiveForm.controls['lRoom'].setValue(e.lRoom.id);
    }
+
+
  	onChangeCenter() {
     let e = this.reactiveForm.controls['lCenter'].value
 		this.lBuildings.length = 0
@@ -117,11 +134,17 @@ export class AssetMoveComponent implements OnInit {
 		this.reactiveForm.get('lBuilding').reset();
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
-		this.reactiveForm.get('lRoom').reset();
+    this.reactiveForm.get('lRoom').reset();
+    
+    console.log(e)
+    
 		this.slBuilding.getbuildings(e)
     .then(lBuildings => this.lBuildings = lBuildings)
+
+    console.log(this.lBuildings)
+  
   }
-	onChangeBuilding() {	
+	onChangeBuilding( ) {	
     let e = this.reactiveForm.controls['lBuilding'].value
 		this.lFloors.length = 0
 		this.lAreas.length = 0
@@ -130,7 +153,9 @@ export class AssetMoveComponent implements OnInit {
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
 		this.slFloor.getfloors(e)
-			.then(lFloors => this.lFloors = lFloors)
+      .then(lFloors => this.lFloors = lFloors)
+      
+
 	}
 	onChangeFloor() {
     let e = this.reactiveForm.controls['lFloor'].value		
@@ -149,22 +174,18 @@ export class AssetMoveComponent implements OnInit {
 		this.slRoom.getRooms(e)
 			.then(lRooms => this.lRooms = lRooms)
 	}
-   moveData(){
-    let ide = this.reactiveForm.value.assetID;
-    let formValue = {
-      "lCenter": this.reactiveForm.value.lCenter,
-      "lBuilding": this.reactiveForm.value.lBuilding,
-      "lFloor": this.reactiveForm.value.lFloor,
-      "lArea": this.reactiveForm.value.lArea,
-      "lRoom": this.reactiveForm.value.lRoom,
-      "costCenter": this.reactiveForm.value.costCenter,
-      
-      
-    }
-    console.log(JSON.stringify(formValue));
-    console.log(JSON.stringify(ide));
-    //this.assetsService.moveAssets(formValue, ide);
+   
+  moveData(){
+    this.asset.id = this.reactiveForm.value.assetID; 
+    this.asset.lCenter = this.reactiveForm.value.lCenter,
+    this.asset.lBuilding = this.reactiveForm.value.lBuilding,
+    this.asset.lFloor = this.reactiveForm.value.lFloor,
+    this.asset.lArea = this.reactiveForm.value.lArea,
+    this.asset.lRoom = this.reactiveForm.value.lRoom,
+    this.asset.costCenter = this.reactiveForm.value.costCenter
+    this.assetsMoveService.move(this.asset);
   }
+
   Dialog() {
     const dialogRef = this.dialog.open(MoveConfirmationComponent,{
           width: '98VW'

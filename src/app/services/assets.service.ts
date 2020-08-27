@@ -82,6 +82,7 @@ export class AssetsService {
     this.http.post(this.API_URL + '/webservice/rest/request/add', formValue, { headers })
       .subscribe(
         val => {
+          console.log(val);
           this.dialog.open(CreateOkComponent, {
             width: '98VW',
             data: {
@@ -90,6 +91,7 @@ export class AssetsService {
           });
         },
         response => {
+          console.log(response);
           this.dialog.open(CreateErrorComponent, {
             width: '98VW',
             data: {

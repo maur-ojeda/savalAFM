@@ -12,8 +12,7 @@ export class AssetsMoveService extends BaseService<Asset> {
   constructor(
     protected injector:Injector
   ){
-    super(injector, 'asset', 'https://afsaval.agenciasur.cl');
+    super(injector, 'assetMove', 'https://afsaval.agenciasur.cl');
   }
-x
 
 }
