@@ -183,7 +183,7 @@
                                     <mat-label class="text-primary">Centro
                                         <mat-icon aria-hidden="false">edit</mat-icon>
                                     </mat-label>
-                                    <select matNativeControl [(ngModel)]="asset['data'].lCenter.id" formControlName="lCenter" (change)="onChangeCenter($event.target.value)">
+                                    <select matNativeControl [(ngModel)]="asset['data'].lCenter.id" formControlName="lCenter" (change)="onChangeCenter()">
                                     <option [ngValue]="null" disabled>Seleccione ...</option>
                                     <option *ngFor="let Center of Centers" [ngValue]="Center.id">{{Center.code}} - {{Center.name}}</option>
                                 </select>
