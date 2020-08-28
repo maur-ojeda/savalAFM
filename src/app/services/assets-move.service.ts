@@ -89,14 +89,14 @@ moveAssetApi(formValue: Asset) {
   .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
   .set("Content-Type", "application/x-www-form-urlencoded");
 
-console.log(formValue.costCenter)
+
 
   let data = {
-    "costCenter": formValue.costCenter,
+    //"costCenter": formValue.costCenter,
     "lCenter": formValue.lCenter,
+    "lArea": formValue.lArea,
     "lBuilding": formValue.lBuilding,
     "lFloor": formValue.lFloor,
-    "lArea": formValue.lArea,
     "lRoom": formValue.lRoom
   }
 
