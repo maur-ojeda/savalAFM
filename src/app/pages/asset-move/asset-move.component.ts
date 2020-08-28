@@ -75,7 +75,7 @@ export class AssetMoveComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     let code = this.activatedRoute.snapshot.paramMap.get('id');
-    this.asset$ = this.assetsMoveService.findByCode(code);
+    this.asset$ = this.utils.findByCode(code);
  
     this.asset$.subscribe(
       (asset)=>{this.getAssetsData(asset) }
@@ -136,12 +136,11 @@ export class AssetMoveComponent implements OnInit {
 		this.reactiveForm.get('lArea').reset();
     this.reactiveForm.get('lRoom').reset();
     
-    console.log(e)
+    //console.log(e)
     
 		this.slBuilding.getbuildings(e)
     .then(lBuildings => this.lBuildings = lBuildings)
-
-    console.log(this.lBuildings)
+    //console.log(this.lBuildings)
   
   }
 	onChangeBuilding( ) {	
@@ -154,8 +153,6 @@ export class AssetMoveComponent implements OnInit {
 		this.reactiveForm.get('lRoom').reset();
 		this.slFloor.getfloors(e)
       .then(lFloors => this.lFloors = lFloors)
-      
-
 	}
 	onChangeFloor() {
     let e = this.reactiveForm.controls['lFloor'].value		
@@ -165,7 +162,6 @@ export class AssetMoveComponent implements OnInit {
 		this.reactiveForm.get('lRoom').reset();
 		this.slArea.getareas(e)
 			.then(lAreas => this.lAreas = lAreas)
-
 	}
 	onChangeArea() {
     let e = this.reactiveForm.controls['lArea'].value
@@ -174,8 +170,10 @@ export class AssetMoveComponent implements OnInit {
 		this.slRoom.getRooms(e)
 			.then(lRooms => this.lRooms = lRooms)
 	}
-   
   moveData(){
+
+  
+
     this.asset.id = this.reactiveForm.value.assetID; 
     this.asset.lCenter = this.reactiveForm.value.lCenter,
     this.asset.lBuilding = this.reactiveForm.value.lBuilding,
@@ -183,6 +181,8 @@ export class AssetMoveComponent implements OnInit {
     this.asset.lArea = this.reactiveForm.value.lArea,
     this.asset.lRoom = this.reactiveForm.value.lRoom,
     this.asset.costCenter = this.reactiveForm.value.costCenter
+
+
     this.assetsMoveService.move(this.asset);
   }
 

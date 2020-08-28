@@ -19,6 +19,7 @@ import { UpdateConfirmationComponent } from 'src/app/dialogs/update-confirmation
 })
 export class AssetUpdateComponent implements OnInit {
   public asset$:Observable<Asset[]>;
+  public asset = new Asset();
   reactiveForm: FormGroup;
   ccenters: CcenterInterface[] = [];
 
@@ -33,7 +34,7 @@ export class AssetUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     let code = this.activatedRoute.snapshot.paramMap.get('id');
-    this.asset$ = this.assetsUpdateService.findByCode(code);
+    this.asset$ = this.utils.findByCode(code);
     this.asset$.subscribe(
       (asset)=>{this.getAssetsData(asset) }
     )
@@ -51,14 +52,12 @@ export class AssetUpdateComponent implements OnInit {
       creditorId: ['', []],
       lifetimeYear: ['', []]
     });
-
   }
-
-
 
   getAssetsData(i) {
    let e = i['data'];
-    console.log(e)
+   // console.log('getAssetsData:') 
+   // console.log(e)
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['rfidLabelSap'].setValue(e.rfidLabelSap);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
@@ -69,34 +68,26 @@ export class AssetUpdateComponent implements OnInit {
   }
 
   updateData() {
-    let ide = this.reactiveForm.value.assetID;
-    let formValue = {
-      "rfidLabelSap": this.reactiveForm.value.rfidLabelSap,
-      "serieNumber": this.reactiveForm.value.serieNumber,
-      "description": this.reactiveForm.value.description,
-      "costCenter": this.reactiveForm.value.costCenter,
-      "creditorId": this.reactiveForm.value.creditorId,
-      "lifetimeYear": this.reactiveForm.value.lifetimeYear
-    }
-
-   console.log(JSON.stringify(formValue))
-   console.log(JSON.stringify(ide))
-    //this.assetsService.updateAssets(formValue, ide);
-   
+    this.asset.id = this.reactiveForm.value.assetID;
+    this.asset.rfidLabelSap = this.reactiveForm.value.rfidLabelSap;
+    this.asset.serieNumber = this.reactiveForm.value.serieNumber;
+    this.asset.description = this.reactiveForm.value.description;
+    this.asset.costCenter = this.reactiveForm.value.costCenter;
+    this.asset.creditorId = this.reactiveForm.value.creditorId;
+    this.asset.lifetimeYear = this.reactiveForm.value.lifetimeYear
+   // console.log('updateData')
+   // console.log(JSON.stringify(this.asset))
+    this.assetsUpdateService.update(this.asset)
   }
-
-
 
   Dialog() {
     const dialogRef = this.dialog.open(UpdateConfirmationComponent,{
           width: '98VW'
     });
     dialogRef.afterClosed().subscribe(result => {
-
               if(result){
              this.updateData();
               }
-
     });
   }
 
