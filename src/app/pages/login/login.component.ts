@@ -20,22 +20,17 @@ export class LoginComponent implements OnInit {
   reactiveForm: FormGroup;
   requestOptions;
   fieldTextType: boolean;
+  showSpinner: boolean;
 
   constructor(
     private userService: UsersService,
     private router: Router,
     private builder: FormBuilder,
     public dialog: MatDialog,
-
-    
-
-
-
   ) { }
 
-
   ngOnInit(): void {
-
+    this.showSpinner = false;
     this.reactiveForm = this.builder.group({
       user: ['', [Validators.required]],
       pass: ['', [Validators.required]],
@@ -43,21 +38,20 @@ export class LoginComponent implements OnInit {
   }
 
   sendData() {
-
     const email = this.reactiveForm.value.user;
     const password = this.reactiveForm.value.pass;
-
+    this.showSpinner = true;
 
     this.userService.login(email, password).subscribe(
       data => {
         if (!data.error) {
-
           localStorage.setItem('userfirstName', data.data.firstName);
           localStorage.setItem('userlastName', data.data.lastName);
           localStorage.setItem('userusername', data.data.username);
           localStorage.setItem('userfullName', data.data.fullName);
           this.router.navigate(['home'])
           this.userService.setLoggedIn(true)
+          this.showSpinner = false;
         }
       },
       response => {

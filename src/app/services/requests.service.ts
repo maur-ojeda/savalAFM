@@ -18,13 +18,9 @@ getRequests(): Promise<RequestInterface[]>{
   .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
   .set('Content-Type', 'application/x-www-form-urlencoded')
 
-  if ( this.requests.length > 0 ) {
-    return Promise.resolve( this.requests );
-  }
+  
 
   return new Promise( resolve => {
-
-    
     this.http.get(this.API_URL + 'webservice/rest/requests?all=true',{ headers })
       .subscribe( (requests: any) => {
         this.requests = requests.data;

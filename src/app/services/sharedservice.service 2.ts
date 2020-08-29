@@ -41,6 +41,7 @@ findByCode(code: string): Observable<Asset[]> {
       code = hexaStr;
     }
 
+
   let headers = new HttpHeaders()
     .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
     .set('Content-Type', 'application/x-www-form-urlencoded')

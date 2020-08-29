@@ -35,17 +35,20 @@ export class AssetsService {
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
   private assets: AssetSearchInterface[] = [];
-  private snackBar: MatSnackBar;
+  
   constructor( 
     private http: HttpClient,
     public dialog: MatDialog,
-    private onlineOfflineService: OnlineOfflineService
-
+    private onlineOfflineService: OnlineOfflineService,
+    private snackBar: MatSnackBar
   ) {
     this.oirStatusConexion();
     this.iniciarIndexDB();
   }
 
+
+
+  //cambiar al 
   private iniciarIndexDB() {
     this.db = new Dexie('db-assets')
     this.db.version(1).stores({
@@ -73,6 +76,10 @@ export class AssetsService {
         });
     });
   }
+
+
+
+
 
   //test
   InsertAssets(formValue) {
@@ -135,9 +142,8 @@ export class AssetsService {
 
 
 
-
+//se cambiaron a sus propios servicios
   updateAssets(formValue, ide) {
-
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set("Content-Type", "application/x-www-form-urlencoded");
@@ -180,7 +186,6 @@ export class AssetsService {
       }
     );
   }
-
   downAssets(formValue, ide) {
     const options = {
       headers: new HttpHeaders({
@@ -217,13 +222,6 @@ export class AssetsService {
       );
   }
 
-
-
-
-
-
-
-
   getAssetsCode(code: string): Promise<AssetSearchInterface[]> {
     let cod = code
     if (cod.length > 23) {
@@ -245,8 +243,6 @@ export class AssetsService {
         });
     });
   }
-
-
 
   getAssetsData(code: string): Promise<AssetSearchInterface[]> {
     let headers = new HttpHeaders()
@@ -333,9 +329,6 @@ export class AssetsService {
   }
   getAssetPorValue(buscado: any) {
 
-
-
-
   }
 
 
@@ -348,12 +341,12 @@ export class AssetsService {
         online => {
           if (online) {
             //envia lo grabado desde indexDB a la api
-            this.enviarIndexDBaApi();
+           // this.enviarIndexDBaApi();
             this.snackBar.open('Con conexión', 'Aceptar', { panelClass: ['online-snackbar'], duration: 4000 });
             
           }
           else {
-            console.log('estoy offline')
+           
             this.snackBar.open('Sin conexión', 'aceptar', { panelClass:['offline-snackbar'], duration: 4000 });          
           }
         })

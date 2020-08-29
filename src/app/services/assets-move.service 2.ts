@@ -20,13 +20,13 @@ export class AssetsMoveService  {
   private urlAPI = "https://afsaval.agenciasur.cl";
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
+  private snackBar: MatSnackBar;
   private sharedserviceService: SharedserviceService;
   
   constructor(
     private http:HttpClient,
     private onlineOfflineService: OnlineOfflineService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar
   ){
     this.oirStatusConexion();
     this.iniciarIndexDB();
@@ -48,11 +48,11 @@ export class AssetsMoveService  {
             console.log('online');
             //envia lo grabado en el index a la api
             this.enviarIndexDBaApi();
-            this.snackBar.open('Con conexión', 'Aceptar', { panelClass: ['online-snackbar'], duration: 4000 });
+            //this.snackBar.open('Con conexión', 'Aceptar', { panelClass: ['online-snackbar'], duration: 4000 });
           }
           else {
             console.log('estoy offline');
-            this.snackBar.open('Sin conexión', 'aceptar', { panelClass:['offline-snackbar'], duration: 4000 });          
+            //this.snackBar.open('Sin conexión', 'aceptar', { panelClass:['offline-snackbar'], duration: 4000 });          
           }
         }
       )

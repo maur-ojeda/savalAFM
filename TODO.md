@@ -6,25 +6,26 @@ Project Description
 
 - [ ] Actualización automática  de app  
 - [ ] Eliminar refererencias  a angularfire2: revisión  
-- [ ] implementar ng-template para cargando y no encontrado  
 - [ ] Logo saval a SVG  
 - [ ] ordenar tabla  
 - [ ] ordenar selects por numero o nombre  
-- [ ] poner "seleccione.." en crear  
 - [ ] loader en login  
 
 ### In Progress
 
 - [ ] Modo Offline  
-  - [ ] assetsDeleteService  
-  - [ ] crear assetUpdate  
-  - [ ] assetsUpdateService  
-  - [ ] crear assetMove  
   - [ ] assetsMoveService  
-  - [ ] crear assetDelete  
+- [ ] revisar problema de grabado en move asset  
 
 ### Done ✓
 
+- [x] implementar ng-template para cargando y no encontrado  
+- [x] poner "seleccione.." en crear  
+  - [x] crear assetDelete  
+  - [x] crear assetMove  
+  - [x] assetsUpdateService  
+  - [x] crear assetUpdate  
+  - [x] assetsDeleteService  
   - [x] assetsDetailsService  
   - [x] crear assetDetails  
 - [x] mostrar alerta de cuando este offline  

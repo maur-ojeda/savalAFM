@@ -4,22 +4,33 @@
             <img src="/assets/images/logoSaval.png" alt="">
             <h3>Gestión de Activo Fijo</h3>
         </div>
-        <div class="mt-5 mb-2">
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Usuario</mat-label>
-                <input matInput formControlName="user" type="email" placeholder="Ingrese usuario">
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Contraseña</mat-label>
-                <input matInput [type]="fieldTextType ? 'text' : 'password'" formControlName='pass' placeholder="Ingrese contraseña">
-                <mat-icon matSuffix (click)="toggleFieldTextType()">
-                    {{ !fieldTextType ? "visibility_off" : "visibility" }}</mat-icon>
-            </mat-form-field>
-            <p class="text-center"><small>soporte@saval.prod / savalprueba</small></p>
-        </div>
-        <button mat-flat-button color="primary" class="full-width">Ingresar</button>
-        <p class="text-center text-danger"><small>versión local de prueba: rama dev</small></p>
 
+
+
+
+
+        <ng-container *ngIf="!showSpinner; else loading">
+
+            <div class="mt-5 mb-2">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Usuario</mat-label>
+                    <input matInput formControlName="user" type="email" placeholder="Ingrese usuario">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput [type]="fieldTextType ? 'text' : 'password'" formControlName='pass' placeholder="Ingrese contraseña">
+                    <mat-icon matSuffix (click)="toggleFieldTextType()">
+                        {{ !fieldTextType ? "visibility_off" : "visibility" }}</mat-icon>
+                </mat-form-field>
+                <p class="text-center"><small>soporte@saval.prod / savalprueba</small></p>
+            </div>
+
+            <button mat-flat-button color="primary" class="full-width">Ingresar</button>
+            <p class="text-center text-danger"><small>versión local de prueba: rama dev</small></p>
+        </ng-container>
+        <ng-template #loading>
+            <mat-spinner></mat-spinner>
+        </ng-template>
 
     </div>
 </form>

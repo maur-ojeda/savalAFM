@@ -301,13 +301,13 @@ move(formValue: T){
       .subscribe(
         online => {
           if (online) {
-           // alert('online');
+            alert('online');
             //envia lo grabado en el index a la api
             //deactivado por test: this.enviarIndexDBaApi();
           // this.snackBar.open('Con conexión', 'Aceptar', { panelClass: ['online-snackbar'], duration: 4000 });
           }
           else {
-           // alert('estoy offline');
+            alert('estoy offline');
           //this.snackBar.open('Sin conexión', 'aceptar', { panelClass:['offline-snackbar'], duration: 4000 });          
           }
         }
