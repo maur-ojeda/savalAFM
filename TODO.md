@@ -9,7 +9,14 @@ Project Description
 - [ ] Logo saval a SVG  
 - [ ] ordenar tabla  
 - [ ] ordenar selects por numero o nombre  
-- [ ] loader en login  
+- [ ] revisar los requests  
+- [ ] registrar assets en cache  
+- [ ] registrar locations en cache  
+- [ ] registrar request en cache  
+- [ ] realizar busqueda por codigo en cache  
+- [ ] grabar request offline  
+- [ ] restringir acciones de asset si se realizo alguna accion offline hasta su registro  
+- [ ] solicitar restriccion de  registrar en api  si hay algun cambio en el af mientras ete offline  
 
 ### In Progress
 
@@ -19,6 +26,7 @@ Project Description
 
 ### Done ✓
 
+- [x] loader en login  
 - [x] implementar ng-template para cargando y no encontrado  
 - [x] poner "seleccione.." en crear  
   - [x] crear assetDelete  
