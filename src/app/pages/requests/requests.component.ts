@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import * as moment from 'moment';
 
 
+
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
@@ -15,16 +16,18 @@ import * as moment from 'moment';
 export class RequestsComponent implements OnInit {
   
   requests: RequestInterface[] = [];
-
   constructor( 
       private requestsService: RequestsService,
       private location: Location 
     ) { }
 
   ngOnInit(): void {
-
+    //Registro de requests
     this.requestsService.getRequests()
     .then( requests => this.requests = requests )
+    //Registro de assets
+
+    //Registro de locaciones
 
     
 

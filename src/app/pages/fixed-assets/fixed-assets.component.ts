@@ -12,6 +12,8 @@ import { NoRegisterComponent } from 'src/app/dialogs/no-register/no-register.com
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 
 
+
+
 @Component({
   selector: 'app-fixed-assets',
   templateUrl: './fixed-assets.component.html',
@@ -21,6 +23,7 @@ import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 export class FixedAssetsComponent implements OnInit {
   assets: AssetSearchInterface[] = [];
   asset: AssetSearchInterface[] = [];
+  
   reactiveForm: FormGroup;
   ide;
   hexa;
@@ -32,6 +35,7 @@ export class FixedAssetsComponent implements OnInit {
 
   constructor(
     private assetsService: AssetsService,
+    
     private modalService: NgbModal,
     private router: Router,
     private builder: FormBuilder,
@@ -42,6 +46,9 @@ export class FixedAssetsComponent implements OnInit {
     this.reactiveForm = this.builder.group({
       search: ['', [Validators.required]]
     });
+
+   
+
   }
  
 

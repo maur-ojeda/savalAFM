@@ -9,23 +9,25 @@ Project Description
 - [ ] Logo saval a SVG  
 - [ ] ordenar tabla  
 - [ ] ordenar selects por numero o nombre  
-- [ ] revisar los requests  
-- [ ] registrar assets en cache  
-- [ ] registrar locations en cache  
-- [ ] registrar request en cache  
 - [ ] realizar busqueda por codigo en cache  
-- [ ] grabar request offline  
 - [ ] restringir acciones de asset si se realizo alguna accion offline hasta su registro  
 - [ ] solicitar restriccion de  registrar en api  si hay algun cambio en el af mientras ete offline  
+- [ ] revisar metodos en asset service  
+- [ ] revisar base service  
 
 ### In Progress
 
 - [ ] Modo Offline  
-  - [ ] assetsMoveService  
 - [ ] revisar problema de grabado en move asset  
 
 ### Done ✓
 
+- [x] registrar assets en cache  
+- [x] registrar locations en cache  
+- [x] registrar request en cache  
+- [x] grabar request offline  
+  - [x] assetsMoveService  
+- [x] revisar los requests  
 - [x] loader en login  
 - [x] implementar ng-template para cargando y no encontrado  
 - [x] poner "seleccione.." en crear  

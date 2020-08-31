@@ -252,6 +252,7 @@
                                     </mat-label>
                                     <select matNativeControl formControlName="lCenter" (change)="onChangeCenter()">
                                 <option [ngValue]="null" disabled>Seleccione ...</option>
+                                <option selected [ngValue]="asset['data'].lCenter.id">{{asset['data'].lCenter.code}} - {{asset['data'].lCenter.name}}</option>
                                 <option *ngFor="let Center of Centers" [ngValue]="Center.id">{{Center.code}} - {{Center.name}}</option>
                             </select>
                                 </mat-form-field>

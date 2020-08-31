@@ -6,6 +6,7 @@ export interface AreaInterface {
 
 interface Datum {
   id: number;
+  location_id: number;
   code: string;
   name: string;
   type: number;

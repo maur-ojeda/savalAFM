@@ -5,6 +5,14 @@ import { UserInterface } from 'src/app/interfaces/user.interface';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginErrorComponent } from 'src/app/dialogs/login-error/login-error.component';
+import { SharedserviceService} from '../../services/sharedservice.service';
+
+
+
+import { RequestInterface } from 'src/app/interfaces/request.interface';
+import { RequestsService } from 'src/app/services/requests.service';
+import { AssetInterface } from 'src/app/interfaces/asset.interface';
+//import { BuildingInterface } from '../interfaces/building.interface';
 //
 
 @Component({
@@ -13,6 +21,7 @@ import { LoginErrorComponent } from 'src/app/dialogs/login-error/login-error.com
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  
 
   email: string;
   password: string;
@@ -21,12 +30,18 @@ export class LoginComponent implements OnInit {
   requestOptions;
   fieldTextType: boolean;
   showSpinner: boolean;
-
+  assets: AssetInterface[] = [];
+  requests: RequestInterface[] = [];
+  //buildings: BuildingInterface[] = [];
   constructor(
     private userService: UsersService,
     private router: Router,
     private builder: FormBuilder,
     public dialog: MatDialog,
+
+    private requestsService: RequestsService,
+    public utils: SharedserviceService
+
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +67,18 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['home'])
           this.userService.setLoggedIn(true)
           this.showSpinner = false;
+          this.requestsService.getRequests()
+          .then( requests => this.requests = requests )
+      
+           this.utils.listarAssets().subscribe(
+            (assets) =>{
+
+              console.log(assets)
+              return assets 
+            }
+          )
+
+          
         }
       },
       response => {

@@ -40,11 +40,6 @@ import { Asset } from 'src/app/models/asset.model';
 
 
 
-
-
-
-
-
 @Component({
 	selector: 'app-create',
 	templateUrl: './create.component.html',
@@ -136,81 +131,6 @@ export class CreateComponent implements OnInit {
 			lArea: ['', []],
 			lRoom: ['', []]
 		});
-//[null]
-/*
-	
-		this.reactiveForm.controls['lBuilding'].disable();
-		this.reactiveForm.controls['lFloor'].disable();
-		this.reactiveForm.controls['lArea'].disable();
-		this.reactiveForm.controls['lRoom'].disable();
-*/
-
-/*
-		this.reactiveForm.controls['lCenter'].valueChanges
-		.subscribe( value => {		
-			if ( this.reactiveForm.controls['lBuilding'].value !== '') {
-			
-				this.reactiveForm.controls['lBuilding'].enable()
-				this.setValidatorRequired('lBuilding', Validators.required);
-				
-			} else {
-				this.setValidatorRequired('lBuilding', null);
-				}
-		})
-
-		if(this.reactiveForm.controls['lBuilding'].touched){
-			this.reactiveForm.controls['lFloor'].enable()
-			this.setValidatorRequired('lFloor', Validators.required);
-		}
-		*/	
-
-	/*	if(this.reactiveForm.controls['lFloor'].touched){
-			this.reactiveForm.controls['lArea'].enable()
-			this.setValidatorRequired('lArea', Validators.required);
-		}
-			
-
-		if(this.reactiveForm.controls['lArea'].touched){
-			this.reactiveForm.controls['lRoom'].enable()
-			this.setValidatorRequired('lRoom', Validators.required);
-		}
-		*/
-		
-		/*.subscribe( value =>{		
-			if ( this.reactiveForm.controls['lBuilding'].value !== '') {
-				this.setValidatorRequired('lBuilding', Validators.required);
-				} else {
-				this.setValidatorRequired('lBuilding', null);
-				}
-		})*/
-
-	/*	this.reactiveForm.controls['lBuilding'].valueChanges
-		.subscribe( value =>{				
-			if ( value !== '') {
-				this.setValidatorRequired('lFloor', Validators.required);
-				} else {
-				this.setValidatorRequired('lFloor', null);
-				}
-		})
-
-		this.reactiveForm.controls['lFloor'].valueChanges
-		.subscribe( value =>{				
-			if ( value !== '') {
-				this.setValidatorRequired('lArea', Validators.required);
-				} else {
-				this.setValidatorRequired('lArea', null);
-				}
-		})
-
-		this.reactiveForm.controls['lArea'].valueChanges
-		.subscribe( value =>{				
-			if ( value !== '') {
-				this.setValidatorRequired('lRoom', Validators.required);
-				} else {
-				this.setValidatorRequired('lRoom', null);
-				}
-		})
-	*/	
 
 	}
 
