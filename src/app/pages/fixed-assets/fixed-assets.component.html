@@ -4,10 +4,10 @@
     <div class="p3 mt-3">
 
         <!--soy buscador-->
-        <form [formGroup]="reactiveForm" (ngSubmit)="search()">
+        <form [formGroup]="reactiveForm" (ngSubmit)="searcho()">
             <div class="row no-gutters">
                 <div class="col-9">
-                    
+
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Buscar activo fijo</mat-label>
                         <input id="buscador" matInput placeholder="Ingrese número" formControlName="search">
@@ -15,7 +15,7 @@
 
                 </div>
                 <div class="col-3" style="padding-top:5px;">
-                    <button mat-flat-button color="primary" class="full-width" style="height: 50px;">Buscar</button>
+                    <button type="submit" [disabled]="reactiveForm.invalid" mat-flat-button color="primary" class="full-width" style="height: 50px;">Buscar</button>
                 </div>
             </div>
         </form>
@@ -42,7 +42,7 @@
                     </mat-card>
                 </div>
 
-                
+
             </div>
             <div class="row mt-3">
                 <div class="col-6">

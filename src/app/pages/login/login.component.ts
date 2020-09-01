@@ -11,7 +11,8 @@ import { SharedserviceService} from '../../services/sharedservice.service';
 
 import { RequestInterface } from 'src/app/interfaces/request.interface';
 import { RequestsService } from 'src/app/services/requests.service';
-import { AssetInterface } from 'src/app/interfaces/asset.interface';
+import { AssetsService } from '../../services/assets.service';
+import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 //import { BuildingInterface } from '../interfaces/building.interface';
 //
 
@@ -30,15 +31,15 @@ export class LoginComponent implements OnInit {
   requestOptions;
   fieldTextType: boolean;
   showSpinner: boolean;
-  assets: AssetInterface[] = [];
+  assets: AssetSearchInterface[] = [];
   requests: RequestInterface[] = [];
-  //buildings: BuildingInterface[] = [];
+
   constructor(
     private userService: UsersService,
     private router: Router,
     private builder: FormBuilder,
     public dialog: MatDialog,
-
+    private assetsService: AssetsService,
     private requestsService: RequestsService,
     public utils: SharedserviceService
 
@@ -69,14 +70,10 @@ export class LoginComponent implements OnInit {
           this.showSpinner = false;
           this.requestsService.getRequests()
           .then( requests => this.requests = requests )
-      
-           this.utils.listarAssets().subscribe(
-            (assets) =>{
 
-              console.log(assets)
-              return assets 
-            }
-          )
+          this.assetsService.getAssets()
+          .then( assets => this.assets = assets)
+          
 
           
         }
@@ -98,6 +95,5 @@ export class LoginComponent implements OnInit {
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
-
 
 }

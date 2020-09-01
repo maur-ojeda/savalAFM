@@ -13,7 +13,8 @@ export class RequestsService {
   private requests: RequestInterface[] = [];
 
   constructor(private http: HttpClient) { }
-getRequests(): Promise<RequestInterface[]>{
+
+  getRequests(): Promise<RequestInterface[]>{
   let headers = new HttpHeaders()
   .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
   .set('Content-Type', 'application/x-www-form-urlencoded')

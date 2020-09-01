@@ -4,7 +4,7 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-//import { AssetInterface } from '../interfaces/asset.interface';
+import { AssetInterface } from '../interfaces/asset.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateErrorComponent } from '../dialogs/create-error/create-error.component';
 import { CreateOkComponent } from '../dialogs/create-ok/create-ok.component';
@@ -13,6 +13,7 @@ import { UpdateErrorComponent } from '../dialogs/update-error/update-error.compo
 import { MoveOkComponent } from '../dialogs/move-ok/move-ok.component';
 import { DeleteOkComponent } from '../dialogs/delete-ok/delete-ok.component';
 import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.component';
+
 import { AssetSearchInterface } from '../interfaces/assetSearch.interface';
 import { MoveErrorComponent } from '../dialogs/move-error/move-error.component';
 import { Asset } from '../models/asset.model'
@@ -34,8 +35,11 @@ export class AssetsService {
   private API_URL = "https://afsaval.agenciasur.cl"
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
+
+  private assetos: AssetInterface[] = [];
   private assets: AssetSearchInterface[] = [];
   
+
   constructor( 
     private http: HttpClient,
     public dialog: MatDialog,
@@ -64,20 +68,48 @@ export class AssetsService {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set('Content-Type', 'application/x-www-form-urlencoded')
-    if (this.assets.length > 0) {
-      return Promise.resolve(this.assets);
+
+    if (this.assetos.length > 0) {
+      return Promise.resolve(this.assets['data']);
     }
+
     return new Promise(resolve => {
       this.http.get(this.API_URL + '/webservice/rest/assets?all=true', { headers })
         .subscribe((assets: any) => {
-          this.assets = assets.data;
-          resolve(assets.data);
-          console.log(assets.data)
+          this.assetos = assets['data'];
+          resolve(assets['data']);
+          alert('sincornizacion terminada')
         });
     });
+    
   }
 
+////Buscador referalCode
+getAssetPorreferalCode(val: string) {
+  if (this.assetos.length > 0) {
+     const asset = this.assetos.find(p => p.referalCode == val);
+     return Promise.resolve(asset);
+   }
+   
+   /*return this.getAssets().then(assets => {
+    const asset = this.assetos.find(p => p.referalCode == val);
+     return Promise.resolve(asset);
+   })*/
 
+}
+
+
+getAssetPorCode(val: string) {
+  if (this.assets.length > 0) {
+     const asset = this.assetos.find(p => p.code == val);
+     return Promise.resolve(asset);
+   }else{
+  return this.getAssets().then(assets => {
+    const asset = this.assetos.find(p => p.code == val);
+     return Promise.resolve(asset);
+   });
+   }
+}
 
 
 
@@ -266,70 +298,7 @@ export class AssetsService {
 
 
 
-  ////DEPRECRED
-  getAssetPorId(id: number) {
-
-    /* if (this.assets.length > 0) {
-       const asset = this.assets.find(p => p.id === id);
-       return Promise.resolve(asset);
-     }
-     return this.getAssets().then(assets => {
-       const asset = this.assets.find(p => p.id === id);
-       return Promise.resolve(asset);
-     });*/
-    console.log('todo');
-  }
-  getAssetPorCode(code: string) {
-    /*
-     if (this.assets.length > 0) {
-       const asset = this.assets.find(p => p.code === code);
-       return Promise.resolve(asset);
-     }
-     return this.getAssets().then(assets => {
-       const asset = this.assets.find(p => p.code === code);
-       return Promise.resolve(asset);
-     });
-     */
-    console.log('todo');
-  }
-  getAssetPorReferalCode(referalCode: string) {
-    /*  if (this.assets.length > 0) {
-        const asset = this.assets.find(p => p.referalCode === referalCode);
-        return Promise.resolve(asset);
-  
-      }
-      return this.getAssets().then(assets => {
-        const asset = this.assets.find(p => p.referalCode === referalCode);
-        return Promise.resolve(asset);
-      });
-      */
-    console.log('todo');
-  }
-  getAssetPorRfid(rfidLabelSap: string) {
-    /* if (this.assets.length > 0) {
-       const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
-       return Promise.resolve(asset)
-     }
-     return this.getAssets().then(assets => {
-       const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
-       return Promise.resolve(asset);
-     });*/
-    console.log('todo');
-  }
-  getAssetPorrfid(rfidLabelSap: string) {
-    /*if (this.assets.length > 0) {
-      const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
-      return Promise.resolve(asset)
-    }
-    return this.getAssets().then(assets => {
-      const asset = this.assets.find(p => p.rfidLabelSap === rfidLabelSap);
-      return Promise.resolve(asset);
-    });*/
-
-  }
-  getAssetPorValue(buscado: any) {
-
-  }
+ 
 
 
   /**Funcion que escucha si la aplicacion esta en linea 

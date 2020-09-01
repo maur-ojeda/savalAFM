@@ -4,6 +4,7 @@ import { AssetsService } from 'src/app/services/assets.service';
 import { AssetInterface } from 'src/app/interfaces/asset.interface';
 import {MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 
 @Component({
   selector: 'app-move-fixedasset',
@@ -11,8 +12,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./move-fixedasset.component.scss']
 })
 export class MoveFixedassetComponent implements OnInit {
-  assets: AssetInterface[] = [];
-  asset: AssetInterface[] = [];
+  assets: AssetSearchInterface[] = [];
+  asset: AssetSearchInterface[] = [];
   reactiveForm: FormGroup;
   ide;
   estatus;

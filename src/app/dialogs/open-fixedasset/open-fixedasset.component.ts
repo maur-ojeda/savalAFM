@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssetsService } from 'src/app/services/assets.service';
-import { AssetInterface } from 'src/app/interfaces/asset.interface';
+
 import {MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 
 @Component({
   selector: 'app-open-fixedasset',
@@ -11,8 +12,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./open-fixedasset.component.scss']
 })
 export class OpenFixedassetComponent implements OnInit {
-  assets: AssetInterface[] = [];
-  asset: AssetInterface[] = [];
+  assets: AssetSearchInterface[] = [];
+  asset: AssetSearchInterface[] = [];
   reactiveForm: FormGroup;
   ide;
   estatus;
@@ -30,6 +31,8 @@ export class OpenFixedassetComponent implements OnInit {
       search: ['', [Validators.required]]
     });
   }
+  
+
   assetPorIde(valor: any) {
     if (valor == null) {
       return this.router.navigateByUrl('/fixedAssets');
@@ -48,10 +51,11 @@ export class OpenFixedassetComponent implements OnInit {
         alert("No se ha encontrado registro.")
       )
   }
+
   search() {
     let ide = this.reactiveForm.value.search
     ide = ide.toString()
-    this.assetPorIde(ide);
+   this.assetPorIde(ide);
   }
 }
 

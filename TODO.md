@@ -10,8 +10,8 @@ Project Description
 - [ ] ordenar tabla  
 - [ ] ordenar selects por numero o nombre  
 - [ ] realizar busqueda por codigo en cache  
-- [ ] restringir acciones de asset si se realizo alguna accion offline hasta su registro  
-- [ ] solicitar restriccion de  registrar en api  si hay algun cambio en el af mientras ete offline  
+- [ ] Restringir acciones de asset si se realizo alguna accion offline hasta su registro  
+- [ ] Solicitar restriccion de  registrar en api  si hay algun cambio en el af mientras este offline y  rechazar es te cambio, Explicando este rechazo.  
 - [ ] revisar metodos en asset service  
 - [ ] revisar base service  
 
