@@ -76,25 +76,40 @@ export class FixedAssetsComponent implements OnInit {
     let subCodigo = splitted[1]
 
     if( isNaN(codigo) ){
-
-     console.log('buscar por rfid')
+      console.log('buscar rfid')
+     this.assetsService.getAssetPorrfidLabelSap(valor).then( res => {
+      let route = url + res.code;
+      return this.router.navigateByUrl(route)
+    }).catch(
+      () => {
+        alert("No se ha encontrado registro.")
+  });
 
     }else if(!isNaN(subCodigo)){
+      console.log('buscar subcodigo')
       this.assetsService.getAssetPorreferalCode(valor)
       .then( res => {
         let route = url + res.code;
-        return this.router.navigateByUrl(route)
-      });
-      
-
-
-   
-      
-
+        return this.router.navigateByUrl(route)  
+      }
+      ).catch(
+        () => {
+          alert("No se ha encontrado registro.")
+    });
 
     } else if( !isNaN(codigo) ){
       console.log('buscar codigo sin subcodigo')
-
+      codigo = codigo.toString().padStart(12, "0");
+      console.log(codigo)
+      this.assetsService.getAssetPorcode(codigo)
+      .then( res => {
+        let route = url + res.code;
+        return this.router.navigateByUrl(route)  
+      }
+      ).catch(
+        () => {
+          alert("No se ha encontrado registro.")
+    });
     }
     else{      
       alert("No se ha encontrado registro.")

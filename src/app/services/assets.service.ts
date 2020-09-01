@@ -90,13 +90,32 @@ getAssetPorreferalCode(val: string) {
      const asset = this.assetos.find(p => p.referalCode == val);
      return Promise.resolve(asset);
    }
-   
-   /*return this.getAssets().then(assets => {
-    const asset = this.assetos.find(p => p.referalCode == val);
-     return Promise.resolve(asset);
-   })*/
-
 }
+
+getAssetPorrfidLabelSap(val: string) {
+  let cod = val
+  if (cod.length > 23) {
+    let last8 = cod.substr(val.length - 8);
+    let hexa = parseInt(last8, 16);
+    let hexaStr = hexa.toString();
+    val = hexaStr
+  }
+  if (this.assetos.length > 0) {
+     const asset = this.assetos.find(p => p.rfidLabelSap == val);
+     return Promise.resolve(asset);
+   }
+}
+
+getAssetPorcode(val: string) {
+  
+  if (this.assetos.length > 0) {
+     const asset = this.assetos.find(p => p.code == val);
+     return Promise.resolve(asset);
+   }
+}
+
+
+
 
 
 getAssetPorCode(val: string) {
@@ -110,6 +129,9 @@ getAssetPorCode(val: string) {
    });
    }
 }
+
+
+
 
 
 
