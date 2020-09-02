@@ -65,14 +65,22 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userlastName', data.data.lastName);
           localStorage.setItem('userusername', data.data.username);
           localStorage.setItem('userfullName', data.data.fullName);
-          this.router.navigate(['home'])
+          
           this.userService.setLoggedIn(true)
-          this.showSpinner = false;
+          
+
           this.requestsService.getRequests()
           .then( requests => this.requests = requests )
 
           this.assetsService.getAssets()
-          .then( assets => this.assets = assets)
+          .then( assets => this.assets = assets).finally(
+            () => {
+              this.router.navigate(['home'])
+              this.showSpinner = false;
+
+            } 
+            
+          )
           
 
           

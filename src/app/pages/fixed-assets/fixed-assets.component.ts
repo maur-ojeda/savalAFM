@@ -56,25 +56,20 @@ export class FixedAssetsComponent implements OnInit {
       search: ['', [Validators.required,  Validators.pattern(nonWhitespaceRegExp)]]
     });
 
-    this.assetsService.getAssets()
-    .then( assets => this.assets = assets)
+    /*this.assetsService.getAssets()
+    .then( assets => this.assets = assets)*/
   }
  
   // cargar todos los assest
 
   /** Funcion que busca por numero ingresado **/
   searcho() {
-    //alert('buscando')
     let url ="fixedAsset/"
     let valor = this.reactiveForm.value.search
-    
     valor  =  valor.replace(/\s/g, "")
-    //console.log(valor)
-
     var splitted = valor.split("-", 2);
     let codigo = splitted[0]
     let subCodigo = splitted[1]
-
     if( isNaN(codigo) ){
       console.log('buscar rfid')
      this.assetsService.getAssetPorrfidLabelSap(valor).then( res => {
@@ -84,7 +79,6 @@ export class FixedAssetsComponent implements OnInit {
       () => {
         alert("No se ha encontrado registro.")
   });
-
     }else if(!isNaN(subCodigo)){
       console.log('buscar subcodigo')
       this.assetsService.getAssetPorreferalCode(valor)
@@ -117,19 +111,6 @@ export class FixedAssetsComponent implements OnInit {
     }
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**Funcion que navega a la url correspondiente */
   navigateTo(value) {
     if (value) {

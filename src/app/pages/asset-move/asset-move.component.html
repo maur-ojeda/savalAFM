@@ -2,8 +2,8 @@
 </app-header>
 
 <div class="container">
-    <ng-container *ngIf="asset$ | async as asset; else loading">
-        <ng-container *ngIf="asset['data'] !== null; else noContent">
+    <ng-container *ngIf="asset; else loading">
+        <ng-container *ngIf="asset !== null; else noContent">
 
 
 
@@ -24,7 +24,7 @@
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
 
-                                <div *ngIf="asset['data'].status == 3">
+                                <div *ngIf="asset.status == 3">
                                     <div class="alert alert-dismissible alert-warning">
                                         <button type="button" class="close" data-dismiss="alert">×</button>
                                         <h4 class="alert-heading"><strong>Atención</strong></h4>
@@ -32,26 +32,26 @@
                                     </div>
                                 </div>
 
-                                <p class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{utils.formatDate(asset['data'].createdAt.date)}}
+                                <p class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{utils.formatDate(asset['createdAt'].date)}}
                                 </p>
-                                <p class="display-5 pr-3 d-sm-block">Número AF: {{ asset['data'].referalCode }}
+                                <p class="display-5 pr-3 d-sm-block">Número AF: {{ asset.referalCode }}
                                 </p>
-                                <p class="display-5 pr-3 d-sm-block">Código RFID: {{ asset['data'].rfidLabelSap }}
+                                <p class="display-5 pr-3 d-sm-block">Código RFID: {{ asset.rfidLabelSap }}
                                 </p>
                                 <p class="display-5 pr-3 d-sm-block">Condición:
-                                    <span *ngIf="asset['data']?.status == 1" class="badge badge-secondary">En Proceso</span>
-                                    <span *ngIf="asset['data']?.status == 2" class="badge badge-primary">Activo</span>
-                                    <span *ngIf="asset['data']?.status == 3" class="badge badge-danger">Dado de Baja</span>
+                                    <span *ngIf="asset?.status == 1" class="badge badge-secondary">En Proceso</span>
+                                    <span *ngIf="asset?.status == 2" class="badge badge-primary">Activo</span>
+                                    <span *ngIf="asset?.status == 3" class="badge badge-danger">Dado de Baja</span>
                                 </p>
 
                                 <!--Clase activo fijo-->
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label>Clase activo fijo</mat-label>
-                                    <div *ngIf="asset['data'].catalogClass == null; else catalogClass">
+                                    <div *ngIf="asset.catalogClass == null; else catalogClass">
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
                                     </div>
                                     <ng-template #catalogClass>
-                                        <input matInput placeholder="" readonly value="{{asset['data'].catalogClass.name}}">
+                                        <input matInput placeholder="" readonly value="{{asset.catalogClass.name}}">
                                     </ng-template>
                                 </mat-form-field>
                                 <!--Clase activo fijo-->
@@ -61,11 +61,11 @@
                                     <mat-label>
                                         Código Rfid
                                     </mat-label>
-                                    <div *ngIf="asset['data'].rfidLabelSap == null; else rfidLabelSap">
+                                    <div *ngIf="asset.rfidLabelSap == null; else rfidLabelSap">
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
                                     </div>
                                     <ng-template #rfidLabelSap>
-                                        <input matInput readonly placeholder="Código Rfid" value="{{asset['data'].rfidLabelSap}}">
+                                        <input matInput readonly placeholder="Código Rfid" value="{{asset.rfidLabelSap}}">
                                     </ng-template>
                                 </mat-form-field>
                                 <!--Código Rfid-->
@@ -76,11 +76,11 @@
                                     <mat-label>
                                         Sociedad
                                     </mat-label>
-                                    <div *ngIf="asset['data'].society == null; else society">
+                                    <div *ngIf="asset.society == null; else society">
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
                                     </div>
                                     <ng-template #society>
-                                        <input matInput placeholder="" readonly value="{{asset['data'].society}}">
+                                        <input matInput placeholder="" readonly value="{{asset.society}}">
                                     </ng-template>
                                 </mat-form-field>
                                 <!--Sociedad-->
@@ -91,11 +91,11 @@
                                     <mat-label>
                                         Fecha de Capitalización
                                     </mat-label>
-                                    <div *ngIf="asset['data'].capitalizationDateAt == null; else capitalizationDateAt">
+                                    <div *ngIf="asset.capitalizationDateAt == null; else capitalizationDateAt">
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
                                     </div>
                                     <ng-template #capitalizationDateAt>
-                                        <input matInput placeholder="" readonly value="{{utils.formatDate(asset['data'].capitalizationDateAt.date)}}">
+                                        <input matInput placeholder="" readonly value="{{utils.formatDate(asset['capitalizationDateAt'].date)}}">
                                     </ng-template>
                                 </mat-form-field>
                                 <!--Fecha de Capitalización-->
@@ -111,11 +111,11 @@
                                     <mat-label>
                                         Especie
                                     </mat-label>
-                                    <div *ngIf="asset['data'].specie == null; else specie">
+                                    <div *ngIf="asset.specie == null; else specie">
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
                                     </div>
                                     <ng-template #specie>
-                                        <input matInput placeholder="" readonly value="{{asset['data'].specie.name}}">
+                                        <input matInput placeholder="" readonly value="{{asset.specie.name}}">
                                     </ng-template>
                                 </mat-form-field>
 
@@ -123,11 +123,11 @@
                                     <mat-label>
                                         Número de serie
                                     </mat-label>
-                                    <div *ngIf="asset['data'].serieNumber == null; else serieNumber">
+                                    <div *ngIf="asset.serieNumber == null; else serieNumber">
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
                                     </div>
                                     <ng-template #serieNumber>
-                                        <input matInput placeholder="" readonly value="{{asset['data'].serieNumber}}">
+                                        <input matInput placeholder="" readonly value="{{asset.serieNumber}}">
                                     </ng-template>
                                 </mat-form-field>
 
@@ -135,11 +135,11 @@
                                     <mat-label>
                                         Denominación
                                     </mat-label>
-                                    <div *ngIf="asset['data'].description == null; else description">
+                                    <div *ngIf="asset.description == null; else description">
                                         <textarea matInput [readonly]="true" disabled cols="5">Sin datos</textarea>
                                     </div>
                                     <ng-template #description>
-                                        <textarea matInput [readonly]="true" cols="5">{{asset['data'].description}}</textarea>
+                                        <textarea matInput [readonly]="true" cols="5">{{asset.description}}</textarea>
                                     </ng-template>
 
                                 </mat-form-field>
@@ -185,7 +185,7 @@
                                     <mat-label class="text-primary">Centro
                                         <mat-icon aria-hidden="false">edit</mat-icon>
                                     </mat-label>
-                                    <select matNativeControl [(ngModel)]="asset['data'].lCenter.id" formControlName="lCenter" (change)="onChangeCenter()">
+                                    <select matNativeControl [(ngModel)]="asset.lCenter.id" formControlName="lCenter" (change)="onChangeCenter()">
                                     <option [ngValue]="null" disabled>Seleccione ...</option>
                                     <option *ngFor="let Center of Centers" [ngValue]="Center.id">{{Center.code}} - {{Center.name}}</option>
                                 </select>
@@ -198,7 +198,7 @@
                                     <mat-label class="text-primary">Piso
                                         <mat-icon aria-hidden="false">edit</mat-icon>
                                     </mat-label>
-                                    <select matNativeControl formControlName="lFloor" [(ngModel)]="asset['data'].lFloor.id" (change)="onChangeFloor()">
+                                    <select matNativeControl formControlName="lFloor" [(ngModel)]="asset.lFloor.id" (change)="onChangeFloor()">
                                             <option [ngValue]="null" disabled>Seleccione ...</option>
                                             <option *ngFor="let lFloor of lFloors" [ngValue]='lFloor.id'>{{lFloor.id}}
                                                 {{lFloor.code}} - {{lFloor.name}}</option>
@@ -212,7 +212,7 @@
                                     <mat-label class="text-primary">Área
                                         <mat-icon aria-hidden="false">edit</mat-icon>
                                     </mat-label>
-                                    <select matNativeControl formControlName="lArea" [(ngModel)]="asset['data'].lArea.id" (change)="onChangeArea()">
+                                    <select matNativeControl formControlName="lArea" [(ngModel)]="asset.lArea.id" (change)="onChangeArea()">
                                                 <option [ngValue]="null" disabled>Seleccione ...</option>
                                                 <option *ngFor="let lArea of lAreas" [ngValue]="lArea.id">{{lArea.code}} -
                                                     {{lArea.name}}</option>
@@ -224,7 +224,7 @@
                                     <mat-label class="text-primary">Sala
                                         <mat-icon aria-hidden="false">edit</mat-icon>
                                     </mat-label>
-                                    <select matNativeControl formControlName="lRoom" [(ngModel)]="asset['data'].lRoom.id">
+                                    <select matNativeControl formControlName="lRoom" [(ngModel)]="asset.lRoom.id">
                                                     <option [ngValue]="null" disabled>Seleccione ...</option>
                                                     <option *ngFor="let lRoom of lRooms" [ngValue]='lRoom.id'>{{lRoom.code}} -
                                                         {{lRoom.name}}</option>
@@ -252,7 +252,7 @@
                                     </mat-label>
                                     <select matNativeControl formControlName="lCenter" (change)="onChangeCenter()">
                                 <option [ngValue]="null" disabled>Seleccione ...</option>
-                                <option selected [ngValue]="asset['data'].lCenter.id">{{asset['data'].lCenter.code}} - {{asset['data'].lCenter.name}}</option>
+                                <option selected [ngValue]="asset.lCenter.id">{{asset.lCenter.code}} - {{asset.lCenter.name}}</option>
                                 <option *ngFor="let Center of Centers" [ngValue]="Center.id">{{Center.code}} - {{Center.name}}</option>
                             </select>
                                 </mat-form-field>
@@ -267,7 +267,7 @@
                                     </mat-label>
                                     <select matNativeControl formControlName="lBuilding" (change)="onChangeBuilding()">
                                     <option [ngValue]="null" disabled>Seleccione ...</option>
-                                    <option selected [ngValue]="asset['data'].lBuilding.id">{{asset['data'].lBuilding.code}} - {{asset['data'].lBuilding.name}}</option>
+                                    <option selected [ngValue]="asset.lBuilding.id">{{asset.lBuilding.code}} - {{asset.lBuilding.name}}</option>
                                     <option *ngFor="let lBuilding of lBuildings" [ngValue]="lBuilding.id">
                                         {{lBuilding.code}} - {{lBuilding.name}}</option>
                                 </select>
@@ -291,7 +291,7 @@
                                     </mat-label>
                                     <select matNativeControl formControlName="lFloor" (change)="onChangeFloor()">
                                         <option [ngValue]="null" disabled>Seleccione ...</option>
-                                        <option selected [ngValue]="asset['data'].lFloor.id">{{asset['data'].lFloor.code}} - {{asset['data'].lFloor.name}}</option>
+                                        <option selected [ngValue]="asset.lFloor.id">{{asset.lFloor.code}} - {{asset.lFloor.name}}</option>
                                         <option *ngFor="let lFloor of lFloors" [ngValue]='lFloor.id'>{{lFloor.id}}
                                             {{lFloor.code}} - {{lFloor.name}}</option>
                                     </select>
@@ -306,7 +306,7 @@
                                     </mat-label>
                                     <select matNativeControl formControlName="lArea" (change)="onChangeArea()">
                                             <option [ngValue]="null" disabled>Seleccione ...</option>
-                                            <option selected [ngValue]="asset['data'].lArea.id">{{asset['data'].lArea.code}} - {{asset['data'].lArea.name}}</option>
+                                            <option selected [ngValue]="asset.lArea.id">{{asset.lArea.code}} - {{asset.lArea.name}}</option>
                                             <option *ngFor="let lArea of lAreas" [ngValue]="lArea.id">{{lArea.code}} -
                                                 {{lArea.name}}</option>
                                         </select>
@@ -321,7 +321,7 @@
                                     </mat-label>
                                     <select matNativeControl formControlName="lRoom">
                                                 <option [ngValue]="null" disabled>Seleccione ...</option>
-                                                <option selected [ngValue]="asset['data'].lRoom.id">{{asset['data'].lRoom.code}} - {{asset['data'].lRoom.name}}</option>
+                                                <option selected [ngValue]="asset.lRoom.id">{{asset.lRoom.code}} - {{asset.lRoom.name}}</option>
                                                 <option *ngFor="let lRoom of lRooms" [ngValue]='lRoom.id'>{{lRoom.code}} -
                                                     {{lRoom.name}}</option>
                                             </select>
@@ -345,33 +345,33 @@
                                     <mat-label>
                                         ID Acreedor
                                     </mat-label>
-                                    <div *ngIf="asset['data'].creditorId == null; else creditorId">
+                                    <div *ngIf="asset.creditorId == null; else creditorId">
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
                                     </div>
                                     <ng-template #creditorId>
-                                        <input matInput placeholder="ID Acreedor" readonly value="{{asset['data'].creditorId}}">
+                                        <input matInput placeholder="ID Acreedor" readonly value="{{asset.creditorId}}">
                                     </ng-template>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label>
                                         Fabricante
                                     </mat-label>
-                                    <div *ngIf="asset['data'].creditorName == null; else creditorName">
+                                    <div *ngIf="asset.creditorName == null; else creditorName">
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
                                     </div>
                                     <ng-template #creditorName>
-                                        <input matInput placeholder="Fabricante" readonly value="{{asset['data'].creditorName}}">
+                                        <input matInput placeholder="Fabricante" readonly value="{{asset.creditorName}}">
                                     </ng-template>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label>
                                         Origen
                                     </mat-label>
-                                    <div *ngIf="asset['data'].assetOrigin == null; else assetOrigin">
+                                    <div *ngIf="asset.assetOrigin == null; else assetOrigin">
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
                                     </div>
                                     <ng-template #assetOrigin>
-                                        <input matInput placeholder="" readonly value="{{asset['data'].assetOrigin}}">
+                                        <input matInput placeholder="" readonly value="{{asset.assetOrigin}}">
                                     </ng-template>
                                 </mat-form-field>
                                 <mat-checkbox [checked]="true" [disabled]="true">¿Es un activo nuevo?</mat-checkbox>
@@ -388,22 +388,22 @@
                                         Años de vida útil
                                     </mat-label>
 
-                                    <div *ngIf="asset['data'].lifetimeYear == null; else lifetimeYear">
+                                    <div *ngIf="asset.lifetimeYear == null; else lifetimeYear">
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
                                     </div>
                                     <ng-template #lifetimeYear>
-                                        <input matInput placeholder="" readonly value="{{asset['data'].lifetimeYear}}">
+                                        <input matInput placeholder="" readonly value="{{asset.lifetimeYear}}">
                                     </ng-template>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label>
                                         Vida útil tributaria
                                     </mat-label>
-                                    <div *ngIf="asset['data'].lifetimeYear15 == null; else lifetimeYear15">
+                                    <div *ngIf="asset.lifetimeYear15 == null; else lifetimeYear15">
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
                                     </div>
                                     <ng-template #lifetimeYear15>
-                                        <input matInput placeholder="Vida útil tributaria" readonly value="{{asset['data'].lifetimeYear15}}">
+                                        <input matInput placeholder="Vida útil tributaria" readonly value="{{asset.lifetimeYear15}}">
                                     </ng-template>
                                 </mat-form-field>
                             </mat-expansion-panel>

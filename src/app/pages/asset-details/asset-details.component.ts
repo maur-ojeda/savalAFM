@@ -5,7 +5,6 @@ import { AssetsDetailsService } from '../../services/assets-details.service';
 import { Asset } from 'src/app/models/asset.model';
 import { Observable } from 'rxjs';
 import { AssetInterface } from '../../interfaces/asset.interface';
-
 import { AssetsService } from '../../services/assets.service';
 
 
@@ -17,7 +16,7 @@ import { AssetsService } from '../../services/assets.service';
 })
 export class AssetDetailsComponent implements OnInit {
   public asset$:Observable<Asset[]>;
-  asset: Asset[] = [];
+  asset  = new Asset();
   constructor(
     public assetsDetailsService: AssetsDetailsService,
     private activatedRoute: ActivatedRoute,
@@ -29,17 +28,22 @@ export class AssetDetailsComponent implements OnInit {
   ngOnInit(): void {
     let code = this.activatedRoute.snapshot.paramMap.get('id');
     //this.asset$ = this.assetsDetailsService.findByCode(code);
-
-    this.asset$ = this.assetsDetailsService.findByCode(code);
-
+    this.assetsService.getAssetPorcode(code).then( asset => {
+      this.asset = asset
+      console.log(asset)
+    } 
+     )
+    .catch( () => console.log('error') )
+    //this.asset$ = this.assetsDetailsService.findByCode(code);
 
     
     
-    this.assetsService.getAssetPorCode( code )
-    .then( asset => this.asset['data'] = asset)
 
-    console.log(this.asset['data'])
     
+    
+    //this.assetsService.getAssetPorCode( code )
+    //.then( asset => this.asset['data'] = asset)
+
     
 
     

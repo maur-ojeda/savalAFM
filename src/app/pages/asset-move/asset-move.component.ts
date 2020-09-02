@@ -35,7 +35,7 @@ import { MoveConfirmationComponent } from 'src/app/dialogs/move-confirmation/mov
 import {MatDialog} from '@angular/material/dialog';
 import { Asset } from 'src/app/models/asset.model';
 
-
+import { AssetsService } from 'src/app/services/assets.service';
 
 @Component({
   selector: 'app-asset-move',
@@ -71,20 +71,23 @@ export class AssetMoveComponent implements OnInit {
 		public slFloor: FloorService,
 		public slArea: AreaService,
     public slRoom: RoomService,
-    public dialog: MatDialog 
+    public dialog: MatDialog,
+    private assetsService: AssetsService, 
   ) { }
   ngOnInit(): void {
     let code = this.activatedRoute.snapshot.paramMap.get('id');
-    this.asset$ = this.utils.findByCode(code);
- 
-    this.asset$.subscribe(
-      (asset)=>{this.getAssetsData(asset) }
-    );
+   
+    this.assetsService.getAssetPorcode(code).then( asset => {
+      this.asset = asset
+      this.getAssetsData(asset)
+    } 
+     )
+    .catch( () => console.log('error') )
+
 
     this.slCCenterService.getCcenters()
   .then(CCenters => this.CCenters = CCenters);
-
-    
+ 
 
     this.slBuilding.getallBuildings()
     .then(lBuildings => this.lBuildings = lBuildings);
@@ -113,8 +116,8 @@ export class AssetMoveComponent implements OnInit {
       lRoom: ['', [Validators.required]]
     });
   }
-  getAssetsData(i) {
-    let e = i['data'];
+  getAssetsData(e) {
+    
     this.reactiveForm.controls['assetID'].setValue(e.id);
     this.reactiveForm.controls['costCenter'].setValue(e.costCenter.id);
     this.reactiveForm.controls['lCenter'].setValue(e.lCenter.id);

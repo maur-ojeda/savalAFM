@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DeleteConfirmationComponent } from 'src/app/dialogs/delete-confirmation/delete-confirmation.component';
+import { AssetsService } from 'src/app/services/assets.service';
 
 @Component({
   selector: 'app-asset-delete',
@@ -23,16 +24,22 @@ export class AssetDeleteComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public utils: SharedserviceService,
     private builder: FormBuilder,
-    public dialog: MatDialog 
+    public dialog: MatDialog ,
+    private assetsService: AssetsService,
 
   ) { }
 
   ngOnInit(): void {
       let code = this.activatedRoute.snapshot.paramMap.get('id');
-      this.asset$ = this.utils.findByCode(code);
-      this.asset$.subscribe((e)=>{
-        this.reactiveForm.controls['assetID'].setValue(e['data'].id);
-      });
+      //this.asset$ = this.utils.findByCode(code);
+      this.assetsService.getAssetPorcode(code).then( asset => {
+        this.asset = asset
+        this.reactiveForm.controls['assetID'].setValue(asset.id);
+      } 
+       )
+      .catch( () => console.log('error') )
+      
+      
    
       this.reactiveForm = this.builder.group({
         assetID:['',[]],
@@ -47,14 +54,7 @@ export class AssetDeleteComponent implements OnInit {
 
 
     deleteAsset(){
-      /*let ide = ; 
-      let formValue = {
-        "downDocumentAt": this.reactiveForm.value.downDocumentAt,
-        "downPostingAt": this.reactiveForm.value.downPostingAt,
-        "downReferenceAt": this.reactiveForm.value.downReferenceAt,
-        "downComment": this.reactiveForm.value.downComment
-      }*/
- 
+  
       this.asset.id = this.reactiveForm.value.assetID; 
       this.asset.downDocumentAt = this.reactiveForm.value.downDocumentAt;
       this.asset.downPostingAt = this.reactiveForm.value.downPostingAt;

@@ -10,18 +10,28 @@ Project Description
 - [ ] ordenar tabla  
 - [ ] ordenar selects por numero o nombre  
 - [ ] realizar busqueda por codigo en cache  
-- [ ] Restringir acciones de asset si se realizo alguna accion offline hasta su registro  
-- [ ] Solicitar restriccion de  registrar en api  si hay algun cambio en el af mientras este offline y  rechazar es te cambio, Explicando este rechazo.  
 - [ ] revisar metodos en asset service  
 - [ ] revisar base service  
 
-### In Progress
+### Blocked
 
 - [ ] Modo Offline  
-- [ ] revisar problema de grabado en move asset  
+  - [ ] Solicitar restriccion de  registrar en api  si hay algun cambio en el af mientras este offline y  rechazar es te cambio, Explicando este rechazo.[bloquedo por bex]  
+  - [ ] revisar problema de grabado en move asset [bloqueado por bex]  
+
+### In Progress
+
+- [ ] Restringir acciones de asset si se realizo alguna accion offline hasta su registro  
 
 ### Done ✓
 
+- [x] cambiar metodo de busqueda en acciones  en fixed assets, botones con modall  
+- [x] alerta de sincronizacion de datos, usar  mat-progres bar u bloquers las actividades, dejar solo , crear asset y request hasta cargar completamente: https://material.angular.io/components/progress-bar/overview  
+- [x] eliminar de fixed-asset la carga de los assets  
+- [x] plantilla de delete  : cambiar al nuevo metodo de busqueda  
+- [x] plantilla de movecambiar al nuevo metodo de busqueda  
+- [x] plantilla de update: cambiar al nuevo metodo de busqueda  
+- [x] plantilla de details cambiar al nuevo metodo de busqueda  
 - [x] registrar assets en cache  
 - [x] registrar locations en cache  
 - [x] registrar request en cache  

@@ -42,6 +42,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -151,8 +152,8 @@ import { AssetDeleteComponent } from './pages/asset-delete/asset-delete.componen
     MatExpansionModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatIconModule
-
+    MatIconModule,
+    MatProgressBarModule
   ],
   entryComponents: [OpenFixedassetComponent],
   providers: [CookieService, AuthGuard, SharedserviceService],

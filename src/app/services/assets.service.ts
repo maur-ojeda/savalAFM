@@ -78,7 +78,6 @@ export class AssetsService {
         .subscribe((assets: any) => {
           this.assetos = assets['data'];
           resolve(assets['data']);
-          alert('sincornizacion terminada')
         });
     });
     

@@ -11,7 +11,7 @@ import Dexie from 'dexie';
 
 
 //puede ser instanciada por cualquier componenete solo se requiere el id
-export abstract class BaseService<T extends { id: string }> {
+export abstract class BaseService<T extends { id: number }> {
   private db: Dexie;
   private table: Dexie.Table<T, any> = null;
   protected http: HttpClient;

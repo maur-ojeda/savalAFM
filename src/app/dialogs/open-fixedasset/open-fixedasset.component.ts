@@ -12,6 +12,7 @@ import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
   styleUrls: ['./open-fixedasset.component.scss']
 })
 export class OpenFixedassetComponent implements OnInit {
+  
   assets: AssetSearchInterface[] = [];
   asset: AssetSearchInterface[] = [];
   reactiveForm: FormGroup;
@@ -27,8 +28,9 @@ export class OpenFixedassetComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
     this.reactiveForm = this.builder.group({
-      search: ['', [Validators.required]]
+      search: ['', [Validators.required, Validators.pattern(nonWhitespaceRegExp)]]
     });
   }
   
@@ -52,11 +54,66 @@ export class OpenFixedassetComponent implements OnInit {
       )
   }
 
-  search() {
+  searchNoUsar() {
     let ide = this.reactiveForm.value.search
     ide = ide.toString()
    this.assetPorIde(ide);
   }
+
+ /** Funcion que busca por numero ingresado **/
+ search() {
+  let url ="fixedAssetUpdate/"
+  let valor = this.reactiveForm.value.search
+  valor  =  valor.replace(/\s/g, "")
+  var splitted = valor.split("-", 2);
+  let codigo = splitted[0]
+  let subCodigo = splitted[1]
+  if( isNaN(codigo) ){
+    console.log('buscar rfid')
+   this.assetsService.getAssetPorrfidLabelSap(valor).then( 
+     res => {
+    let route = url 
+    this.dialogRef.close();+ res.code;
+    return this.router.navigateByUrl(route)
+  }).catch(
+    () => {
+      alert("No se ha encontrado registro.")
+});
+  }else if(!isNaN(subCodigo)){
+    console.log('buscar subcodigo')
+    this.assetsService.getAssetPorreferalCode(valor)
+    .then( res => {
+      this.dialogRef.close();
+      let route = url + res.code;
+      return this.router.navigateByUrl(route)  
+    }
+    ).catch(
+      () => {
+        alert("No se ha encontrado registro.")
+  });
+
+  } else if( !isNaN(codigo) ){
+    console.log('buscar codigo sin subcodigo')
+    codigo = codigo.toString().padStart(12, "0");
+    console.log(codigo)
+    this.assetsService.getAssetPorcode(codigo)
+    .then( res => {
+      this.dialogRef.close();
+      let route = url + res.code;
+      return this.router.navigateByUrl(route)  
+    }
+    ).catch(
+      () => {
+        alert("No se ha encontrado registro.")
+  });
+  }
+  else{      
+    alert("No se ha encontrado registro.")
+    return this.router.navigateByUrl('/fixedAssets');
+  }
+
+}
+
 }
 
 

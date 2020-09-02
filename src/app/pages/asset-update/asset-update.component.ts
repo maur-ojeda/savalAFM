@@ -10,6 +10,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CcenterService } from 'src/app/services/ccenter.service';
 import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
 import { UpdateConfirmationComponent } from 'src/app/dialogs/update-confirmation/update-confirmation.component';
+import { AssetsService } from 'src/app/services/assets.service';
+
 
 
 @Component({
@@ -20,6 +22,8 @@ import { UpdateConfirmationComponent } from 'src/app/dialogs/update-confirmation
 export class AssetUpdateComponent implements OnInit {
   public asset$:Observable<Asset[]>;
   public asset = new Asset();
+  //asset: AssetInterface;
+
   reactiveForm: FormGroup;
   ccenters: CcenterInterface[] = [];
 
@@ -29,15 +33,25 @@ export class AssetUpdateComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public utils: SharedserviceService,
     private builder: FormBuilder,
-    public dialog: MatDialog 
+    public dialog: MatDialog,
+    private assetsService: AssetsService, 
+
   ) { }
 
   ngOnInit(): void {
     let code = this.activatedRoute.snapshot.paramMap.get('id');
-    this.asset$ = this.utils.findByCode(code);
-    this.asset$.subscribe(
-      (asset)=>{this.getAssetsData(asset) }
-    )
+    this.assetsService.getAssetPorcode(code).then( asset => {
+      this.asset = asset
+      this.getAssetsData(asset)
+    } 
+     )
+    .catch( () => console.log('error') )
+    //this.asset$ = this.utils.findByCode(code);
+    //this.asset$.subscribe(
+    //  (asset)=>{this.getAssetsData(asset) }
+   // )
+
+
 
 
     this.slCCenterService.getCcenters()
@@ -54,8 +68,7 @@ export class AssetUpdateComponent implements OnInit {
     });
   }
 
-  getAssetsData(i) {
-   let e = i['data'];
+  getAssetsData(e) {
    // console.log('getAssetsData:') 
    // console.log(e)
     this.reactiveForm.controls['assetID'].setValue(e.id);
