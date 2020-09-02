@@ -12,6 +12,8 @@ Project Description
 - [ ] realizar busqueda por codigo en cache  
 - [ ] revisar metodos en asset service  
 - [ ] revisar base service  
+- [ ] revision de cuando vuelve a a estar offline [preguntar mas detalles]  
+- [ ] revision de baja de activo fijo offline  
 
 ### Blocked
 

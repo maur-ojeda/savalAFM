@@ -74,7 +74,7 @@ export class AssetsService {
     }
 
     return new Promise(resolve => {
-      this.http.get(this.API_URL + '/webservice/rest/assets?all=true', { headers })
+      this.http.get(this.API_URL + '/webservice/rest/assets/?all=true', { headers })
         .subscribe((assets: any) => {
           this.assetos = assets['data'];
           resolve(assets['data']);
