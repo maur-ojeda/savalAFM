@@ -78,6 +78,9 @@ import { AssetDetailsComponent } from './pages/asset-details/asset-details.compo
 import { AssetMoveComponent } from './pages/asset-move/asset-move.component';
 import { AssetUpdateComponent } from './pages/asset-update/asset-update.component';
 import { AssetDeleteComponent } from './pages/asset-delete/asset-delete.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule} from '@angular/material/core'
+
 
 
 @NgModule({
@@ -153,7 +156,10 @@ import { AssetDeleteComponent } from './pages/asset-delete/asset-delete.componen
     MatCheckboxModule,
     MatSelectModule,
     MatIconModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+    
   ],
   entryComponents: [OpenFixedassetComponent],
   providers: [CookieService, AuthGuard, SharedserviceService],
