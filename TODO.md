@@ -13,13 +13,14 @@ Project Description
 - [ ] revisar metodos en asset service  
 - [ ] revisar base service  
 - [ ] revision de cuando vuelve a a estar offline [preguntar mas detalles]  
-- [ ] revision de baja de activo fijo offline  
+- [ ] cambiar el algoritmo de  busqueda y acciones  
+  - [ ] revisar problema de grabado en move asset [bloqueado por bex]  
+  - [ ] Solicitar restriccion de  registrar en api  si hay algun cambio en el af mientras este offline y  rechazar es te cambio, Explicando este rechazo.[bloquedo por bex]  
 
 ### Blocked
 
 - [ ] Modo Offline  
-  - [ ] Solicitar restriccion de  registrar en api  si hay algun cambio en el af mientras este offline y  rechazar es te cambio, Explicando este rechazo.[bloquedo por bex]  
-  - [ ] revisar problema de grabado en move asset [bloqueado por bex]  
+- [ ] revision de baja de activo fijo offline cambio de inputs  
 
 ### In Progress
 

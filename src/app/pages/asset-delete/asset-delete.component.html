@@ -319,34 +319,66 @@
                             </mat-expansion-panel>
                             <mat-expansion-panel [expanded]="true">
                                 <mat-expansion-panel-header>
+
+
+
+
+
+
+
+
+
                                     <mat-panel-title>
                                         Baja del servicio
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
+
+
+
+                                <mat-form-field appearance="outline" class="full-width">
+                                    <mat-label>Fecha de documento </mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="downDocumentAt">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" class="full-width">
+                                    <mat-label>Fecha de refeferencia </mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="downPostingAt">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" class="full-width">
+                                    <mat-label>Fecha de contabilización </mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="downReferenceAt">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+
+
+                                <!--
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label>
                                         Fecha documento
                                     </mat-label>
                                     <input type="date" matInput formControlName="downDocumentAt" placeholder="" value="">
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label>
                                         Fecha referencia
                                     </mat-label>
                                     <input type="date" matInput formControlName="downPostingAt" placeholder="" value="">
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label>
                                         Fecha contabilización
                                     </mat-label>
                                     <input type="date" matInput placeholder="" value="" formControlName="downReferenceAt">
                                 </mat-form-field>
-
-
-
-
-
-
+                                -->
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label>
                                         Glosa de baja

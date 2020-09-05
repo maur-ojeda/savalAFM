@@ -30,16 +30,24 @@ export class AssetDeleteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      let code = this.activatedRoute.snapshot.paramMap.get('id');
-      //this.asset$ = this.utils.findByCode(code);
+
+    let code = this.activatedRoute.snapshot.paramMap.get('id');
+
+//checkear si esta online o offline
+
+
+//offline  
       this.assetsService.getAssetPorcode(code).then( asset => {
         this.asset = asset
         this.reactiveForm.controls['assetID'].setValue(asset.id);
-      } 
-       )
+      } )
       .catch( () => console.log('error') )
       
-      
+//online
+      //this.asset$ = this.utils.findByCode(code);
+
+
+
    
       this.reactiveForm = this.builder.group({
         assetID:['',[]],
