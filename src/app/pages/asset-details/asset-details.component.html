@@ -1,14 +1,10 @@
 <app-header>
 </app-header>
-
 <div class="container">
+
     <ng-container *ngIf="asset$ | async as asset; else loading">
         <ng-container *ngIf="asset['data'] !== null; else noContent">
-
-
-
             <div class="mt-5 pt-5 p-3">
-
                 <app-back-button></app-back-button>
 
                 <app-tabs [asset]=asset></app-tabs>
@@ -319,14 +315,20 @@
             </div>
         </ng-container>
     </ng-container>
+
+
     <ng-template #loading>
         <mat-spinner></mat-spinner>
     </ng-template>
+
+
     <ng-template #noContent>
         <h1 class="text-danger">
             {{utils.toHome()}}
         </h1>
     </ng-template>
+
+
 </div>
 
 <app-footer></app-footer>
