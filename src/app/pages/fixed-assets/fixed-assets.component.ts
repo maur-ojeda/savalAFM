@@ -11,6 +11,10 @@ import { DownFixedassetComponent } from 'src/app/dialogs/down-fixedasset/down-fi
 import { NoRegisterComponent } from 'src/app/dialogs/no-register/no-register.component';
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 
+import { SharedserviceService} from '../../services/sharedservice.service';
+import { Asset } from 'src/app/models/asset.model';
+
+import { OnlineOfflineService } from '../../services/online-offline.service';
 
 @Component({
   selector: 'app-fixed-assets',
@@ -20,37 +24,127 @@ import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 
 export class FixedAssetsComponent implements OnInit {
   assets: AssetSearchInterface[] = [];
-  asset: AssetSearchInterface[] = [];
+  asset: Asset[] = [];
   reactiveForm: FormGroup;
+  AssetsService;
   ide;
   hexa;
   element;
   /*desuse*/
   closeResult = '';
   
-
+  isOnline:boolean = true;
 
   constructor(
     private assetsService: AssetsService,
     private modalService: NgbModal,
     private router: Router,
     private builder: FormBuilder,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog,
+    public utils: SharedserviceService,
+    public onlineOfflineService: OnlineOfflineService,
+
+
+    
+  ) {   
+    
+    //llamada a los metodos
+    this.oirStatusConexion();}
 
   ngOnInit(): void {
+    const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
     this.reactiveForm = this.builder.group({
-      search: ['', [Validators.required]]
+      search: ['', [Validators.required, Validators.pattern(nonWhitespaceRegExp)] ]
     });
   }
  
 
-  /** Funcion que busca por numero ingresado*/
-  search() {
-    let ide = this.reactiveForm.value.search
-    ide = ide.toString()
-    this.assetPorIde(ide);
+  private oirStatusConexion() {
+    this.onlineOfflineService.statusConexion
+      .subscribe(
+        online => {
+          if (online) {
+           // console.log(online)
+           this.isOnline = true;
+          }
+          else {
+            //console.log('estoy offline')
+            this.isOnline = false;
+          }
+        }
+
+      )
   }
+  /** Funcion que busca por numero ingresado online*/
+  search() {
+    let valor = this.reactiveForm.value.search
+   if( this.isOnline ){
+   
+
+    //ide = ide.toString()
+    this.assetPorIde(valor);
+
+   }else{
+    let url ="fixedAsset/"
+   
+    valor  =  valor.replace(/\s/g, "")
+    var splitted = valor.split("-", 2);
+    let codigo = splitted[0]
+    let subCodigo = splitted[1]
+    if( isNaN(codigo) ){
+      console.log('buscar rfid')
+     this.assetsService.getAssetPorrfidLabelSap(valor).then( res => {
+      let route = url + res.code;
+      return this.router.navigateByUrl(route)
+    }).catch(
+      () => {
+        alert("No se ha encontrado registro.")
+  });
+    }else if(!isNaN(subCodigo)){
+      console.log('buscar subcodigo')
+      this.assetsService.getAssetPorreferalCode(valor)
+      .then( res => {
+        let route = url + res.code;
+        return this.router.navigateByUrl(route)  
+      }
+      ).catch(
+        () => {
+          alert("No se ha encontrado registro.")
+    });
+  
+    } else if( !isNaN(codigo) ){
+      console.log('buscar codigo sin subcodigo')
+      codigo = codigo.toString().padStart(12, "0");
+      console.log(codigo)
+      this.assetsService.getAssetPorcode(codigo)
+      .then( res => {
+        let route = url + res.code;
+        return this.router.navigateByUrl(route)  
+      }
+      ).catch(
+        () => {
+          alert("No se ha encontrado registro.")
+    });
+    }
+    else{      
+      alert("No se ha encontrado registro.")
+      return this.router.navigateByUrl('/fixedAssets');
+    }
+  
+
+   }
+   
+    
+ 
+  }
+/**
+ * 
+ * off line
+ * 
+ * 
+ */
+
+
 
 /**Funcion que navega a la url correspondiente */
   navigateTo(value) {
@@ -111,6 +205,7 @@ export class FixedAssetsComponent implements OnInit {
    if (valor == null) {      
       return this.router.navigateByUrl('/fixedAssets');
     }
+
     if (valor == '') {
       alert('vacio ingrese un número')
       return this.router.navigateByUrl('/fixedAssets');
@@ -182,6 +277,8 @@ alert(c)
       return `with: ${reason}`;
     }
   }
+
+
 
 
 

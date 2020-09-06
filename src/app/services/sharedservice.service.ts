@@ -58,7 +58,7 @@ listAllAssest(): Observable<Asset[]> {
     .set('Content-Type', 'application/x-www-form-urlencoded')
      return this.http.get<Asset[]>('https://afsaval.agenciasur.cl/webservice/rest/assets/?all=true', { headers })
 }
-
+/*
 findByCodeOffline(code: string) {
   if(this.assets != undefined) {
 
@@ -82,7 +82,7 @@ findByCodeOffline(code: string) {
   }
 }
 
-
+*/
 
 
 }
