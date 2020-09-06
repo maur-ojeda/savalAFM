@@ -9,13 +9,14 @@ Project Description
 - [ ] Logo saval a SVG  
 - [ ] ordenar tabla  
 - [ ] ordenar selects por numero o nombre  
-- [ ] loader en login  
 
 ### In Progress
 
 - [ ] Modo Offline  
   - [ ] assetsMoveService  
 - [ ] revisar problema de grabado en move asset  
+- [ ] asset-details: diferenrcias cundo esta on y off line para diferentes metodos . y pasar estos cambios al html  
+- [ ] relpicar buscador offline y fusionar con buscador online  
 
 ### Done ✓
 

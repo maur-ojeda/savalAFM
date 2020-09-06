@@ -113,16 +113,28 @@ move(formValue: T){
 
 }
 
-  listar(): Observable<T[]> {
-    return this.http.get<T[]>(this.urlAPI);
+/*
+  listAllAssest(): Observable<T[]> {
+    let headers = new HttpHeaders()
+      .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      this.http.get<T[]>(this.urlAPI + '/webservice/rest/assets/?all=true', { headers }).subscribe
   }
-  /////////
+  */
+  
+  /**
+   * Metodo online que solo trae un assest desde la api
+   * 
+   */
   findByCode(code: string): Observable<T[]> {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set('Content-Type', 'application/x-www-form-urlencoded')
     return this.http.get<T[]>(this.urlAPI + '/webservice/rest/assets/search?code=' + code, { headers })
   }
+
+
+
   InsertAssetsApi(formValue) {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")

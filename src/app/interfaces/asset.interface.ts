@@ -1,4 +1,4 @@
-/*export interface AssetInterface {
+export interface AssetInterface {
   id: number;
   status: number;
   createdAt: CreatedAt;
@@ -80,7 +80,9 @@ interface CreatedAt {
   date: string;
   timezone_type: number;
   timezone: string;
-}*/
+}
+
+/*
 export interface AssetInterface {
   error: boolean;
   message: string;
@@ -169,4 +171,4 @@ interface CreatedAt {
   date: string;
   timezone_type: number;
   timezone: string;
-}
+}*/

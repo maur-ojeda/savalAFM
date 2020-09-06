@@ -4,7 +4,7 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-//import { AssetInterface } from '../interfaces/asset.interface';
+import { AssetInterface } from '../interfaces/asset.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateErrorComponent } from '../dialogs/create-error/create-error.component';
 import { CreateOkComponent } from '../dialogs/create-ok/create-ok.component';
@@ -13,10 +13,12 @@ import { UpdateErrorComponent } from '../dialogs/update-error/update-error.compo
 import { MoveOkComponent } from '../dialogs/move-ok/move-ok.component';
 import { DeleteOkComponent } from '../dialogs/delete-ok/delete-ok.component';
 import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.component';
+
 import { AssetSearchInterface } from '../interfaces/assetSearch.interface';
 import { MoveErrorComponent } from '../dialogs/move-error/move-error.component';
 import { Asset } from '../models/asset.model'
 import { OnlineOfflineService } from './online-offline.service';
+
 import Dexie from 'dexie'
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -34,6 +36,8 @@ export class AssetsService {
   private API_URL = "https://afsaval.agenciasur.cl"
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
+
+  private assetos: AssetInterface[] = [];
   private assets: AssetSearchInterface[] = [];
   
   constructor( 
@@ -48,7 +52,7 @@ export class AssetsService {
 
 
 
-  //cambiar al 
+  //cambiar al sin uso 
   private iniciarIndexDB() {
     this.db = new Dexie('db-assets')
     this.db.version(1).stores({
@@ -57,28 +61,59 @@ export class AssetsService {
     this.table = this.db.table('asset');
   }
 
-
-
-
   getAssets(): Promise<AssetSearchInterface[]> {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
       .set('Content-Type', 'application/x-www-form-urlencoded')
-    if (this.assets.length > 0) {
-      return Promise.resolve(this.assets);
+    if (this.assetos.length > 0) {
+      return Promise.resolve(this.assets['data']);
     }
     return new Promise(resolve => {
-      this.http.get(this.API_URL + '/webservice/rest/assets?all=true', { headers })
+      this.http.get(this.API_URL + '/webservice/rest/assets/?all=true', { headers })
         .subscribe((assets: any) => {
-          this.assets = assets.data;
-          resolve(assets.data);
-          console.log(assets.data)
+          this.assetos = assets['data'];
+          resolve(assets['data']);
         });
     });
   }
+////Buscador referalCode
+getAssetPorreferalCode(val: string) {
+  if (this.assetos.length > 0) {
+     const asset = this.assetos.find(p => p.referalCode == val);
+     return Promise.resolve(asset);
+   }
+}
+getAssetPorrfidLabelSap(val: string) {
+  let cod = val
+  if (cod.length > 23) {
+    let last8 = cod.substr(val.length - 8);
+    let hexa = parseInt(last8, 16);
+    let hexaStr = hexa.toString();
+    val = hexaStr
+  }
+  if (this.assetos.length > 0) {
+     const asset = this.assetos.find(p => p.rfidLabelSap == val);
+     return Promise.resolve(asset);
+   }
+}
+getAssetPorcode(val: string) {
+  if (this.assetos.length > 0) {
+     const asset = this.assetos.find(p => p.code == val);
+     return Promise.resolve(asset);
+   }
+}
 
-
-
+getAssetPorCode(val: string) {
+  if (this.assets.length > 0) {
+     const asset = this.assetos.find(p => p.code == val);
+     return Promise.resolve(asset);
+   }else{
+  return this.getAssets().then(assets => {
+    const asset = this.assetos.find(p => p.code == val);
+     return Promise.resolve(asset);
+   });
+   }
+}
 
 
   //test
@@ -279,7 +314,7 @@ export class AssetsService {
      });*/
     console.log('todo');
   }
-  getAssetPorCode(code: string) {
+  getAssetPorCode_(code: string) {
     /*
      if (this.assets.length > 0) {
        const asset = this.assets.find(p => p.code === code);
