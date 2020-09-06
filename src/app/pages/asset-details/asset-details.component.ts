@@ -30,7 +30,7 @@ export class AssetDetailsComponent implements OnInit {
     //this.asset$ = this.assetsDetailsService.findByCode(code);
     this.assetsService.getAssetPorcode(code).then( asset => {
       this.asset = asset
-      console.log(asset)
+      //console.log(asset)
     } 
      )
     .catch( () => console.log('error') )

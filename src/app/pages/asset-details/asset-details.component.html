@@ -31,8 +31,6 @@
                                     <p class="mb-0 mt-0">Este activo fijo esta dado de baja</p>
                                 </div>
                             </div>
-
-
                             <p class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{utils.formatDate(asset['createdAt'].date)}}
                             </p>
                             <p class="display-5 pr-3 d-sm-block">Número AF: {{ asset.referalCode }}
@@ -201,7 +199,7 @@
                                 <mat-label>
                                     Edificio
                                 </mat-label>
-                                <div *ngIf="asset.lBuilding.code == null; else lBuilding">
+                                <div *ngIf="asset.lBuilding == null; else lBuilding">
                                     <input matInput placeholder="" readonly disabled value="Sin datos">
                                 </div>
                                 <ng-template #lBuilding>

@@ -13,6 +13,8 @@ import { RequestInterface } from 'src/app/interfaces/request.interface';
 import { RequestsService } from 'src/app/services/requests.service';
 import { AssetsService } from '../../services/assets.service';
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
 //import { BuildingInterface } from '../interfaces/building.interface';
 //
 
@@ -41,7 +43,8 @@ export class LoginComponent implements OnInit {
     public dialog: MatDialog,
     private assetsService: AssetsService,
     private requestsService: RequestsService,
-    public utils: SharedserviceService
+    public utils: SharedserviceService,
+    private snackBar: MatSnackBar
 
   ) { }
 
@@ -67,21 +70,32 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userfullName', data.data.fullName);
           
           this.userService.setLoggedIn(true)
-          
+      
+          this.dialog.open(WarningComponent, {
+            width: '98VW',
+            disableClose: true 
+          })
+
+        
+          //this.snackBar.open('Cargando recursos...', '', { panelClass: ['online-snackbar'] });
 
           this.requestsService.getRequests()
           .then( requests => this.requests = requests )
 
           this.assetsService.getAssets()
-          .then( assets => this.assets = assets).finally(
+          .then( (assets) => {
+            this.assets = assets        
+          }).finally(
             () => {
-              this.router.navigate(['home'])
-              this.showSpinner = false;
-
+              //this.snackBar.dismiss();
+              this.dialog.closeAll();
             } 
             
           )
           
+
+          this.router.navigate(['home'])
+          this.showSpinner = false;
 
           
         }

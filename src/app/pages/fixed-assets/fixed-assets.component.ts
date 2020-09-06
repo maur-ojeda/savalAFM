@@ -56,6 +56,7 @@ export class FixedAssetsComponent implements OnInit {
       search: ['', [Validators.required,  Validators.pattern(nonWhitespaceRegExp)]]
     });
 
+    console.log(this.assets)
     /*this.assetsService.getAssets()
     .then( assets => this.assets = assets)*/
   }
