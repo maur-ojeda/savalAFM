@@ -337,48 +337,25 @@
 
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label>Fecha de documento </mat-label>
-                                    <input matInput [matDatepicker]="picker" formControlName="downDocumentAt">
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
+                                    <input matInput [matDatepicker]="picker1" formControlName="downDocumentAt">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker touchUi #picker1></mat-datepicker>
                                 </mat-form-field>
 
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label>Fecha de refeferencia </mat-label>
-                                    <input matInput [matDatepicker]="picker" formControlName="downPostingAt">
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
+                                    <input matInput [matDatepicker]="picker2" formControlName="downPostingAt">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker touchUi #picker2></mat-datepicker>
                                 </mat-form-field>
 
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label>Fecha de contabilización </mat-label>
-                                    <input matInput [matDatepicker]="picker" formControlName="downReferenceAt">
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
+                                    <input matInput [matDatepicker]="picker3" formControlName="downReferenceAt">
+                                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                    <mat-datepicker touchUi #picker3></mat-datepicker>
                                 </mat-form-field>
 
-
-                                <!--
-                                <mat-form-field appearance="outline" class="full-width">
-                                    <mat-label>
-                                        Fecha documento
-                                    </mat-label>
-                                    <input type="date" matInput formControlName="downDocumentAt" placeholder="" value="">
-                                </mat-form-field>
-
-                                <mat-form-field appearance="outline" class="full-width">
-                                    <mat-label>
-                                        Fecha referencia
-                                    </mat-label>
-                                    <input type="date" matInput formControlName="downPostingAt" placeholder="" value="">
-                                </mat-form-field>
-
-                                <mat-form-field appearance="outline" class="full-width">
-                                    <mat-label>
-                                        Fecha contabilización
-                                    </mat-label>
-                                    <input type="date" matInput placeholder="" value="" formControlName="downReferenceAt">
-                                </mat-form-field>
-                                -->
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label>
                                         Glosa de baja

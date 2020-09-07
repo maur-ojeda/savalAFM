@@ -80,8 +80,7 @@ import { AssetUpdateComponent } from './pages/asset-update/asset-update.componen
 import { AssetDeleteComponent } from './pages/asset-delete/asset-delete.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule} from '@angular/material/core'
-
-
+import {MAT_DATE_LOCALE} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -162,7 +161,11 @@ import { MatNativeDateModule} from '@angular/material/core'
     
   ],
   entryComponents: [OpenFixedassetComponent],
-  providers: [CookieService, AuthGuard, SharedserviceService],
+  providers: [CookieService, AuthGuard, SharedserviceService, { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
+
+
+
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,7 +4,6 @@ import { SharedserviceService} from '../../services/sharedservice.service';
 import { AssetsDetailsService } from '../../services/assets-details.service';
 import { Asset } from 'src/app/models/asset.model';
 import { Observable } from 'rxjs';
-import { AssetInterface } from '../../interfaces/asset.interface';
 import { AssetsService } from '../../services/assets.service';
 
 
