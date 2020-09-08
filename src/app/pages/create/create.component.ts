@@ -37,8 +37,8 @@ import { CreateConfirmationComponent } from 'src/app/dialogs/create-confirmation
 
 import { MatDialog } from '@angular/material/dialog';
 import { Asset } from 'src/app/models/asset.model';
-
-
+import { LocationInterface } from 'src/app/interfaces/location.interface';
+import { LocationsService } from 'src/app/services/locations.service';
 
 @Component({
 	selector: 'app-create',
@@ -59,7 +59,7 @@ export class CreateComponent implements OnInit {
 	lFloors: FloorInterface[] = [];
 	lAreas: AreaInterface[] = [];
 	lRooms: RoomInterface[] = [];
-
+	locations: LocationInterface[] = [];
 
 
 	constructor(
@@ -74,7 +74,8 @@ export class CreateComponent implements OnInit {
 		public slRoom: RoomService,
 		private builder: FormBuilder,
 		private location: Location,
-		public dialog: MatDialog
+		public dialog: MatDialog,
+		public locationsService: LocationsService,
 
 	) { }
 
@@ -166,8 +167,8 @@ export class CreateComponent implements OnInit {
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		this.slBuilding.getbuildings(e)
-		.then(lBuildings => this.lBuildings = lBuildings)
+		//this.slBuilding.getbuildings(e).then(lBuildings => this.lBuildings = lBuildings)
+		this.lBuildings = this.locationsService.getchild('parent', e)
 	}
 	onChangeBuilding(e: number) {	
 		this.lFloors.length = 0
@@ -176,23 +177,23 @@ export class CreateComponent implements OnInit {
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		this.slFloor.getfloors(e)
-			.then(lFloors => this.lFloors = lFloors)
+		//this.slFloor.getfloors(e).then(lFloors => this.lFloors = lFloors)
+		this.lFloors = this.locationsService.getchild('parent', e)
 	}
 	onChangeFloor(e: number) {		
 		this.lAreas.length = 0
 		this.lRooms.length = 0
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		this.slArea.getareas(e)
-			.then(lAreas => this.lAreas = lAreas)
+	//	this.slArea.getareas(e).then(lAreas => this.lAreas = lAreas)
+	this.lAreas = this.locationsService.getchild('parent', e)
 
 	}
 	onChangeArea(e: number) {
 		this.lRooms.length = 0
 		this.reactiveForm.get('lRoom').reset();
-		this.slRoom.getRooms(e)
-			.then(lRooms => this.lRooms = lRooms)
+		//this.slRoom.getRooms(e).then(lRooms => this.lRooms = lRooms)
+		this.lRooms = this.locationsService.getchild('parent', e)
 	}
 
 	

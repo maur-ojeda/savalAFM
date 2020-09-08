@@ -18,27 +18,33 @@ import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.compo
 export class AssetsDeleteService {
 
   private urlAPI = "https://afsaval.agenciasur.cl";
-  private db: Dexie;
+  private dbdelete: Dexie;
   private table: Dexie.Table<Asset, any> = null;
   private sharedserviceService: SharedserviceService;
+
+
 
 
   constructor(
     private http: HttpClient,
     private onlineOfflineService: OnlineOfflineService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+
   ) {
     this.oirStatusConexion();
     this.iniciarIndexDB();
   }
 
   private iniciarIndexDB() {
-    this.db = new Dexie('db-asset-delete')
-    this.db.version(1).stores({
+    this.dbdelete = new Dexie('db-asset-delete')
+    
+
+    this.dbdelete.version(1).stores({
       deleteAsset: 'id'
     });
-    this.table = this.db.table('deleteAsset');
+    
+    this.table = this.dbdelete.table('deleteAsset');
   }
 
 
@@ -100,12 +106,14 @@ export class AssetsDeleteService {
         "Content-Type": "application/x-www-form-urlencoded",
       }),
       body: {
+        "updatedAt": formValue.updatedAt,
         "downDocumentAt": formValue.downDocumentAt,
         "downPostingAt": formValue.downPostingAt,
         "downReferenceAt": formValue.downReferenceAt,
         "downComment": formValue.downComment
       },
     };
+
     return this.http.delete(this.urlAPI + "/webservice/rest/asset/delete/" + formValue.id, options)
       .subscribe(
         val => {

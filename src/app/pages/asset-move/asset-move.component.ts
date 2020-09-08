@@ -7,35 +7,25 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SpeciesInterface } from 'src/app/interfaces/specie.interface';
 import { LocationsService } from 'src/app/services/locations.service';
 import { SpecieService } from 'src/app/services/specie.service';
-
-
 import { LocationInterface } from 'src/app/interfaces/location.interface';
-
 import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
 import { CcenterService } from 'src/app/services/ccenter.service';
-
 import { CenterInterface } from 'src/app/interfaces/center.interface';
 import { CenterService } from 'src/app/services/center.service';
-
 import { BuildingInterface } from 'src/app/interfaces/building.interface';
 import { BuildingService } from 'src/app/services/building.service';
-
 import { FloorInterface } from 'src/app/interfaces/floor.interface';
 import { FloorService } from 'src/app/services/floor.service';
-
 import { AreaInterface } from 'src/app/interfaces/area.interface';
 import { AreaService } from 'src/app/services/area.service';
-
 import { RoomInterface } from 'src/app/interfaces/room.interface';
 import { RoomService } from 'src/app/services/room.service';
-
-
-
 import { MoveConfirmationComponent } from 'src/app/dialogs/move-confirmation/move-confirmation.component';
 import {MatDialog} from '@angular/material/dialog';
 import { Asset } from 'src/app/models/asset.model';
-
 import { AssetsService } from 'src/app/services/assets.service';
+import * as moment from 'moment'
+
 
 @Component({
   selector: 'app-asset-move',
@@ -45,7 +35,7 @@ import { AssetsService } from 'src/app/services/assets.service';
 export class AssetMoveComponent implements OnInit {
   public asset$:Observable<Asset[]>;
   public asset = new Asset();
-
+  date;
   reactiveForm: FormGroup;
   locations: LocationInterface[] = [];
   species: SpeciesInterface[] = [];
@@ -85,10 +75,10 @@ export class AssetMoveComponent implements OnInit {
     .catch( () => console.log('error') )
 
 
-    this.slCCenterService.getCcenters()
-  .then(CCenters => this.CCenters = CCenters);
- 
 
+  this.slCCenterService.getCcenters()
+  .then(CCenters => this.CCenters = CCenters);
+ /*
     this.slBuilding.getallBuildings()
     .then(lBuildings => this.lBuildings = lBuildings);
 
@@ -103,7 +93,7 @@ export class AssetMoveComponent implements OnInit {
 
     this.slCenterService.getCenters()
     .then(Centers => this.Centers = Centers);
-    
+    */
 
 
     this.reactiveForm = this.builder.group({
@@ -141,9 +131,15 @@ export class AssetMoveComponent implements OnInit {
     
     //console.log(e)
     
-		this.slBuilding.getbuildings(e)
-    .then(lBuildings => this.lBuildings = lBuildings)
+    
+		//this.slBuilding.getbuildings(e)
+    //.then(lBuildings => this.lBuildings = lBuildings)
     //console.log(this.lBuildings)
+    this.lBuildings = this.locationsService.getchild('parent', e)
+
+    console.log(this.lBuildings);
+
+
   
   }
 	onChangeBuilding( ) {	
@@ -154,8 +150,9 @@ export class AssetMoveComponent implements OnInit {
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		this.slFloor.getfloors(e)
-      .then(lFloors => this.lFloors = lFloors)
+		/*this.slFloor.getfloors(e)
+      .then(lFloors => this.lFloors = lFloors)*/
+      this.lFloors = this.locationsService.getchild('parent', e)
 	}
 	onChangeFloor() {
     let e = this.reactiveForm.controls['lFloor'].value		
@@ -163,20 +160,19 @@ export class AssetMoveComponent implements OnInit {
 		this.lRooms.length = 0
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		this.slArea.getareas(e)
-			.then(lAreas => this.lAreas = lAreas)
+    //this.slArea.getareas(e).then(lAreas => this.lAreas = lAreas)
+    this.lAreas = this.locationsService.getchild('parent', e)
 	}
 	onChangeArea() {
     let e = this.reactiveForm.controls['lArea'].value
 		this.lRooms.length = 0
 		this.reactiveForm.get('lRoom').reset();
-		this.slRoom.getRooms(e)
-			.then(lRooms => this.lRooms = lRooms)
+    //this.slRoom.getRooms(e).then(lRooms => this.lRooms = lRooms)
+    this.lRooms = this.locationsService.getchild('parent', e)
 	}
   moveData(){
-
-  
-
+    this.date = moment(new Date()).format('YYYY-MM-DD HH:MM:ss');
+    this.asset.updatedAt = this.date;
     this.asset.id = this.reactiveForm.value.assetID; 
     this.asset.lCenter = this.reactiveForm.value.lCenter,
     this.asset.lBuilding = this.reactiveForm.value.lBuilding,
@@ -184,7 +180,6 @@ export class AssetMoveComponent implements OnInit {
     this.asset.lArea = this.reactiveForm.value.lArea,
     this.asset.lRoom = this.reactiveForm.value.lRoom,
     this.asset.costCenter = this.reactiveForm.value.costCenter
-
 
     this.assetsMoveService.move(this.asset);
   }
@@ -202,7 +197,9 @@ export class AssetMoveComponent implements OnInit {
     });
   }
    
-
+ 
+  
+  
 
 
 }

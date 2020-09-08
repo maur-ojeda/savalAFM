@@ -5,8 +5,14 @@ import { UserInterface } from 'src/app/interfaces/user.interface';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginErrorComponent } from 'src/app/dialogs/login-error/login-error.component';
-import { SharedserviceService} from '../../services/sharedservice.service';
+import { SharedserviceService } from '../../services/sharedservice.service';
 
+import { LocationInterface } from 'src/app/interfaces/location.interface';
+import { LocationsService } from 'src/app/services/locations.service';
+
+
+import { CcenterService } from 'src/app/services/ccenter.service';
+import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
 
 
 import { RequestInterface } from 'src/app/interfaces/request.interface';
@@ -24,7 +30,7 @@ import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
+
 
   email: string;
   password: string;
@@ -35,6 +41,8 @@ export class LoginComponent implements OnInit {
   showSpinner: boolean;
   assets: AssetSearchInterface[] = [];
   requests: RequestInterface[] = [];
+  locations: LocationInterface[] = [];
+  CCenters: CcenterInterface[] = [];
 
   constructor(
     private userService: UsersService,
@@ -43,7 +51,10 @@ export class LoginComponent implements OnInit {
     public dialog: MatDialog,
     private assetsService: AssetsService,
     private requestsService: RequestsService,
+    private locationsService: LocationsService,
+    public slCCenterService: CcenterService,
     public utils: SharedserviceService,
+
     private snackBar: MatSnackBar
 
   ) { }
@@ -68,36 +79,41 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userlastName', data.data.lastName);
           localStorage.setItem('userusername', data.data.username);
           localStorage.setItem('userfullName', data.data.fullName);
-          
+
           this.userService.setLoggedIn(true)
-      
+
           this.dialog.open(WarningComponent, {
             width: '98VW',
-            disableClose: true 
+            disableClose: true
           })
 
-        
-          //this.snackBar.open('Cargando recursos...', '', { panelClass: ['online-snackbar'] });
 
           this.requestsService.getRequests()
-          .then( requests => this.requests = requests )
+            .then(requests => this.requests = requests)
+
+          this.locationsService.getlocations()
+            .then(locations => this.locations = locations)
+
+
+            this.slCCenterService.getCcenters()
+            .then(CCenters => this.CCenters = CCenters);
 
           this.assetsService.getAssets()
-          .then( (assets) => {
-            this.assets = assets        
-          }).finally(
-            () => {
-              //this.snackBar.dismiss();
-              this.dialog.closeAll();
-            } 
-            
-          )
-          
+            .then((assets) => {
+              this.assets = assets
+            }).finally(
+              () => {
+                //this.snackBar.dismiss();
+                this.dialog.closeAll();
+              }
+
+            )
+
 
           this.router.navigate(['home'])
           this.showSpinner = false;
 
-          
+
         }
       },
       response => {
@@ -118,4 +134,32 @@ export class LoginComponent implements OnInit {
     this.fieldTextType = !this.fieldTextType;
   }
 
+
+ 
+
+  
+
+/*  
+getFilteredCodes(array, key, value) => array.filter(x => x[key] === value);
+var FilteredCodes = getFilteredCodes(codes, "code_id", "2");
+console.log(FilteredCodes);
+  */
+
+
+ /*let bigCities = cities.filter(function (e) {
+  return e.population > 3000000;
+});
+console.log(bigCities);
+*/
+/*getchild(arrs, val, node){
+  let childrens = arrs.filter(arr => arr[val] === node);
+  return childrens
+}*/
+
+
+
+
+
 }
+
+

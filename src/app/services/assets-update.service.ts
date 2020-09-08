@@ -87,6 +87,7 @@ updateAssetApi(formValue: Asset) {
       .set("Content-Type", "application/x-www-form-urlencoded");
     
    let data ={
+    "updatedAt": formValue.updatedAt,
     "rfidLabelSap" : formValue.rfidLabelSap,
     "serieNumber" : formValue.serieNumber,
     "description": formValue.description,

@@ -11,7 +11,7 @@ import { CcenterService } from 'src/app/services/ccenter.service';
 import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
 import { UpdateConfirmationComponent } from 'src/app/dialogs/update-confirmation/update-confirmation.component';
 import { AssetsService } from 'src/app/services/assets.service';
-
+import * as moment from 'moment'
 
 
 @Component({
@@ -22,8 +22,8 @@ import { AssetsService } from 'src/app/services/assets.service';
 export class AssetUpdateComponent implements OnInit {
   public asset$:Observable<Asset[]>;
   public asset = new Asset();
-  //asset: AssetInterface;
-
+  
+  date;
   reactiveForm: FormGroup;
   ccenters: CcenterInterface[] = [];
 
@@ -46,11 +46,7 @@ export class AssetUpdateComponent implements OnInit {
     } 
      )
     .catch( () => console.log('error') )
-    //this.asset$ = this.utils.findByCode(code);
-    //this.asset$.subscribe(
-    //  (asset)=>{this.getAssetsData(asset) }
-   // )
-
+ 
 
 
 
@@ -81,15 +77,16 @@ export class AssetUpdateComponent implements OnInit {
   }
 
   updateData() {
+    this.date = moment(new Date()).format('YYYY-MM-DD HH:MM:ss');
+    this.asset.updatedAt = this.date;
     this.asset.id = this.reactiveForm.value.assetID;
     this.asset.rfidLabelSap = this.reactiveForm.value.rfidLabelSap;
     this.asset.serieNumber = this.reactiveForm.value.serieNumber;
     this.asset.description = this.reactiveForm.value.description;
     this.asset.costCenter = this.reactiveForm.value.costCenter;
     this.asset.creditorId = this.reactiveForm.value.creditorId;
-    this.asset.lifetimeYear = this.reactiveForm.value.lifetimeYear
-   // console.log('updateData')
-   // console.log(JSON.stringify(this.asset))
+    this.asset.lifetimeYear = this.reactiveForm.value.lifetimeYear;
+   
     this.assetsUpdateService.update(this.asset)
   }
 

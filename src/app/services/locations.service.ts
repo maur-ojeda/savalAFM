@@ -26,17 +26,26 @@ export class LocationsService {
     if (this.locations.length > 0) {
       return Promise.resolve(this.locations);
     }
-
     return new Promise(resolve => {
-      //this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/locations?items=1000/', { headers })
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/locations', { headers })
+      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/locations?all=true', { headers })
         .subscribe((locations: any) => {
           this.locations = locations.data;
           resolve(locations.data);
-
         });
     });
   }
 
+  /*getChildrens(objs: any, val: number){
+    return objs.filter(obj => obj.parent === val);
+  }*/
+  
+  getchild(val, node){
+    let childrens = this.locations.filter(arr => arr[val] === node);
+    return childrens
+  }
+  
+    
+
+  
 
 }

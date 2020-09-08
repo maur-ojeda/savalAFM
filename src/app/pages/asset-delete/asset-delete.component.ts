@@ -8,7 +8,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DeleteConfirmationComponent } from 'src/app/dialogs/delete-confirmation/delete-confirmation.component';
 import { AssetsService } from 'src/app/services/assets.service';
-
+import * as moment from 'moment'
 @Component({
   selector: 'app-asset-delete',
   templateUrl: './asset-delete.component.html',
@@ -18,7 +18,7 @@ export class AssetDeleteComponent implements OnInit {
   public asset$:Observable<Asset[]>;
   public asset = new Asset();
   reactiveForm: FormGroup;
-
+  date;
   constructor(
     public assetsDeleteService: AssetsDeleteService,
     private activatedRoute: ActivatedRoute,
@@ -60,9 +60,9 @@ export class AssetDeleteComponent implements OnInit {
     }
 
 
-
     deleteAsset(){
-  
+      this.date = moment(new Date()).format('YYYY-MM-DD HH:MM:ss');
+      this.asset.updatedAt = this.date;
       this.asset.id = this.reactiveForm.value.assetID; 
       this.asset.downDocumentAt = this.reactiveForm.value.downDocumentAt;
       this.asset.downPostingAt = this.reactiveForm.value.downPostingAt;

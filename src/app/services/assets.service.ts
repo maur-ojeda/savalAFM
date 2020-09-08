@@ -254,6 +254,8 @@ getAssetPorCode(val: string) {
     };
     console.log(options)
 
+
+
     this.http.delete(this.API_URL + "/webservice/rest/asset/delete/" + ide, options)
       .subscribe(
         val => {
