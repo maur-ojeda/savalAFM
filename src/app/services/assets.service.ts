@@ -98,6 +98,9 @@ getAssetPorrfidLabelSap(val: string) {
     let hexa = parseInt(last8, 16);
     let hexaStr = hexa.toString();
     val = hexaStr
+     val = val.toString().padStart(10, "0");
+    //console.log(val)
+    //console.log(codigo)
   }
   if (this.assetos.length > 0) {
      const asset = this.assetos.find(p => p.rfidLabelSap == val);

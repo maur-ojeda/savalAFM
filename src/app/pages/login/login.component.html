@@ -27,8 +27,8 @@
                 <p class="text-center"><small>soporte@saval.prod/savalprueba</small></p>
             </div>
 
-            <button mat-flat-button color="primary" class="full-width">Ingresar</button>
-            <p class="text-center text-danger"><small>v48</small></p>
+            <button mat-flat-button color="primary" class="full-width" [disabled]="reactiveForm.invalid">Ingresar</button>
+            <p class="text-center text-danger"><small>v53</small></p>
         </ng-container>
         <ng-template #loading>
             <h2 class="text-primary">Cargando</h2>

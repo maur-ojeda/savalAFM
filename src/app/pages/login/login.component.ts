@@ -60,10 +60,11 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
     this.showSpinner = false;
     this.reactiveForm = this.builder.group({
-      user: ['', [Validators.required]],
-      pass: ['', [Validators.required]],
+      user: ['', [Validators.required, Validators.pattern(nonWhitespaceRegExp)]],
+      pass: ['', [Validators.required ,Validators.pattern(nonWhitespaceRegExp)]]
     });
   }
 
