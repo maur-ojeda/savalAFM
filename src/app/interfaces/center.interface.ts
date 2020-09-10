@@ -1,17 +1,8 @@
 export interface CenterInterface{
-    error: boolean;
-    message: string;
-    data: Datum[];
-    next: string;
-    old?: any;
-    page: number;
-    items: number;
-    total: number;
-  }
-  
-  interface Datum {
     id: number;
+    location_id: number;
     code: string;
     name: string;
+    parent: number;
     type: number;
   }

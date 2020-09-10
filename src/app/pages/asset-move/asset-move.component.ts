@@ -78,6 +78,10 @@ export class AssetMoveComponent implements OnInit {
 
   this.slCCenterService.getCcenters()
   .then(CCenters => this.CCenters = CCenters);
+  
+  this.slCenterService.getCenters()
+    .then(Centers => this.Centers = Centers);
+   
  /*
     this.slBuilding.getallBuildings()
     .then(lBuildings => this.lBuildings = lBuildings);
@@ -91,9 +95,7 @@ export class AssetMoveComponent implements OnInit {
     this.slRoom.getallRooms()
     .then(lRooms => this.lRooms = lRooms)
 
-    this.slCenterService.getCenters()
-    .then(Centers => this.Centers = Centers);
-    */
+     */
 
 
     this.reactiveForm = this.builder.group({

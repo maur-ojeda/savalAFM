@@ -19,7 +19,6 @@ import { RequestInterface } from 'src/app/interfaces/request.interface';
 import { RequestsService } from 'src/app/services/requests.service';
 import { AssetsService } from '../../services/assets.service';
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
 //import { BuildingInterface } from '../interfaces/building.interface';
 //
@@ -55,7 +54,7 @@ export class LoginComponent implements OnInit {
     public slCCenterService: CcenterService,
     public utils: SharedserviceService,
 
-    private snackBar: MatSnackBar
+    
 
   ) { }
 
@@ -134,28 +133,6 @@ export class LoginComponent implements OnInit {
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
-
-
- 
-
-  
-
-/*  
-getFilteredCodes(array, key, value) => array.filter(x => x[key] === value);
-var FilteredCodes = getFilteredCodes(codes, "code_id", "2");
-console.log(FilteredCodes);
-  */
-
-
- /*let bigCities = cities.filter(function (e) {
-  return e.population > 3000000;
-});
-console.log(bigCities);
-*/
-/*getchild(arrs, val, node){
-  let childrens = arrs.filter(arr => arr[val] === node);
-  return childrens
-}*/
 
 
 
