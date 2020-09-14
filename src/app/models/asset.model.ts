@@ -40,10 +40,10 @@ export class Asset {
     lifetimeCycle15: number;
     amortizationStartedAt15: CreatedAt;
     descapitalizationDateAt?: any;
-    downDocumentAt: CreatedAt;
-    downPostingAt: CreatedAt;
+    downDocumentAt: string;
+    downPostingAt: string;
     downMoveClass: string;
-    downReferenceAt: CreatedAt;
+    downReferenceAt: string;
     downTotal: boolean;
     downComment: string;
     downDocumentClass: string;

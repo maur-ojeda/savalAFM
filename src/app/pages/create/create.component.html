@@ -129,6 +129,7 @@
 
 
                 <!--CCentro-->
+                <!--{{CCenters | json}}-->
                 <div class="form-group">
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Centro de costo</mat-label>
@@ -146,14 +147,15 @@
                 <div class="mat-typography">
                     <h2>Ubicaciones</h2>
                 </div>
-
+                <!--{{Centers | json}}-->
                 <!--Centro-->
                 <div class="form-group">
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Centro</mat-label>
-                        <select matNativeControl formControlName="lCenter" (change)="onChangeCenter($event.target.value)">
+                        <select matNativeControl formControlName="lCenter">
                             <option [ngValue]="null" disabled>Seleccione ...</option>
-                            <option *ngFor="let Center of Centers" [value]="Center.id">{{Center.code}} - {{Center.name}}
+                            <option *ngFor="let Center of Centers" [value]="Center.location_id">
+                                {{Center.code}} - {{Center.name}}
                             </option>
                         </select>
                     </mat-form-field>
@@ -162,7 +164,7 @@
                 </div>
 
                 <!--Edificio-->
-
+                <!--{{lBuildings | json}}-->
 
 
                 <div class="form-group">
@@ -170,9 +172,15 @@
 
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Edificio</mat-label>
-                        <select matNativeControl formControlName="lBuilding" (change)="onChangeBuilding($event.target.value)">
+                        <select matNativeControl formControlName="lBuilding" (change)="onChangeBuilding()">
                             <option [ngValue]="null" disabled>Seleccione ...</option>
-                            <option *ngFor="let lBuilding of lBuildings" [value]="lBuilding.id">{{lBuilding.code}} -
+                            <option *ngFor="let lBuilding of lBuildings" [value]="lBuilding.location_id">
+                                {{lBuilding.id}} -
+                                {{lBuilding.location_id}} -
+                                {{lBuilding.parent}} -
+                                
+                                
+                                {{lBuilding.code}} -
                                 {{lBuilding.name}}
                             </option>
 
@@ -183,14 +191,21 @@
                         requerido</small>
 
                 </div>
-
+                <!--{{lFloors | json}}-->
                 <!--Piso-->
                 <div class="form-group">
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Piso</mat-label>
-                        <select matNativeControl formControlName="lFloor" (change)="onChangeFloor($event.target.value)">
+                        <select matNativeControl formControlName="lFloor" (change)="onChangeFloor()">
                             <option [ngValue]="null" disabled>Seleccione ...</option>
-                            <option *ngFor="let lFloor of lFloors" [value]="lFloor.id">{{lFloor.code}} - {{lFloor.name}}
+                            <option *ngFor="let lFloor of lFloors" [value]="lFloor.location_id">
+                                
+                                
+                                {{lFloor.id}} -
+                                {{lFloor.location_id}} -
+                                {{lFloor.parent}} -
+
+                                {{lFloor.code}} - {{lFloor.name}}
                             </option>
                         </select>
                     </mat-form-field>
@@ -202,11 +217,11 @@
 
                 <!--lArea-->
                 <div class="form-group">
-                    <mat-form-field appearance="outline" class="full-width" (change)="onChangeArea($event.target.value)">
+                    <mat-form-field appearance="outline" class="full-width" (change)="onChangeArea()">
                         <mat-label>Área</mat-label>
                         <select matNativeControl formControlName="lArea">
                             <option [ngValue]="null" disabled>Seleccione ...</option>
-                            <option *ngFor="let lArea of lAreas" [value]="lArea.id">{{lArea.code}} - {{lArea.name}}
+                            <option *ngFor="let lArea of lAreas" [value]="lArea.location_id">{{lArea.code}} - {{lArea.name}}
                             </option>
                         </select>
                     </mat-form-field>
@@ -217,13 +232,13 @@
                 <!--lRoom-->
 
 
-                <!-- {{lRooms | json }}-->
+                <!--{{lRooms | json }}-->
                 <div class="form-group">
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Sala</mat-label>
                         <select matNativeControl formControlName="lRoom">
                             <option [ngValue]="null" disabled>Seleccione ...</option>
-                            <option *ngFor="let lRoom of lRooms" [value]="lRoom.id">{{lRoom.code}} - {{lRoom.name}}
+                            <option *ngFor="let lRoom of lRooms" [value]="lRoom.location_id">{{lRoom.code}} - {{lRoom.name}}
                             </option>
                         </select>
                     </mat-form-field>

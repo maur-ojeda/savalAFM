@@ -80,17 +80,26 @@ export class CreateComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.cClassService.getcClass()
-			.then(cClasses => this.cClasses = cClasses);
+		this.cClassService.getcClass().then(cClasses => this.cClasses = cClasses);
 
-		this.specieService.getSpecies()
-			.then(species => this.species = species);
+		this.specieService.getSpecies().then(species => this.species = species);
 
-		this.slCCenterService.getCcenters()
-			.then(CCenters => this.CCenters = CCenters);
+		this.slCCenterService.getCcenters().then(CCenters => this.CCenters = CCenters);
 
-		this.slCenterService.getCenters()
-			.then(Centers => this.Centers = Centers);
+
+
+		  this.slCenterService.getCenters().then(Centers => this.Centers = Centers);
+		  this.slBuilding.getallBuildings().then(lBuildings => {this.lBuildings = lBuildings });
+		  this.slFloor.getallFloors().then(lFloors => {this.lFloors = lFloors});
+		  this.slArea.getallAreas().then(lAreas => {this.lAreas = lAreas})
+		  this.slRoom.getallRooms().then(lRooms => {this.lRooms = lRooms
+			console.log(this.lRooms)
+		})
+
+
+
+
+
 
 		this.reactiveForm = this.builder.group({
 			catalogClass: ['', [Validators.required]],
@@ -158,7 +167,8 @@ export class CreateComponent implements OnInit {
 			})
 	}
 
-	onChangeCenter(e: number) {
+	onChangeCenter() {
+		let e = this.reactiveForm.controls['lCenter'].value
 		this.lBuildings.length = 0
 		this.lFloors.length = 0
 		this.lAreas.length = 0
@@ -167,32 +177,32 @@ export class CreateComponent implements OnInit {
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		//this.slBuilding.getbuildings(e).then(lBuildings => this.lBuildings = lBuildings)
+
 		this.lBuildings = this.locationsService.getchild('parent', e)
 	}
-	onChangeBuilding(e: number) {	
+	onChangeBuilding() {
+		console.log(this.lFloors)	
+		let e = this.reactiveForm.controls['lBuilding'].value
 		this.lFloors.length = 0
 		this.lAreas.length = 0
 		this.lRooms.length = 0
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-		//this.slFloor.getfloors(e).then(lFloors => this.lFloors = lFloors)
 		this.lFloors = this.locationsService.getchild('parent', e)
 	}
-	onChangeFloor(e: number) {		
+	onChangeFloor() {		
+		let e = this.reactiveForm.controls['lFloor'].value
 		this.lAreas.length = 0
 		this.lRooms.length = 0
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-	//	this.slArea.getareas(e).then(lAreas => this.lAreas = lAreas)
-	this.lAreas = this.locationsService.getchild('parent', e)
-
+		this.lAreas = this.locationsService.getchild('parent', e)
 	}
-	onChangeArea(e: number) {
+	onChangeArea() {
+		let e = this.reactiveForm.controls['lArea'].value
 		this.lRooms.length = 0
 		this.reactiveForm.get('lRoom').reset();
-		//this.slRoom.getRooms(e).then(lRooms => this.lRooms = lRooms)
 		this.lRooms = this.locationsService.getchild('parent', e)
 	}
 

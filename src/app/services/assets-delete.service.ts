@@ -9,6 +9,7 @@ import { SharedserviceService } from '../services/sharedservice.service'
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteOkComponent } from '../dialogs/delete-ok/delete-ok.component';
 import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.component';
+import * as moment from 'moment';
 
 
 @Injectable({
@@ -109,6 +110,12 @@ export class AssetsDeleteService {
 
   ///DELETE ON API
   deleteAssetApi(formValue: Asset) {
+  
+
+  
+
+
+
     const options = {
       headers: new HttpHeaders({
         "Authorization": "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==",
@@ -123,7 +130,7 @@ export class AssetsDeleteService {
       },
     };
 
-console.log(options.body)
+
 
     return this.http.delete(this.urlAPI + "/webservice/rest/asset/delete/" + formValue.id, options)
       .subscribe(
@@ -146,6 +153,7 @@ console.log(options.body)
         }
       );
   }
+    
   ///DELETE ON INDEXDB
   private async deleteAssetindexDB(formValue: Asset) {
     try {
@@ -170,9 +178,8 @@ console.log(options.body)
     }
   }
 
+
 }
-
-
 
 
 

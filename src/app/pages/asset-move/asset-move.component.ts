@@ -45,22 +45,27 @@ export class AssetMoveComponent implements OnInit {
   assetlCenterId;
   assetlCenterCode;
   assetlCenterName;
+  assetlCenterSelected;
 
   assetlBuildingId;
   assetlBuildingCode;
   assetlBuildingName;
+  assetlBuildingSelected;
 
   assetlFloorId;
   assetlFloorCode;
   assetlFloorName;
+  assetlFloorSelected;
 
   assetlAreaId;
   assetlAreaCode;
   assetlAreaName;
+  assetlAreaSelected;
 
   assetlRoomId;
   assetlRoomCode;
   assetlRoomName;
+  assetlRoomSelected;
 
   reactiveForm: FormGroup;
   locations: LocationInterface[] = [];
@@ -110,14 +115,14 @@ export class AssetMoveComponent implements OnInit {
     })
   }
   getAssetsData(e) {
-    console.log('aqui')
+  //  console.log('aqui')
     this.reactiveForm.get('costCenter').patchValue(e.costCenter.id);
-    console.log('costCenter: ' + e.costCenter.id)
-    console.log('lCenter: ' + e.lCenter.id)
-    console.log('lBuilding: '+ e.lBuilding.id)
-    console.log('lFloor: '+ e.lFloor.id)
-    console.log('lArea: '+ e.lArea.id)
-    console.log('lRoom: '+ e.lRoom.id)
+  //  console.log('costCenter: ' + e.costCenter.id)
+  //  console.log('lCenter: ' + e.lCenter.id)
+  //  console.log('lBuilding: '+ e.lBuilding.id)
+   // console.log('lFloor: '+ e.lFloor.id)
+   // console.log('lArea: '+ e.lArea.id)
+    // console.log('lRoom: '+ e.lRoom.id)
 
     this.reactiveForm.controls['assetID'].setValue(e.id);
 
@@ -208,21 +213,41 @@ export class AssetMoveComponent implements OnInit {
     this.assetsService.getAssetPorcode(i).then(asset => {
       this.asset = asset
       this.assetDate = asset['createdAt'].date
+
+
+      console.log(asset)
+
+console.log(asset['lCenter'])
+console.log(asset['lFloor'])
+console.log(asset['lBuilding'])
+console.log(asset['lArea'])
+console.log(asset['lRoom'])
+
+
       this.assetlCenterId = asset['lCenter'].id
       this.assetlCenterCode = asset['lCenter'].code
       this.assetlCenterName = asset['lCenter'].name
+      this.assetlCenterSelected = true
+
       this.assetlFloorId = asset['lFloor'].id
       this.assetlFloorCode = asset['lFloor'].code
       this.assetlFloorName = asset['lFloor'].name
+      this.assetlFloorSelected = true
+
       this.assetlBuildingId = asset['lBuilding'].id
       this.assetlBuildingCode = asset['lBuilding'].code
       this.assetlBuildingName = asset['lBuilding'].name
+      this.assetlBuildingSelected = true
+
       this.assetlAreaId = asset['lArea'].id
       this.assetlAreaCode = asset['lArea'].code
       this.assetlAreaName = asset['lArea'].name
+      this.assetlAreaSelected = true
+
       this.assetlRoomId = asset['lRoom'].id
       this.assetlRoomCode = asset['lRoom'].code
       this.assetlRoomName = asset['lRoom'].name
+      this.assetlRoomSelected = true
 
       this.getAssetsData( this.asset )
 

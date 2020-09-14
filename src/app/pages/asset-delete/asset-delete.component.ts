@@ -11,6 +11,13 @@ import { AssetsService } from 'src/app/services/assets.service';
 import * as moment from 'moment'
 import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
+
+
+import * as _moment from 'moment';
+
+
+
+
 @Component({
   selector: 'app-asset-delete',
   templateUrl: './asset-delete.component.html',
@@ -77,12 +84,30 @@ export class AssetDeleteComponent implements OnInit {
 
 
     deleteAsset(){
+
+  const dd = new Date(this.reactiveForm.value.downDocumentAt);
+ const downDocumentAt = moment(dd).format("YYYY-MM-DD");
+
+
+ const dp = new Date(this.reactiveForm.value.downPostingAt);
+ const downPostingAt = moment(dp).format("YYYY-MM-DD");
+ 
+ const dr = new Date(this.reactiveForm.value.downReferenceAt);
+ const downReferenceAt = moment(dr).format("YYYY-MM-DD");
+
+      //
       this.date = moment(new Date()).format('YYYY-MM-DD HH:MM:ss');
+      //this.date = moment(new Date()).format('Y-m-d H:i:s');
+
+      
+
+    
+
       this.asset.updatedAt = this.date;
       this.asset.id = this.reactiveForm.value.assetID; 
-      this.asset.downDocumentAt = this.reactiveForm.value.downDocumentAt;
-      this.asset.downPostingAt = this.reactiveForm.value.downPostingAt;
-      this.asset.downReferenceAt = this.reactiveForm.value.downReferenceAt;
+      this.asset.downDocumentAt = downDocumentAt;
+      this.asset.downPostingAt = downPostingAt;
+      this.asset.downReferenceAt = downReferenceAt;
       this.asset.downComment = this.reactiveForm.value.downComment; 
       this.assetsDeleteService.delete(this.asset);
     }

@@ -179,7 +179,7 @@
                                     </mat-label>
                                     <select matNativeControl formControlName="costCenter">
                                         <option [ngValue]="null" disabled>Seleccione ...</option>
-                                        <option *ngFor="let CCenter of CCenters" [value]="CCenter.id">{{CCenter.id}} - {{CCenter.code}} -
+                                        <option *ngFor="let CCenter of CCenters" [ngValue]="CCenter.id">{{CCenter.id}} - {{CCenter.code}} -
                                             {{CCenter.name}}</option>
                                     </select>
                                 </mat-form-field>
@@ -202,7 +202,7 @@
                                     <select matNativeControl formControlName="lCenter" (change)="onChangeCenter()">
                                         <option [ngValue]="null" disabled>Seleccione ...</option>
                                         <!--option selected [ngValue]="assetlCenterId">{{assetlCenterCode}} - {{assetlCenterName}}</option-->
-                                        <option *ngFor="let Center of Centers" [ngValue]="Center.id">{{Center.id}} - {{Center.code}} -
+                                        <option *ngFor="let Center of Centers" [ngValue]="Center.location_id" [selected]="assetlCenterSelected == true">{{Center.code}} -
                                             {{Center.name}}</option>
                                     </select>
                                 </mat-form-field>
@@ -214,8 +214,8 @@
                                     <select matNativeControl formControlName="lBuilding" (change)="onChangeBuilding()">
                                         <option [ngValue]="null" disabled>Seleccione ...</option>
                                         <!--option selected [ngValue]="assetlBuildingId">{{assetlBuildingCode}} - {{assetlBuildingName}}</option-->
-                                        <option *ngFor="let lBuilding of lBuildings" [ngValue]="lBuilding.id">
-                                            parent:{{lBuilding.parent}} -location:{{lBuilding.location_id}} -  {{lBuilding.id}} - {{lBuilding.code}} - {{lBuilding.name}}</option>
+                                        <option *ngFor="let lBuilding of lBuildings" [ngValue]="lBuilding.location_id" [selected]="assetlBuildingSelected == true">
+                                        {{lBuilding.code}} - {{lBuilding.name}}</option>
                                     </select>
                                 </mat-form-field>
                                 <small class="text-info" *ngIf="reactiveForm.get('lBuilding').hasError('required')">Campo
@@ -230,8 +230,8 @@
                                     <select matNativeControl formControlName="lFloor" (change)="onChangeFloor()">
                                         <option [ngValue]="null" disabled>Seleccione ...</option>
                                         <!--option selected [ngValue]="assetlFloorId">{{assetlFloorCode}} - {{assetlFloorName}}</option-->
-                                        <option *ngFor="let lFloor of lFloors" [ngValue]='lFloor.id'>
-                                            parent:{{lFloor.parent}} - location:{{lFloor.location_id}} - id:{{lFloor.id}} - code:{{lFloor.code}} - {{lFloor.name}}</option>
+                                        <option *ngFor="let lFloor of lFloors" [ngValue]='lFloor.location_id' [selected]="assetlFloorSelected == true">
+                                          {{lFloor.code}} - {{lFloor.name}}</option>
                                     </select>
                                 </mat-form-field>
 
@@ -245,9 +245,8 @@
                                     <select matNativeControl formControlName="lArea" (change)="onChangeArea()">
                                         <option [ngValue]="null" disabled>Seleccione ...</option>
                                         <!--option selected [ngValue]="assetlAreaId">{{assetlAreaCode}} - {{assetlAreaName}}</option-->
-                                        <option *ngFor="let lArea of lAreas" [ngValue]="lArea.id"> 
-                                            parent:{{lArea.parent}} - location:{{lArea.location_id}} - id:{{lArea.id}} - code:{{lArea.code}} -
-                                            name:{{lArea.name}}</option>
+                                        <option *ngFor="let lArea of lAreas" [ngValue]="lArea.location_id" [selected]="assetlAreaSelected == true"> 
+                                            {{lArea.code}} - {{lArea.name}}</option>
                                     </select>
                                 </mat-form-field>
 
@@ -261,8 +260,7 @@
                                     <select matNativeControl formControlName="lRoom">
                                         <option [ngValue]="null" disabled>Seleccione ...</option>
                                         <!--option selected [ngValue]="assetlRoomId">{{assetlRoomCode}} - {{assetlRoomName}}</option-->
-                                        <option *ngFor="let lRoom of lRooms" [ngValue]='lRoom.id'> parent:{{lRoom.parent}} - location:{{lRoom.location_id}} - id:{{lRoom.id}} - code:{{lRoom.code}} -
-                                           name: {{lRoom.name}}</option>
+                                        <option *ngFor="let lRoom of lRooms" [value]='lRoom.location_id' [selected]="assetlRoomSelected == true">{{lRoom.code}} - {{lRoom.name}}</option>
                                     </select>
                                 </mat-form-field>
                                 <small class="text-info" *ngIf="reactiveForm.get('lRoom').hasError('required')">Campo
