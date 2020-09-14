@@ -99,7 +99,7 @@ moveAssetApi(formValue: Asset) {
     "lRoom": formValue.lRoom
   }
 
-  console.log(data);
+
   return this.http.put(this.urlAPI + "/webservice/rest/asset/move/" + formValue.id, data ,{headers})
     .subscribe(
       val => {
@@ -121,6 +121,7 @@ moveAssetApi(formValue: Asset) {
         });
       }
     );
+  
 }
 ///MOVE ON INDEXDB
 private async moveAssetindexDB(formValue: Asset) {
@@ -128,9 +129,25 @@ private async moveAssetindexDB(formValue: Asset) {
   try {
     await this.table.add(formValue)
     const todostabla: Asset[] = await this.table.toArray();
-    console.log('tabla se guardo en indexDB', todostabla)
+    //console.log('tabla se guardo en indexDB', todostabla)
+
+    this.dialog.open(MoveOkComponent, {
+      width: '98VW',
+      data: {
+        textoOffline: 'Se ha guardado este cambio de modo offline, al recuperar la conexión se realizará el cambio definitivo',
+        assetCode: todostabla[0].code
+
+      }
+    });
+
   } catch (error) {
-    console.log('error al agregar tabla a la base de datos', error)
+    console.log('error al agregar tabla a xc la base de datos', error)
+    this.dialog.open(MoveErrorComponent, {
+      width: '98VW',
+      data: {
+        textoOffline: 'Error al agregar tabla a la base de datos'
+      }
+    });
   }
 }
 

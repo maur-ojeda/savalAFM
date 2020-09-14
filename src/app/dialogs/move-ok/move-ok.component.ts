@@ -11,11 +11,7 @@ export class MoveOkComponent implements OnInit {
   mensaje;
   constructor(public dialogRef: MatDialogRef<MoveOkComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      //console.log('data passed in is:', this.data);
       this.mensaje = this.data;
-      //console.log('this.mensaje')
-      //console.log(this.mensaje.anyProperty.data.id)
-
      }
 
   ngOnInit(): void {

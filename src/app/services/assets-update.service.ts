@@ -30,12 +30,21 @@ export class AssetsUpdateService  {
     this.iniciarIndexDB();
   }
 
+  
+
   private iniciarIndexDB() {
     this.db = new Dexie('db-asset-update')
+    
+    
+
+
+
     this.db.version(1).stores({
       updateAsset: 'id'
     });
-    this.table = this.db.table('updateAsset');
+    
+  
+
   }
 
   private oirStatusConexion() {
@@ -96,9 +105,11 @@ updateAssetApi(formValue: Asset) {
     "lifetimeYear": formValue.lifetimeYear
    }
   
-   console.log('updateAssetApi')
-   console.log(headers)
-   console.log(data)
+   // console.log('updateAssetApi')
+   // console.log(headers)
+   // console.log("comentado para pruebas :101")
+
+
     this.http.put(this.urlAPI + '/webservice/rest/asset/update/' + formValue.id, data, { headers })
     .subscribe(
       val => {
@@ -118,6 +129,8 @@ updateAssetApi(formValue: Asset) {
         });
       }
     );
+
+
 }
 ///UPDATE ON INDEXDB
 private async updateAssetindexDB(formValue: Asset) {
@@ -125,8 +138,22 @@ private async updateAssetindexDB(formValue: Asset) {
     await this.table.add(formValue)
     const todostabla: Asset[] = await this.table.toArray();
     console.log('tabla se guardo en indexDB', todostabla)
+
+    this.dialog.open(UpdateOkComponent, {
+      width: '98VW',
+      data: {
+        textoOffline: 'Se ha guardado este cambio de modo offline, al recuperar la conexión se realizará el cambio definitivo',
+        assetCode: todostabla[0].code
+      }
+    });
   } catch (error) {
-    console.log('error al agregar tabla a la base de datos', error)
+    this.dialog.open(UpdateErrorComponent, {
+      width: '98VW',
+      data: {
+        textoOffline: 'Error al agregar tabla a la base de datos'
+      }
+    });
+  
   }
 }
 

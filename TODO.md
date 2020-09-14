@@ -4,30 +4,34 @@ Project Description
 
 ### Todo
 
-- [ ] Actualización automática  de app  
-- [ ] Eliminar refererencias  a angularfire2: revisión  
+- [ ] Cambiar mensaje de carga del usuario  
 - [ ] Logo saval a SVG  
-- [ ] ordenar tabla  
-- [ ] ordenar selects por numero o nombre  
-- [ ] realizar busqueda por codigo en cache  
-- [ ] revisar metodos en asset service  
-- [ ] revisar base service  
-- [ ] revision de cuando vuelve a a estar offline [preguntar mas detalles]  
-- [ ] cambiar el algoritmo de  busqueda y acciones  
-  - [ ] revisar problema de grabado en move asset [bloqueado por bex]  
-  - [ ] Solicitar restriccion de  registrar en api  si hay algun cambio en el af mientras este offline y  rechazar es te cambio, Explicando este rechazo.[bloquedo por bex]  
+- [ ] Restringir acciones de asset si se realizo alguna accion offline hasta su registro  
+- [ ] restringir acceso asset incompleto, locaciones move 6000714  
+- [ ] re leer los campos de los select de las locaciones . al hacer refresh  
 
 ### Blocked
 
-- [ ] Modo Offline  
-- [ ] revision de baja de activo fijo offline cambio de inputs  
+- [ ] revision de cuando vuelve a a estar offline [preguntar mas detalles]  
+- [ ] Eliminar refererencias  a angularfire2: revisión  
+- [ ] Actualización automática  de app  
+- [ ] ordenar tabla  
+- [ ] ordenar selects por numero o nombre  
+- [ ] revisar metodos en asset service  
+- [ ] revisar base service  
 
 ### In Progress
 
-- [ ] Restringir acciones de asset si se realizo alguna accion offline hasta su registro  
+- [ ] carga luego de cambios , particular y general  
 
 ### Done ✓
 
+- [x] Modo Offline  
+- [x] realizar busqueda por codigo en cache  
+- [x] revision de baja de activo fijo offline cambio de inputs  
+- [x] cambiar el algoritmo de  busqueda y acciones  
+  - [x] revisar problema de grabado en move asset [bloqueado por bex]  
+  - [x] Solicitar restriccion de  registrar en api  si hay algun cambio en el af mientras este offline y  rechazar es te cambio, Explicando este rechazo.[bloquedo por bex]  
 - [x] cambiar metodo de busqueda en acciones  en fixed assets, botones con modall  
 - [x] alerta de sincronizacion de datos, usar  mat-progres bar u bloquers las actividades, dejar solo , crear asset y request hasta cargar completamente: https://material.angular.io/components/progress-bar/overview  
 - [x] eliminar de fixed-asset la carga de los assets  

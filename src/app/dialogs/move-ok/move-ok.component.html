@@ -1,7 +1,27 @@
 <h3 mat-dialog-title>Activo fijo modificado</h3>
-<div mat-dialog-content>
-     <p>{{mensaje.anyProperty.message}}</p>
-</div>
-<div mat-dialog-actions>
-	<button mat-flat-button mat-dialog-close class="full-width" color="primary" [routerLink]="['/fixedAsset',mensaje.anyProperty.data.code]">Cerrar</button>
-</div>
+
+
+<ng-container *ngIf="mensaje.textoOffline != null; else onLine">
+
+
+    <div mat-dialog-content>
+        {{mensaje.textoOffline}}
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-flat-button mat-dialog-close class="full-width" color="primary" [routerLink]="['/fixedAssetMove', mensaje.assetCode]">Cerrar</button>
+    </div>
+
+</ng-container>
+
+
+<ng-template #onLine>
+    <div mat-dialog-content>
+        <p>{{mensaje.anyProperty.message}}</p>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-flat-button mat-dialog-close class="full-width" color="primary" [routerLink]="['/fixedAsset',mensaje.anyProperty.data.code]">Cerrar</button>
+    </div>
+
+</ng-template>

@@ -1,11 +1,12 @@
 
 export interface AssetSearchInterface {
-  error: boolean;
+
+ error: boolean;
   message: string;
   data: Data;
 }
-
 interface Data {
+
   id: number;
   status: number;
   createdAt: CreatedAt;

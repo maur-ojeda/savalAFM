@@ -1,5 +1,4 @@
 export interface AssetInterface {
-
   id: number;
   status: number;
   createdAt: CreatedAt;

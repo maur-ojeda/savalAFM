@@ -20,6 +20,7 @@ import { Asset } from '../models/asset.model'
 import { OnlineOfflineService } from './online-offline.service';
 import Dexie from 'dexie'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { WarningComponent } from '../dialogs/warning/warning.component';
 
 
 //import { CustomSnackBarComponent } from '../snackbars/custom-snack-bar/custom-snack-bar.component';
@@ -35,9 +36,9 @@ export class AssetsService {
   private API_URL = "https://afsaval.agenciasur.cl"
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
-
   private assetos: AssetInterface[] = [];
   private assets: AssetSearchInterface[] = [];
+  
   
 
   constructor( 
@@ -60,10 +61,6 @@ export class AssetsService {
     });
     this.table = this.db.table('asset');
   }
-
-
-
-
   getAssets(): Promise<AssetSearchInterface[]> {
     let headers = new HttpHeaders()
       .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
@@ -82,39 +79,79 @@ export class AssetsService {
     });
     
   }
-
 ////Buscador referalCode
-getAssetPorreferalCode(val: string) {
-  if (this.assetos.length > 0) {
-     const asset = this.assetos.find(p => p.referalCode == val);
-     return Promise.resolve(asset);
-   }
-}
-
-getAssetPorrfidLabelSap(val: string) {
-  let cod = val
-  if (cod.length > 23) {
-    let last8 = cod.substr(val.length - 8);
-    let hexa = parseInt(last8, 16);
-    let hexaStr = hexa.toString();
-    val = hexaStr
-     val = val.toString().padStart(10, "0");
-    //console.log(val)
-    //console.log(codigo)
+  getAssetPorreferalCode(val: string) {
+    if (this.assetos.length > 0) {
+      const asset = this.assetos.find(p => p.referalCode == val);
+      return Promise.resolve(asset);
+    }
   }
-  if (this.assetos.length > 0) {
-     const asset = this.assetos.find(p => p.rfidLabelSap == val);
-     return Promise.resolve(asset);
-   }
+
+  getAssetPorrfidLabelSap(val: string) {
+    let cod = val
+    if (cod.length > 23) {
+      let last8 = cod.substr(val.length - 8);
+      let hexa = parseInt(last8, 16);
+      let hexaStr = hexa.toString();
+      val = hexaStr
+      val = val.toString().padStart(10, "0");
+      //console.log(val)
+      //console.log(codigo)
+    }
+    if (this.assetos.length > 0) {
+      const asset = this.assetos.find(p => p.rfidLabelSap == val);
+      return Promise.resolve(asset);
+    }
+  }
+
+/*****/
+  getAssetPorcode(val: string) {
+    if (this.assetos.length > 0) {
+      const asset = this.assetos.find(p => p.code == val);
+      return Promise.resolve(asset);
+    }
+     else {
+      return this.getAssets().then( assetos =>{
+
+        this.dialog.open(WarningComponent, {
+          width: '98VW',
+          disableClose: true
+        })
+        
+       if( this.assetos.length > 0 ){
+        this.dialog.closeAll();
+       }
+       
+        const asset = this.assetos.find(p => p.code == val);
+        return Promise.resolve(asset);
+      
+      });
+     }
+  }
+/*****/
+getAssetPorcodeApi(code: string): Promise<AssetInterface[]> {
+
+alert(code);
+
+  let headers = new HttpHeaders()
+    .set("Authorization", "Basic bW9iaWxlX3VzZXI6dGVzdGluZw==")
+    .set('Content-Type', 'application/x-www-form-urlencoded')
+  
+    return new Promise(
+      resolve => {
+    this.http.get(this.API_URL + '/webservice/rest/assets/search?code=' + code, { headers })
+      .subscribe((assets: any) => {
+        this.assets = assets; 
+        resolve(assets);
+      });
+  });
 }
 
-getAssetPorcode(val: string) {
-  
-  if (this.assetos.length > 0) {
-     const asset = this.assetos.find(p => p.code == val);
-     return Promise.resolve(asset);
-   }
-}
+
+/*****/
+
+
+
 
 
 

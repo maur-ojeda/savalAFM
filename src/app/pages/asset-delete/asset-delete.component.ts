@@ -9,45 +9,37 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DeleteConfirmationComponent } from 'src/app/dialogs/delete-confirmation/delete-confirmation.component';
 import { AssetsService } from 'src/app/services/assets.service';
 import * as moment from 'moment'
+import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
+import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 @Component({
   selector: 'app-asset-delete',
   templateUrl: './asset-delete.component.html',
   styleUrls: ['./asset-delete.component.scss']
 })
 export class AssetDeleteComponent implements OnInit {
+  assets: AssetSearchInterface[] = [];
   public asset$:Observable<Asset[]>;
   public asset = new Asset();
   reactiveForm: FormGroup;
   date;
+  assetDate;
+  assetCapitalizationDateAt;
   constructor(
     public assetsDeleteService: AssetsDeleteService,
     private activatedRoute: ActivatedRoute,
     public utils: SharedserviceService,
     private builder: FormBuilder,
-    public dialog: MatDialog ,
+    public dialog: MatDialog,
     private assetsService: AssetsService,
 
   ) { }
 
   ngOnInit(): void {
 
-    let code = this.activatedRoute.snapshot.paramMap.get('id');
+    this.inicializacion();
+    this.estacargando()
 
-//checkear si esta online o offline
-
-
-//offline  
-      this.assetsService.getAssetPorcode(code).then( asset => {
-        this.asset = asset
-        this.reactiveForm.controls['assetID'].setValue(asset.id);
-      } )
-      .catch( () => console.log('error') )
-      
-//online
-      //this.asset$ = this.utils.findByCode(code);
-
-
-
+ 
    
       this.reactiveForm = this.builder.group({
         assetID:['',[]],
@@ -57,6 +49,30 @@ export class AssetDeleteComponent implements OnInit {
         downComment: ['', [Validators.required]],
       });
 
+      this.dialog.open(WarningComponent, {
+        width: '98VW',
+        disableClose: true
+      })
+
+    }
+
+    inicializacion() {
+      let i = this.activatedRoute.snapshot.paramMap.get('id');
+      this.assetsService.getAssetPorcode(i).then(asset => {
+        this.asset = asset
+        this.assetDate = asset['createdAt'].date;
+        this.assetCapitalizationDateAt = asset['capitalizationDateAt'].date;
+        this.reactiveForm.controls['assetID'].setValue(asset.id);
+        this.dialog.closeAll();   
+      }).catch(() => console.log('error'))
+  
+    }
+  
+    estacargando(){
+      let oo = Object.keys(this.asset).length === 0 && this.asset.constructor === Object
+      if(oo){
+        this.dialog.closeAll();
+      }
     }
 
 
@@ -86,6 +102,23 @@ export class AssetDeleteComponent implements OnInit {
   
       });
     }
+
+
+    refrescar() {
+      this.cargarData()
+    }
+  
+  
+    cargarData(){
+
+      this.dialog.open(WarningComponent, { width: '98VW', disableClose: true })
+
+      this.assetsService.getAssets().then((assets) => { this.assets = assets }).finally(() => { 
+        this.inicializacion();
+        this.dialog.closeAll(); 
+      })
+    }
+
 
 
   }

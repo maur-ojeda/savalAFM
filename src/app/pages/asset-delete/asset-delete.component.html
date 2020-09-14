@@ -10,6 +10,12 @@
 
                 <app-tabs [asset]=asset></app-tabs>
 
+                <div class="row">
+
+                    <button mat-raised-button (click)="refrescar()" class="full-width mb-2 mt-2">Actualizar
+                            datos</button>
+                </div>
+
                 <form [formGroup]="reactiveForm" (ngSubmit)="Dialog()">
 
 
@@ -34,7 +40,7 @@
                                     </div>
                                 </div>
 
-                                <p class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{utils.formatDate(asset['createdAt'].date)}}
+                                <p class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{utils.formatDate(assetDate)}}
                                 </p>
                                 <p class="display-5 pr-3 d-sm-block">Número AF: {{ asset.referalCode }}
                                 </p>
@@ -106,7 +112,7 @@
 
                                     </div>
                                     <ng-template #capitalizationDateAt>
-                                        <input matInput placeholder="" readonly value="{{utils.formatDate(asset['capitalizationDateAt'].date)}}">
+                                        <input matInput placeholder="" readonly value="{{utils.formatDate(assetCapitalizationDateAt)}}">
                                     </ng-template>
                                 </mat-form-field>
                                 <!--Fecha de Capitalización-->
@@ -158,7 +164,7 @@
 
                                 <mat-checkbox [checked]="true" [disabled]="true">Incluir activo fijo en lista inventario
                                 </mat-checkbox>
-
+                                <br/>
                                 <mat-checkbox [checked]="true" [disabled]="true">Gestión histórica</mat-checkbox>
                             </mat-expansion-panel>
                             <!--CENTRO DE COSTO-->
@@ -202,7 +208,7 @@
                                     <mat-label>
                                         Edificio
                                     </mat-label>
-                                    <div *ngIf="asset.lBuilding.code == null; else lBuilding">
+                                    <div *ngIf="asset.lBuilding == null; else lBuilding">
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
                                     </div>
                                     <ng-template #lBuilding>

@@ -1,16 +1,21 @@
 <app-header>
 </app-header>
 
+
+
 <div class="container">
+
     <ng-container *ngIf="asset; else loading">
         <ng-container *ngIf="asset !== null; else noContent">
-
-
-
             <div class="mt-5 pt-5 p-3">
-
                 <app-back-button></app-back-button>
                 <app-tabs [asset]=asset></app-tabs>
+
+                <div class="row">
+
+                    <button mat-raised-button (click)="refrescar()" class="full-width mb-2 mt-2">Actualizar
+                            datos</button>
+                </div>
 
                 <form [formGroup]="reactiveForm" (ngSubmit)="Dialog()">
 
@@ -24,6 +29,8 @@
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
 
+
+
                                 <div *ngIf="asset.status == 3">
                                     <div class="alert alert-dismissible alert-warning">
                                         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -32,7 +39,16 @@
                                     </div>
                                 </div>
 
-                                <p class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{utils.formatDate(asset['createdAt'].date)}}
+
+
+
+
+
+
+
+
+
+                                <p class="display-5 pr-3 d-sm-block pr-3">Fecha de creación: {{utils.formatDate(assetDate)}}
                                 </p>
                                 <p class="display-5 pr-3 d-sm-block">Número AF: {{ asset.referalCode }}
                                 </p>
@@ -163,9 +179,9 @@
                                     </mat-label>
                                     <select matNativeControl formControlName="costCenter">
                                         <option [ngValue]="null" disabled>Seleccione ...</option>
-                                    <option *ngFor="let CCenter of CCenters" [value]="CCenter.id">{{CCenter.code}} -
-                                        {{CCenter.name}}</option>
-                                </select>
+                                        <option *ngFor="let CCenter of CCenters" [value]="CCenter.id">{{CCenter.id}} - {{CCenter.code}} -
+                                            {{CCenter.name}}</option>
+                                    </select>
                                 </mat-form-field>
 
                             </mat-expansion-panel>
@@ -177,9 +193,6 @@
                                 </mat-expansion-panel-header>
 
                                 <!------->
-                                <h1>
-                                    {{ Centers | json}}
-                                </h1>
 
 
                                 <mat-form-field appearance="outline" class="full-width">
@@ -187,49 +200,38 @@
                                         <mat-icon aria-hidden="false">edit</mat-icon>
                                     </mat-label>
                                     <select matNativeControl formControlName="lCenter" (change)="onChangeCenter()">
-                                <option [ngValue]="null" disabled>Seleccione ...</option>
-                                <option selected [ngValue]="asset.lCenter.id">{{asset.lCenter.code}} - {{asset.lCenter.name}}</option>
-                                <option *ngFor="let Center of Centers" [ngValue]="Center.location_id">{{Center.code}} - {{Center.name}}</option>
-                            </select>
+                                        <option [ngValue]="null" disabled>Seleccione ...</option>
+                                        <!--option selected [ngValue]="assetlCenterId">{{assetlCenterCode}} - {{assetlCenterName}}</option-->
+                                        <option *ngFor="let Center of Centers" [ngValue]="Center.id">{{Center.id}} - {{Center.code}} -
+                                            {{Center.name}}</option>
+                                    </select>
                                 </mat-form-field>
-
-
-
-
 
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label class="text-primary">Edificio
                                         <mat-icon aria-hidden="false">edit</mat-icon>
                                     </mat-label>
                                     <select matNativeControl formControlName="lBuilding" (change)="onChangeBuilding()">
-                                    <option [ngValue]="null" disabled>Seleccione ...</option>
-                                    <option selected [ngValue]="asset.lBuilding.id">{{asset.lBuilding.code}} - {{asset.lBuilding.name}}</option>
-                                    <option *ngFor="let lBuilding of lBuildings" [ngValue]="lBuilding.location_id">
-                                        {{lBuilding.code}} - {{lBuilding.name}}</option>
-                                </select>
+                                        <option [ngValue]="null" disabled>Seleccione ...</option>
+                                        <!--option selected [ngValue]="assetlBuildingId">{{assetlBuildingCode}} - {{assetlBuildingName}}</option-->
+                                        <option *ngFor="let lBuilding of lBuildings" [ngValue]="lBuilding.id">
+                                            parent:{{lBuilding.parent}} -location:{{lBuilding.location_id}} -  {{lBuilding.id}} - {{lBuilding.code}} - {{lBuilding.name}}</option>
+                                    </select>
                                 </mat-form-field>
                                 <small class="text-info" *ngIf="reactiveForm.get('lBuilding').hasError('required')">Campo
-                                requerido</small>
-
-
-
-
-
-
-
-
+                                    requerido</small>
 
                                 <small class="text-info" *ngIf="reactiveForm.get('lCenter').hasError('required')">Campo
-                            requerido</small>
+                                    requerido</small>
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label class="text-primary">Piso
                                         <mat-icon aria-hidden="false">edit</mat-icon>
                                     </mat-label>
                                     <select matNativeControl formControlName="lFloor" (change)="onChangeFloor()">
                                         <option [ngValue]="null" disabled>Seleccione ...</option>
-                                        <option selected [ngValue]="asset.lFloor.id">{{asset.lFloor.code}} - {{asset.lFloor.name}}</option>
-                                        <option *ngFor="let lFloor of lFloors" [ngValue]='lFloor.location_id'>
-                                            {{lFloor.code}} - {{lFloor.name}}</option>
+                                        <!--option selected [ngValue]="assetlFloorId">{{assetlFloorCode}} - {{assetlFloorName}}</option-->
+                                        <option *ngFor="let lFloor of lFloors" [ngValue]='lFloor.id'>
+                                            parent:{{lFloor.parent}} - location:{{lFloor.location_id}} - id:{{lFloor.id}} - code:{{lFloor.code}} - {{lFloor.name}}</option>
                                     </select>
                                 </mat-form-field>
 
@@ -241,29 +243,30 @@
                                         <mat-icon aria-hidden="false">edit</mat-icon>
                                     </mat-label>
                                     <select matNativeControl formControlName="lArea" (change)="onChangeArea()">
-                                            <option [ngValue]="null" disabled>Seleccione ...</option>
-                                            <option selected [ngValue]="asset.lArea.id">{{asset.lArea.code}} - {{asset.lArea.name}}</option>
-                                            <option *ngFor="let lArea of lAreas" [ngValue]="lArea.location_id">{{lArea.code}} -
-                                                {{lArea.name}}</option>
-                                        </select>
+                                        <option [ngValue]="null" disabled>Seleccione ...</option>
+                                        <!--option selected [ngValue]="assetlAreaId">{{assetlAreaCode}} - {{assetlAreaName}}</option-->
+                                        <option *ngFor="let lArea of lAreas" [ngValue]="lArea.id"> 
+                                            parent:{{lArea.parent}} - location:{{lArea.location_id}} - id:{{lArea.id}} - code:{{lArea.code}} -
+                                            name:{{lArea.name}}</option>
+                                    </select>
                                 </mat-form-field>
 
 
                                 <small class="text-info" *ngIf="reactiveForm.get('lArea').hasError('required')">Campo
-                                        requerido</small>
+                                    requerido</small>
                                 <mat-form-field appearance="outline" class="full-width">
                                     <mat-label class="text-primary">Sala
                                         <mat-icon aria-hidden="false">edit</mat-icon>
                                     </mat-label>
                                     <select matNativeControl formControlName="lRoom">
-                                                <option [ngValue]="null" disabled>Seleccione ...</option>
-                                                <option selected [ngValue]="asset.lRoom.id">{{asset.lRoom.code}} - {{asset.lRoom.name}}</option>
-                                                <option *ngFor="let lRoom of lRooms" [ngValue]='lRoom.location_id'>{{lRoom.code}} -
-                                                    {{lRoom.name}}</option>
-                                            </select>
+                                        <option [ngValue]="null" disabled>Seleccione ...</option>
+                                        <!--option selected [ngValue]="assetlRoomId">{{assetlRoomCode}} - {{assetlRoomName}}</option-->
+                                        <option *ngFor="let lRoom of lRooms" [ngValue]='lRoom.id'> parent:{{lRoom.parent}} - location:{{lRoom.location_id}} - id:{{lRoom.id}} - code:{{lRoom.code}} -
+                                           name: {{lRoom.name}}</option>
+                                    </select>
                                 </mat-form-field>
                                 <small class="text-info" *ngIf="reactiveForm.get('lRoom').hasError('required')">Campo
-                                            requerido</small>
+                                    requerido</small>
                                 <!------->
 
                             </mat-expansion-panel>
@@ -347,11 +350,13 @@
                     </div>
                     <div class="row pt-3 mb-5">
                         <button type="submit" [disabled]="reactiveForm.invalid" class="btn btn-lg btn-primary full-width mb-3">Guardar
-                        cambios y enviar</button>
+                            cambios y enviar</button>
                     </div>
                 </form>
 
             </div>
+
+
         </ng-container>
     </ng-container>
     <ng-template #loading>

@@ -87,7 +87,6 @@ export class LoginComponent implements OnInit {
             disableClose: true
           })
 
-
           this.requestsService.getRequests()
             .then(requests => this.requests = requests)
 

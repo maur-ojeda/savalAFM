@@ -28,12 +28,13 @@
             </div>
 
             <button mat-flat-button color="primary" class="full-width" [disabled]="reactiveForm.invalid">Ingresar</button>
-            <p class="text-center text-danger"><small>v53</small></p>
+            <p class="text-center text-danger"><small>v64</small></p>
         </ng-container>
         <ng-template #loading>
-            <h2 class="text-primary">Cargando</h2>
-            <mat-spinner></mat-spinner>
 
+            <mat-spinner [diameter]="50"></mat-spinner>
+            <h4 class="text-primary text-center">Validando usuario
+            </h4>
         </ng-template>
 
     </div>

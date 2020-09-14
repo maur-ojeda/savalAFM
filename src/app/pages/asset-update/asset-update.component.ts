@@ -12,6 +12,8 @@ import { CcenterInterface } from 'src/app/interfaces/ccenter.interface';
 import { UpdateConfirmationComponent } from 'src/app/dialogs/update-confirmation/update-confirmation.component';
 import { AssetsService } from 'src/app/services/assets.service';
 import * as moment from 'moment'
+import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
+
 
 
 @Component({
@@ -22,10 +24,12 @@ import * as moment from 'moment'
 export class AssetUpdateComponent implements OnInit {
   public asset$:Observable<Asset[]>;
   public asset = new Asset();
-  
+  assetDate;
+  assetCapitalizationDateAt;
   date;
   reactiveForm: FormGroup;
   ccenters: CcenterInterface[] = [];
+  assets: AssetSearchInterface[] = [];
 
   constructor(
     public slCCenterService: CcenterService,
@@ -39,29 +43,28 @@ export class AssetUpdateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let code = this.activatedRoute.snapshot.paramMap.get('id');
-    this.assetsService.getAssetPorcode(code).then( asset => {
-      this.asset = asset
-      this.getAssetsData(asset)
-    } 
-     )
-    .catch( () => console.log('error') )
- 
+
+    this.inicializacion();
+    this.estacargando()
+
+  
+  this.reactiveForm = this.builder.group({
+    assetID: ['', []],
+    rfidLabelSap: ['',[] ],
+    serieNumber: ['', []],
+    description: ['', [Validators.required]],
+    costCenter: ['', [Validators.required]],
+    creditorId: ['', []],
+    lifetimeYear: ['', []]
+  });
 
 
 
-    this.slCCenterService.getCcenters()
-      .then(ccenters => this.ccenters = ccenters);
+    this.dialog.open(WarningComponent, {
+      width: '98VW',
+      disableClose: true
+    })
 
-    this.reactiveForm = this.builder.group({
-      assetID: ['', []],
-      rfidLabelSap: ['',[] ],
-      serieNumber: ['', []],
-      description: ['', [Validators.required]],
-      costCenter: ['', [Validators.required]],
-      creditorId: ['', []],
-      lifetimeYear: ['', []]
-    });
   }
 
   getAssetsData(e) {
@@ -87,6 +90,8 @@ export class AssetUpdateComponent implements OnInit {
     this.asset.creditorId = this.reactiveForm.value.creditorId;
     this.asset.lifetimeYear = this.reactiveForm.value.lifetimeYear;
    
+    
+    
     this.assetsUpdateService.update(this.asset)
   }
 
@@ -99,6 +104,48 @@ export class AssetUpdateComponent implements OnInit {
              this.updateData();
               }
     });
+  }
+
+  inicializacion() {
+    let i = this.activatedRoute.snapshot.paramMap.get('id');
+    
+    this.assetsService.getAssetPorcode(i).then(asset => {
+
+      this.asset = asset
+      this.assetDate = asset['createdAt'].date;
+      this.assetCapitalizationDateAt = asset['capitalizationDateAt'].date;
+      this.dialog.closeAll();
+      this.getAssetsData(this.asset)
+
+      this.slCCenterService.getCcenters()
+      .then(ccenters => this.ccenters = ccenters);
+  
+    }).catch(() => console.log('error'))
+
+  }
+
+  estacargando(){
+    let oo = Object.keys(this.asset).length === 0 && this.asset.constructor === Object
+    if(oo){
+      this.dialog.closeAll();
+    }
+  }
+
+
+  refrescar() {
+    this.cargarData()
+  }
+
+
+  cargarData(){
+
+    this.dialog.open(WarningComponent, { width: '98VW', disableClose: true })
+
+    this.assetsService.getAssets().then((assets) => { this.assets = assets }).finally(() => { 
+      this.inicializacion();
+      this.dialog.closeAll(); 
+    })
+
   }
 
 

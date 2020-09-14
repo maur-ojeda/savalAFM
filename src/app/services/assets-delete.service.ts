@@ -114,6 +114,8 @@ export class AssetsDeleteService {
       },
     };
 
+console.log(options.body)
+
     return this.http.delete(this.urlAPI + "/webservice/rest/asset/delete/" + formValue.id, options)
       .subscribe(
         val => {
@@ -125,6 +127,7 @@ export class AssetsDeleteService {
           });
         },
         response => {
+          console.log(response)
           this.dialog.open(DeleteErrorComponent, {
             width: '98VW',
             data: {
@@ -140,8 +143,20 @@ export class AssetsDeleteService {
       await this.table.add(formValue)
       const todostabla: Asset[] = await this.table.toArray();
       console.log('tabla se guardo en indexDB', todostabla)
+      this.dialog.open(DeleteOkComponent, {
+        width: '98VW',
+        data: {
+          textoOffline: 'Se ha guardado este cambio de modo offline, al recuperar la conexión se realizará el cambio definitivo',
+          assetCode: todostabla[0].code
+        }
+      });
     } catch (error) {
-      console.log('error al agregar tabla a la base de datos', error)
+      this.dialog.open(DeleteErrorComponent, {
+        width: '98VW',
+        data: {
+          textoOffline: 'Error al agregar tabla a la base de datos'
+        }
+      });
     }
   }
 
