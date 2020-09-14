@@ -83,10 +83,8 @@ export class AssetDeleteComponent implements OnInit {
       this.asset.downDocumentAt = this.reactiveForm.value.downDocumentAt;
       this.asset.downPostingAt = this.reactiveForm.value.downPostingAt;
       this.asset.downReferenceAt = this.reactiveForm.value.downReferenceAt;
-      this.asset.downComment = this.reactiveForm.value.downComment;
-      
+      this.asset.downComment = this.reactiveForm.value.downComment; 
       this.assetsDeleteService.delete(this.asset);
-      console.log(this.asset)
     }
 
 

@@ -18,7 +18,7 @@ import { DeleteErrorComponent } from '../dialogs/delete-error/delete-error.compo
 export class AssetsDeleteService {
 
   private urlAPI = "https://afsaval.agenciasur.cl";
-  private dbdelete: Dexie;
+  private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
   private sharedserviceService: SharedserviceService;
 
@@ -36,18 +36,27 @@ export class AssetsDeleteService {
     this.iniciarIndexDB();
   }
 
-  private iniciarIndexDB() {
-    this.dbdelete = new Dexie('db-asset-delete')
-    
 
-    this.dbdelete.version(1).stores({
-      deleteAsset: 'id'
+  private iniciarIndexDB() {
+    this.db = new Dexie('db-asset')
+    this.db.version(1).stores({
+      opAsset: 'id'
     });
-    
-    this.table = this.dbdelete.table('deleteAsset');
+    this.table = this.db.table('opAsset');
   }
 
 
+  /*private iniciarIndexDB() {
+    this.db = new Dexie('db-asset-delete')
+    this.db.version(1).stores({
+      deleteAsset: 'id'
+    }); 
+    this.table = this.db.table('deleteAsset');
+  }*/
+
+
+
+  
 
   private oirStatusConexion() {
     this.onlineOfflineService.statusConexion
@@ -151,10 +160,11 @@ console.log(options.body)
         }
       });
     } catch (error) {
+      
       this.dialog.open(DeleteErrorComponent, {
         width: '98VW',
         data: {
-          textoOffline: 'Error al agregar tabla a la base de datos'
+          textoOffline: 'Este activo fijo posee un cambio no registrado, debe esperar que se realice el cambio definitivo, para hacer uno nuevo'
         }
       });
     }

@@ -20,6 +20,20 @@ import { RequestsService } from 'src/app/services/requests.service';
 import { AssetsService } from '../../services/assets.service';
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
+import { SpecieService } from 'src/app/services/specie.service';
+import { CenterService } from 'src/app/services/center.service';
+import { BuildingService } from 'src/app/services/building.service';
+import { FloorService } from 'src/app/services/floor.service';
+import { AreaService } from 'src/app/services/area.service';
+import { RoomService } from 'src/app/services/room.service';
+import { SpeciesInterface } from 'src/app/interfaces/specie.interface';
+import { CenterInterface } from 'src/app/interfaces/center.interface';
+import { BuildingInterface } from 'src/app/interfaces/building.interface';
+import { FloorInterface } from 'src/app/interfaces/floor.interface';
+import { AreaInterface } from 'src/app/interfaces/area.interface';
+import { RoomInterface } from 'src/app/interfaces/room.interface';
+import { ClassService } from 'src/app/services/class.service';
+import { cClassInterface } from 'src/app/interfaces/class.interface';
 //import { BuildingInterface } from '../interfaces/building.interface';
 //
 
@@ -42,6 +56,13 @@ export class LoginComponent implements OnInit {
   requests: RequestInterface[] = [];
   locations: LocationInterface[] = [];
   CCenters: CcenterInterface[] = [];
+  species: SpeciesInterface[] = [];
+	Centers: CenterInterface[] = [];
+	lBuildings: BuildingInterface[] = [];
+	lFloors: FloorInterface[] = [];
+	lAreas: AreaInterface[] = [];
+	lRooms: RoomInterface[] = [];
+  cClasses: cClassInterface[] = [];
 
   constructor(
     private userService: UsersService,
@@ -53,7 +74,13 @@ export class LoginComponent implements OnInit {
     private locationsService: LocationsService,
     public slCCenterService: CcenterService,
     public utils: SharedserviceService,
-
+    public specieService: SpecieService,
+    public slCenterService: CenterService,
+		public slBuilding: BuildingService,
+		public slFloor: FloorService,
+		public slArea: AreaService,
+    public slRoom: RoomService,
+    public cClassService: ClassService,
     
 
   ) { }
@@ -86,6 +113,30 @@ export class LoginComponent implements OnInit {
             width: '98VW',
             disableClose: true
           })
+
+
+          this.cClassService.getcClass()
+          .then(cClasses => this.cClasses = cClasses);
+    
+        this.specieService.getSpecies()
+          .then(species => this.species = species);
+
+       
+            this.slBuilding.getallBuildings()
+            .then(lBuildings => this.lBuildings = lBuildings);
+        
+            this.slFloor.getallFloors()
+            .then(lFloors => this.lFloors = lFloors);
+        
+            this.slArea.getallAreas()
+            .then(lAreas => this.lAreas = lAreas)
+        
+            this.slRoom.getallRooms()
+            .then(lRooms => this.lRooms = lRooms)
+        
+            this.slCenterService.getCenters()
+            .then(Centers => this.Centers = Centers);
+            
 
           this.requestsService.getRequests()
             .then(requests => this.requests = requests)

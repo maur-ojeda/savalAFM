@@ -32,13 +32,24 @@ export class AssetsMoveService  {
     this.iniciarIndexDB();
   }
 
-  private iniciarIndexDB(){
+ 
+  private iniciarIndexDB() {
+    this.db = new Dexie('db-asset')
+    this.db.version(1).stores({
+      opAsset: 'id'
+    });
+    this.table = this.db.table('opAsset');
+  }
+
+ /*private iniciarIndexDB() {
     this.db = new Dexie('db-asset-move')
     this.db.version(1).stores({
       moveAsset: 'id'
-    });
+    }); 
     this.table = this.db.table('moveAsset');
-  }
+  }*/
+
+
 
   private oirStatusConexion() {
     this.onlineOfflineService.statusConexion
@@ -141,11 +152,11 @@ private async moveAssetindexDB(formValue: Asset) {
     });
 
   } catch (error) {
-    console.log('error al agregar tabla a xc la base de datos', error)
+    
     this.dialog.open(MoveErrorComponent, {
       width: '98VW',
       data: {
-        textoOffline: 'Error al agregar tabla a la base de datos'
+        textoOffline: 'Este activo fijo posee un cambio no registrado, debe esperar que se realice el cambio definitivo, para hacer uno nuevo'
       }
     });
   }

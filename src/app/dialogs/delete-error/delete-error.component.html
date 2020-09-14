@@ -1,8 +1,24 @@
 <h3 mat-dialog-title>Dar de baja activo fijo</h3>
-<div mat-dialog-content>
-    {{mensaje.textoOffline}}
-    <p>{{mensaje.anyProperty.message}}</p>
-</div>
-<div mat-dialog-actions>
-    <button mat-flat-button mat-dialog-close class="full-width" color="warn">Cerrar</button>
-</div>
+
+
+
+<ng-container *ngIf="mensaje.textoOffline != null; else onLine">
+
+
+    <div mat-dialog-content>
+        {{mensaje.textoOffline}}
+    </div>
+    <div mat-dialog-actions>
+        <button mat-flat-button mat-dialog-close class="full-width" color="warn">Cerrar</button>
+    </div>
+
+
+</ng-container>
+<ng-template #onLine>
+    <div mat-dialog-content>
+        <p>{{mensaje.anyProperty.message}}</p>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-flat-button mat-dialog-close class="full-width" color="warn">Cerrar</button>
+    </div>
+</ng-template>

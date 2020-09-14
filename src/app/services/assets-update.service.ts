@@ -33,19 +33,24 @@ export class AssetsUpdateService  {
   
 
   private iniciarIndexDB() {
+    this.db = new Dexie('db-asset')
+    this.db.version(1).stores({
+      opAsset: 'id'
+    });
+    this.table = this.db.table('opAsset');
+  }
+
+
+  /*private iniciarIndexDB() {
     this.db = new Dexie('db-asset-update')
-    
-    
-
-
-
     this.db.version(1).stores({
       updateAsset: 'id'
-    });
-    
+    }); 
+    this.table = this.db.table('updateAsset');
+  }*/
   
 
-  }
+  
 
   private oirStatusConexion() {
     this.onlineOfflineService.statusConexion
@@ -150,7 +155,7 @@ private async updateAssetindexDB(formValue: Asset) {
     this.dialog.open(UpdateErrorComponent, {
       width: '98VW',
       data: {
-        textoOffline: 'Error al agregar tabla a la base de datos'
+        textoOffline: 'Este activo fijo posee un cambio no registrado, debe esperar que se realice el cambio definitivo, para hacer uno nuevo'
       }
     });
   
