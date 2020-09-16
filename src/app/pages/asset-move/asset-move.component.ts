@@ -99,7 +99,11 @@ export class AssetMoveComponent implements OnInit {
   ngOnInit(): void {
     this.inicializacion();
     this.estacargando()
-    
+
+
+
+
+
     this.reactiveForm = this.builder.group({
       assetID: ['', []],
       costCenter: ['', []],
@@ -115,17 +119,16 @@ export class AssetMoveComponent implements OnInit {
     })
   }
   getAssetsData(e) {
-  //  console.log('aqui')
-    this.reactiveForm.get('costCenter').patchValue(e.costCenter.id);
-  //  console.log('costCenter: ' + e.costCenter.id)
-  //  console.log('lCenter: ' + e.lCenter.id)
-  //  console.log('lBuilding: '+ e.lBuilding.id)
-   // console.log('lFloor: '+ e.lFloor.id)
-   // console.log('lArea: '+ e.lArea.id)
+
+    
+    //  console.log('costCenter: ' + e.costCenter.id)
+    //  console.log('lCenter: ' + e.lCenter.id)
+    //  console.log('lBuilding: '+ e.lBuilding.id)
+    // console.log('lFloor: '+ e.lFloor.id)
+    // console.log('lArea: '+ e.lArea.id)
     // console.log('lRoom: '+ e.lRoom.id)
-
+    this.reactiveForm.get('costCenter').patchValue(e.costCenter.id);
     this.reactiveForm.controls['assetID'].setValue(e.id);
-
     this.reactiveForm.get('lCenter').patchValue(e.lCenter.id);
     this.reactiveForm.get('lBuilding').patchValue(e.lBuilding.id);
     this.reactiveForm.get('lFloor').patchValue(e.lFloor.id_location);
@@ -136,7 +139,7 @@ export class AssetMoveComponent implements OnInit {
 
 
 
-    
+
 
   }
   onChangeCenter() {
@@ -179,16 +182,25 @@ export class AssetMoveComponent implements OnInit {
     this.lRooms = this.locationsService.getchild('parent', e)
     //console.log(this.lRooms);
   }
+  onChangeRoom() {
+    let e = this.reactiveForm.controls['lRoom'].value
+    this.lRooms.length = 0
+    this.reactiveForm.get('lRoom').reset();
+    this.lRooms = this.locationsService.getchild('parent', e)
+    //console.log(this.lRooms);
+  }
+
+
   moveData() {
     this.update = moment(new Date()).format('YYYY-MM-DD HH:MM:ss');
     this.asset.updatedAt = this.update;
     this.asset.id = this.reactiveForm.value.assetID;
     this.asset.lCenter = this.reactiveForm.value.lCenter,
-    this.asset.lBuilding = this.reactiveForm.value.lBuilding,
-    this.asset.lFloor = this.reactiveForm.value.lFloor,
-    this.asset.lArea = this.reactiveForm.value.lArea,
-    this.asset.lRoom = this.reactiveForm.value.lRoom,
-    this.asset.costCenter = this.reactiveForm.value.costCenter
+      this.asset.lBuilding = this.reactiveForm.value.lBuilding,
+      this.asset.lFloor = this.reactiveForm.value.lFloor,
+      this.asset.lArea = this.reactiveForm.value.lArea,
+      this.asset.lRoom = this.reactiveForm.value.lRoom,
+      this.asset.costCenter = this.reactiveForm.value.costCenter
     this.assetsMoveService.move(this.asset);
   }
   Dialog() {
@@ -203,119 +215,207 @@ export class AssetMoveComponent implements OnInit {
   }
 
   refrescar() {
-  
+    window.location.reload(false); 
     this.cargarData()
   }
 
   inicializacion() {
 
+
+
     let i = this.activatedRoute.snapshot.paramMap.get('id');
+
     this.assetsService.getAssetPorcode(i).then(asset => {
       this.asset = asset
       this.assetDate = asset['createdAt'].date
 
 
-      console.log(asset)
-
-console.log(asset['lCenter'])
-console.log(asset['lFloor'])
-console.log(asset['lBuilding'])
-console.log(asset['lArea'])
-console.log(asset['lRoom'])
 
 
-      this.assetlCenterId = asset['lCenter'].id
-      this.assetlCenterCode = asset['lCenter'].code
-      this.assetlCenterName = asset['lCenter'].name
-      this.assetlCenterSelected = true
 
-      this.assetlFloorId = asset['lFloor'].id
-      this.assetlFloorCode = asset['lFloor'].code
-      this.assetlFloorName = asset['lFloor'].name
-      this.assetlFloorSelected = true
 
-      this.assetlBuildingId = asset['lBuilding'].id
-      this.assetlBuildingCode = asset['lBuilding'].code
-      this.assetlBuildingName = asset['lBuilding'].name
-      this.assetlBuildingSelected = true
 
-      this.assetlAreaId = asset['lArea'].id
-      this.assetlAreaCode = asset['lArea'].code
-      this.assetlAreaName = asset['lArea'].name
-      this.assetlAreaSelected = true
 
-      this.assetlRoomId = asset['lRoom'].id
-      this.assetlRoomCode = asset['lRoom'].code
-      this.assetlRoomName = asset['lRoom'].name
-      this.assetlRoomSelected = true
+      // this.reactiveForm.get('lCenter').patchValue(lcenterl[0].id);
+      // this.reactiveForm.get('lCenter').patchValue(lbuildingl[0].id);
 
-      this.getAssetsData( this.asset )
+
+
+
+
+
+
+
+      /*
+      let lcenter = this.locationsService.getchildrens( lcenterl, null )
+      let lbuilding = this.locationsService.getchildrens( lbuildingl, lcenter[0].id )
+      let lfloor = this.locationsService.getchildrens( lfloorl, lbuilding[0].id )
+      */
+
+      //let larea = this.locationsService.getchildrens(lareal,  lbuilding[0].id )
+      // 
+      // let lroom = this.locationsService.getchildrens( lrooml, lfloor[0].id )
+
+
+      //console.table(lcenterl[0].id)
+
+      //console.log('lbuilding')
+      //console.table(lbuildingl)
+
+      /*  
+            console.log('lfloor')
+            console.table(lfloorl)
+            
+            console.log('larea')
+            console.table(lareal)
+      
+            console.log('lroom')
+            console.table(lrooml)
+      
+      */
+
+
+      this.getAssetsData(this.asset)
 
       this.locationsService.getlocations().then(locations => {
         this.locations = locations
-      //  console.log('locations')
-      //  console.log(locations)
-      })    
+      }).finally(() => {
+
+        let lcenterll = this.locationsService.getLocation(asset['lCenter'])
+        let lcenterl = this.locationsService.getchildrens(lcenterll, null)
+        let lcenterlid = lcenterl[0]['id']
+        let lbuildingll = this.locationsService.getLocation(asset['lBuilding'])
+        let lbuildingl = this.locationsService.getchildrens(lbuildingll, lcenterlid)
+        let lbuildinglid = lbuildingl[0]['id']
+        let lfloorll = this.locationsService.getLocation(asset['lFloor'])
+        let lfloorl = this.locationsService.getchildrens(lfloorll, lbuildinglid)
+        let lfloorlid = lfloorl[0]['id'];
+        let lareall = this.locationsService.getLocation(asset['lArea'])
+        let lareal = this.locationsService.getchildrens(lareall, lfloorlid)
+        let larealid = lareal[0]['id']
+        let lroomll = this.locationsService.getLocation(asset['lRoom'])
+        let lrooml = this.locationsService.getchildrens(lroomll, larealid)
+        let lroomlid = lrooml[0]['id']
+
+
+
+
+
+        let cType = lcenterl[0]['type']
+        let cParent = lcenterl[0]['parent']
+        let c = this.locationsService.getAllLocation(cType,cParent)
+        //console.log(c)  
+
+
+        let bType = lbuildingl[0]['type']
+        let bParent = lbuildingl[0]['parent']
+        let b = this.locationsService.getAllLocation(bType,bParent)
+        //console.log(b)   
+
+
+
+
+        let fType = lfloorl[0]['type']
+        let fParent = lfloorl[0]['parent']
+        let f = this.locationsService.getAllLocation(fType,fParent)
+        //console.log(f)   
+
+
+        let aType = lareal[0]['type']
+        let aParent = lareal[0]['parent']
+        let a = this.locationsService.getAllLocation(aType,aParent)
+        //console.log(a)   
+
+      let rType = lrooml[0]['type']
+      let rParent = lrooml[0]['parent']
+      let r = this.locationsService.getAllLocation(rType,rParent)
+      //console.log(r) 
+
+       this.Centers = c
+       this.lBuildings = b
+       this.lFloors = f
+       this.lAreas = a
+      this.lRooms = r
+        
+/*
+        this.getAssetsData(this.asset)
+        console.dir('lcenterl')
+        console.table(lcenterl)
+        console.table('lbuildingl')
+        console.table(lbuildingl)
+        console.table('lfloorl')
+        console.table(lfloorl)
+        console.table('lareal')
+        console.table(lareal)
+        console.table('lrooml')
+        console.table(lrooml)
+*/
+
+    this.reactiveForm.get('costCenter').patchValue(asset.costCenter.id);
+    this.reactiveForm.controls['assetID'].setValue(asset.id);
+
+    this.reactiveForm.get('lCenter').patchValue(lcenterlid);
+    this.reactiveForm.get('lBuilding').patchValue(lbuildinglid);
+    this.reactiveForm.get('lFloor').patchValue(lfloorlid);
+    this.reactiveForm.get('lArea').patchValue(larealid);
+    this.reactiveForm.get('lRoom').patchValue(lroomlid);
+      })
+
       this.slCCenterService.getCcenters().then(CCenters => {
         this.CCenters = CCenters
-      //  console.log('CCenters')
-      //  console.log(CCenters)
       });
-      this.slCenterService.getCenters().then(Centers => {this.Centers = Centers 
-      //  console.log('Centers')
-      //  console.log(Centers)
+     
+     
+      /*
+      this.slCenterService.getCenters().then(Centers => {
+        this.Centers = Centers
       });
-      this.slBuilding.getallBuildings().then(lBuildings => {this.lBuildings = lBuildings 
-      //  console.log('lBuildings')
-      //  console.log(lBuildings)
+      this.slBuilding.getallBuildings().then(lBuildings => {
+        this.lBuildings = lBuildings
       });
       this.slFloor.getallFloors().then(lFloors => {
         this.lFloors = lFloors
-      //  console.log('lFloors')
-      //  console.log(lFloors)
       });
-      this.slArea.getallAreas().then(lAreas => {this.lAreas = lAreas
-      //  console.log('lAreas')
-      //  console.log(lAreas)
+      this.slArea.getallAreas().then(lAreas => {
+        this.lAreas = lAreas
       })
-      this.slRoom.getallRooms().then(lRooms => {this.lRooms = lRooms
-      //  console.log('lRooms')
-      //  console.log(lRooms)
+     
+      this.slRoom.getallRooms().then(lRooms => {
+        this.lRooms = lRooms
       })
-  
-      this.assetsService.getAssets().then((assets) => { this.assets = assets }).finally(() => { 
-        this.dialog.closeAll(); 
-      })
+*/
 
 
-    }).catch(() => console.log('error'))
+      this.assetsService.getAssets().then((assets) => { this.assets = assets }).finally(() => {
+        this.dialog.closeAll();
+      })
+
+    }).catch((rr) => console.log(rr))
   }
-  
 
-  estacargando(){
+  estacargando() {
     let oo = Object.keys(this.asset).length === 0 && this.asset.constructor === Object
-    if(oo){
+    if (oo) {
       this.dialog.closeAll();
     }
   }
 
   cargarData() {
     this.dialog.open(WarningComponent, { width: '98VW', disableClose: true })
-
-    this.locationsService.getlocations().then(locations => this.locations = locations)    
-
+    this.locationsService.getlocations().then(locations => this.locations = locations)
     this.slCCenterService.getCcenters().then(CCenters => this.CCenters = CCenters);
-
     this.slCenterService.getCenters().then(Centers => this.Centers = Centers);
     this.slBuilding.getallBuildings().then(lBuildings => this.lBuildings = lBuildings);
     this.slFloor.getallFloors().then(lFloors => this.lFloors = lFloors);
     this.slArea.getallAreas().then(lAreas => this.lAreas = lAreas)
     this.slRoom.getallRooms().then(lRooms => this.lRooms = lRooms)
-
-    this.assetsService.getAssets().then((assets) => { this.assets = assets }).finally(() => { 
+    this.assetsService.getAssets().then((assets) => { this.assets = assets }).finally(() => {
       this.inicializacion();
-      this.dialog.closeAll(); 
+      this.dialog.closeAll();
     })
   }
+
+
+
 
 }

@@ -68,7 +68,7 @@ export class AssetDeleteComponent implements OnInit {
       this.assetsService.getAssetPorcode(i).then(asset => {
         this.asset = asset
         this.assetDate = asset['createdAt'].date;
-        this.assetCapitalizationDateAt = asset['capitalizationDateAt'].date;
+        //this.assetCapitalizationDateAt = asset['capitalizationDateAt'].date;
         this.reactiveForm.controls['assetID'].setValue(asset.id);
         this.dialog.closeAll();   
       }).catch(() => console.log('error'))

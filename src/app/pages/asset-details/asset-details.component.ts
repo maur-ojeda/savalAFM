@@ -49,7 +49,7 @@ export class AssetDetailsComponent implements OnInit {
     this.assetsService.getAssetPorcode(i).then(asset => {
       this.asset = asset
       this.assetDate = asset['createdAt'].date;
-      this.assetCapitalizationDateAt = asset['capitalizationDateAt'].date;
+      //this.assetCapitalizationDateAt = asset['capitalizationDateAt'].date;
       this.dialog.closeAll();
     }).catch(() => console.log('error'))
 
@@ -65,6 +65,8 @@ cargarData(){
 }
 
   refrescar() {
+    window.location.reload(false); 
+
    this.inicializacion();
   }
 

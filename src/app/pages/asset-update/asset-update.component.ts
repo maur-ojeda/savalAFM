@@ -81,9 +81,11 @@ export class AssetUpdateComponent implements OnInit {
 
   updateData() {
     this.date = moment(new Date()).format('YYYY-MM-DD HH:MM:ss');
+    let rfid = this.reactiveForm.value.rfidLabelSap;
+
     this.asset.updatedAt = this.date;
     this.asset.id = this.reactiveForm.value.assetID;
-    this.asset.rfidLabelSap = this.reactiveForm.value.rfidLabelSap;
+    this.asset.rfidLabelSap = this.toRfid(rfid);
     this.asset.serieNumber = this.reactiveForm.value.serieNumber;
     this.asset.description = this.reactiveForm.value.description;
     this.asset.costCenter = this.reactiveForm.value.costCenter;
@@ -113,14 +115,17 @@ export class AssetUpdateComponent implements OnInit {
 
       this.asset = asset
       this.assetDate = asset['createdAt'].date;
-      this.assetCapitalizationDateAt = asset['capitalizationDateAt'].date;
+      
+
+  
+      
       this.dialog.closeAll();
       this.getAssetsData(this.asset)
 
       this.slCCenterService.getCcenters()
       .then(ccenters => this.ccenters = ccenters);
   
-    }).catch(() => console.log('error'))
+    }).catch((error) => console.log(error))
 
   }
 
@@ -133,6 +138,7 @@ export class AssetUpdateComponent implements OnInit {
 
 
   refrescar() {
+    window.location.reload(false); 
     this.cargarData()
   }
 
@@ -147,6 +153,21 @@ export class AssetUpdateComponent implements OnInit {
     })
 
   }
+
+toRfid(val){
+    let cod = val
+    if (cod.length === 24 ) {
+      let last8 = cod.substr(val.length - 8);
+      let hexa = parseInt(last8, 16);
+      let hexaStr = hexa.toString();
+      val = hexaStr
+      val = val.toString().padStart(10, "0");
+      return val
+    }else{
+      return 'No es un rfid válido'
+    }
+  
+}
 
 
 }

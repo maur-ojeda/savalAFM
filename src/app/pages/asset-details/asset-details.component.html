@@ -114,7 +114,8 @@
 
                                 </div>
                                 <ng-template #capitalizationDateAt>
-                                    <input matInput placeholder="" readonly value="{{utils.formatDate(assetCapitalizationDateAt)}}">
+                                    <input matInput placeholder="" readonly value="{{utils.formatDate(asset['capitalizationDateAt'].date
+                                    )}}">
                                 </ng-template>
                             </mat-form-field>
                             <!--Fecha de Capitalización-->
@@ -141,14 +142,14 @@
 
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>
-                                    Número de serie
+                                    Número de serie {{asset.serieNumber}}
                                 </mat-label>
-                                <div *ngIf="asset.serieNumber == null; else serieNumber">
+                                <!--div *ngIf="asset.serieNumber == null || asset.serieNumber == '' ; else serieNumber">
                                     <input matInput placeholder="" readonly disabled value="Sin datos">
-                                </div>
-                                <ng-template #serieNumber>
-                                    <input matInput placeholder="" readonly value="{{asset.serieNumber}}">
-                                </ng-template>
+                                </div-->
+                                <!--ng-template #serieNumber-->
+                                <input matInput placeholder="Número de serie" readonly value="{{asset.serieNumber}}">
+                                <!--/ng-template-->
                             </mat-form-field>
 
                             <mat-form-field appearance="outline" class="full-width">

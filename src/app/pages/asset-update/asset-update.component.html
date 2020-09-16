@@ -61,14 +61,15 @@
 
                                 <!--Código Rfid-->
                                 <mat-form-field appearance="outline" class="full-width">
-                                    <mat-label>
+                                    <mat-label class="text-primary">
                                         Código Rfid
+                                        <mat-icon aria-hidden="false" class="text-primary">edit</mat-icon>
                                     </mat-label>
                                     <div *ngIf="asset.rfidLabelSap == null; else rfidLabelSap">
-                                        <input matInput placeholder="" readonly disabled value="Sin datos">
+                                        <input matInput disabled placeholder="" value="Sin datos">
                                     </div>
                                     <ng-template #rfidLabelSap>
-                                        <input matInput readonly placeholder="Código Rfid" value="{{asset.rfidLabelSap}}">
+                                        <input matInput formControlName="rfidLabelSap" placeholder="Código Rfid" value="{{asset.rfidLabelSap}}">
                                     </ng-template>
                                 </mat-form-field>
                                 <!--Código Rfid-->
@@ -99,13 +100,13 @@
                                     <mat-label>
                                         Fecha de Capitalización
                                     </mat-label>
-                                    <div *ngIf="asset.capitalizationDateAt == null; else capitalizationDateAt">
+                                    <div *ngIf="assetCapitalizationDateAt == null; else capitalizationDateAt">
 
                                         <input matInput placeholder="" readonly disabled value="Sin datos">
 
                                     </div>
                                     <ng-template #capitalizationDateAt>
-                                        <input matInput placeholder="" readonly value="{{utils.formatDate(assetCapitalizationDateAt)}}">
+                                        <input matInput placeholder="" readonly value="{{utils.formatDate(asset['capitalizationDateAt'].date)}}">
                                     </ng-template>
                                 </mat-form-field>
                                 <!--Fecha de Capitalización-->

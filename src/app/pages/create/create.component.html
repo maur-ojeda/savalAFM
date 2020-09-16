@@ -152,12 +152,15 @@
                 <div class="form-group">
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Centro</mat-label>
-                        <select matNativeControl formControlName="lCenter">
+
+
+                        <select matNativeControl formControlName="lCenter" (change)="onChangeCenter()">
                             <option [ngValue]="null" disabled>Seleccione ...</option>
-                            <option *ngFor="let Center of Centers" [value]="Center.location_id">
-                                {{Center.code}} - {{Center.name}}
-                            </option>
+                            <option *ngFor="let Center of Centers" [ngValue]="Center.location_id" >{{Center.code}} -
+                                {{Center.name}}</option>
                         </select>
+
+
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('lCenter').hasError('required')">Campo
                         requerido</small>
@@ -172,19 +175,17 @@
 
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Edificio</mat-label>
-                        <select matNativeControl formControlName="lBuilding" (change)="onChangeBuilding()">
-                            <option [ngValue]="null" disabled>Seleccione ...</option>
-                            <option *ngFor="let lBuilding of lBuildings" [value]="lBuilding.location_id">
-                                {{lBuilding.id}} -
-                                {{lBuilding.location_id}} -
-                                {{lBuilding.parent}} -
-                                
-                                
-                                {{lBuilding.code}} -
-                                {{lBuilding.name}}
-                            </option>
 
+
+
+
+                        <select matNativeControl formControlName="lBuilding" (change)="onChangeBuilding()">
+                            <option [ngValue]="null" disabled>Seleccione ...</option>                
+                            <option *ngFor="let lBuilding of lBuildings" [ngValue]="lBuilding.location_id">
+                            {{lBuilding.code}} - {{lBuilding.name}}</option>
                         </select>
+
+
                     </mat-form-field>
 
                     <small class="text-info" *ngIf="reactiveForm.get('lBuilding').hasError('required')">Campo
@@ -196,18 +197,14 @@
                 <div class="form-group">
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Piso</mat-label>
-                        <select matNativeControl formControlName="lFloor" (change)="onChangeFloor()">
-                            <option [ngValue]="null" disabled>Seleccione ...</option>
-                            <option *ngFor="let lFloor of lFloors" [value]="lFloor.location_id">
-                                
-                                
-                                {{lFloor.id}} -
-                                {{lFloor.location_id}} -
-                                {{lFloor.parent}} -
 
-                                {{lFloor.code}} - {{lFloor.name}}
-                            </option>
+                        <select matNativeControl formControlName="lFloor" (change)="onChangeFloor()">
+                            <option [ngValue]="null" disabled>Seleccione ...</option>                            
+                            <option *ngFor="let lFloor of lFloors" [ngValue]='lFloor.location_id'>
+                              {{lFloor.code}} - {{lFloor.name}}</option>
                         </select>
+
+
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('lFloor').hasError('required')">Campo
                         requerido</small>
@@ -219,16 +216,15 @@
                 <div class="form-group">
                     <mat-form-field appearance="outline" class="full-width" (change)="onChangeArea()">
                         <mat-label>Área</mat-label>
-                        <select matNativeControl formControlName="lArea">
+                        <select matNativeControl formControlName="lArea" (change)="onChangeArea()">
                             <option [ngValue]="null" disabled>Seleccione ...</option>
-                            <option *ngFor="let lArea of lAreas" [value]="lArea.location_id">{{lArea.code}} - {{lArea.name}}
-                            </option>
+                            <option *ngFor="let lArea of lAreas" [ngValue]="lArea.location_id"> 
+                                {{lArea.code}} - {{lArea.name}}</option>
                         </select>
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('lArea').hasError('required')">Campo
                         requerido</small>
                 </div>
-
                 <!--lRoom-->
 
 
@@ -237,9 +233,8 @@
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Sala</mat-label>
                         <select matNativeControl formControlName="lRoom">
-                            <option [ngValue]="null" disabled>Seleccione ...</option>
-                            <option *ngFor="let lRoom of lRooms" [value]="lRoom.location_id">{{lRoom.code}} - {{lRoom.name}}
-                            </option>
+                            <option [ngValue]="null" disabled>Seleccione ...</option>                
+                            <option *ngFor="let lRoom of lRooms" [value]='lRoom.location_id' >{{lRoom.code}} - {{lRoom.name}}</option>
                         </select>
                     </mat-form-field>
                     <small class="text-info" *ngIf="reactiveForm.get('lRoom').hasError('required')">Campo

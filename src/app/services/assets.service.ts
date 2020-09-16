@@ -71,7 +71,8 @@ export class AssetsService {
     }
 
     return new Promise(resolve => {
-      this.http.get(this.API_URL + '/webservice/rest/assets/?all=true', { headers })
+      //this.http.get(this.API_URL + '/webservice/rest/assets/?all=true', { headers })
+      this.http.get(this.API_URL + '/webservice/rest/assets/', { headers })
         .subscribe((assets: any) => {
           this.assetos = assets['data'];
           resolve(assets['data']);
@@ -151,12 +152,6 @@ alert(code);
 /*****/
 
 
-
-
-
-
-
-
 getAssetPorCode(val: string) {
   if (this.assets.length > 0) {
      const asset = this.assetos.find(p => p.code == val);
@@ -168,11 +163,6 @@ getAssetPorCode(val: string) {
    });
    }
 }
-
-
-
-
-
 
   //test
   InsertAssets(formValue) {
@@ -383,5 +373,24 @@ getAssetPorCode(val: string) {
           }
         })
   }
+
+
+
+
+  public oirStatusConexion2() {
+    this.onlineOfflineService.statusConexion
+      .subscribe(
+        online => {
+              return online            
+          },
+          offline => {
+            return offline            
+          
+          }
+   )
+  }
+
+
+
 
 }

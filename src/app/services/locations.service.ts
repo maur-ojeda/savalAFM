@@ -35,17 +35,33 @@ export class LocationsService {
     });
   }
 
-  /*getChildrens(objs: any, val: number){
-    return objs.filter(obj => obj.parent === val);
-  }*/
+
   
-  getchild(val, node){
+   getchild(val, node){
     let childrens = this.locations.filter(arr => arr[val] === node);
     return childrens
   }
   
+
+  getLocation(asset){ 
+    let location = this.locations.filter( 
+      loc => loc.location_id === asset.id && loc.type === asset.type );
+      return location
+  }
     
+  getchildrens(asset, parent){ 
+    let assetLocation = asset.filter( 
+      loc => loc.parent === parent);
+    return assetLocation
+    }
+
+    getAllLocation(Type,Parent){ 
+    
+      let location = this.locations.filter( 
+        loc => loc.parent === Parent && loc.type === Type );
+        return location
+    }
 
   
 
-}
+  }

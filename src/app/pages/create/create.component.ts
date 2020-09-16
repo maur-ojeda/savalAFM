@@ -93,7 +93,7 @@ export class CreateComponent implements OnInit {
 		  this.slFloor.getallFloors().then(lFloors => {this.lFloors = lFloors});
 		  this.slArea.getallAreas().then(lAreas => {this.lAreas = lAreas})
 		  this.slRoom.getallRooms().then(lRooms => {this.lRooms = lRooms
-			console.log(this.lRooms)
+		//	console.log(this.lRooms)
 		})
 
 
@@ -177,11 +177,9 @@ export class CreateComponent implements OnInit {
 		this.reactiveForm.get('lFloor').reset();
 		this.reactiveForm.get('lArea').reset();
 		this.reactiveForm.get('lRoom').reset();
-
 		this.lBuildings = this.locationsService.getchild('parent', e)
 	}
 	onChangeBuilding() {
-		console.log(this.lFloors)	
 		let e = this.reactiveForm.controls['lBuilding'].value
 		this.lFloors.length = 0
 		this.lAreas.length = 0
@@ -205,6 +203,8 @@ export class CreateComponent implements OnInit {
 		this.reactiveForm.get('lRoom').reset();
 		this.lRooms = this.locationsService.getchild('parent', e)
 	}
+
+	
 
 	
 
