@@ -81,19 +81,15 @@ export class CreateComponent implements OnInit {
 
 	ngOnInit() {
 		this.cClassService.getcClass().then(cClasses => this.cClasses = cClasses);
-
 		this.specieService.getSpecies().then(species => this.species = species);
-
 		this.slCCenterService.getCcenters().then(CCenters => this.CCenters = CCenters);
-
-
 
 		  this.slCenterService.getCenters().then(Centers => this.Centers = Centers);
 		  this.slBuilding.getallBuildings().then(lBuildings => {this.lBuildings = lBuildings });
 		  this.slFloor.getallFloors().then(lFloors => {this.lFloors = lFloors});
 		  this.slArea.getallAreas().then(lAreas => {this.lAreas = lAreas})
 		  this.slRoom.getallRooms().then(lRooms => {this.lRooms = lRooms
-		//	console.log(this.lRooms)
+		
 		})
 
 

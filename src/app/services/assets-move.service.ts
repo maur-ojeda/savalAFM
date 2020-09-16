@@ -17,7 +17,7 @@ import { MoveErrorComponent } from '../dialogs/move-error/move-error.component';
 })
 export class AssetsMoveService  {
 
-  private urlAPI = "https://afsaval.agenciasur.cl";
+  private urlAPI = "https://devactivofijo.saval.cl:8443";
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
   private sharedserviceService: SharedserviceService;
@@ -114,7 +114,8 @@ moveAssetApi(formValue: Asset) {
   }
 
 
-  return this.http.put(this.urlAPI + "/webservice/rest/asset/move/" + formValue.id, data ,{headers})
+  console.log(data)
+ return this.http.put(this.urlAPI + "/webservice/rest/asset/move/" + formValue.id, data ,{headers})
     .subscribe(
       val => {
         this.dialog.open(MoveOkComponent, {
@@ -125,8 +126,7 @@ moveAssetApi(formValue: Asset) {
         });
       },
       response => {
-        console.log(response);
-
+       
         this.dialog.open(MoveErrorComponent, {
           width: '98VW',
           data: {
@@ -134,8 +134,7 @@ moveAssetApi(formValue: Asset) {
           }
         });
       }
-    );
-  
+    ); 
 }
 ///MOVE ON INDEXDB
 private async moveAssetindexDB(formValue: Asset) {

@@ -11,9 +11,8 @@ import { AssetsService } from 'src/app/services/assets.service';
 import * as moment from 'moment'
 import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
-
-
 import * as _moment from 'moment';
+import { Network } from '@ngx-pwa/offline';
 
 
 
@@ -31,6 +30,7 @@ export class AssetDeleteComponent implements OnInit {
   date;
   assetDate;
   assetCapitalizationDateAt;
+  online$;
   constructor(
     public assetsDeleteService: AssetsDeleteService,
     private activatedRoute: ActivatedRoute,
@@ -38,8 +38,8 @@ export class AssetDeleteComponent implements OnInit {
     private builder: FormBuilder,
     public dialog: MatDialog,
     private assetsService: AssetsService,
-
-  ) { }
+    protected network: Network,
+  ) {this.online$ = this.network.onlineChanges;}
 
   ngOnInit(): void {
 
@@ -128,6 +128,7 @@ export class AssetDeleteComponent implements OnInit {
 
 
     refrescar() {
+      window.location.reload(false); 
       this.cargarData()
     }
   

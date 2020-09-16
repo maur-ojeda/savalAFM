@@ -16,8 +16,10 @@
 
                 <div class="row">
 
-                    <button mat-raised-button (click)="refrescar()" class="full-width mb-2 mt-2">Actualizar
+                    <div *ngIf="online$ | async" class="full-width">​
+                        <button mat-raised-button (click)="refrescar()" class="full-width mb-2 mt-2">Actualizar
                             datos</button>
+                    </div>
                 </div>
 
 

@@ -9,7 +9,7 @@ import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import { Network } from '@ngx-pwa/offline';
 @Component({
   selector: 'app-asset-details',
   templateUrl: './asset-details.component.html',
@@ -21,7 +21,7 @@ export class AssetDetailsComponent implements OnInit {
   assets: AssetSearchInterface[] = [];
   assetDate;
   assetCapitalizationDateAt;
-
+  online$;
   constructor(
     public assetsDetailsService: AssetsDetailsService,
     private activatedRoute: ActivatedRoute,
@@ -29,8 +29,9 @@ export class AssetDetailsComponent implements OnInit {
     public utils: SharedserviceService,
     private snackBar: MatSnackBar,
     private assetsService: AssetsService,
+    protected network: Network,
    
-  ) { }
+  ) {this.online$ = this.network.onlineChanges;}
 
   ngOnInit(): void {
     this.inicializacion();

@@ -28,7 +28,7 @@ import * as moment from 'moment'
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { WarningComponent } from 'src/app/dialogs/warning/warning.component';
-
+import { Network } from '@ngx-pwa/offline';
 @Component({
   selector: 'app-asset-move',
   templateUrl: './asset-move.component.html',
@@ -79,6 +79,7 @@ export class AssetMoveComponent implements OnInit {
   lRooms: RoomInterface[] = [];
   assets: AssetSearchInterface[] = [];
   code;
+  online$;
   constructor(
     public assetsMoveService: AssetsMoveService,
     private activatedRoute: ActivatedRoute,
@@ -95,7 +96,9 @@ export class AssetMoveComponent implements OnInit {
     public dialog: MatDialog,
     private assetsService: AssetsService,
     private snackBar: MatSnackBar,
-  ) { }
+    protected network: Network,
+  ) {this.online$ = this.network.onlineChanges;}
+  
   ngOnInit(): void {
     this.inicializacion();
     this.estacargando()
@@ -195,13 +198,37 @@ export class AssetMoveComponent implements OnInit {
     this.update = moment(new Date()).format('YYYY-MM-DD HH:MM:ss');
     this.asset.updatedAt = this.update;
     this.asset.id = this.reactiveForm.value.assetID;
+    this.asset.costCenter = this.reactiveForm.value.costCenter
+
+
+let c:any = this.locationsService.getLocationid(this.reactiveForm.value.lCenter)
+let b:any = this.locationsService.getLocationid(this.reactiveForm.value.lBuilding)
+let f:any = this.locationsService.getLocationid(this.reactiveForm.value.lFloor)
+let a:any = this.locationsService.getLocationid(this.reactiveForm.value.lArea)
+let r:any = this.locationsService.getLocationid(this.reactiveForm.value.lRoom)
+
+
+
+this.asset.lCenter = c,
+this.asset.lBuilding = b,
+this.asset.lFloor = f,
+this.asset.lArea = a,
+this.asset.lRoom = r,
+
+
+
+/*
     this.asset.lCenter = this.reactiveForm.value.lCenter,
-      this.asset.lBuilding = this.reactiveForm.value.lBuilding,
-      this.asset.lFloor = this.reactiveForm.value.lFloor,
-      this.asset.lArea = this.reactiveForm.value.lArea,
-      this.asset.lRoom = this.reactiveForm.value.lRoom,
-      this.asset.costCenter = this.reactiveForm.value.costCenter
+    this.asset.lBuilding = this.reactiveForm.value.lBuilding,
+    this.asset.lFloor = this.reactiveForm.value.lFloor,
+    this.asset.lArea = this.reactiveForm.value.lArea,
+    this.asset.lRoom = this.reactiveForm.value.lRoom,
+  */  
+
+
+
     this.assetsMoveService.move(this.asset);
+
   }
   Dialog() {
     const dialogRef = this.dialog.open(MoveConfirmationComponent, {

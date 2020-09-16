@@ -18,7 +18,7 @@ import * as moment from 'moment';
 
 export class AssetsDeleteService {
 
-  private urlAPI = "https://afsaval.agenciasur.cl";
+  private urlAPI = "https://devactivofijo.saval.cl:8443";
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
   private sharedserviceService: SharedserviceService;

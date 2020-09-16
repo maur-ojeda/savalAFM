@@ -27,7 +27,7 @@ export class LocationsService {
       return Promise.resolve(this.locations);
     }
     return new Promise(resolve => {
-      this.http.get('https://afsaval.agenciasur.cl/webservice/rest/catalog/locations?all=true', { headers })
+      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?all=true', { headers })
         .subscribe((locations: any) => {
           this.locations = locations.data;
           resolve(locations.data);
@@ -47,6 +47,15 @@ export class LocationsService {
     let location = this.locations.filter( 
       loc => loc.location_id === asset.id && loc.type === asset.type );
       return location
+  }
+
+
+  getLocationid(asset){ 
+    
+    let location = this.locations.filter( 
+      loc => loc.id === asset);
+      
+      return location[0].location_id
   }
     
   getchildrens(asset, parent){ 

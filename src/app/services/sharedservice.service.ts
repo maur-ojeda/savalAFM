@@ -13,7 +13,7 @@ import { AssetInterface } from '../interfaces/asset.interface';
 })
 export class SharedserviceService {
   
-  API_URL ="https://afsaval.agenciasur.cl"
+  API_URL ="https://devactivofijo.saval.cl:8443"
   private assets: AssetInterface[] = [];
   constructor(
     private location: Location,

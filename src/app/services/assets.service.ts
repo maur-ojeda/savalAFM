@@ -33,7 +33,7 @@ import { WarningComponent } from '../dialogs/warning/warning.component';
 export class AssetsService {
 
 
-  private API_URL = "https://afsaval.agenciasur.cl"
+  private API_URL = "https://devactivofijo.saval.cl:8443"
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
   private assetos: AssetInterface[] = [];
@@ -71,8 +71,8 @@ export class AssetsService {
     }
 
     return new Promise(resolve => {
-      //this.http.get(this.API_URL + '/webservice/rest/assets/?all=true', { headers })
-      this.http.get(this.API_URL + '/webservice/rest/assets/', { headers })
+      this.http.get(this.API_URL + '/webservice/rest/assets/?all=true', { headers })
+      //this.http.get(this.API_URL + '/webservice/rest/assets/', { headers })
         .subscribe((assets: any) => {
           this.assetos = assets['data'];
           resolve(assets['data']);

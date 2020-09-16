@@ -13,7 +13,7 @@ import { UpdateConfirmationComponent } from 'src/app/dialogs/update-confirmation
 import { AssetsService } from 'src/app/services/assets.service';
 import * as moment from 'moment'
 import { AssetSearchInterface } from 'src/app/interfaces/assetSearch.interface';
-
+import { Network } from '@ngx-pwa/offline';
 
 
 @Component({
@@ -30,6 +30,7 @@ export class AssetUpdateComponent implements OnInit {
   reactiveForm: FormGroup;
   ccenters: CcenterInterface[] = [];
   assets: AssetSearchInterface[] = [];
+  online$;
 
   constructor(
     public slCCenterService: CcenterService,
@@ -38,9 +39,10 @@ export class AssetUpdateComponent implements OnInit {
     public utils: SharedserviceService,
     private builder: FormBuilder,
     public dialog: MatDialog,
-    private assetsService: AssetsService, 
+    private assetsService: AssetsService,
+    protected network: Network
 
-  ) { }
+  ) {this.online$ = this.network.onlineChanges;}
 
   ngOnInit(): void {
 
