@@ -17,7 +17,7 @@ import { MoveErrorComponent } from '../dialogs/move-error/move-error.component';
 })
 export class AssetsMoveService  {
 
-  private urlAPI = "https://devactivofijo.saval.cl:8443";
+  private urlAPI = "https://activofijo.saval.cl:443";
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
   private sharedserviceService: SharedserviceService;

@@ -27,7 +27,7 @@ export class LocationsService {
       return Promise.resolve(this.locations);
     }
     return new Promise(resolve => {
-      this.http.get('https://devactivofijo.saval.cl:8443/webservice/rest/catalog/locations?all=true', { headers })
+      this.http.get('https://activofijo.saval.cl:443/webservice/rest/catalog/locations?all=true', { headers })
         .subscribe((locations: any) => {
           this.locations = locations.data;
           resolve(locations.data);

@@ -1,109 +1,102 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>SavalAFM</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <title>SavalAFM</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 
-<!--test cache-->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0"/>
-<!--test cache-->
-
-
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-   
-   <link rel="stylesheet" href="/assets/css/main.min.css">
-   <link rel="stylesheet" href="/assets/css/main-fix.min.css">
-   <link rel="stylesheet" href="/assets/css/saval.icons.css">
-  
-  
-  
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/b4f87717f0.js" crossorigin="anonymous"></script>
-
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1976d2">
-
-<!-- IOS -->
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="assets/icons/icon-152x152.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/icon-192x192.png">
-		<link
-		rel="apple-touch-icon" sizes="167x167" href="assets/icons/icon-152x152.png">
-		<!-- iPhone X (1125px x 2436px) -->
-		<link
-		rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="assets/icons-ios/apple-launch-1125x2436.png">
-		<!-- iPhone 8, 7, 6s, 6 (750px x 1334px) -->
-		<link
-		rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="assets/icons-ios/apple-launch-750x1334.png">
-		<!-- iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) -->
-		<link
-		rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" href="assets/icons-ios/apple-launch-1242x2208.png">
-		<!-- iPhone 5 (640px x 1136px) -->
-		<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="assets/icons-ios/apple-launch-640x1136.png">
-
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-		<meta name="apple-mobile-web-app-title" content="SavalAFM">
+    <!--test cache-->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <!--test cache-->
 
 
-  
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="/assets/css/main.min.css">
+    <link rel="stylesheet" href="/assets/css/main-fix.min.css">
+    <link rel="stylesheet" href="/assets/css/saval.icons.css">
 
 
 
-// make the whole serviceworker process into a promise so later on we can
-// listen to it and in case new content is available a toast will be shown
-/*
-window.isUpdateAvailable = new Promise(function(resolve, reject) {
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/b4f87717f0.js" crossorigin="anonymous"></script>
 
-	if ('serviceWorker' in navigator && ['localhost', '127'].indexOf(location.hostname) === -1) {
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#1976d2">
 
-		navigator.serviceWorker.register('service-worker.js')
-			.then(reg => {
-				reg.onupdatefound = () => {
-					const installingWorker = reg.installing;
-					installingWorker.onstatechange = () => {
-						switch (installingWorker.state) {
-							case 'installed':
-								if (navigator.serviceWorker.controller) {
+    <!-- IOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="assets/icons/icon-152x152.png">
+    <!-- iPhone X (1125px x 2436px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="assets/icons-ios/apple-launch-1125x2436.png">
+    <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="assets/icons-ios/apple-launch-750x1334.png">
+    <!-- iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" href="assets/icons-ios/apple-launch-1242x2208.png">
+    <!-- iPhone 5 (640px x 1136px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="assets/icons-ios/apple-launch-640x1136.png">
 
-									resolve(true);
-								} else {
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-									resolve(false);
-								}
-								break;
-						}
-					};
-				};
-			})
-			.catch(err => console.error('[SW ERROR]', err));
-	}
-});
-*/
-// Update:
-// this also can be incorporated right into e.g. your run() function in angular,
-// to avoid using the global namespace for such a thing.
-// because the registering of a service worker doesn't need to be executed on the first load of the page.
+    <meta name="apple-mobile-web-app-title" content="SavalAFM">
 
 
 
-</script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        // make the whole serviceworker process into a promise so later on we can
+        // listen to it and in case new content is available a toast will be shown
+        /*
+        window.isUpdateAvailable = new Promise(function(resolve, reject) {
+
+        	if ('serviceWorker' in navigator && ['localhost', '127'].indexOf(location.hostname) === -1) {
+
+        		navigator.serviceWorker.register('service-worker.js')
+        			.then(reg => {
+        				reg.onupdatefound = () => {
+        					const installingWorker = reg.installing;
+        					installingWorker.onstatechange = () => {
+        						switch (installingWorker.state) {
+        							case 'installed':
+        								if (navigator.serviceWorker.controller) {
+
+        									resolve(true);
+        								} else {
+
+        									resolve(false);
+        								}
+        								break;
+        						}
+        					};
+        				};
+        			})
+        			.catch(err => console.error('[SW ERROR]', err));
+        	}
+        });
+        */
+        // Update:
+        // this also can be incorporated right into e.g. your run() function in angular,
+        // to avoid using the global namespace for such a thing.
+        // because the registering of a service worker doesn't need to be executed on the first load of the page.
+    </script>
 
 </head>
+
 <body class="mat-typography">
-<div class="fluid-container d-lg-none">
-  <app-root></app-root>
-  </div>
-  <noscript>Please enable JavaScript to continue using this application.</noscript>
+    <div class="fluid-container">
+        <app-root></app-root>
+    </div>
+    <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
+
 </html>

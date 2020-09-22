@@ -34,8 +34,6 @@ import { AreaInterface } from 'src/app/interfaces/area.interface';
 import { RoomInterface } from 'src/app/interfaces/room.interface';
 import { ClassService } from 'src/app/services/class.service';
 import { cClassInterface } from 'src/app/interfaces/class.interface';
-//import { BuildingInterface } from '../interfaces/building.interface';
-//
 
 @Component({
   selector: 'app-login',
@@ -167,7 +165,7 @@ export class LoginComponent implements OnInit {
         }
       },
       response => {
-        //console.log("PUT call in error", response);
+        console.log(response);
 
 
         this.dialog.open(LoginErrorComponent, {

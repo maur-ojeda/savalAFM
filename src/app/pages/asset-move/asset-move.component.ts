@@ -137,13 +137,6 @@ export class AssetMoveComponent implements OnInit {
     this.reactiveForm.get('lFloor').patchValue(e.lFloor.id_location);
     this.reactiveForm.get('lArea').patchValue(e.lArea.id_location);
     this.reactiveForm.get('lRoom').patchValue(e.lRoom.id_location);
-
-
-
-
-
-
-
   }
   onChangeCenter() {
     let e = this.reactiveForm.controls['lCenter'].value
@@ -179,19 +172,25 @@ export class AssetMoveComponent implements OnInit {
     //console.log(this.lAreas);
   }
   onChangeArea() {
+
+ 
     let e = this.reactiveForm.controls['lArea'].value
-    this.lRooms.length = 0
-    this.reactiveForm.get('lRoom').reset();
     this.lRooms = this.locationsService.getchild('parent', e)
-    //console.log(this.lRooms);
+
+    setTimeout(function(){ 
+      this.lRooms.length = 0
+      this.reactiveForm.get('lRoom').reset();
+     }, 150);
+
+
   }
   onChangeRoom() {
-    let e = this.reactiveForm.controls['lRoom'].value
     this.lRooms.length = 0
-    this.reactiveForm.get('lRoom').reset();
+    this.reactiveForm.get('lRoom').reset()
+    let e = this.reactiveForm.controls['lRoom'].value
     this.lRooms = this.locationsService.getchild('parent', e)
-    //console.log(this.lRooms);
   }
+  
 
 
   moveData() {
@@ -200,23 +199,17 @@ export class AssetMoveComponent implements OnInit {
     this.asset.id = this.reactiveForm.value.assetID;
     this.asset.costCenter = this.reactiveForm.value.costCenter
 
-
-let c:any = this.locationsService.getLocationid(this.reactiveForm.value.lCenter)
-let b:any = this.locationsService.getLocationid(this.reactiveForm.value.lBuilding)
-let f:any = this.locationsService.getLocationid(this.reactiveForm.value.lFloor)
-let a:any = this.locationsService.getLocationid(this.reactiveForm.value.lArea)
-let r:any = this.locationsService.getLocationid(this.reactiveForm.value.lRoom)
-
-
+    let c:any = this.locationsService.getLocationid(this.reactiveForm.value.lCenter)
+    let b:any = this.locationsService.getLocationid(this.reactiveForm.value.lBuilding)
+    let f:any = this.locationsService.getLocationid(this.reactiveForm.value.lFloor)
+    let a:any = this.locationsService.getLocationid(this.reactiveForm.value.lArea)
+    let r:any = this.locationsService.getLocationid(this.reactiveForm.value.lRoom)
 
 this.asset.lCenter = c,
 this.asset.lBuilding = b,
 this.asset.lFloor = f,
 this.asset.lArea = a,
 this.asset.lRoom = r,
-
-
-
 /*
     this.asset.lCenter = this.reactiveForm.value.lCenter,
     this.asset.lBuilding = this.reactiveForm.value.lBuilding,
@@ -248,8 +241,6 @@ this.asset.lRoom = r,
 
   inicializacion() {
 
-
-
     let i = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.assetsService.getAssetPorcode(i).then(asset => {
@@ -257,21 +248,8 @@ this.asset.lRoom = r,
       this.assetDate = asset['createdAt'].date
 
 
-
-
-
-
-
-
       // this.reactiveForm.get('lCenter').patchValue(lcenterl[0].id);
       // this.reactiveForm.get('lCenter').patchValue(lbuildingl[0].id);
-
-
-
-
-
-
-
 
       /*
       let lcenter = this.locationsService.getchildrens( lcenterl, null )

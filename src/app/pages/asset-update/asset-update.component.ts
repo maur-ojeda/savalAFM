@@ -157,6 +157,7 @@ export class AssetUpdateComponent implements OnInit {
   }
 
 toRfid(val){
+  
     let cod = val
     if (cod.length === 24 ) {
       let last8 = cod.substr(val.length - 8);
@@ -166,7 +167,7 @@ toRfid(val){
       val = val.toString().padStart(10, "0");
       return val
     }else{
-      return 'No es un rfid válido'
+      return val
     }
   
 }

@@ -11,7 +11,7 @@ export class AssetsDetailsService extends BaseService<Asset> {
   constructor(
     protected injector:Injector
   ){
-    super(injector, 'asset', 'https://devactivofijo.saval.cl:8443');
+    super(injector, 'asset', 'https://activofijo.saval.cl:443');
   }
 
 }

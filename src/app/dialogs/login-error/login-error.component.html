@@ -2,8 +2,9 @@
 <div mat-dialog-content>
 
     <p>{{mensaje.anyProperty.error.message | json}}</p>
+    <p>{{mensaje.anyProperty | json}}</p>
+
 </div>
 <div mat-dialog-actions>
-<button mat-flat-button mat-dialog-close class="full-width" color="warn">Cerrar</button>
+    <button mat-flat-button mat-dialog-close class="full-width" color="warn">Cerrar</button>
 </div>
-

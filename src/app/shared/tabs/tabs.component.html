@@ -1,15 +1,15 @@
 <div class="row">
     <mat-button-toggle-group name="fontStyle">
-        <mat-button-toggle [routerLink]="['/fixedAsset',asset.code]" routerLinkActive="btn-primary active">
+        <mat-button-toggle [routerLink]="['/fixedAsset',asset.code]" routerLinkActive="btn-primary active" [routerLinkActiveOptions]="{exact: true}">
             Detalles
         </mat-button-toggle>
-        <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.code]" routerLinkActive="btn-primary active">
+        <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.code]" routerLinkActive="btn-primary active" [routerLinkActiveOptions]="{exact: true}">
             Modificar
         </mat-button-toggle>
-        <mat-button-toggle [routerLink]="['/fixedAssetMove', asset.code]" routerLinkActive="btn-primary active">
+        <mat-button-toggle [routerLink]="['/fixedAssetMove', asset.code]" routerLinkActive="btn-primary active" [routerLinkActiveOptions]="{exact: true}">
             Trasladar
         </mat-button-toggle>
-        <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.code]" routerLinkActive="btn-primary active">
+        <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.code]" routerLinkActive="btn-primary active" [routerLinkActiveOptions]="{exact: true}">
             Dar de baja
         </mat-button-toggle>
     </mat-button-toggle-group>

@@ -13,7 +13,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class BuildingService {
   
 
-  private url = "https://devactivofijo.saval.cl:8443"
+  private url = "https://activofijo.saval.cl:443"
   private buildings: BuildingInterface[] = [];
 
   bbuildings: Array<Object>;

@@ -9,7 +9,27 @@
         <ng-container *ngIf="asset !== null; else noContent">
             <div class="mt-5 pt-5 p-3">
                 <app-back-button></app-back-button>
-                <app-tabs [asset]=asset></app-tabs>
+
+
+                <div class="row">
+                    <mat-button-toggle-group name="fontStyle">
+                        <mat-button-toggle [routerLink]="['/fixedAsset',asset.code]">
+                            Detalles
+                        </mat-button-toggle>
+                        <mat-button-toggle [routerLink]="['/fixedAssetUpdate', asset.code]">
+                            Modificar
+                        </mat-button-toggle>
+                        <mat-button-toggle [routerLink]="['/fixedAssetMove', asset.code]" class="btn-primary active">
+                            Trasladar
+                        </mat-button-toggle>
+                        <mat-button-toggle [routerLink]="['/fixedAssetDelete', asset.code]">
+                            Dar de baja
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+
+
+
 
                 <div class="row">
 

@@ -15,7 +15,7 @@ import { UpdateErrorComponent } from '../dialogs/update-error/update-error.compo
 })
 export class AssetsUpdateService  {
 
-  private urlAPI = "https://devactivofijo.saval.cl:8443";
+  private urlAPI = "https://activofijo.saval.cl:443";
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
   private util: SharedserviceService;

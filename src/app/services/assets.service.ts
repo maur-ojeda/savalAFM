@@ -33,7 +33,7 @@ import { WarningComponent } from '../dialogs/warning/warning.component';
 export class AssetsService {
 
 
-  private API_URL = "https://devactivofijo.saval.cl:8443"
+  private API_URL = "https://activofijo.saval.cl:443"
   private db: Dexie;
   private table: Dexie.Table<Asset, any> = null;
   private assetos: AssetInterface[] = [];
